@@ -1,0 +1,50 @@
+<div class="row">
+  <div style="text-align:center">
+  	<img width="300" src="/assets/img/manappger-.png">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <form>
+        <div class="card-content">
+          <div class="card-header" data-background-color="red">
+            <div align="center" style="font-size: 18px; font-weight: bold">Inicie Sesión</div>
+          </div>
+          <div class="row">
+            <div class="">
+              <div class="form-group form-black label-floating is-empty row">
+                <div class="col-md-2">
+                  <i class="material-icons">account_circle</i>
+                </div>
+                <div class="col-md-10">
+                  <label class="control-label">Usuario</label>
+                  <input type="text" class="form-control" [(ngModel)]="user" #ctrl="ngModel" name="user">
+                </div>
+              </div>
+              <div class="form-group form-black label-floating is-empty row">
+                <div class="col-md-2">
+                  <i class="material-icons">vpn_key</i>
+                </div>
+                <div class="col-md-10">
+                  <label class="control-label">Contrasena</label>
+                  <input type="password" class="form-control" [(ngModel)]="password" #ctrl="ngModel" name="password">
+                </div>
+              </div>
+            </div>             
+            <div class="row" align="center">
+              <button type="submit" class="btn btn-danger" (click)="Ingresar()">Ingresar</button>
+              <br>
+              <p>{{people}}</p>
+            </div>
+          </div>
+        </div>                         
+      </form> 
+    </div>
+  </div>
+  <div class="col-md-4">
+  </div>
+</div>
