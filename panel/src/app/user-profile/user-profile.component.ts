@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams  } from '@angular/common/http';
+import { FormGroup, FormArray, FormBuilder, Validators  } from '@angular/forms';
+import { Clientes  } from './clientes.interface';
 
 declare const $: any;
 
@@ -8,6 +10,7 @@ declare const $: any;
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
+
 export class UserProfileComponent implements OnInit {
 
     public data: any;
@@ -16,13 +19,45 @@ export class UserProfileComponent implements OnInit {
     public sortBy = "nombre";
     public sortOrder = "asc";
     public usuarios:any;
+    public registroClienteForm: FormGroup;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private builder: FormBuilder) {
+        this.registroClienteForm = this.builder.group({
+            tipo: ['', Validators.required],
+            nombre_1: ['', Validators.required],
+            nombre_2: ['', Validators.required],
+            apellido_1: ['', Validators.required],
+            apellido_2: ['', Validators.required],
+            dni: ['', Validators.required],
+            direccion: ['', Validators.required],
+            f_nacimiento: ['', Validators.required],
+            estado: ['', Validators.required],
+            sexo: ['', Validators.required],
+            cuota: ['', Validators.required],
+            sucursal_id: ['', Validators.required],
+            cartera_id: ['', Validators.required],
+            familiares: this.builder.array([this.familiaresArray()])
+        })
+    }
+
+    familiaresArray(){
+        return this.builder.group({
+            nombre_1: ['', Validators.required],
+            nombre_2: ['', Validators.required],
+            apellido_1: ['', Validators.required],
+            apellido_2: ['', Validators.required],
+            dni: ['', Validators.required],
+            direccion: ['', Validators.required],
+            f_nacimiento: ['', Validators.required],
+            sexo: ['', Validators.required],
+            vinculo: ['', Validators.required],
+            observaciones: ['', Validators.required],
+            })
     }
 
 
     ngOnInit(): void {
-      this.http.get('http://rattios.com/24managerAPI/public/usuarios')
+      /*this.http.get('http://rattios.com/24managerAPI/public/usuarios')
          .toPromise()
          .then(
            data => { // Success
@@ -37,7 +72,27 @@ export class UserProfileComponent implements OnInit {
              console.log(msg.error.error);
 
            }
-         );
+         );*/
+    }
+
+    enviarCliente(model: Clientes){
+        var clientes=model;
+        console.log(clientes);
+    }
+
+    agregar(){
+        const control= <FormArray>this.registroClienteForm.controls["familiares"];
+        var index=control.value.length-1;
+        if (control.value[index].nombre_1=='') {
+            alert('completa los ');
+        }else{
+            control.push(this.familiaresArray());
+        }
+    }
+    remover(i){
+        const control= <FormArray>this.registroClienteForm.controls["familiares"];
+        var index=control.value.length-1;
+        control.removeAt(index);
     }
 
     public getSocios(){
