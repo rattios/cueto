@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule, MatMenuModule, MatToolbarModule, MatIconModule,MatCardModule } from '@angular/material';
 import {NG2DataTableModule} from "angular2-datatable-pagination";
+import { ReactiveFormsModule} from "@angular/forms";
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
@@ -58,9 +59,8 @@ import { DataFilterPipe } from "./data-filter.pipe";
     MatCardModule,
     MatToolbarModule,
     MatIconModule,
-    NG2DataTableModule
-
-
+    NG2DataTableModule,
+    ReactiveFormsModule
   ],
   exports: [
 
