@@ -65,13 +65,13 @@ class FamiliarController extends Controller
      */
     public function store(Request $request)
     {
-        //Nota: el parametro 'observaciones' es no requerido.
+        //Nota: el parametro 'observaciones' nombre_2  apellido_2 es no requerido.
 
         // Primero comprobaremos si estamos recibiendo todos los campos.
-        if (!$request->input('nombre_1') || !$request->input('nombre_2') ||
-            !$request->input('apellido_1') || !$request->input('apellido_2') ||
+        if (!$request->input('nombre_1') /*|| !$request->input('nombre_2')*/ ||
+            !$request->input('apellido_1') /*|| !$request->input('apellido_2')*/ ||
             !$request->input('dni') || !$request->input('direccion') ||
-            !$request->input('f_nacimineto') || !$request->input('sexo') ||
+            !$request->input('f_nacimiento') || !$request->input('sexo') ||
             !$request->input('vinculo') || !$request->input('sucursal_id')
             )
         {
@@ -115,6 +115,12 @@ class FamiliarController extends Controller
             if(count($empleado)==0){
                 return response()->json(['error'=>'No existe el empleado con id '.$request->input('empleado_id')], 404);          
             } 
+        }
+
+        $auxFamiliar = \App\Familiar::where('dni', $request->input('dni'))->get();
+        if(count($auxFamiliar)!=0){
+           // Devolvemos un código 409 Conflict. 
+            return response()->json(['error'=>'Ya existe un familiar con el dni '.$request->input('dni')], 409);
         }
 
         if($nuevoFamiliar=\App\Familiar::create($request->all())){
@@ -179,7 +185,7 @@ class FamiliarController extends Controller
         $apellido_2=$request->input('apellido_2');
         $dni=$request->input('dni');
         $direccion=$request->input('direccion'); 
-        $f_nacimineto=$request->input('f_nacimineto');   
+        $f_nacimiento=$request->input('f_nacimiento');   
         $sexo=$request->input('sexo');
         $vinculo=$request->input('vinculo'); 
         $observaciones=$request->input('observaciones');  
@@ -215,6 +221,13 @@ class FamiliarController extends Controller
 
         if ($dni != null && $dni!='')
         {
+            $auxFamiliar = \App\Familiar::where('id', '<>', $familiar->id)->
+                    where('dni', $request->input('dni'))->get();
+            if(count($auxFamiliar)!=0){
+               // Devolvemos un código 409 Conflict. 
+                return response()->json(['error'=>'Ya existe otro familiar con el dni '.$request->input('dni')], 409);
+            }
+
             $familiar->dni = $dni;
             $bandera=true;
         }
@@ -225,9 +238,9 @@ class FamiliarController extends Controller
             $bandera=true;
         }
 
-        if ($f_nacimineto != null && $f_nacimineto!='')
+        if ($f_nacimiento != null && $f_nacimiento!='')
         {
-            $familiar->f_nacimineto = $f_nacimineto;
+            $familiar->f_nacimiento = $f_nacimiento;
             $bandera=true;
         }
 

@@ -71,7 +71,7 @@ class EmpleadoController extends Controller
         if (!$request->input('nombre_1') || !$request->input('nombre_2') ||
             !$request->input('apellido_1') || !$request->input('apellido_2') ||
             !$request->input('dni') || !$request->input('direccion') ||
-            !$request->input('f_nacimineto') || !$request->input('sexo') ||
+            !$request->input('f_nacimiento') || !$request->input('sexo') ||
             !$request->input('sucursal_id') || !$request->input('cliente_id')
             )
         {
@@ -95,6 +95,12 @@ class EmpleadoController extends Controller
             return response()->json(['error'=>'No existe el cliente con id '.$request->input('cliente_id').
                         ', o no es un afiliado por convenio con grupo empleado.'], 404);          
         } 
+
+        $auxEmpleado = \App\Empleado::where('dni', $request->input('dni'))->get();
+        if(count($auxEmpleado)!=0){
+           // Devolvemos un código 409 Conflict. 
+            return response()->json(['error'=>'Ya existe un empleado con el dni '.$request->input('dni')], 409);
+        }
 
         if($nuevoEmpleado=\App\Empleado::create($request->all())){
            return response()->json(['status'=>'ok', 'empleado'=>$nuevoEmpleado], 200);
@@ -158,7 +164,7 @@ class EmpleadoController extends Controller
         $apellido_2=$request->input('apellido_2');
         $dni=$request->input('dni');
         $direccion=$request->input('direccion'); 
-        $f_nacimineto=$request->input('f_nacimineto');   
+        $f_nacimiento=$request->input('f_nacimiento');   
         $sexo=$request->input('sexo');
         $observaciones=$request->input('observaciones');  
         //$sucursal_id=$request->input('sucursal_id');   
@@ -193,6 +199,13 @@ class EmpleadoController extends Controller
 
         if ($dni != null && $dni!='')
         {
+            $auxEmpleado = \App\Empleado::where('id', '<>', $empleado->id)->
+                    where('dni', $request->input('dni'))->get();
+            if(count($auxEmpleado)!=0){
+               // Devolvemos un código 409 Conflict. 
+                return response()->json(['error'=>'Ya existe otro empleado con el dni '.$request->input('dni')], 409);
+            }
+
             $empleado->dni = $dni;
             $bandera=true;
         }
@@ -203,9 +216,9 @@ class EmpleadoController extends Controller
             $bandera=true;
         }
 
-        if ($f_nacimineto != null && $f_nacimineto!='')
+        if ($f_nacimiento != null && $f_nacimiento!='')
         {
-            $empleado->f_nacimineto = $f_nacimineto;
+            $empleado->f_nacimiento = $f_nacimiento;
             $bandera=true;
         }
 

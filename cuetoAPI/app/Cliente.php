@@ -26,7 +26,7 @@ class Cliente extends Model
      */
     protected $fillable = ['tipo', 'nombre_1', 'nombre_2',
     		'apellido_1', 'apellido_2', 'dni',
-    		'direccion', 'f_nacimineto', 'estado',
+    		'direccion', 'f_nacimiento', 'estado',
     		'sexo', 'cuota', 'sucursal_id',
     		'cartera_id', 'convenio_id'];
 

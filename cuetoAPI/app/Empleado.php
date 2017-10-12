@@ -26,7 +26,7 @@ class Empleado extends Model
      */
     protected $fillable = ['nombre_1', 'nombre_2', 'apellido_1',
     		'apellido_2', 'dni', 'direccion',
-    		'f_nacimineto', 'sexo', 'observaciones',
+    		'f_nacimiento', 'sexo', 'observaciones',
     		'sucursal_id', 'cliente_id'];
 
     /**
