@@ -78,6 +78,19 @@ export class UserProfileComponent implements OnInit {
     enviarCliente(model: Clientes){
         var clientes=model;
         console.log(clientes);
+
+        this.http.post('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/clientes',clientes)
+         .toPromise()
+         .then(
+           data => { // Success
+             console.log(data);
+             alert('exito');
+           },
+           msg => { // Error
+             console.log(msg);
+             alert('error');
+           }
+         );
     }
 
     agregar(){
