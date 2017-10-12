@@ -20,7 +20,7 @@
                                 <div class="col-md-5">
                                     <div class="form-group form-black label-floating">
                                         <label class="control-label">Tipo de Cliente:</label>
-                                        <select name="tipo" formControlName="tipo" class="form-control"(change)="update_tipo($event)">
+                                        <select name="tipo" formControlName="tipo" class="form-control" (change)="update_tipo($event)">
                                             <option value="AF_CUETO_S">Afiliado Cueto Independiente</option>
                                             <option value="AF_CUETO">Afiliado Cueto con grupo Familiar</option>
                                             <!--<option value="AF_CONV_S">Afiliado Convenio Independiente</option>
@@ -216,13 +216,13 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button class="btn btn-success pull-right" (click)=agregar()>Agregar </button>
+                                        <button class="btn btn-success pull-right" (click)=agregar()>Agregar Familiar</button>
                                         <button class="btn btn-success pull-right" (click)=remover(i)>Eliminar</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="row" style="text-align: center">
-                            <button type="submit" class="btn btn-danger" [disabled]="!registroClienteForm.valid">Actualizar Perfil</button>
+                            <button type="submit" class="btn btn-danger" [disabled]="!registroClienteForm.valid">Guardar</button>
                             </div>
 
                             <div class="clearfix"></div>

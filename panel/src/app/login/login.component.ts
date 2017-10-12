@@ -14,7 +14,7 @@ import 'rxjs/add/operator/map'
 export class LoginComponent implements OnInit {
 
   public people:any;
-  user= 'rattios'
+  user= 'Rafael'
   password='123456789';
   public token:any;
 
@@ -37,23 +37,26 @@ export class LoginComponent implements OnInit {
     	password: this.password
     }
 
-     this.http.post('http://rattios.com/24managerAPI/public/login/app', datos)
-       .toPromise()
-       .then(
-         data => { // Success
-           console.log(data);
-           this.token=data;
-           localStorage.setItem('manappger', this.token.token);
-           //console.log(res.token);
-           this.people='exito...';
-           this.router.navigate(['/Panel-principal']);
-         },
-         msg => { // Error
-         	console.log(msg.error);
-         	this.people=msg.error;
+    this.people='exito...';
+    this.router.navigate(['/Usuarios']);
 
-         }
-       );
+     // this.http.post('http://rattios.com/24managerAPI/public/login/app', datos)
+     //   .toPromise()
+     //   .then(
+     //     data => { // Success
+     //       console.log(data);
+     //       this.token=data;
+     //       localStorage.setItem('manappger', this.token.token);
+     //       //console.log(res.token);
+     //       this.people='exito...';
+     //       this.router.navigate(['/Panel-principal']);
+     //     },
+     //     msg => { // Error
+     //     	console.log(msg.error);
+     //     	this.people=msg.error;
+
+     //     }
+     //   );
   }
 
 }

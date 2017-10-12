@@ -24,35 +24,35 @@ export class UserProfileComponent implements OnInit {
 
     constructor(private http: HttpClient, private builder: FormBuilder) {
         this.registroClienteForm = this.builder.group({
-            tipo: ['AF_CUETO', Validators.required],
-            nombre_1: ['123', Validators.required],
-            nombre_2: ['123'],
-            apellido_1: ['123', Validators.required],
-            apellido_2: ['123'],
-            dni: ['123', Validators.required],
-            direccion: ['123', Validators.required],
+            tipo: ['', Validators.required],
+            nombre_1: ['', Validators.required],
+            nombre_2: [''],
+            apellido_1: ['', Validators.required],
+            apellido_2: [''],
+            dni: ['', Validators.required],
+            direccion: ['', Validators.required],
             f_nacimiento: ['2017-09-07', Validators.required],
-            estado: ['123', Validators.required],
-            sexo: ['123', Validators.required],
-            cuota: ['123'],
-            sucursal_id: ['1', Validators.required],
-            cartera_id: ['1', Validators.required],
+            estado: ['', Validators.required],
+            sexo: ['', Validators.required],
+            cuota: [''],
+            sucursal_id: ['', Validators.required],
+            cartera_id: ['', Validators.required],
             familiares: this.builder.array([this.familiaresArray()])
         })
     }
 
     familiaresArray(){
         return this.builder.group({
-            nombre_1: ['123', Validators.required],
-            nombre_2: ['123'],
-            apellido_1: ['123', Validators.required],
-            apellido_2: ['132'],
-            dni: ['123', Validators.required],
-            direccion: ['123', Validators.required],
+            nombre_1: ['', Validators.required],
+            nombre_2: [''],
+            apellido_1: ['', Validators.required],
+            apellido_2: [''],
+            dni: ['', Validators.required],
+            direccion: ['', Validators.required],
             f_nacimiento: ['2017-09-07', Validators.required],
-            sexo: ['123', Validators.required],
-            vinculo: ['123', Validators.required],
-            observaciones: ['123']
+            sexo: ['', Validators.required],
+            vinculo: ['', Validators.required],
+            observaciones: ['']
             })
     }
 
