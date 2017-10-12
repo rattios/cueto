@@ -1,0 +1,8 @@
+select.form-control {
+  -moz-appearance: menulist;
+   -webkit-appearance: menulist;
+   appearance: menulist;
+}
+.card .card-content {
+    padding: 15px 35px !important;
+}

@@ -1,37 +1,39 @@
 <div class="wrapper">
 <div class="sidebar" data-color='blue' data-image="" style="background-color: #000 !important">
-        <app-sidebar></app-sidebar>
-        <div class="sidebar-background" style="background-image: url(../assets/img/sidebar-4.jpg)"></div>
+    <app-sidebar></app-sidebar>
+    <div class="sidebar-background" style="background-image: url(../assets/img/sidebar-4.jpg)"></div>
 </div>
 <div class="main-panel">
     <app-navbar></app-navbar>
     <div class="main-content">
-    <div class="container-fluid">
-        
+    <div class="container-fluid">    
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header" data-background-color="orange">
-                        <h4 class="title">Edita el perfil</h4>
-                        <p class="category">Información del perfil</p>
+                        <h4 class="title">Registro de Clientes</h4>
+                        <p class="category">Registro de Afiliados Cueto Independiente y con Grupo Familiar</p>
                     </div>
                     <div class="card-content">
                         <form [formGroup]="registroClienteForm" (ngSubmit)="enviarCliente(registroClienteForm)">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <div >
+                                    <div class="form-group form-black label-floating">
                                         <label class="control-label">Tipo de Cliente:</label>
-                                        <select name="tipo" formControlName="tipo" class="form-control">
-                                            <option value="AF_CUETO_S" selected="true">Afiliado Cueto Independiente</option>
+                                        <select name="tipo" formControlName="tipo" class="form-control"(change)="update_tipo($event)">
+                                            <option value="AF_CUETO_S">Afiliado Cueto Independiente</option>
                                             <option value="AF_CUETO">Afiliado Cueto con grupo Familiar</option>
-                                            <option value="AF_CONV_S">Afiliado Convenio Independiente</option>
-                                            <option value="AF_CONV">Afiliado Convenio con Grupo Familiar</option>
-                                            
+                                            <!--<option value="AF_CONV_S">Afiliado Convenio Independiente</option>
+                                            <option value="AF_CONV">Afiliado Convenio con Grupo Familiar</option>-->
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-md-12">
+                                    <h3 class="control-label">Titular</h3>
+                                    <hr>
+                                </div>
                                 <div class="col-md-3">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="control-label">Primer Nombre</label>
@@ -66,7 +68,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group form-black label-floating is-empty">
-                                        <label class="control-label">direccion</label>
+                                        <label class="control-label">Dirección</label>
                                         <input type="text" name="direccion" class="form-control" formControlName="direccion">
                                     </div>
                                 </div>
@@ -74,50 +76,59 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group form-black label-floating is-empty">
-                                        <label class="control-label">f_nacimiento</label>
+                                        <label class="control-label">Fecha Nacimiento</label>
                                         <input type="text" name="f_nacimiento" class="form-control" formControlName="f_nacimiento">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label class="control-label">Estado del Cliente:</label>
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Estado del Cliente:</label>
                                         <select name="estado" formControlName="estado" class="form-control">
                                             <option value="P" selected="true">Pendiente por autorización</option>
                                             <option value="N">Normal</option>
                                             <option value="M">Moroso</option>
                                             <option value="B">Baja</option>
                                         </select>
+                                    </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label class="control-label">sexo:</label>
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Sexo:</label>
                                         <select name="sexo" formControlName="sexo" class="form-control">
                                             <option value="M" selected="true">Masculino</option>
                                             <option value="F">Femenino</option>
                                         </select>
+                                    </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group form-black label-floating is-empty">
-                                        <label class="control-label">cuota</label>
+                                        <label class="control-label">Cuota</label>
                                         <input type="text" name="cuota" class="form-control" formControlName="cuota">
+
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label class="control-label">Sucursal:</label>
+                                    <div class="form-group form-black label-floating">
+                                        <label class="control-label">Sucursal:</label>
                                         <select name="sucursal_id" formControlName="sucursal_id" class="form-control">
                                             <option value="1" selected="true">Sucursal 1</option>
                                         </select>
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="control-label">Cartera:</label>
+                                    <div class="form-group form-black label-floating">
+                                        <label class="control-label">Cartera:</label>
                                         <select name="cartera_id" formControlName="cartera_id" class="form-control">
                                             <option value="1" selected="true">Cartera 1</option>
                                         </select>
+                                    </div>
                                 </div>
                             </div>
                             
-                            <div formArrayName="familiares">
+                            <div formArrayName="familiares" [hidden]="registroClienteForm.value.tipo != 'AF_CUETO'" *ngIf="registroClienteForm.controls.familiares">
                                 <div *ngFor="let client of registroClienteForm.controls.familiares.controls; let i=index" [formGroupName]="i">
                                     <div class="row">
                                         <div class="col-md-1">
@@ -156,22 +167,24 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group form-black label-floating is-empty">
-                                                        <label class="control-label">dni</label>
+                                                        <label class="control-label">DNI</label>
                                                         <input type="text" name="dni" class="form-control" formControlName="dni">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group form-black label-floating is-empty">
-                                                        <label class="control-label">vinculo</label>
+                                                        <label class="control-label">Vínculo</label>
                                                         <input type="text" name="vinculo"class="form-control" formControlName="vinculo">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label class="control-label">Sexo:</label>
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="control-label">Sexo:</label>
                                                         <select name="tipo" formControlName="sexo" class="form-control">
                                                             <option value="M" selected="true">Masculino</option>
                                                             <option value="F">Femenino</option>
                                                         </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -202,12 +215,13 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <button class="btn btn-danger pull-right" (click)=agregar()>Agregar </button>
-                                    <button class="btn btn-danger pull-right" (click)=remover(i)>Eliminar</button>
+                                    <div class="col-md-12">
+                                        <button class="btn btn-success pull-right" (click)=agregar()>Agregar </button>
+                                        <button class="btn btn-success pull-right" (click)=remover(i)>Eliminar</button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row" style="text-align: center">
-                                
                             <button type="submit" class="btn btn-danger" [disabled]="!registroClienteForm.valid">Actualizar Perfil</button>
                             </div>
 

@@ -6,7 +6,7 @@ export interface Clientes{
 	apellido_2: string;
 	dni: string;
 	direccion: string;
-	f_nacimiento: string;
+	f_nacimiento: any;
 	estado: string;
 	sexo: string;
 	cuota: number;
@@ -22,7 +22,7 @@ export interface Familiares{
 	apellido_2: string;
 	dni: string;
 	direccion: string;
-	f_nacimiento: string;
+	f_nacimiento: any;
 	sexo: string;
 	vinculo: string;
 	observaciones: string;
