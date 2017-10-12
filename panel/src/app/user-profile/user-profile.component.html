@@ -75,9 +75,16 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <div class="form-group form-black label-floating is-empty">
+                                    <!-- <div class="form-group form-black label-floating is-empty">
                                         <label class="control-label">Fecha Nacimiento</label>
                                         <input type="text" name="f_nacimiento" class="form-control" formControlName="f_nacimiento">
+                                    </div> -->
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <mat-form-field>
+                                          <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" class="form-control" style="width: 85%; display: inline-block;" name="f_nacimiento" formControlName="f_nacimiento">
+                                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                          <mat-datepicker #picker></mat-datepicker>
+                                        </mat-form-field>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -189,9 +196,16 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="form-group form-black label-floating is-empty">
+                                                    <!-- <div class="form-group form-black label-floating is-empty">
                                                         <label class="control-label">Fecha Nacimiento:</label>
                                                         <input type="text" name="f_nacimiento" class="form-control" formControlName="f_nacimiento">
+                                                    </div> -->
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <mat-form-field>
+                                                          <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" class="form-control" style="width: 85%; display: inline-block;" name="f_nacimiento" formControlName="f_nacimiento">
+                                                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                          <mat-datepicker #picker></mat-datepicker>
+                                                        </mat-form-field>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -216,8 +230,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button class="btn btn-success pull-right" (click)=agregar()>Agregar Familiar</button>
-                                        <button class="btn btn-success pull-right" (click)=remover(i)>Eliminar</button>
+                                        <div class="btn btn-success pull-right" (click)=agregar()>Agregar Familiar</div>
+                                        <div class="btn btn-success pull-right" (click)=remover(i)>Eliminar</div>
                                     </div>
                                 </div>
                             </div>

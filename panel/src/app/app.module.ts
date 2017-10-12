@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { MatButtonModule, MatMenuModule, MatToolbarModule, MatIconModule,MatCardModule } from '@angular/material';
+import { MatButtonModule, MatMenuModule, MatToolbarModule, MatIconModule,MatCardModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import {NG2DataTableModule} from "angular2-datatable-pagination";
 import { ReactiveFormsModule} from "@angular/forms";
 
@@ -59,6 +59,8 @@ import { DataFilterPipe } from "./data-filter.pipe";
     MatCardModule,
     MatToolbarModule,
     MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     NG2DataTableModule,
     ReactiveFormsModule
   ],

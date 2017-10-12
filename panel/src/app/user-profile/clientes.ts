@@ -1,4 +1,4 @@
-export interface Clientes{
+export class Clientes{
 	tipo: string;
 	nombre_1: string;
 	nombre_2: string;
@@ -15,7 +15,7 @@ export interface Clientes{
 	familiares: Familiares[];
 }
 
-export interface Familiares{
+export class Familiares{
 	nombre_1: string;
 	nombre_2: string;
 	apellido_1: string;
