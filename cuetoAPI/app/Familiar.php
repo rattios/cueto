@@ -26,7 +26,7 @@ class Familiar extends Model
      */
     protected $fillable = ['nombre_1', 'nombre_2', 'apellido_1',
     		'apellido_2', 'dni', 'direccion',
-    		'f_nacimineto', 'sexo', 'vinculo',
+    		'f_nacimiento', 'sexo', 'vinculo',
     		'observaciones', 'sucursal_id', 'cliente_id',
     		'empleado_id'];
 

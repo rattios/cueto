@@ -15,12 +15,12 @@ class FamiliaresMigration extends Migration
         Schema::create('familiares', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre_1');
-            $table->string('nombre_2');
+            $table->string('nombre_2')->nullable();
             $table->string('apellido_1');
-            $table->string('apellido_2');
-            $table->string('dni');
+            $table->string('apellido_2')->nullable();
+            $table->string('dni')->unique();
             $table->string('direccion');
-            $table->date('f_nacimineto'); //formato aaaa-mm-dd
+            $table->date('f_nacimiento'); //formato aaaa-mm-dd
             $table->string('sexo'); //M=masculino, F=femenino
             $table->string('vinculo');
             $table->string('observaciones')->nullable();

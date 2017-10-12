@@ -257,7 +257,8 @@ Route::group(  ['middleware' =>'cors'], function(){
         Route::get('/clientes','ClienteController@index');
         //Route::get('/clientes/afiliados_cueto/familiares','ClienteController@afs_cuetoFamiliares');
         //Route::get('/clientes/afiliados_convenio/empleados','ClienteController@afs_convenioEmpledos');
-        Route::post('/clientes','ClienteController@store');
+        //Route::post('/clientes','ClienteController@store');
+        Route::post('/clientes','ClienteController@storeClientes');
         Route::put('/clientes/{id}','ClienteController@update');
         Route::delete('/clientes/{id}','ClienteController@destroy');
         Route::get('/clientes/{id}','ClienteController@show');

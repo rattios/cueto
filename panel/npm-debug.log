@@ -1,0 +1,2570 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install' ]
+2 info using npm@3.10.10
+3 info using node@v6.10.2
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly install normalizeTree
+8 silly loadCurrentTree Finishing
+9 silly loadIdealTree Starting
+10 silly install loadIdealTree
+11 silly cloneCurrentTree Starting
+12 silly install cloneCurrentTreeToIdealTree
+13 silly cloneCurrentTree Finishing
+14 silly loadShrinkwrap Starting
+15 silly install loadShrinkwrap
+16 silly loadShrinkwrap Finishing
+17 silly loadAllDepsIntoIdealTree Starting
+18 silly install loadAllDepsIntoIdealTree
+19 silly fetchNamedPackageData @angular/animations
+20 silly mapToRegistry name @angular/animations
+21 silly mapToRegistry scope (from package name) @angular
+22 verbose mapToRegistry no registry URL found in name for scope @angular
+23 silly mapToRegistry using default registry
+24 silly mapToRegistry registry https://registry.npmjs.org/
+25 silly mapToRegistry data Result {
+25 silly mapToRegistry   raw: '@angular/animations',
+25 silly mapToRegistry   scope: '@angular',
+25 silly mapToRegistry   escapedName: '@angular%2fanimations',
+25 silly mapToRegistry   name: '@angular/animations',
+25 silly mapToRegistry   rawSpec: '',
+25 silly mapToRegistry   spec: 'latest',
+25 silly mapToRegistry   type: 'tag' }
+26 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fanimations
+27 silly fetchOtherPackageData @angular/cdk@github:angular/cdk-builds
+28 silly cache add args [ '@angular/cdk@github:angular/cdk-builds', null ]
+29 verbose cache add spec @angular/cdk@github:angular/cdk-builds
+30 silly fetchNamedPackageData @angular/common
+31 silly mapToRegistry name @angular/common
+32 silly mapToRegistry scope (from package name) @angular
+33 verbose mapToRegistry no registry URL found in name for scope @angular
+34 silly mapToRegistry using default registry
+35 silly mapToRegistry registry https://registry.npmjs.org/
+36 silly mapToRegistry data Result {
+36 silly mapToRegistry   raw: '@angular/common',
+36 silly mapToRegistry   scope: '@angular',
+36 silly mapToRegistry   escapedName: '@angular%2fcommon',
+36 silly mapToRegistry   name: '@angular/common',
+36 silly mapToRegistry   rawSpec: '',
+36 silly mapToRegistry   spec: 'latest',
+36 silly mapToRegistry   type: 'tag' }
+37 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fcommon
+38 silly fetchNamedPackageData @angular/compiler
+39 silly mapToRegistry name @angular/compiler
+40 silly mapToRegistry scope (from package name) @angular
+41 verbose mapToRegistry no registry URL found in name for scope @angular
+42 silly mapToRegistry using default registry
+43 silly mapToRegistry registry https://registry.npmjs.org/
+44 silly mapToRegistry data Result {
+44 silly mapToRegistry   raw: '@angular/compiler',
+44 silly mapToRegistry   scope: '@angular',
+44 silly mapToRegistry   escapedName: '@angular%2fcompiler',
+44 silly mapToRegistry   name: '@angular/compiler',
+44 silly mapToRegistry   rawSpec: '',
+44 silly mapToRegistry   spec: 'latest',
+44 silly mapToRegistry   type: 'tag' }
+45 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fcompiler
+46 silly fetchNamedPackageData @angular/core
+47 silly mapToRegistry name @angular/core
+48 silly mapToRegistry scope (from package name) @angular
+49 verbose mapToRegistry no registry URL found in name for scope @angular
+50 silly mapToRegistry using default registry
+51 silly mapToRegistry registry https://registry.npmjs.org/
+52 silly mapToRegistry data Result {
+52 silly mapToRegistry   raw: '@angular/core',
+52 silly mapToRegistry   scope: '@angular',
+52 silly mapToRegistry   escapedName: '@angular%2fcore',
+52 silly mapToRegistry   name: '@angular/core',
+52 silly mapToRegistry   rawSpec: '',
+52 silly mapToRegistry   spec: 'latest',
+52 silly mapToRegistry   type: 'tag' }
+53 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fcore
+54 silly fetchNamedPackageData @angular/forms
+55 silly mapToRegistry name @angular/forms
+56 silly mapToRegistry scope (from package name) @angular
+57 verbose mapToRegistry no registry URL found in name for scope @angular
+58 silly mapToRegistry using default registry
+59 silly mapToRegistry registry https://registry.npmjs.org/
+60 silly mapToRegistry data Result {
+60 silly mapToRegistry   raw: '@angular/forms',
+60 silly mapToRegistry   scope: '@angular',
+60 silly mapToRegistry   escapedName: '@angular%2fforms',
+60 silly mapToRegistry   name: '@angular/forms',
+60 silly mapToRegistry   rawSpec: '',
+60 silly mapToRegistry   spec: 'latest',
+60 silly mapToRegistry   type: 'tag' }
+61 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fforms
+62 silly fetchNamedPackageData @angular/http
+63 silly mapToRegistry name @angular/http
+64 silly mapToRegistry scope (from package name) @angular
+65 verbose mapToRegistry no registry URL found in name for scope @angular
+66 silly mapToRegistry using default registry
+67 silly mapToRegistry registry https://registry.npmjs.org/
+68 silly mapToRegistry data Result {
+68 silly mapToRegistry   raw: '@angular/http',
+68 silly mapToRegistry   scope: '@angular',
+68 silly mapToRegistry   escapedName: '@angular%2fhttp',
+68 silly mapToRegistry   name: '@angular/http',
+68 silly mapToRegistry   rawSpec: '',
+68 silly mapToRegistry   spec: 'latest',
+68 silly mapToRegistry   type: 'tag' }
+69 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fhttp
+70 silly fetchOtherPackageData @angular/material@github:angular/material2-builds
+71 silly cache add args [ '@angular/material@github:angular/material2-builds', null ]
+72 verbose cache add spec @angular/material@github:angular/material2-builds
+73 silly fetchNamedPackageData @angular/platform-browser
+74 silly mapToRegistry name @angular/platform-browser
+75 silly mapToRegistry scope (from package name) @angular
+76 verbose mapToRegistry no registry URL found in name for scope @angular
+77 silly mapToRegistry using default registry
+78 silly mapToRegistry registry https://registry.npmjs.org/
+79 silly mapToRegistry data Result {
+79 silly mapToRegistry   raw: '@angular/platform-browser',
+79 silly mapToRegistry   scope: '@angular',
+79 silly mapToRegistry   escapedName: '@angular%2fplatform-browser',
+79 silly mapToRegistry   name: '@angular/platform-browser',
+79 silly mapToRegistry   rawSpec: '',
+79 silly mapToRegistry   spec: 'latest',
+79 silly mapToRegistry   type: 'tag' }
+80 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fplatform-browser
+81 silly fetchNamedPackageData @angular/platform-browser-dynamic
+82 silly mapToRegistry name @angular/platform-browser-dynamic
+83 silly mapToRegistry scope (from package name) @angular
+84 verbose mapToRegistry no registry URL found in name for scope @angular
+85 silly mapToRegistry using default registry
+86 silly mapToRegistry registry https://registry.npmjs.org/
+87 silly mapToRegistry data Result {
+87 silly mapToRegistry   raw: '@angular/platform-browser-dynamic',
+87 silly mapToRegistry   scope: '@angular',
+87 silly mapToRegistry   escapedName: '@angular%2fplatform-browser-dynamic',
+87 silly mapToRegistry   name: '@angular/platform-browser-dynamic',
+87 silly mapToRegistry   rawSpec: '',
+87 silly mapToRegistry   spec: 'latest',
+87 silly mapToRegistry   type: 'tag' }
+88 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fplatform-browser-dynamic
+89 silly fetchNamedPackageData @angular/router
+90 silly mapToRegistry name @angular/router
+91 silly mapToRegistry scope (from package name) @angular
+92 verbose mapToRegistry no registry URL found in name for scope @angular
+93 silly mapToRegistry using default registry
+94 silly mapToRegistry registry https://registry.npmjs.org/
+95 silly mapToRegistry data Result {
+95 silly mapToRegistry   raw: '@angular/router',
+95 silly mapToRegistry   scope: '@angular',
+95 silly mapToRegistry   escapedName: '@angular%2frouter',
+95 silly mapToRegistry   name: '@angular/router',
+95 silly mapToRegistry   rawSpec: '',
+95 silly mapToRegistry   spec: 'latest',
+95 silly mapToRegistry   type: 'tag' }
+96 silly mapToRegistry uri https://registry.npmjs.org/@angular%2frouter
+97 silly fetchOtherPackageData angular2-datatable-pagination@git+https://github.com/CasperTech/angular2-datatable-pagination.git
+98 silly cache add args [ 'angular2-datatable-pagination@git+https://github.com/CasperTech/angular2-datatable-pagination.git',
+98 silly cache add   null ]
+99 verbose cache add spec angular2-datatable-pagination@git+https://github.com/CasperTech/angular2-datatable-pagination.git
+100 silly fetchNamedPackageData arrive
+101 silly mapToRegistry name arrive
+102 silly mapToRegistry using default registry
+103 silly mapToRegistry registry https://registry.npmjs.org/
+104 silly mapToRegistry data Result {
+104 silly mapToRegistry   raw: 'arrive',
+104 silly mapToRegistry   scope: null,
+104 silly mapToRegistry   escapedName: 'arrive',
+104 silly mapToRegistry   name: 'arrive',
+104 silly mapToRegistry   rawSpec: '',
+104 silly mapToRegistry   spec: 'latest',
+104 silly mapToRegistry   type: 'tag' }
+105 silly mapToRegistry uri https://registry.npmjs.org/arrive
+106 silly fetchNamedPackageData bootstrap
+107 silly mapToRegistry name bootstrap
+108 silly mapToRegistry using default registry
+109 silly mapToRegistry registry https://registry.npmjs.org/
+110 silly mapToRegistry data Result {
+110 silly mapToRegistry   raw: 'bootstrap',
+110 silly mapToRegistry   scope: null,
+110 silly mapToRegistry   escapedName: 'bootstrap',
+110 silly mapToRegistry   name: 'bootstrap',
+110 silly mapToRegistry   rawSpec: '',
+110 silly mapToRegistry   spec: 'latest',
+110 silly mapToRegistry   type: 'tag' }
+111 silly mapToRegistry uri https://registry.npmjs.org/bootstrap
+112 silly fetchNamedPackageData bootstrap-material-design
+113 silly mapToRegistry name bootstrap-material-design
+114 silly mapToRegistry using default registry
+115 silly mapToRegistry registry https://registry.npmjs.org/
+116 silly mapToRegistry data Result {
+116 silly mapToRegistry   raw: 'bootstrap-material-design',
+116 silly mapToRegistry   scope: null,
+116 silly mapToRegistry   escapedName: 'bootstrap-material-design',
+116 silly mapToRegistry   name: 'bootstrap-material-design',
+116 silly mapToRegistry   rawSpec: '',
+116 silly mapToRegistry   spec: 'latest',
+116 silly mapToRegistry   type: 'tag' }
+117 silly mapToRegistry uri https://registry.npmjs.org/bootstrap-material-design
+118 silly fetchNamedPackageData bootstrap-notify
+119 silly mapToRegistry name bootstrap-notify
+120 silly mapToRegistry using default registry
+121 silly mapToRegistry registry https://registry.npmjs.org/
+122 silly mapToRegistry data Result {
+122 silly mapToRegistry   raw: 'bootstrap-notify',
+122 silly mapToRegistry   scope: null,
+122 silly mapToRegistry   escapedName: 'bootstrap-notify',
+122 silly mapToRegistry   name: 'bootstrap-notify',
+122 silly mapToRegistry   rawSpec: '',
+122 silly mapToRegistry   spec: 'latest',
+122 silly mapToRegistry   type: 'tag' }
+123 silly mapToRegistry uri https://registry.npmjs.org/bootstrap-notify
+124 silly fetchNamedPackageData chartist
+125 silly mapToRegistry name chartist
+126 silly mapToRegistry using default registry
+127 silly mapToRegistry registry https://registry.npmjs.org/
+128 silly mapToRegistry data Result {
+128 silly mapToRegistry   raw: 'chartist',
+128 silly mapToRegistry   scope: null,
+128 silly mapToRegistry   escapedName: 'chartist',
+128 silly mapToRegistry   name: 'chartist',
+128 silly mapToRegistry   rawSpec: '',
+128 silly mapToRegistry   spec: 'latest',
+128 silly mapToRegistry   type: 'tag' }
+129 silly mapToRegistry uri https://registry.npmjs.org/chartist
+130 silly fetchNamedPackageData core-js
+131 silly mapToRegistry name core-js
+132 silly mapToRegistry using default registry
+133 silly mapToRegistry registry https://registry.npmjs.org/
+134 silly mapToRegistry data Result {
+134 silly mapToRegistry   raw: 'core-js',
+134 silly mapToRegistry   scope: null,
+134 silly mapToRegistry   escapedName: 'core-js',
+134 silly mapToRegistry   name: 'core-js',
+134 silly mapToRegistry   rawSpec: '',
+134 silly mapToRegistry   spec: 'latest',
+134 silly mapToRegistry   type: 'tag' }
+135 silly mapToRegistry uri https://registry.npmjs.org/core-js
+136 silly fetchNamedPackageData googleapis
+137 silly mapToRegistry name googleapis
+138 silly mapToRegistry using default registry
+139 silly mapToRegistry registry https://registry.npmjs.org/
+140 silly mapToRegistry data Result {
+140 silly mapToRegistry   raw: 'googleapis',
+140 silly mapToRegistry   scope: null,
+140 silly mapToRegistry   escapedName: 'googleapis',
+140 silly mapToRegistry   name: 'googleapis',
+140 silly mapToRegistry   rawSpec: '',
+140 silly mapToRegistry   spec: 'latest',
+140 silly mapToRegistry   type: 'tag' }
+141 silly mapToRegistry uri https://registry.npmjs.org/googleapis
+142 silly fetchNamedPackageData jquery
+143 silly mapToRegistry name jquery
+144 silly mapToRegistry using default registry
+145 silly mapToRegistry registry https://registry.npmjs.org/
+146 silly mapToRegistry data Result {
+146 silly mapToRegistry   raw: 'jquery',
+146 silly mapToRegistry   scope: null,
+146 silly mapToRegistry   escapedName: 'jquery',
+146 silly mapToRegistry   name: 'jquery',
+146 silly mapToRegistry   rawSpec: '',
+146 silly mapToRegistry   spec: 'latest',
+146 silly mapToRegistry   type: 'tag' }
+147 silly mapToRegistry uri https://registry.npmjs.org/jquery
+148 silly fetchNamedPackageData moment
+149 silly mapToRegistry name moment
+150 silly mapToRegistry using default registry
+151 silly mapToRegistry registry https://registry.npmjs.org/
+152 silly mapToRegistry data Result {
+152 silly mapToRegistry   raw: 'moment',
+152 silly mapToRegistry   scope: null,
+152 silly mapToRegistry   escapedName: 'moment',
+152 silly mapToRegistry   name: 'moment',
+152 silly mapToRegistry   rawSpec: '',
+152 silly mapToRegistry   spec: 'latest',
+152 silly mapToRegistry   type: 'tag' }
+153 silly mapToRegistry uri https://registry.npmjs.org/moment
+154 silly fetchNamedPackageData rxjs
+155 silly mapToRegistry name rxjs
+156 silly mapToRegistry using default registry
+157 silly mapToRegistry registry https://registry.npmjs.org/
+158 silly mapToRegistry data Result {
+158 silly mapToRegistry   raw: 'rxjs',
+158 silly mapToRegistry   scope: null,
+158 silly mapToRegistry   escapedName: 'rxjs',
+158 silly mapToRegistry   name: 'rxjs',
+158 silly mapToRegistry   rawSpec: '',
+158 silly mapToRegistry   spec: 'latest',
+158 silly mapToRegistry   type: 'tag' }
+159 silly mapToRegistry uri https://registry.npmjs.org/rxjs
+160 silly fetchNamedPackageData zone.js
+161 silly mapToRegistry name zone.js
+162 silly mapToRegistry using default registry
+163 silly mapToRegistry registry https://registry.npmjs.org/
+164 silly mapToRegistry data Result {
+164 silly mapToRegistry   raw: 'zone.js',
+164 silly mapToRegistry   scope: null,
+164 silly mapToRegistry   escapedName: 'zone.js',
+164 silly mapToRegistry   name: 'zone.js',
+164 silly mapToRegistry   rawSpec: '',
+164 silly mapToRegistry   spec: 'latest',
+164 silly mapToRegistry   type: 'tag' }
+165 silly mapToRegistry uri https://registry.npmjs.org/zone.js
+166 silly cache add parsed spec Result {
+166 silly cache add   raw: '@angular/cdk@github:angular/cdk-builds',
+166 silly cache add   scope: '@angular',
+166 silly cache add   escapedName: '@angular%2fcdk',
+166 silly cache add   name: '@angular/cdk',
+166 silly cache add   rawSpec: 'github:angular/cdk-builds',
+166 silly cache add   spec: 'github:angular/cdk-builds',
+166 silly cache add   type: 'hosted',
+166 silly cache add   hosted:
+166 silly cache add    { type: 'github',
+166 silly cache add      ssh: 'git@github.com:angular/cdk-builds.git',
+166 silly cache add      sshUrl: 'git+ssh://git@github.com/angular/cdk-builds.git',
+166 silly cache add      httpsUrl: 'git+https://github.com/angular/cdk-builds.git',
+166 silly cache add      gitUrl: 'git://github.com/angular/cdk-builds.git',
+166 silly cache add      shortcut: 'github:angular/cdk-builds',
+166 silly cache add      directUrl: 'https://raw.githubusercontent.com/angular/cdk-builds/master/package.json' } }
+167 verbose addRemoteGit caching github:angular/cdk-builds
+168 verbose addRemoteGit angular/cdk-builds is a repository hosted by github
+169 silly tryGitProto attempting to clone git://github.com/angular/cdk-builds.git
+170 silly tryClone cloning angular/cdk-builds via git://github.com/angular/cdk-builds.git
+171 verbose tryClone git-github-com-angular-cdk-builds-git-79fe8880 not in flight; caching
+172 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache\_git-remotes correctMkdir not in flight; initializing
+173 verbose request uri https://registry.npmjs.org/@angular%2fanimations
+174 verbose request no auth needed
+175 info attempt registry request try #1 at 18:24:24
+176 verbose request id ee2513704625cc06
+177 http request GET https://registry.npmjs.org/@angular%2fanimations
+178 verbose request uri https://registry.npmjs.org/@angular%2fcompiler
+179 verbose request no auth needed
+180 info attempt registry request try #1 at 18:24:24
+181 http request GET https://registry.npmjs.org/@angular%2fcompiler
+182 verbose request uri https://registry.npmjs.org/@angular%2fcommon
+183 verbose request no auth needed
+184 info attempt registry request try #1 at 18:24:24
+185 http request GET https://registry.npmjs.org/@angular%2fcommon
+186 silly cache add parsed spec Result {
+186 silly cache add   raw: '@angular/material@github:angular/material2-builds',
+186 silly cache add   scope: '@angular',
+186 silly cache add   escapedName: '@angular%2fmaterial',
+186 silly cache add   name: '@angular/material',
+186 silly cache add   rawSpec: 'github:angular/material2-builds',
+186 silly cache add   spec: 'github:angular/material2-builds',
+186 silly cache add   type: 'hosted',
+186 silly cache add   hosted:
+186 silly cache add    { type: 'github',
+186 silly cache add      ssh: 'git@github.com:angular/material2-builds.git',
+186 silly cache add      sshUrl: 'git+ssh://git@github.com/angular/material2-builds.git',
+186 silly cache add      httpsUrl: 'git+https://github.com/angular/material2-builds.git',
+186 silly cache add      gitUrl: 'git://github.com/angular/material2-builds.git',
+186 silly cache add      shortcut: 'github:angular/material2-builds',
+186 silly cache add      directUrl: 'https://raw.githubusercontent.com/angular/material2-builds/master/package.json' } }
+187 verbose addRemoteGit caching github:angular/material2-builds
+188 verbose addRemoteGit angular/material2-builds is a repository hosted by github
+189 silly tryGitProto attempting to clone git://github.com/angular/material2-builds.git
+190 silly tryClone cloning angular/material2-builds via git://github.com/angular/material2-builds.git
+191 verbose tryClone git-github-com-angular-material2-builds-git-bb085d2c not in flight; caching
+192 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache\_git-remotes correctMkdir already in flight; waiting
+193 verbose request uri https://registry.npmjs.org/@angular%2fcore
+194 verbose request no auth needed
+195 info attempt registry request try #1 at 18:24:24
+196 http request GET https://registry.npmjs.org/@angular%2fcore
+197 verbose request uri https://registry.npmjs.org/@angular%2fforms
+198 verbose request no auth needed
+199 info attempt registry request try #1 at 18:24:24
+200 http request GET https://registry.npmjs.org/@angular%2fforms
+201 verbose request uri https://registry.npmjs.org/@angular%2fhttp
+202 verbose request no auth needed
+203 info attempt registry request try #1 at 18:24:24
+204 http request GET https://registry.npmjs.org/@angular%2fhttp
+205 silly cache add parsed spec Result {
+205 silly cache add   raw: 'angular2-datatable-pagination@git+https://github.com/CasperTech/angular2-datatable-pagination.git',
+205 silly cache add   scope: null,
+205 silly cache add   escapedName: 'angular2-datatable-pagination',
+205 silly cache add   name: 'angular2-datatable-pagination',
+205 silly cache add   rawSpec: 'git+https://github.com/CasperTech/angular2-datatable-pagination.git',
+205 silly cache add   spec: 'git+https://github.com/CasperTech/angular2-datatable-pagination.git',
+205 silly cache add   type: 'hosted',
+205 silly cache add   hosted:
+205 silly cache add    { type: 'github',
+205 silly cache add      ssh: 'git@github.com:CasperTech/angular2-datatable-pagination.git',
+205 silly cache add      sshUrl: 'git+ssh://git@github.com/CasperTech/angular2-datatable-pagination.git',
+205 silly cache add      httpsUrl: 'git+https://github.com/CasperTech/angular2-datatable-pagination.git',
+205 silly cache add      gitUrl: 'git://github.com/CasperTech/angular2-datatable-pagination.git',
+205 silly cache add      shortcut: 'github:CasperTech/angular2-datatable-pagination',
+205 silly cache add      directUrl: 'https://raw.githubusercontent.com/CasperTech/angular2-datatable-pagination/master/package.json' } }
+206 verbose addRemoteGit caching git+https://github.com/CasperTech/angular2-datatable-pagination.git
+207 verbose addRemoteGit git+https://github.com/CasperTech/angular2-datatable-pagination.git is a repository hosted by github
+208 silly tryClone cloning git+https://github.com/CasperTech/angular2-datatable-pagination.git via git+https://github.com/CasperTech/angular2-datatable-pagination.git
+209 verbose tryClone git-https-github-com-CasperTech-angular2-datatable-pagination-git-511d7988 not in flight; caching
+210 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache\_git-remotes correctMkdir already in flight; waiting
+211 verbose request uri https://registry.npmjs.org/@angular%2fplatform-browser
+212 verbose request no auth needed
+213 info attempt registry request try #1 at 18:24:24
+214 http request GET https://registry.npmjs.org/@angular%2fplatform-browser
+215 verbose request uri https://registry.npmjs.org/@angular%2fplatform-browser-dynamic
+216 verbose request no auth needed
+217 info attempt registry request try #1 at 18:24:24
+218 http request GET https://registry.npmjs.org/@angular%2fplatform-browser-dynamic
+219 verbose request uri https://registry.npmjs.org/@angular%2frouter
+220 verbose request no auth needed
+221 info attempt registry request try #1 at 18:24:24
+222 http request GET https://registry.npmjs.org/@angular%2frouter
+223 verbose request uri https://registry.npmjs.org/bootstrap
+224 verbose request no auth needed
+225 info attempt registry request try #1 at 18:24:24
+226 http request GET https://registry.npmjs.org/bootstrap
+227 verbose request uri https://registry.npmjs.org/arrive
+228 verbose request no auth needed
+229 info attempt registry request try #1 at 18:24:24
+230 http request GET https://registry.npmjs.org/arrive
+231 verbose request uri https://registry.npmjs.org/bootstrap-material-design
+232 verbose request no auth needed
+233 info attempt registry request try #1 at 18:24:24
+234 http request GET https://registry.npmjs.org/bootstrap-material-design
+235 verbose request uri https://registry.npmjs.org/bootstrap-notify
+236 verbose request no auth needed
+237 info attempt registry request try #1 at 18:24:24
+238 http request GET https://registry.npmjs.org/bootstrap-notify
+239 verbose request uri https://registry.npmjs.org/chartist
+240 verbose request no auth needed
+241 info attempt registry request try #1 at 18:24:24
+242 http request GET https://registry.npmjs.org/chartist
+243 verbose request uri https://registry.npmjs.org/googleapis
+244 verbose request no auth needed
+245 info attempt registry request try #1 at 18:24:24
+246 http request GET https://registry.npmjs.org/googleapis
+247 verbose request uri https://registry.npmjs.org/jquery
+248 verbose request no auth needed
+249 info attempt registry request try #1 at 18:24:24
+250 http request GET https://registry.npmjs.org/jquery
+251 verbose request uri https://registry.npmjs.org/moment
+252 verbose request no auth needed
+253 info attempt registry request try #1 at 18:24:24
+254 http request GET https://registry.npmjs.org/moment
+255 verbose makeDirectory C:\Users\ramir\AppData\Roaming\npm-cache\_git-remotes creation not in flight; initializing
+256 verbose request uri https://registry.npmjs.org/rxjs
+257 verbose request no auth needed
+258 info attempt registry request try #1 at 18:24:24
+259 http request GET https://registry.npmjs.org/rxjs
+260 verbose request uri https://registry.npmjs.org/zone.js
+261 verbose request no auth needed
+262 info attempt registry request try #1 at 18:24:24
+263 http request GET https://registry.npmjs.org/zone.js
+264 verbose makeCacheDir UID & GID are irrelevant on win32
+265 verbose request uri https://registry.npmjs.org/core-js
+266 verbose request no auth needed
+267 info attempt registry request try #1 at 18:24:25
+268 verbose etag W/"5911a422-38905"
+269 verbose lastModified Tue, 09 May 2017 11:12:34 GMT
+270 http request GET https://registry.npmjs.org/core-js
+271 info git [ 'clone',
+271 info git   '--template=C:\\Users\\ramir\\AppData\\Roaming\\npm-cache\\_git-remotes\\_templates',
+271 info git   '--mirror',
+271 info git   'git://github.com/angular/material2-builds.git',
+271 info git   'C:\\Users\\ramir\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-github-com-angular-material2-builds-git-bb085d2c' ]
+272 info git [ 'clone',
+272 info git   '--template=C:\\Users\\ramir\\AppData\\Roaming\\npm-cache\\_git-remotes\\_templates',
+272 info git   '--mirror',
+272 info git   'git://github.com/angular/cdk-builds.git',
+272 info git   'C:\\Users\\ramir\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-github-com-angular-cdk-builds-git-79fe8880' ]
+273 info git [ 'clone',
+273 info git   '--template=C:\\Users\\ramir\\AppData\\Roaming\\npm-cache\\_git-remotes\\_templates',
+273 info git   '--mirror',
+273 info git   'https://github.com/CasperTech/angular2-datatable-pagination.git',
+273 info git   'C:\\Users\\ramir\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-https-github-com-CasperTech-angular2-datatable-pagination-git-511d7988' ]
+274 http 200 https://registry.npmjs.org/bootstrap
+275 verbose headers { server: 'nginx/1.10.1',
+275 verbose headers   'content-type': 'application/json',
+275 verbose headers   'last-modified': 'Wed, 11 Oct 2017 06:00:33 GMT',
+275 verbose headers   etag: 'W/"59ddb381-e3dc"',
+275 verbose headers   'content-encoding': 'gzip',
+275 verbose headers   'cache-control': 'max-age=300',
+275 verbose headers   'content-length': '11609',
+275 verbose headers   'accept-ranges': 'bytes',
+275 verbose headers   date: 'Wed, 11 Oct 2017 22:24:02 GMT',
+275 verbose headers   via: '1.1 varnish',
+275 verbose headers   age: '23',
+275 verbose headers   connection: 'keep-alive',
+275 verbose headers   'x-served-by': 'cache-gig17021-GIG',
+275 verbose headers   'x-cache': 'HIT',
+275 verbose headers   'x-cache-hits': '1',
+275 verbose headers   'x-timer': 'S1507760642.493349,VS0,VE0',
+275 verbose headers   vary: 'Accept-Encoding, Accept' }
+276 silly get cb [ 200,
+276 silly get   { server: 'nginx/1.10.1',
+276 silly get     'content-type': 'application/json',
+276 silly get     'last-modified': 'Wed, 11 Oct 2017 06:00:33 GMT',
+276 silly get     etag: 'W/"59ddb381-e3dc"',
+276 silly get     'content-encoding': 'gzip',
+276 silly get     'cache-control': 'max-age=300',
+276 silly get     'content-length': '11609',
+276 silly get     'accept-ranges': 'bytes',
+276 silly get     date: 'Wed, 11 Oct 2017 22:24:02 GMT',
+276 silly get     via: '1.1 varnish',
+276 silly get     age: '23',
+276 silly get     connection: 'keep-alive',
+276 silly get     'x-served-by': 'cache-gig17021-GIG',
+276 silly get     'x-cache': 'HIT',
+276 silly get     'x-cache-hits': '1',
+276 silly get     'x-timer': 'S1507760642.493349,VS0,VE0',
+276 silly get     vary: 'Accept-Encoding, Accept' } ]
+277 verbose get saving bootstrap to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\bootstrap\.cache.json
+278 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+279 silly resolveWithNewModule bootstrap@3.3.7 checking installable status
+280 silly cache add args [ 'bootstrap@3.3.7', null ]
+281 verbose cache add spec bootstrap@3.3.7
+282 silly cache add parsed spec Result {
+282 silly cache add   raw: 'bootstrap@3.3.7',
+282 silly cache add   scope: null,
+282 silly cache add   escapedName: 'bootstrap',
+282 silly cache add   name: 'bootstrap',
+282 silly cache add   rawSpec: '3.3.7',
+282 silly cache add   spec: '3.3.7',
+282 silly cache add   type: 'version' }
+283 silly addNamed bootstrap@3.3.7
+284 verbose addNamed "3.3.7" is a plain semver version for bootstrap
+285 silly mapToRegistry name bootstrap
+286 silly mapToRegistry using default registry
+287 silly mapToRegistry registry https://registry.npmjs.org/
+288 silly mapToRegistry data Result {
+288 silly mapToRegistry   raw: 'bootstrap',
+288 silly mapToRegistry   scope: null,
+288 silly mapToRegistry   escapedName: 'bootstrap',
+288 silly mapToRegistry   name: 'bootstrap',
+288 silly mapToRegistry   rawSpec: '',
+288 silly mapToRegistry   spec: 'latest',
+288 silly mapToRegistry   type: 'tag' }
+289 silly mapToRegistry uri https://registry.npmjs.org/bootstrap
+290 verbose addNameVersion registry:https://registry.npmjs.org/bootstrap not in flight; fetching
+291 verbose get https://registry.npmjs.org/bootstrap not expired, no request
+292 silly mapToRegistry name bootstrap
+293 silly mapToRegistry using default registry
+294 silly mapToRegistry registry https://registry.npmjs.org/
+295 silly mapToRegistry data Result {
+295 silly mapToRegistry   raw: 'bootstrap',
+295 silly mapToRegistry   scope: null,
+295 silly mapToRegistry   escapedName: 'bootstrap',
+295 silly mapToRegistry   name: 'bootstrap',
+295 silly mapToRegistry   rawSpec: '',
+295 silly mapToRegistry   spec: 'latest',
+295 silly mapToRegistry   type: 'tag' }
+296 silly mapToRegistry uri https://registry.npmjs.org/bootstrap
+297 verbose addRemoteTarball https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz not in flight; adding
+298 verbose addRemoteTarball [ 'https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz',
+298 verbose addRemoteTarball   '5a389394549f23330875a3b150656574f8a9eb71' ]
+299 info retry fetch attempt 1 at 18:24:28
+300 info attempt registry request try #1 at 18:24:28
+301 http fetch GET https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz
+302 http 200 https://registry.npmjs.org/zone.js
+303 verbose headers { server: 'nginx/1.10.3',
+303 verbose headers   'content-type': 'application/json',
+303 verbose headers   'last-modified': 'Wed, 04 Oct 2017 13:29:47 GMT',
+303 verbose headers   etag: 'W/"59d4e24b-2caae"',
+303 verbose headers   'content-encoding': 'gzip',
+303 verbose headers   'cache-control': 'max-age=300',
+303 verbose headers   'content-length': '13539',
+303 verbose headers   'accept-ranges': 'bytes',
+303 verbose headers   date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+303 verbose headers   via: '1.1 varnish',
+303 verbose headers   age: '272',
+303 verbose headers   connection: 'keep-alive',
+303 verbose headers   'x-served-by': 'cache-gig17026-GIG',
+303 verbose headers   'x-cache': 'HIT',
+303 verbose headers   'x-cache-hits': '1',
+303 verbose headers   'x-timer': 'S1507760643.053604,VS0,VE0',
+303 verbose headers   vary: 'Accept-Encoding, Accept' }
+304 silly get cb [ 200,
+304 silly get   { server: 'nginx/1.10.3',
+304 silly get     'content-type': 'application/json',
+304 silly get     'last-modified': 'Wed, 04 Oct 2017 13:29:47 GMT',
+304 silly get     etag: 'W/"59d4e24b-2caae"',
+304 silly get     'content-encoding': 'gzip',
+304 silly get     'cache-control': 'max-age=300',
+304 silly get     'content-length': '13539',
+304 silly get     'accept-ranges': 'bytes',
+304 silly get     date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+304 silly get     via: '1.1 varnish',
+304 silly get     age: '272',
+304 silly get     connection: 'keep-alive',
+304 silly get     'x-served-by': 'cache-gig17026-GIG',
+304 silly get     'x-cache': 'HIT',
+304 silly get     'x-cache-hits': '1',
+304 silly get     'x-timer': 'S1507760643.053604,VS0,VE0',
+304 silly get     vary: 'Accept-Encoding, Accept' } ]
+305 verbose get saving zone.js to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\zone.js\.cache.json
+306 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+307 silly resolveWithNewModule zone.js@0.8.4 checking installable status
+308 silly cache add args [ 'zone.js@0.8.4', null ]
+309 verbose cache add spec zone.js@0.8.4
+310 silly cache add parsed spec Result {
+310 silly cache add   raw: 'zone.js@0.8.4',
+310 silly cache add   scope: null,
+310 silly cache add   escapedName: 'zone.js',
+310 silly cache add   name: 'zone.js',
+310 silly cache add   rawSpec: '0.8.4',
+310 silly cache add   spec: '0.8.4',
+310 silly cache add   type: 'version' }
+311 silly addNamed zone.js@0.8.4
+312 verbose addNamed "0.8.4" is a plain semver version for zone.js
+313 silly mapToRegistry name zone.js
+314 silly mapToRegistry using default registry
+315 silly mapToRegistry registry https://registry.npmjs.org/
+316 silly mapToRegistry data Result {
+316 silly mapToRegistry   raw: 'zone.js',
+316 silly mapToRegistry   scope: null,
+316 silly mapToRegistry   escapedName: 'zone.js',
+316 silly mapToRegistry   name: 'zone.js',
+316 silly mapToRegistry   rawSpec: '',
+316 silly mapToRegistry   spec: 'latest',
+316 silly mapToRegistry   type: 'tag' }
+317 silly mapToRegistry uri https://registry.npmjs.org/zone.js
+318 verbose addNameVersion registry:https://registry.npmjs.org/zone.js not in flight; fetching
+319 verbose get https://registry.npmjs.org/zone.js not expired, no request
+320 silly mapToRegistry name zone.js
+321 silly mapToRegistry using default registry
+322 silly mapToRegistry registry https://registry.npmjs.org/
+323 silly mapToRegistry data Result {
+323 silly mapToRegistry   raw: 'zone.js',
+323 silly mapToRegistry   scope: null,
+323 silly mapToRegistry   escapedName: 'zone.js',
+323 silly mapToRegistry   name: 'zone.js',
+323 silly mapToRegistry   rawSpec: '',
+323 silly mapToRegistry   spec: 'latest',
+323 silly mapToRegistry   type: 'tag' }
+324 silly mapToRegistry uri https://registry.npmjs.org/zone.js
+325 verbose addRemoteTarball https://registry.npmjs.org/zone.js/-/zone.js-0.8.4.tgz not in flight; adding
+326 verbose addRemoteTarball [ 'https://registry.npmjs.org/zone.js/-/zone.js-0.8.4.tgz',
+326 verbose addRemoteTarball   'cc40ae5a1c879601c5ebba2096b5c80f0c4c3602' ]
+327 info retry fetch attempt 1 at 18:24:28
+328 info attempt registry request try #1 at 18:24:28
+329 http fetch GET https://registry.npmjs.org/zone.js/-/zone.js-0.8.4.tgz
+330 http 200 https://registry.npmjs.org/moment
+331 verbose headers { server: 'nginx/1.10.3',
+331 verbose headers   'content-type': 'application/json',
+331 verbose headers   'last-modified': 'Wed, 11 Oct 2017 21:04:17 GMT',
+331 verbose headers   etag: 'W/"59de8751-1e191"',
+331 verbose headers   'content-encoding': 'gzip',
+331 verbose headers   'cache-control': 'max-age=300',
+331 verbose headers   'content-length': '13985',
+331 verbose headers   'accept-ranges': 'bytes',
+331 verbose headers   date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+331 verbose headers   via: '1.1 varnish',
+331 verbose headers   age: '23',
+331 verbose headers   connection: 'keep-alive',
+331 verbose headers   'x-served-by': 'cache-gig17035-GIG',
+331 verbose headers   'x-cache': 'HIT',
+331 verbose headers   'x-cache-hits': '1',
+331 verbose headers   'x-timer': 'S1507760643.049864,VS0,VE0',
+331 verbose headers   vary: 'Accept-Encoding, Accept' }
+332 silly get cb [ 200,
+332 silly get   { server: 'nginx/1.10.3',
+332 silly get     'content-type': 'application/json',
+332 silly get     'last-modified': 'Wed, 11 Oct 2017 21:04:17 GMT',
+332 silly get     etag: 'W/"59de8751-1e191"',
+332 silly get     'content-encoding': 'gzip',
+332 silly get     'cache-control': 'max-age=300',
+332 silly get     'content-length': '13985',
+332 silly get     'accept-ranges': 'bytes',
+332 silly get     date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+332 silly get     via: '1.1 varnish',
+332 silly get     age: '23',
+332 silly get     connection: 'keep-alive',
+332 silly get     'x-served-by': 'cache-gig17035-GIG',
+332 silly get     'x-cache': 'HIT',
+332 silly get     'x-cache-hits': '1',
+332 silly get     'x-timer': 'S1507760643.049864,VS0,VE0',
+332 silly get     vary: 'Accept-Encoding, Accept' } ]
+333 verbose get saving moment to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\moment\.cache.json
+334 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+335 silly resolveWithNewModule moment@2.18.1 checking installable status
+336 silly cache add args [ 'moment@2.18.1', null ]
+337 verbose cache add spec moment@2.18.1
+338 silly cache add parsed spec Result {
+338 silly cache add   raw: 'moment@2.18.1',
+338 silly cache add   scope: null,
+338 silly cache add   escapedName: 'moment',
+338 silly cache add   name: 'moment',
+338 silly cache add   rawSpec: '2.18.1',
+338 silly cache add   spec: '2.18.1',
+338 silly cache add   type: 'version' }
+339 silly addNamed moment@2.18.1
+340 verbose addNamed "2.18.1" is a plain semver version for moment
+341 silly mapToRegistry name moment
+342 silly mapToRegistry using default registry
+343 silly mapToRegistry registry https://registry.npmjs.org/
+344 silly mapToRegistry data Result {
+344 silly mapToRegistry   raw: 'moment',
+344 silly mapToRegistry   scope: null,
+344 silly mapToRegistry   escapedName: 'moment',
+344 silly mapToRegistry   name: 'moment',
+344 silly mapToRegistry   rawSpec: '',
+344 silly mapToRegistry   spec: 'latest',
+344 silly mapToRegistry   type: 'tag' }
+345 silly mapToRegistry uri https://registry.npmjs.org/moment
+346 verbose addNameVersion registry:https://registry.npmjs.org/moment not in flight; fetching
+347 verbose get https://registry.npmjs.org/moment not expired, no request
+348 silly mapToRegistry name moment
+349 silly mapToRegistry using default registry
+350 silly mapToRegistry registry https://registry.npmjs.org/
+351 silly mapToRegistry data Result {
+351 silly mapToRegistry   raw: 'moment',
+351 silly mapToRegistry   scope: null,
+351 silly mapToRegistry   escapedName: 'moment',
+351 silly mapToRegistry   name: 'moment',
+351 silly mapToRegistry   rawSpec: '',
+351 silly mapToRegistry   spec: 'latest',
+351 silly mapToRegistry   type: 'tag' }
+352 silly mapToRegistry uri https://registry.npmjs.org/moment
+353 verbose addRemoteTarball https://registry.npmjs.org/moment/-/moment-2.18.1.tgz not in flight; adding
+354 verbose addRemoteTarball [ 'https://registry.npmjs.org/moment/-/moment-2.18.1.tgz',
+354 verbose addRemoteTarball   'c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f' ]
+355 info retry fetch attempt 1 at 18:24:28
+356 info attempt registry request try #1 at 18:24:28
+357 http fetch GET https://registry.npmjs.org/moment/-/moment-2.18.1.tgz
+358 http fetch 200 https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz
+359 http 200 https://registry.npmjs.org/core-js
+360 verbose headers { server: 'nginx/1.10.1',
+360 verbose headers   'content-type': 'application/json',
+360 verbose headers   'last-modified': 'Wed, 04 Oct 2017 13:29:26 GMT',
+360 verbose headers   etag: 'W/"59d4e236-39b24"',
+360 verbose headers   'content-encoding': 'gzip',
+360 verbose headers   'cache-control': 'max-age=300',
+360 verbose headers   'content-length': '27865',
+360 verbose headers   'accept-ranges': 'bytes',
+360 verbose headers   date: 'Wed, 11 Oct 2017 22:24:02 GMT',
+360 verbose headers   via: '1.1 varnish',
+360 verbose headers   age: '23',
+360 verbose headers   connection: 'keep-alive',
+360 verbose headers   'x-served-by': 'cache-gig17029-GIG',
+360 verbose headers   'x-cache': 'HIT',
+360 verbose headers   'x-cache-hits': '2',
+360 verbose headers   'x-timer': 'S1507760642.430235,VS0,VE0',
+360 verbose headers   vary: 'Accept-Encoding, Accept' }
+361 silly get cb [ 200,
+361 silly get   { server: 'nginx/1.10.1',
+361 silly get     'content-type': 'application/json',
+361 silly get     'last-modified': 'Wed, 04 Oct 2017 13:29:26 GMT',
+361 silly get     etag: 'W/"59d4e236-39b24"',
+361 silly get     'content-encoding': 'gzip',
+361 silly get     'cache-control': 'max-age=300',
+361 silly get     'content-length': '27865',
+361 silly get     'accept-ranges': 'bytes',
+361 silly get     date: 'Wed, 11 Oct 2017 22:24:02 GMT',
+361 silly get     via: '1.1 varnish',
+361 silly get     age: '23',
+361 silly get     connection: 'keep-alive',
+361 silly get     'x-served-by': 'cache-gig17029-GIG',
+361 silly get     'x-cache': 'HIT',
+361 silly get     'x-cache-hits': '2',
+361 silly get     'x-timer': 'S1507760642.430235,VS0,VE0',
+361 silly get     vary: 'Accept-Encoding, Accept' } ]
+362 verbose get saving core-js to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\core-js\.cache.json
+363 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+364 silly resolveWithNewModule core-js@2.4.1 checking installable status
+365 silly cache add args [ 'core-js@2.4.1', null ]
+366 verbose cache add spec core-js@2.4.1
+367 silly cache add parsed spec Result {
+367 silly cache add   raw: 'core-js@2.4.1',
+367 silly cache add   scope: null,
+367 silly cache add   escapedName: 'core-js',
+367 silly cache add   name: 'core-js',
+367 silly cache add   rawSpec: '2.4.1',
+367 silly cache add   spec: '2.4.1',
+367 silly cache add   type: 'version' }
+368 silly addNamed core-js@2.4.1
+369 verbose addNamed "2.4.1" is a plain semver version for core-js
+370 silly mapToRegistry name core-js
+371 silly mapToRegistry using default registry
+372 silly mapToRegistry registry https://registry.npmjs.org/
+373 silly mapToRegistry data Result {
+373 silly mapToRegistry   raw: 'core-js',
+373 silly mapToRegistry   scope: null,
+373 silly mapToRegistry   escapedName: 'core-js',
+373 silly mapToRegistry   name: 'core-js',
+373 silly mapToRegistry   rawSpec: '',
+373 silly mapToRegistry   spec: 'latest',
+373 silly mapToRegistry   type: 'tag' }
+374 silly mapToRegistry uri https://registry.npmjs.org/core-js
+375 verbose addNameVersion registry:https://registry.npmjs.org/core-js not in flight; fetching
+376 verbose get https://registry.npmjs.org/core-js not expired, no request
+377 silly cache afterAdd core-js@2.4.1
+378 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\core-js\2.4.1\package\package.json not in flight; writing
+379 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+380 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\core-js\2.4.1\package\package.json written
+381 http fetch 200 https://registry.npmjs.org/moment/-/moment-2.18.1.tgz
+382 http fetch 200 https://registry.npmjs.org/zone.js/-/zone.js-0.8.4.tgz
+383 http 200 https://registry.npmjs.org/@angular%2fcommon
+384 verbose headers { 'content-type': 'application/json',
+384 verbose headers   server: 'nginx/1.10.3',
+384 verbose headers   'last-modified': 'Fri, 06 Oct 2017 01:25:37 GMT',
+384 verbose headers   etag: 'W/"59d6db91-20d1d"',
+384 verbose headers   'content-encoding': 'gzip',
+384 verbose headers   'cache-control': 'max-age=0',
+384 verbose headers   'transfer-encoding': 'chunked',
+384 verbose headers   'accept-ranges': 'bytes',
+384 verbose headers   date: 'Wed, 11 Oct 2017 22:24:04 GMT',
+384 verbose headers   via: '1.1 varnish',
+384 verbose headers   age: '0',
+384 verbose headers   connection: 'keep-alive',
+384 verbose headers   'x-served-by': 'cache-gig17021-GIG',
+384 verbose headers   'x-cache': 'MISS',
+384 verbose headers   'x-cache-hits': '0',
+384 verbose headers   'x-timer': 'S1507760643.419360,VS0,VE774',
+384 verbose headers   vary: 'Accept-Encoding' }
+385 silly get cb [ 200,
+385 silly get   { 'content-type': 'application/json',
+385 silly get     server: 'nginx/1.10.3',
+385 silly get     'last-modified': 'Fri, 06 Oct 2017 01:25:37 GMT',
+385 silly get     etag: 'W/"59d6db91-20d1d"',
+385 silly get     'content-encoding': 'gzip',
+385 silly get     'cache-control': 'max-age=0',
+385 silly get     'transfer-encoding': 'chunked',
+385 silly get     'accept-ranges': 'bytes',
+385 silly get     date: 'Wed, 11 Oct 2017 22:24:04 GMT',
+385 silly get     via: '1.1 varnish',
+385 silly get     age: '0',
+385 silly get     connection: 'keep-alive',
+385 silly get     'x-served-by': 'cache-gig17021-GIG',
+385 silly get     'x-cache': 'MISS',
+385 silly get     'x-cache-hits': '0',
+385 silly get     'x-timer': 'S1507760643.419360,VS0,VE774',
+385 silly get     vary: 'Accept-Encoding' } ]
+386 verbose get saving @angular/common to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\_40angular_252fcommon\.cache.json
+387 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+388 silly resolveWithNewModule @angular/common@4.3.1 checking installable status
+389 silly cache add args [ '@angular/common@4.3.1', null ]
+390 verbose cache add spec @angular/common@4.3.1
+391 silly cache add parsed spec Result {
+391 silly cache add   raw: '@angular/common@4.3.1',
+391 silly cache add   scope: '@angular',
+391 silly cache add   escapedName: '@angular%2fcommon',
+391 silly cache add   name: '@angular/common',
+391 silly cache add   rawSpec: '4.3.1',
+391 silly cache add   spec: '4.3.1',
+391 silly cache add   type: 'version' }
+392 silly addNamed @angular/common@4.3.1
+393 verbose addNamed "4.3.1" is a plain semver version for @angular/common
+394 silly mapToRegistry name @angular/common
+395 silly mapToRegistry scope (from package name) @angular
+396 verbose mapToRegistry no registry URL found in name for scope @angular
+397 silly mapToRegistry using default registry
+398 silly mapToRegistry registry https://registry.npmjs.org/
+399 silly mapToRegistry data Result {
+399 silly mapToRegistry   raw: '@angular/common',
+399 silly mapToRegistry   scope: '@angular',
+399 silly mapToRegistry   escapedName: '@angular%2fcommon',
+399 silly mapToRegistry   name: '@angular/common',
+399 silly mapToRegistry   rawSpec: '',
+399 silly mapToRegistry   spec: 'latest',
+399 silly mapToRegistry   type: 'tag' }
+400 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fcommon
+401 verbose addNameVersion registry:https://registry.npmjs.org/@angular%2fcommon not in flight; fetching
+402 http 200 https://registry.npmjs.org/bootstrap-notify
+403 verbose headers { server: 'nginx/1.10.1',
+403 verbose headers   'content-type': 'application/json',
+403 verbose headers   'last-modified': 'Tue, 16 May 2017 17:11:42 GMT',
+403 verbose headers   etag: 'W/"591b32ce-264c"',
+403 verbose headers   'content-encoding': 'gzip',
+403 verbose headers   'cache-control': 'max-age=300',
+403 verbose headers   'content-length': '3415',
+403 verbose headers   'accept-ranges': 'bytes',
+403 verbose headers   date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+403 verbose headers   via: '1.1 varnish',
+403 verbose headers   age: '0',
+403 verbose headers   connection: 'keep-alive',
+403 verbose headers   'x-served-by': 'cache-gig17031-GIG',
+403 verbose headers   'x-cache': 'HIT',
+403 verbose headers   'x-cache-hits': '1',
+403 verbose headers   'x-timer': 'S1507760643.462319,VS0,VE443',
+403 verbose headers   vary: 'Accept-Encoding, Accept' }
+404 silly get cb [ 200,
+404 silly get   { server: 'nginx/1.10.1',
+404 silly get     'content-type': 'application/json',
+404 silly get     'last-modified': 'Tue, 16 May 2017 17:11:42 GMT',
+404 silly get     etag: 'W/"591b32ce-264c"',
+404 silly get     'content-encoding': 'gzip',
+404 silly get     'cache-control': 'max-age=300',
+404 silly get     'content-length': '3415',
+404 silly get     'accept-ranges': 'bytes',
+404 silly get     date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+404 silly get     via: '1.1 varnish',
+404 silly get     age: '0',
+404 silly get     connection: 'keep-alive',
+404 silly get     'x-served-by': 'cache-gig17031-GIG',
+404 silly get     'x-cache': 'HIT',
+404 silly get     'x-cache-hits': '1',
+404 silly get     'x-timer': 'S1507760643.462319,VS0,VE443',
+404 silly get     vary: 'Accept-Encoding, Accept' } ]
+405 verbose get saving bootstrap-notify to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\bootstrap-notify\.cache.json
+406 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+407 verbose get https://registry.npmjs.org/@angular%2fcommon not expired, no request
+408 silly mapToRegistry name @angular/common
+409 silly mapToRegistry scope (from package name) @angular
+410 verbose mapToRegistry no registry URL found in name for scope @angular
+411 silly mapToRegistry using default registry
+412 silly mapToRegistry registry https://registry.npmjs.org/
+413 silly mapToRegistry data Result {
+413 silly mapToRegistry   raw: '@angular/common',
+413 silly mapToRegistry   scope: '@angular',
+413 silly mapToRegistry   escapedName: '@angular%2fcommon',
+413 silly mapToRegistry   name: '@angular/common',
+413 silly mapToRegistry   rawSpec: '',
+413 silly mapToRegistry   spec: 'latest',
+413 silly mapToRegistry   type: 'tag' }
+414 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fcommon
+415 verbose addRemoteTarball https://registry.npmjs.org/@angular/common/-/common-4.3.1.tgz not in flight; adding
+416 verbose addRemoteTarball [ 'https://registry.npmjs.org/@angular/common/-/common-4.3.1.tgz',
+416 verbose addRemoteTarball   '260f487a7cdca326c436bd3ea9515c797de2ff72' ]
+417 silly resolveWithNewModule bootstrap-notify@3.1.3 checking installable status
+418 silly cache add args [ 'bootstrap-notify@3.1.3', null ]
+419 verbose cache add spec bootstrap-notify@3.1.3
+420 silly cache add parsed spec Result {
+420 silly cache add   raw: 'bootstrap-notify@3.1.3',
+420 silly cache add   scope: null,
+420 silly cache add   escapedName: 'bootstrap-notify',
+420 silly cache add   name: 'bootstrap-notify',
+420 silly cache add   rawSpec: '3.1.3',
+420 silly cache add   spec: '3.1.3',
+420 silly cache add   type: 'version' }
+421 silly addNamed bootstrap-notify@3.1.3
+422 verbose addNamed "3.1.3" is a plain semver version for bootstrap-notify
+423 silly mapToRegistry name bootstrap-notify
+424 silly mapToRegistry using default registry
+425 silly mapToRegistry registry https://registry.npmjs.org/
+426 silly mapToRegistry data Result {
+426 silly mapToRegistry   raw: 'bootstrap-notify',
+426 silly mapToRegistry   scope: null,
+426 silly mapToRegistry   escapedName: 'bootstrap-notify',
+426 silly mapToRegistry   name: 'bootstrap-notify',
+426 silly mapToRegistry   rawSpec: '',
+426 silly mapToRegistry   spec: 'latest',
+426 silly mapToRegistry   type: 'tag' }
+427 silly mapToRegistry uri https://registry.npmjs.org/bootstrap-notify
+428 verbose addNameVersion registry:https://registry.npmjs.org/bootstrap-notify not in flight; fetching
+429 verbose get https://registry.npmjs.org/bootstrap-notify not expired, no request
+430 silly mapToRegistry name bootstrap-notify
+431 silly mapToRegistry using default registry
+432 silly mapToRegistry registry https://registry.npmjs.org/
+433 silly mapToRegistry data Result {
+433 silly mapToRegistry   raw: 'bootstrap-notify',
+433 silly mapToRegistry   scope: null,
+433 silly mapToRegistry   escapedName: 'bootstrap-notify',
+433 silly mapToRegistry   name: 'bootstrap-notify',
+433 silly mapToRegistry   rawSpec: '',
+433 silly mapToRegistry   spec: 'latest',
+433 silly mapToRegistry   type: 'tag' }
+434 silly mapToRegistry uri https://registry.npmjs.org/bootstrap-notify
+435 verbose addRemoteTarball https://registry.npmjs.org/bootstrap-notify/-/bootstrap-notify-3.1.3.tgz not in flight; adding
+436 verbose addRemoteTarball [ 'https://registry.npmjs.org/bootstrap-notify/-/bootstrap-notify-3.1.3.tgz',
+436 verbose addRemoteTarball   '7e98b3a696cf452a7b56727f0b3316a90037c10b' ]
+437 info retry fetch attempt 1 at 18:24:29
+438 info attempt registry request try #1 at 18:24:29
+439 http fetch GET https://registry.npmjs.org/@angular/common/-/common-4.3.1.tgz
+440 info retry fetch attempt 1 at 18:24:29
+441 info attempt registry request try #1 at 18:24:29
+442 http fetch GET https://registry.npmjs.org/bootstrap-notify/-/bootstrap-notify-3.1.3.tgz
+443 http 200 https://registry.npmjs.org/rxjs
+444 verbose headers { server: 'nginx/1.10.1',
+444 verbose headers   'content-type': 'application/json',
+444 verbose headers   'last-modified': 'Fri, 06 Oct 2017 05:20:31 GMT',
+444 verbose headers   etag: 'W/"59d7129f-33409"',
+444 verbose headers   'content-encoding': 'gzip',
+444 verbose headers   'cache-control': 'max-age=300',
+444 verbose headers   'content-length': '14321',
+444 verbose headers   'accept-ranges': 'bytes',
+444 verbose headers   date: 'Wed, 11 Oct 2017 22:24:02 GMT',
+444 verbose headers   via: '1.1 varnish',
+444 verbose headers   age: '271',
+444 verbose headers   connection: 'keep-alive',
+444 verbose headers   'x-served-by': 'cache-gig17024-GIG',
+444 verbose headers   'x-cache': 'HIT',
+444 verbose headers   'x-cache-hits': '1',
+444 verbose headers   'x-timer': 'S1507760642.456563,VS0,VE0',
+444 verbose headers   vary: 'Accept-Encoding, Accept' }
+445 silly get cb [ 200,
+445 silly get   { server: 'nginx/1.10.1',
+445 silly get     'content-type': 'application/json',
+445 silly get     'last-modified': 'Fri, 06 Oct 2017 05:20:31 GMT',
+445 silly get     etag: 'W/"59d7129f-33409"',
+445 silly get     'content-encoding': 'gzip',
+445 silly get     'cache-control': 'max-age=300',
+445 silly get     'content-length': '14321',
+445 silly get     'accept-ranges': 'bytes',
+445 silly get     date: 'Wed, 11 Oct 2017 22:24:02 GMT',
+445 silly get     via: '1.1 varnish',
+445 silly get     age: '271',
+445 silly get     connection: 'keep-alive',
+445 silly get     'x-served-by': 'cache-gig17024-GIG',
+445 silly get     'x-cache': 'HIT',
+445 silly get     'x-cache-hits': '1',
+445 silly get     'x-timer': 'S1507760642.456563,VS0,VE0',
+445 silly get     vary: 'Accept-Encoding, Accept' } ]
+446 verbose get saving rxjs to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\rxjs\.cache.json
+447 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+448 silly resolveWithNewModule rxjs@5.1.0 checking installable status
+449 silly cache add args [ 'rxjs@5.1.0', null ]
+450 verbose cache add spec rxjs@5.1.0
+451 silly cache add parsed spec Result {
+451 silly cache add   raw: 'rxjs@5.1.0',
+451 silly cache add   scope: null,
+451 silly cache add   escapedName: 'rxjs',
+451 silly cache add   name: 'rxjs',
+451 silly cache add   rawSpec: '5.1.0',
+451 silly cache add   spec: '5.1.0',
+451 silly cache add   type: 'version' }
+452 silly addNamed rxjs@5.1.0
+453 verbose addNamed "5.1.0" is a plain semver version for rxjs
+454 silly mapToRegistry name rxjs
+455 silly mapToRegistry using default registry
+456 silly mapToRegistry registry https://registry.npmjs.org/
+457 silly mapToRegistry data Result {
+457 silly mapToRegistry   raw: 'rxjs',
+457 silly mapToRegistry   scope: null,
+457 silly mapToRegistry   escapedName: 'rxjs',
+457 silly mapToRegistry   name: 'rxjs',
+457 silly mapToRegistry   rawSpec: '',
+457 silly mapToRegistry   spec: 'latest',
+457 silly mapToRegistry   type: 'tag' }
+458 silly mapToRegistry uri https://registry.npmjs.org/rxjs
+459 verbose addNameVersion registry:https://registry.npmjs.org/rxjs not in flight; fetching
+460 verbose get https://registry.npmjs.org/rxjs not expired, no request
+461 silly mapToRegistry name rxjs
+462 silly mapToRegistry using default registry
+463 silly mapToRegistry registry https://registry.npmjs.org/
+464 silly mapToRegistry data Result {
+464 silly mapToRegistry   raw: 'rxjs',
+464 silly mapToRegistry   scope: null,
+464 silly mapToRegistry   escapedName: 'rxjs',
+464 silly mapToRegistry   name: 'rxjs',
+464 silly mapToRegistry   rawSpec: '',
+464 silly mapToRegistry   spec: 'latest',
+464 silly mapToRegistry   type: 'tag' }
+465 silly mapToRegistry uri https://registry.npmjs.org/rxjs
+466 verbose addRemoteTarball https://registry.npmjs.org/rxjs/-/rxjs-5.1.0.tgz not in flight; adding
+467 verbose addRemoteTarball [ 'https://registry.npmjs.org/rxjs/-/rxjs-5.1.0.tgz',
+467 verbose addRemoteTarball   '0aa9018b7f440b505fa42bd742b6738be550e720' ]
+468 http 200 https://registry.npmjs.org/arrive
+469 verbose headers { server: 'nginx/1.10.3',
+469 verbose headers   'content-type': 'application/json',
+469 verbose headers   'last-modified': 'Sun, 04 Jun 2017 13:06:23 GMT',
+469 verbose headers   etag: 'W/"593405cf-31ae"',
+469 verbose headers   'content-encoding': 'gzip',
+469 verbose headers   'cache-control': 'max-age=300',
+469 verbose headers   'content-length': '3719',
+469 verbose headers   'accept-ranges': 'bytes',
+469 verbose headers   date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+469 verbose headers   via: '1.1 varnish',
+469 verbose headers   age: '0',
+469 verbose headers   connection: 'keep-alive',
+469 verbose headers   'x-served-by': 'cache-gig17031-GIG',
+469 verbose headers   'x-cache': 'HIT',
+469 verbose headers   'x-cache-hits': '1',
+469 verbose headers   'x-timer': 'S1507760643.060782,VS0,VE177',
+469 verbose headers   vary: 'Accept-Encoding, Accept' }
+470 silly get cb [ 200,
+470 silly get   { server: 'nginx/1.10.3',
+470 silly get     'content-type': 'application/json',
+470 silly get     'last-modified': 'Sun, 04 Jun 2017 13:06:23 GMT',
+470 silly get     etag: 'W/"593405cf-31ae"',
+470 silly get     'content-encoding': 'gzip',
+470 silly get     'cache-control': 'max-age=300',
+470 silly get     'content-length': '3719',
+470 silly get     'accept-ranges': 'bytes',
+470 silly get     date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+470 silly get     via: '1.1 varnish',
+470 silly get     age: '0',
+470 silly get     connection: 'keep-alive',
+470 silly get     'x-served-by': 'cache-gig17031-GIG',
+470 silly get     'x-cache': 'HIT',
+470 silly get     'x-cache-hits': '1',
+470 silly get     'x-timer': 'S1507760643.060782,VS0,VE177',
+470 silly get     vary: 'Accept-Encoding, Accept' } ]
+471 verbose get saving arrive to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\arrive\.cache.json
+472 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+473 info retry fetch attempt 1 at 18:24:30
+474 info attempt registry request try #1 at 18:24:30
+475 http fetch GET https://registry.npmjs.org/rxjs/-/rxjs-5.1.0.tgz
+476 silly resolveWithNewModule arrive@2.4.1 checking installable status
+477 silly cache add args [ 'arrive@2.4.1', null ]
+478 verbose cache add spec arrive@2.4.1
+479 silly cache add parsed spec Result {
+479 silly cache add   raw: 'arrive@2.4.1',
+479 silly cache add   scope: null,
+479 silly cache add   escapedName: 'arrive',
+479 silly cache add   name: 'arrive',
+479 silly cache add   rawSpec: '2.4.1',
+479 silly cache add   spec: '2.4.1',
+479 silly cache add   type: 'version' }
+480 silly addNamed arrive@2.4.1
+481 verbose addNamed "2.4.1" is a plain semver version for arrive
+482 silly mapToRegistry name arrive
+483 silly mapToRegistry using default registry
+484 silly mapToRegistry registry https://registry.npmjs.org/
+485 silly mapToRegistry data Result {
+485 silly mapToRegistry   raw: 'arrive',
+485 silly mapToRegistry   scope: null,
+485 silly mapToRegistry   escapedName: 'arrive',
+485 silly mapToRegistry   name: 'arrive',
+485 silly mapToRegistry   rawSpec: '',
+485 silly mapToRegistry   spec: 'latest',
+485 silly mapToRegistry   type: 'tag' }
+486 silly mapToRegistry uri https://registry.npmjs.org/arrive
+487 verbose addNameVersion registry:https://registry.npmjs.org/arrive not in flight; fetching
+488 verbose get https://registry.npmjs.org/arrive not expired, no request
+489 silly mapToRegistry name arrive
+490 silly mapToRegistry using default registry
+491 silly mapToRegistry registry https://registry.npmjs.org/
+492 silly mapToRegistry data Result {
+492 silly mapToRegistry   raw: 'arrive',
+492 silly mapToRegistry   scope: null,
+492 silly mapToRegistry   escapedName: 'arrive',
+492 silly mapToRegistry   name: 'arrive',
+492 silly mapToRegistry   rawSpec: '',
+492 silly mapToRegistry   spec: 'latest',
+492 silly mapToRegistry   type: 'tag' }
+493 silly mapToRegistry uri https://registry.npmjs.org/arrive
+494 verbose addRemoteTarball https://registry.npmjs.org/arrive/-/arrive-2.4.1.tgz not in flight; adding
+495 verbose addRemoteTarball [ 'https://registry.npmjs.org/arrive/-/arrive-2.4.1.tgz',
+495 verbose addRemoteTarball   '564c87f20bc09b80de781124d9431695004b8020' ]
+496 info retry fetch attempt 1 at 18:24:30
+497 info attempt registry request try #1 at 18:24:30
+498 http fetch GET https://registry.npmjs.org/arrive/-/arrive-2.4.1.tgz
+499 http fetch 200 https://registry.npmjs.org/bootstrap-notify/-/bootstrap-notify-3.1.3.tgz
+500 silly fetchAndShaCheck shasum 7e98b3a696cf452a7b56727f0b3316a90037c10b
+501 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\bootstrap-notify\-\bootstrap-notify-3.1.3.tgz not in flight; adding
+502 verbose addTmpTarball already have metadata; skipping unpack for bootstrap-notify@3.1.3
+503 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+504 silly cache afterAdd bootstrap-notify@3.1.3
+505 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\bootstrap-notify\3.1.3\package\package.json not in flight; writing
+506 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+507 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\bootstrap-notify\3.1.3\package\package.json written
+508 http fetch 200 https://registry.npmjs.org/rxjs/-/rxjs-5.1.0.tgz
+509 http fetch 200 https://registry.npmjs.org/@angular/common/-/common-4.3.1.tgz
+510 http 200 https://registry.npmjs.org/@angular%2fforms
+511 verbose headers { 'content-type': 'application/json',
+511 verbose headers   server: 'nginx/1.10.3',
+511 verbose headers   'last-modified': 'Fri, 06 Oct 2017 01:25:46 GMT',
+511 verbose headers   etag: 'W/"59d6db9a-1fdfc"',
+511 verbose headers   'content-encoding': 'gzip',
+511 verbose headers   'cache-control': 'max-age=0',
+511 verbose headers   'transfer-encoding': 'chunked',
+511 verbose headers   'accept-ranges': 'bytes',
+511 verbose headers   date: 'Wed, 11 Oct 2017 22:24:04 GMT',
+511 verbose headers   via: '1.1 varnish',
+511 verbose headers   age: '0',
+511 verbose headers   connection: 'keep-alive',
+511 verbose headers   'x-served-by': 'cache-gig17031-GIG',
+511 verbose headers   'x-cache': 'MISS',
+511 verbose headers   'x-cache-hits': '0',
+511 verbose headers   'x-timer': 'S1507760644.065757,VS0,VE761',
+511 verbose headers   vary: 'Accept-Encoding' }
+512 silly get cb [ 200,
+512 silly get   { 'content-type': 'application/json',
+512 silly get     server: 'nginx/1.10.3',
+512 silly get     'last-modified': 'Fri, 06 Oct 2017 01:25:46 GMT',
+512 silly get     etag: 'W/"59d6db9a-1fdfc"',
+512 silly get     'content-encoding': 'gzip',
+512 silly get     'cache-control': 'max-age=0',
+512 silly get     'transfer-encoding': 'chunked',
+512 silly get     'accept-ranges': 'bytes',
+512 silly get     date: 'Wed, 11 Oct 2017 22:24:04 GMT',
+512 silly get     via: '1.1 varnish',
+512 silly get     age: '0',
+512 silly get     connection: 'keep-alive',
+512 silly get     'x-served-by': 'cache-gig17031-GIG',
+512 silly get     'x-cache': 'MISS',
+512 silly get     'x-cache-hits': '0',
+512 silly get     'x-timer': 'S1507760644.065757,VS0,VE761',
+512 silly get     vary: 'Accept-Encoding' } ]
+513 verbose get saving @angular/forms to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\_40angular_252fforms\.cache.json
+514 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+515 http 200 https://registry.npmjs.org/@angular%2fplatform-browser
+516 verbose headers { 'content-type': 'application/json',
+516 verbose headers   server: 'nginx/1.10.3',
+516 verbose headers   'last-modified': 'Fri, 06 Oct 2017 01:25:53 GMT',
+516 verbose headers   etag: 'W/"59d6dba1-2457b"',
+516 verbose headers   'content-encoding': 'gzip',
+516 verbose headers   'cache-control': 'max-age=0',
+516 verbose headers   'transfer-encoding': 'chunked',
+516 verbose headers   'accept-ranges': 'bytes',
+516 verbose headers   date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+516 verbose headers   via: '1.1 varnish',
+516 verbose headers   age: '0',
+516 verbose headers   connection: 'keep-alive',
+516 verbose headers   'x-served-by': 'cache-gig17033-GIG',
+516 verbose headers   'x-cache': 'MISS',
+516 verbose headers   'x-cache-hits': '0',
+516 verbose headers   'x-timer': 'S1507760642.434264,VS0,VE847',
+516 verbose headers   vary: 'Accept-Encoding' }
+517 silly get cb [ 200,
+517 silly get   { 'content-type': 'application/json',
+517 silly get     server: 'nginx/1.10.3',
+517 silly get     'last-modified': 'Fri, 06 Oct 2017 01:25:53 GMT',
+517 silly get     etag: 'W/"59d6dba1-2457b"',
+517 silly get     'content-encoding': 'gzip',
+517 silly get     'cache-control': 'max-age=0',
+517 silly get     'transfer-encoding': 'chunked',
+517 silly get     'accept-ranges': 'bytes',
+517 silly get     date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+517 silly get     via: '1.1 varnish',
+517 silly get     age: '0',
+517 silly get     connection: 'keep-alive',
+517 silly get     'x-served-by': 'cache-gig17033-GIG',
+517 silly get     'x-cache': 'MISS',
+517 silly get     'x-cache-hits': '0',
+517 silly get     'x-timer': 'S1507760642.434264,VS0,VE847',
+517 silly get     vary: 'Accept-Encoding' } ]
+518 verbose get saving @angular/platform-browser to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\_40angular_252fplatform-browser\.cache.json
+519 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+520 http fetch 200 https://registry.npmjs.org/arrive/-/arrive-2.4.1.tgz
+521 silly resolveWithNewModule @angular/forms@4.3.1 checking installable status
+522 silly cache add args [ '@angular/forms@4.3.1', null ]
+523 verbose cache add spec @angular/forms@4.3.1
+524 silly cache add parsed spec Result {
+524 silly cache add   raw: '@angular/forms@4.3.1',
+524 silly cache add   scope: '@angular',
+524 silly cache add   escapedName: '@angular%2fforms',
+524 silly cache add   name: '@angular/forms',
+524 silly cache add   rawSpec: '4.3.1',
+524 silly cache add   spec: '4.3.1',
+524 silly cache add   type: 'version' }
+525 silly addNamed @angular/forms@4.3.1
+526 verbose addNamed "4.3.1" is a plain semver version for @angular/forms
+527 silly mapToRegistry name @angular/forms
+528 silly mapToRegistry scope (from package name) @angular
+529 verbose mapToRegistry no registry URL found in name for scope @angular
+530 silly mapToRegistry using default registry
+531 silly mapToRegistry registry https://registry.npmjs.org/
+532 silly mapToRegistry data Result {
+532 silly mapToRegistry   raw: '@angular/forms',
+532 silly mapToRegistry   scope: '@angular',
+532 silly mapToRegistry   escapedName: '@angular%2fforms',
+532 silly mapToRegistry   name: '@angular/forms',
+532 silly mapToRegistry   rawSpec: '',
+532 silly mapToRegistry   spec: 'latest',
+532 silly mapToRegistry   type: 'tag' }
+533 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fforms
+534 verbose addNameVersion registry:https://registry.npmjs.org/@angular%2fforms not in flight; fetching
+535 verbose get https://registry.npmjs.org/@angular%2fforms not expired, no request
+536 silly mapToRegistry name @angular/forms
+537 silly mapToRegistry scope (from package name) @angular
+538 verbose mapToRegistry no registry URL found in name for scope @angular
+539 silly mapToRegistry using default registry
+540 silly mapToRegistry registry https://registry.npmjs.org/
+541 silly mapToRegistry data Result {
+541 silly mapToRegistry   raw: '@angular/forms',
+541 silly mapToRegistry   scope: '@angular',
+541 silly mapToRegistry   escapedName: '@angular%2fforms',
+541 silly mapToRegistry   name: '@angular/forms',
+541 silly mapToRegistry   rawSpec: '',
+541 silly mapToRegistry   spec: 'latest',
+541 silly mapToRegistry   type: 'tag' }
+542 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fforms
+543 verbose addRemoteTarball https://registry.npmjs.org/@angular/forms/-/forms-4.3.1.tgz not in flight; adding
+544 verbose addRemoteTarball [ 'https://registry.npmjs.org/@angular/forms/-/forms-4.3.1.tgz',
+544 verbose addRemoteTarball   '33914da2cb146430ff901471e682c76654622dfe' ]
+545 silly resolveWithNewModule @angular/platform-browser@4.3.1 checking installable status
+546 silly cache add args [ '@angular/platform-browser@4.3.1', null ]
+547 verbose cache add spec @angular/platform-browser@4.3.1
+548 silly cache add parsed spec Result {
+548 silly cache add   raw: '@angular/platform-browser@4.3.1',
+548 silly cache add   scope: '@angular',
+548 silly cache add   escapedName: '@angular%2fplatform-browser',
+548 silly cache add   name: '@angular/platform-browser',
+548 silly cache add   rawSpec: '4.3.1',
+548 silly cache add   spec: '4.3.1',
+548 silly cache add   type: 'version' }
+549 silly addNamed @angular/platform-browser@4.3.1
+550 verbose addNamed "4.3.1" is a plain semver version for @angular/platform-browser
+551 silly mapToRegistry name @angular/platform-browser
+552 silly mapToRegistry scope (from package name) @angular
+553 verbose mapToRegistry no registry URL found in name for scope @angular
+554 silly mapToRegistry using default registry
+555 silly mapToRegistry registry https://registry.npmjs.org/
+556 silly mapToRegistry data Result {
+556 silly mapToRegistry   raw: '@angular/platform-browser',
+556 silly mapToRegistry   scope: '@angular',
+556 silly mapToRegistry   escapedName: '@angular%2fplatform-browser',
+556 silly mapToRegistry   name: '@angular/platform-browser',
+556 silly mapToRegistry   rawSpec: '',
+556 silly mapToRegistry   spec: 'latest',
+556 silly mapToRegistry   type: 'tag' }
+557 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fplatform-browser
+558 verbose addNameVersion registry:https://registry.npmjs.org/@angular%2fplatform-browser not in flight; fetching
+559 info retry fetch attempt 1 at 18:24:30
+560 info attempt registry request try #1 at 18:24:30
+561 http fetch GET https://registry.npmjs.org/@angular/forms/-/forms-4.3.1.tgz
+562 verbose get https://registry.npmjs.org/@angular%2fplatform-browser not expired, no request
+563 silly mapToRegistry name @angular/platform-browser
+564 silly mapToRegistry scope (from package name) @angular
+565 verbose mapToRegistry no registry URL found in name for scope @angular
+566 silly mapToRegistry using default registry
+567 silly mapToRegistry registry https://registry.npmjs.org/
+568 silly mapToRegistry data Result {
+568 silly mapToRegistry   raw: '@angular/platform-browser',
+568 silly mapToRegistry   scope: '@angular',
+568 silly mapToRegistry   escapedName: '@angular%2fplatform-browser',
+568 silly mapToRegistry   name: '@angular/platform-browser',
+568 silly mapToRegistry   rawSpec: '',
+568 silly mapToRegistry   spec: 'latest',
+568 silly mapToRegistry   type: 'tag' }
+569 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fplatform-browser
+570 verbose addRemoteTarball https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-4.3.1.tgz not in flight; adding
+571 verbose addRemoteTarball [ 'https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-4.3.1.tgz',
+571 verbose addRemoteTarball   'db727b06eed64bda5defec71815db26a4da2f690' ]
+572 info retry fetch attempt 1 at 18:24:30
+573 info attempt registry request try #1 at 18:24:30
+574 http fetch GET https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-4.3.1.tgz
+575 http 200 https://registry.npmjs.org/bootstrap-material-design
+576 verbose headers { server: 'nginx/1.10.3',
+576 verbose headers   'content-type': 'application/json',
+576 verbose headers   'last-modified': 'Thu, 31 Aug 2017 13:52:19 GMT',
+576 verbose headers   etag: 'W/"59a81493-5f3e"',
+576 verbose headers   'content-encoding': 'gzip',
+576 verbose headers   'cache-control': 'max-age=300',
+576 verbose headers   'content-length': '4577',
+576 verbose headers   'accept-ranges': 'bytes',
+576 verbose headers   date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+576 verbose headers   via: '1.1 varnish',
+576 verbose headers   age: '0',
+576 verbose headers   connection: 'keep-alive',
+576 verbose headers   'x-served-by': 'cache-gig17033-GIG',
+576 verbose headers   'x-cache': 'MISS',
+576 verbose headers   'x-cache-hits': '0',
+576 verbose headers   'x-timer': 'S1507760643.046780,VS0,VE938',
+576 verbose headers   vary: 'Accept-Encoding, Accept' }
+577 silly get cb [ 200,
+577 silly get   { server: 'nginx/1.10.3',
+577 silly get     'content-type': 'application/json',
+577 silly get     'last-modified': 'Thu, 31 Aug 2017 13:52:19 GMT',
+577 silly get     etag: 'W/"59a81493-5f3e"',
+577 silly get     'content-encoding': 'gzip',
+577 silly get     'cache-control': 'max-age=300',
+577 silly get     'content-length': '4577',
+577 silly get     'accept-ranges': 'bytes',
+577 silly get     date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+577 silly get     via: '1.1 varnish',
+577 silly get     age: '0',
+577 silly get     connection: 'keep-alive',
+577 silly get     'x-served-by': 'cache-gig17033-GIG',
+577 silly get     'x-cache': 'MISS',
+577 silly get     'x-cache-hits': '0',
+577 silly get     'x-timer': 'S1507760643.046780,VS0,VE938',
+577 silly get     vary: 'Accept-Encoding, Accept' } ]
+578 verbose get saving bootstrap-material-design to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\bootstrap-material-design\.cache.json
+579 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+580 http 200 https://registry.npmjs.org/chartist
+581 verbose headers { server: 'nginx/1.10.3',
+581 verbose headers   'content-type': 'application/json',
+581 verbose headers   'last-modified': 'Fri, 01 Sep 2017 08:34:07 GMT',
+581 verbose headers   etag: 'W/"59a91b7f-17250"',
+581 verbose headers   'content-encoding': 'gzip',
+581 verbose headers   'cache-control': 'max-age=300',
+581 verbose headers   'content-length': '7952',
+581 verbose headers   'accept-ranges': 'bytes',
+581 verbose headers   date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+581 verbose headers   via: '1.1 varnish',
+581 verbose headers   age: '0',
+581 verbose headers   connection: 'keep-alive',
+581 verbose headers   'x-served-by': 'cache-gig17028-GIG',
+581 verbose headers   'x-cache': 'MISS',
+581 verbose headers   'x-cache-hits': '0',
+581 verbose headers   'x-timer': 'S1507760643.051123,VS0,VE177',
+581 verbose headers   vary: 'Accept-Encoding, Accept' }
+582 silly get cb [ 200,
+582 silly get   { server: 'nginx/1.10.3',
+582 silly get     'content-type': 'application/json',
+582 silly get     'last-modified': 'Fri, 01 Sep 2017 08:34:07 GMT',
+582 silly get     etag: 'W/"59a91b7f-17250"',
+582 silly get     'content-encoding': 'gzip',
+582 silly get     'cache-control': 'max-age=300',
+582 silly get     'content-length': '7952',
+582 silly get     'accept-ranges': 'bytes',
+582 silly get     date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+582 silly get     via: '1.1 varnish',
+582 silly get     age: '0',
+582 silly get     connection: 'keep-alive',
+582 silly get     'x-served-by': 'cache-gig17028-GIG',
+582 silly get     'x-cache': 'MISS',
+582 silly get     'x-cache-hits': '0',
+582 silly get     'x-timer': 'S1507760643.051123,VS0,VE177',
+582 silly get     vary: 'Accept-Encoding, Accept' } ]
+583 verbose get saving chartist to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\chartist\.cache.json
+584 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+585 silly resolveWithNewModule bootstrap-material-design@0.5.10 checking installable status
+586 silly cache add args [ 'bootstrap-material-design@0.5.10', null ]
+587 verbose cache add spec bootstrap-material-design@0.5.10
+588 silly cache add parsed spec Result {
+588 silly cache add   raw: 'bootstrap-material-design@0.5.10',
+588 silly cache add   scope: null,
+588 silly cache add   escapedName: 'bootstrap-material-design',
+588 silly cache add   name: 'bootstrap-material-design',
+588 silly cache add   rawSpec: '0.5.10',
+588 silly cache add   spec: '0.5.10',
+588 silly cache add   type: 'version' }
+589 silly addNamed bootstrap-material-design@0.5.10
+590 verbose addNamed "0.5.10" is a plain semver version for bootstrap-material-design
+591 silly mapToRegistry name bootstrap-material-design
+592 silly mapToRegistry using default registry
+593 silly mapToRegistry registry https://registry.npmjs.org/
+594 silly mapToRegistry data Result {
+594 silly mapToRegistry   raw: 'bootstrap-material-design',
+594 silly mapToRegistry   scope: null,
+594 silly mapToRegistry   escapedName: 'bootstrap-material-design',
+594 silly mapToRegistry   name: 'bootstrap-material-design',
+594 silly mapToRegistry   rawSpec: '',
+594 silly mapToRegistry   spec: 'latest',
+594 silly mapToRegistry   type: 'tag' }
+595 silly mapToRegistry uri https://registry.npmjs.org/bootstrap-material-design
+596 verbose addNameVersion registry:https://registry.npmjs.org/bootstrap-material-design not in flight; fetching
+597 silly resolveWithNewModule chartist@0.11.0 checking installable status
+598 silly cache add args [ 'chartist@0.11.0', null ]
+599 verbose cache add spec chartist@0.11.0
+600 silly cache add parsed spec Result {
+600 silly cache add   raw: 'chartist@0.11.0',
+600 silly cache add   scope: null,
+600 silly cache add   escapedName: 'chartist',
+600 silly cache add   name: 'chartist',
+600 silly cache add   rawSpec: '0.11.0',
+600 silly cache add   spec: '0.11.0',
+600 silly cache add   type: 'version' }
+601 silly addNamed chartist@0.11.0
+602 verbose addNamed "0.11.0" is a plain semver version for chartist
+603 silly mapToRegistry name chartist
+604 silly mapToRegistry using default registry
+605 silly mapToRegistry registry https://registry.npmjs.org/
+606 silly mapToRegistry data Result {
+606 silly mapToRegistry   raw: 'chartist',
+606 silly mapToRegistry   scope: null,
+606 silly mapToRegistry   escapedName: 'chartist',
+606 silly mapToRegistry   name: 'chartist',
+606 silly mapToRegistry   rawSpec: '',
+606 silly mapToRegistry   spec: 'latest',
+606 silly mapToRegistry   type: 'tag' }
+607 silly mapToRegistry uri https://registry.npmjs.org/chartist
+608 verbose addNameVersion registry:https://registry.npmjs.org/chartist not in flight; fetching
+609 verbose get https://registry.npmjs.org/bootstrap-material-design not expired, no request
+610 http 200 https://registry.npmjs.org/jquery
+611 verbose headers { server: 'nginx/1.10.1',
+611 verbose headers   'content-type': 'application/json',
+611 verbose headers   'last-modified': 'Wed, 11 Oct 2017 01:56:39 GMT',
+611 verbose headers   etag: 'W/"59dd7a57-162c5"',
+611 verbose headers   'content-encoding': 'gzip',
+611 verbose headers   'cache-control': 'max-age=300',
+611 verbose headers   'content-length': '10921',
+611 verbose headers   'accept-ranges': 'bytes',
+611 verbose headers   date: 'Wed, 11 Oct 2017 22:24:04 GMT',
+611 verbose headers   via: '1.1 varnish',
+611 verbose headers   age: '240',
+611 verbose headers   connection: 'keep-alive',
+611 verbose headers   'x-served-by': 'cache-gig17025-GIG',
+611 verbose headers   'x-cache': 'HIT',
+611 verbose headers   'x-cache-hits': '2',
+611 verbose headers   'x-timer': 'S1507760645.994784,VS0,VE0',
+611 verbose headers   vary: 'Accept-Encoding, Accept' }
+612 silly get cb [ 200,
+612 silly get   { server: 'nginx/1.10.1',
+612 silly get     'content-type': 'application/json',
+612 silly get     'last-modified': 'Wed, 11 Oct 2017 01:56:39 GMT',
+612 silly get     etag: 'W/"59dd7a57-162c5"',
+612 silly get     'content-encoding': 'gzip',
+612 silly get     'cache-control': 'max-age=300',
+612 silly get     'content-length': '10921',
+612 silly get     'accept-ranges': 'bytes',
+612 silly get     date: 'Wed, 11 Oct 2017 22:24:04 GMT',
+612 silly get     via: '1.1 varnish',
+612 silly get     age: '240',
+612 silly get     connection: 'keep-alive',
+612 silly get     'x-served-by': 'cache-gig17025-GIG',
+612 silly get     'x-cache': 'HIT',
+612 silly get     'x-cache-hits': '2',
+612 silly get     'x-timer': 'S1507760645.994784,VS0,VE0',
+612 silly get     vary: 'Accept-Encoding, Accept' } ]
+613 verbose get saving jquery to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\jquery\.cache.json
+614 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+615 silly mapToRegistry name bootstrap-material-design
+616 silly mapToRegistry using default registry
+617 silly mapToRegistry registry https://registry.npmjs.org/
+618 silly mapToRegistry data Result {
+618 silly mapToRegistry   raw: 'bootstrap-material-design',
+618 silly mapToRegistry   scope: null,
+618 silly mapToRegistry   escapedName: 'bootstrap-material-design',
+618 silly mapToRegistry   name: 'bootstrap-material-design',
+618 silly mapToRegistry   rawSpec: '',
+618 silly mapToRegistry   spec: 'latest',
+618 silly mapToRegistry   type: 'tag' }
+619 silly mapToRegistry uri https://registry.npmjs.org/bootstrap-material-design
+620 verbose addRemoteTarball https://registry.npmjs.org/bootstrap-material-design/-/bootstrap-material-design-0.5.10.tgz not in flight; adding
+621 verbose addRemoteTarball [ 'https://registry.npmjs.org/bootstrap-material-design/-/bootstrap-material-design-0.5.10.tgz',
+621 verbose addRemoteTarball   'b36b0035b528a821c1758695b25d25e25e121372' ]
+622 verbose get https://registry.npmjs.org/chartist not expired, no request
+623 silly mapToRegistry name chartist
+624 silly mapToRegistry using default registry
+625 silly mapToRegistry registry https://registry.npmjs.org/
+626 silly mapToRegistry data Result {
+626 silly mapToRegistry   raw: 'chartist',
+626 silly mapToRegistry   scope: null,
+626 silly mapToRegistry   escapedName: 'chartist',
+626 silly mapToRegistry   name: 'chartist',
+626 silly mapToRegistry   rawSpec: '',
+626 silly mapToRegistry   spec: 'latest',
+626 silly mapToRegistry   type: 'tag' }
+627 silly mapToRegistry uri https://registry.npmjs.org/chartist
+628 verbose addRemoteTarball https://registry.npmjs.org/chartist/-/chartist-0.11.0.tgz not in flight; adding
+629 verbose addRemoteTarball [ 'https://registry.npmjs.org/chartist/-/chartist-0.11.0.tgz',
+629 verbose addRemoteTarball   '84ba5e05490d096d93dcfa9343ebc31ef6a3bd28' ]
+630 info retry fetch attempt 1 at 18:24:30
+631 info attempt registry request try #1 at 18:24:30
+632 http fetch GET https://registry.npmjs.org/bootstrap-material-design/-/bootstrap-material-design-0.5.10.tgz
+633 info retry fetch attempt 1 at 18:24:30
+634 info attempt registry request try #1 at 18:24:30
+635 http fetch GET https://registry.npmjs.org/chartist/-/chartist-0.11.0.tgz
+636 silly resolveWithNewModule jquery@3.2.1 checking installable status
+637 silly cache add args [ 'jquery@3.2.1', null ]
+638 verbose cache add spec jquery@3.2.1
+639 silly cache add parsed spec Result {
+639 silly cache add   raw: 'jquery@3.2.1',
+639 silly cache add   scope: null,
+639 silly cache add   escapedName: 'jquery',
+639 silly cache add   name: 'jquery',
+639 silly cache add   rawSpec: '3.2.1',
+639 silly cache add   spec: '3.2.1',
+639 silly cache add   type: 'version' }
+640 silly addNamed jquery@3.2.1
+641 verbose addNamed "3.2.1" is a plain semver version for jquery
+642 silly mapToRegistry name jquery
+643 silly mapToRegistry using default registry
+644 silly mapToRegistry registry https://registry.npmjs.org/
+645 silly mapToRegistry data Result {
+645 silly mapToRegistry   raw: 'jquery',
+645 silly mapToRegistry   scope: null,
+645 silly mapToRegistry   escapedName: 'jquery',
+645 silly mapToRegistry   name: 'jquery',
+645 silly mapToRegistry   rawSpec: '',
+645 silly mapToRegistry   spec: 'latest',
+645 silly mapToRegistry   type: 'tag' }
+646 silly mapToRegistry uri https://registry.npmjs.org/jquery
+647 verbose addNameVersion registry:https://registry.npmjs.org/jquery not in flight; fetching
+648 verbose get https://registry.npmjs.org/jquery not expired, no request
+649 silly mapToRegistry name jquery
+650 silly mapToRegistry using default registry
+651 silly mapToRegistry registry https://registry.npmjs.org/
+652 silly mapToRegistry data Result {
+652 silly mapToRegistry   raw: 'jquery',
+652 silly mapToRegistry   scope: null,
+652 silly mapToRegistry   escapedName: 'jquery',
+652 silly mapToRegistry   name: 'jquery',
+652 silly mapToRegistry   rawSpec: '',
+652 silly mapToRegistry   spec: 'latest',
+652 silly mapToRegistry   type: 'tag' }
+653 silly mapToRegistry uri https://registry.npmjs.org/jquery
+654 verbose addRemoteTarball https://registry.npmjs.org/jquery/-/jquery-3.2.1.tgz not in flight; adding
+655 verbose addRemoteTarball [ 'https://registry.npmjs.org/jquery/-/jquery-3.2.1.tgz',
+655 verbose addRemoteTarball   '5c4d9de652af6cd0a770154a631bba12b015c787' ]
+656 info retry fetch attempt 1 at 18:24:30
+657 info attempt registry request try #1 at 18:24:30
+658 http fetch GET https://registry.npmjs.org/jquery/-/jquery-3.2.1.tgz
+659 http 200 https://registry.npmjs.org/@angular%2fcompiler
+660 verbose headers { 'content-type': 'application/json',
+660 verbose headers   server: 'nginx/1.10.3',
+660 verbose headers   'last-modified': 'Fri, 06 Oct 2017 01:25:40 GMT',
+660 verbose headers   etag: 'W/"59d6db94-211a0"',
+660 verbose headers   'content-encoding': 'gzip',
+660 verbose headers   'cache-control': 'max-age=0',
+660 verbose headers   'transfer-encoding': 'chunked',
+660 verbose headers   'accept-ranges': 'bytes',
+660 verbose headers   date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+660 verbose headers   via: '1.1 varnish',
+660 verbose headers   age: '0',
+660 verbose headers   connection: 'keep-alive',
+660 verbose headers   'x-served-by': 'cache-gig17027-GIG',
+660 verbose headers   'x-cache': 'MISS',
+660 verbose headers   'x-cache-hits': '0',
+660 verbose headers   'x-timer': 'S1507760642.452316,VS0,VE822',
+660 verbose headers   vary: 'Accept-Encoding' }
+661 silly get cb [ 200,
+661 silly get   { 'content-type': 'application/json',
+661 silly get     server: 'nginx/1.10.3',
+661 silly get     'last-modified': 'Fri, 06 Oct 2017 01:25:40 GMT',
+661 silly get     etag: 'W/"59d6db94-211a0"',
+661 silly get     'content-encoding': 'gzip',
+661 silly get     'cache-control': 'max-age=0',
+661 silly get     'transfer-encoding': 'chunked',
+661 silly get     'accept-ranges': 'bytes',
+661 silly get     date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+661 silly get     via: '1.1 varnish',
+661 silly get     age: '0',
+661 silly get     connection: 'keep-alive',
+661 silly get     'x-served-by': 'cache-gig17027-GIG',
+661 silly get     'x-cache': 'MISS',
+661 silly get     'x-cache-hits': '0',
+661 silly get     'x-timer': 'S1507760642.452316,VS0,VE822',
+661 silly get     vary: 'Accept-Encoding' } ]
+662 verbose get saving @angular/compiler to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\_40angular_252fcompiler\.cache.json
+663 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+664 http 200 https://registry.npmjs.org/@angular%2fplatform-browser-dynamic
+665 verbose headers { 'content-type': 'application/json',
+665 verbose headers   server: 'nginx/1.10.3',
+665 verbose headers   'last-modified': 'Fri, 06 Oct 2017 01:25:54 GMT',
+665 verbose headers   etag: 'W/"59d6dba2-28abc"',
+665 verbose headers   'content-encoding': 'gzip',
+665 verbose headers   'cache-control': 'max-age=0',
+665 verbose headers   'transfer-encoding': 'chunked',
+665 verbose headers   'accept-ranges': 'bytes',
+665 verbose headers   date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+665 verbose headers   via: '1.1 varnish',
+665 verbose headers   age: '0',
+665 verbose headers   connection: 'keep-alive',
+665 verbose headers   'x-served-by': 'cache-gig17020-GIG',
+665 verbose headers   'x-cache': 'MISS',
+665 verbose headers   'x-cache-hits': '0',
+665 verbose headers   'x-timer': 'S1507760642.441614,VS0,VE838',
+665 verbose headers   vary: 'Accept-Encoding' }
+666 silly get cb [ 200,
+666 silly get   { 'content-type': 'application/json',
+666 silly get     server: 'nginx/1.10.3',
+666 silly get     'last-modified': 'Fri, 06 Oct 2017 01:25:54 GMT',
+666 silly get     etag: 'W/"59d6dba2-28abc"',
+666 silly get     'content-encoding': 'gzip',
+666 silly get     'cache-control': 'max-age=0',
+666 silly get     'transfer-encoding': 'chunked',
+666 silly get     'accept-ranges': 'bytes',
+666 silly get     date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+666 silly get     via: '1.1 varnish',
+666 silly get     age: '0',
+666 silly get     connection: 'keep-alive',
+666 silly get     'x-served-by': 'cache-gig17020-GIG',
+666 silly get     'x-cache': 'MISS',
+666 silly get     'x-cache-hits': '0',
+666 silly get     'x-timer': 'S1507760642.441614,VS0,VE838',
+666 silly get     vary: 'Accept-Encoding' } ]
+667 verbose get saving @angular/platform-browser-dynamic to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\_40angular_252fplatform-browser-dynamic\.cache.json
+668 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+669 http 200 https://registry.npmjs.org/@angular%2fhttp
+670 verbose headers { 'content-type': 'application/json',
+670 verbose headers   server: 'nginx/1.10.3',
+670 verbose headers   'last-modified': 'Fri, 06 Oct 2017 01:25:48 GMT',
+670 verbose headers   etag: 'W/"59d6db9c-21395"',
+670 verbose headers   'content-encoding': 'gzip',
+670 verbose headers   'cache-control': 'max-age=0',
+670 verbose headers   'transfer-encoding': 'chunked',
+670 verbose headers   'accept-ranges': 'bytes',
+670 verbose headers   date: 'Wed, 11 Oct 2017 22:24:05 GMT',
+670 verbose headers   via: '1.1 varnish',
+670 verbose headers   age: '0',
+670 verbose headers   connection: 'keep-alive',
+670 verbose headers   'x-served-by': 'cache-gig17020-GIG',
+670 verbose headers   'x-cache': 'MISS',
+670 verbose headers   'x-cache-hits': '0',
+670 verbose headers   'x-timer': 'S1507760645.861385,VS0,VE827',
+670 verbose headers   vary: 'Accept-Encoding' }
+671 silly get cb [ 200,
+671 silly get   { 'content-type': 'application/json',
+671 silly get     server: 'nginx/1.10.3',
+671 silly get     'last-modified': 'Fri, 06 Oct 2017 01:25:48 GMT',
+671 silly get     etag: 'W/"59d6db9c-21395"',
+671 silly get     'content-encoding': 'gzip',
+671 silly get     'cache-control': 'max-age=0',
+671 silly get     'transfer-encoding': 'chunked',
+671 silly get     'accept-ranges': 'bytes',
+671 silly get     date: 'Wed, 11 Oct 2017 22:24:05 GMT',
+671 silly get     via: '1.1 varnish',
+671 silly get     age: '0',
+671 silly get     connection: 'keep-alive',
+671 silly get     'x-served-by': 'cache-gig17020-GIG',
+671 silly get     'x-cache': 'MISS',
+671 silly get     'x-cache-hits': '0',
+671 silly get     'x-timer': 'S1507760645.861385,VS0,VE827',
+671 silly get     vary: 'Accept-Encoding' } ]
+672 verbose get saving @angular/http to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\_40angular_252fhttp\.cache.json
+673 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+674 http fetch 200 https://registry.npmjs.org/@angular/forms/-/forms-4.3.1.tgz
+675 http fetch 200 https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-4.3.1.tgz
+676 http 200 https://registry.npmjs.org/@angular%2fcore
+677 verbose headers { 'content-type': 'application/json',
+677 verbose headers   server: 'nginx/1.10.3',
+677 verbose headers   'last-modified': 'Fri, 06 Oct 2017 01:25:45 GMT',
+677 verbose headers   etag: 'W/"59d6db99-207f7"',
+677 verbose headers   'content-encoding': 'gzip',
+677 verbose headers   'cache-control': 'max-age=0',
+677 verbose headers   'transfer-encoding': 'chunked',
+677 verbose headers   'accept-ranges': 'bytes',
+677 verbose headers   date: 'Wed, 11 Oct 2017 22:24:05 GMT',
+677 verbose headers   via: '1.1 varnish',
+677 verbose headers   age: '0',
+677 verbose headers   connection: 'keep-alive',
+677 verbose headers   'x-served-by': 'cache-gig17030-GIG',
+677 verbose headers   'x-cache': 'MISS',
+677 verbose headers   'x-cache-hits': '0',
+677 verbose headers   'x-timer': 'S1507760645.160280,VS0,VE788',
+677 verbose headers   vary: 'Accept-Encoding' }
+678 silly get cb [ 200,
+678 silly get   { 'content-type': 'application/json',
+678 silly get     server: 'nginx/1.10.3',
+678 silly get     'last-modified': 'Fri, 06 Oct 2017 01:25:45 GMT',
+678 silly get     etag: 'W/"59d6db99-207f7"',
+678 silly get     'content-encoding': 'gzip',
+678 silly get     'cache-control': 'max-age=0',
+678 silly get     'transfer-encoding': 'chunked',
+678 silly get     'accept-ranges': 'bytes',
+678 silly get     date: 'Wed, 11 Oct 2017 22:24:05 GMT',
+678 silly get     via: '1.1 varnish',
+678 silly get     age: '0',
+678 silly get     connection: 'keep-alive',
+678 silly get     'x-served-by': 'cache-gig17030-GIG',
+678 silly get     'x-cache': 'MISS',
+678 silly get     'x-cache-hits': '0',
+678 silly get     'x-timer': 'S1507760645.160280,VS0,VE788',
+678 silly get     vary: 'Accept-Encoding' } ]
+679 verbose get saving @angular/core to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\_40angular_252fcore\.cache.json
+680 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+681 silly resolveWithNewModule @angular/platform-browser-dynamic@4.3.1 checking installable status
+682 silly cache add args [ '@angular/platform-browser-dynamic@4.3.1', null ]
+683 verbose cache add spec @angular/platform-browser-dynamic@4.3.1
+684 silly cache add parsed spec Result {
+684 silly cache add   raw: '@angular/platform-browser-dynamic@4.3.1',
+684 silly cache add   scope: '@angular',
+684 silly cache add   escapedName: '@angular%2fplatform-browser-dynamic',
+684 silly cache add   name: '@angular/platform-browser-dynamic',
+684 silly cache add   rawSpec: '4.3.1',
+684 silly cache add   spec: '4.3.1',
+684 silly cache add   type: 'version' }
+685 silly addNamed @angular/platform-browser-dynamic@4.3.1
+686 verbose addNamed "4.3.1" is a plain semver version for @angular/platform-browser-dynamic
+687 silly mapToRegistry name @angular/platform-browser-dynamic
+688 silly mapToRegistry scope (from package name) @angular
+689 verbose mapToRegistry no registry URL found in name for scope @angular
+690 silly mapToRegistry using default registry
+691 silly mapToRegistry registry https://registry.npmjs.org/
+692 silly mapToRegistry data Result {
+692 silly mapToRegistry   raw: '@angular/platform-browser-dynamic',
+692 silly mapToRegistry   scope: '@angular',
+692 silly mapToRegistry   escapedName: '@angular%2fplatform-browser-dynamic',
+692 silly mapToRegistry   name: '@angular/platform-browser-dynamic',
+692 silly mapToRegistry   rawSpec: '',
+692 silly mapToRegistry   spec: 'latest',
+692 silly mapToRegistry   type: 'tag' }
+693 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fplatform-browser-dynamic
+694 verbose addNameVersion registry:https://registry.npmjs.org/@angular%2fplatform-browser-dynamic not in flight; fetching
+695 verbose get https://registry.npmjs.org/@angular%2fplatform-browser-dynamic not expired, no request
+696 silly resolveWithNewModule @angular/http@4.3.1 checking installable status
+697 silly cache add args [ '@angular/http@4.3.1', null ]
+698 verbose cache add spec @angular/http@4.3.1
+699 silly cache add parsed spec Result {
+699 silly cache add   raw: '@angular/http@4.3.1',
+699 silly cache add   scope: '@angular',
+699 silly cache add   escapedName: '@angular%2fhttp',
+699 silly cache add   name: '@angular/http',
+699 silly cache add   rawSpec: '4.3.1',
+699 silly cache add   spec: '4.3.1',
+699 silly cache add   type: 'version' }
+700 silly addNamed @angular/http@4.3.1
+701 verbose addNamed "4.3.1" is a plain semver version for @angular/http
+702 silly mapToRegistry name @angular/http
+703 silly mapToRegistry scope (from package name) @angular
+704 verbose mapToRegistry no registry URL found in name for scope @angular
+705 silly mapToRegistry using default registry
+706 silly mapToRegistry registry https://registry.npmjs.org/
+707 silly mapToRegistry data Result {
+707 silly mapToRegistry   raw: '@angular/http',
+707 silly mapToRegistry   scope: '@angular',
+707 silly mapToRegistry   escapedName: '@angular%2fhttp',
+707 silly mapToRegistry   name: '@angular/http',
+707 silly mapToRegistry   rawSpec: '',
+707 silly mapToRegistry   spec: 'latest',
+707 silly mapToRegistry   type: 'tag' }
+708 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fhttp
+709 verbose addNameVersion registry:https://registry.npmjs.org/@angular%2fhttp not in flight; fetching
+710 silly mapToRegistry name @angular/platform-browser-dynamic
+711 silly mapToRegistry scope (from package name) @angular
+712 verbose mapToRegistry no registry URL found in name for scope @angular
+713 silly mapToRegistry using default registry
+714 silly mapToRegistry registry https://registry.npmjs.org/
+715 silly mapToRegistry data Result {
+715 silly mapToRegistry   raw: '@angular/platform-browser-dynamic',
+715 silly mapToRegistry   scope: '@angular',
+715 silly mapToRegistry   escapedName: '@angular%2fplatform-browser-dynamic',
+715 silly mapToRegistry   name: '@angular/platform-browser-dynamic',
+715 silly mapToRegistry   rawSpec: '',
+715 silly mapToRegistry   spec: 'latest',
+715 silly mapToRegistry   type: 'tag' }
+716 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fplatform-browser-dynamic
+717 verbose addRemoteTarball https://registry.npmjs.org/@angular/platform-browser-dynamic/-/platform-browser-dynamic-4.3.1.tgz not in flight; adding
+718 verbose addRemoteTarball [ 'https://registry.npmjs.org/@angular/platform-browser-dynamic/-/platform-browser-dynamic-4.3.1.tgz',
+718 verbose addRemoteTarball   '84034da60a82ef36e7effda7b3ade6e645b330b3' ]
+719 verbose get https://registry.npmjs.org/@angular%2fhttp not expired, no request
+720 info retry fetch attempt 1 at 18:24:31
+721 info attempt registry request try #1 at 18:24:31
+722 http fetch GET https://registry.npmjs.org/@angular/platform-browser-dynamic/-/platform-browser-dynamic-4.3.1.tgz
+723 silly mapToRegistry name @angular/http
+724 silly mapToRegistry scope (from package name) @angular
+725 verbose mapToRegistry no registry URL found in name for scope @angular
+726 silly mapToRegistry using default registry
+727 silly mapToRegistry registry https://registry.npmjs.org/
+728 silly mapToRegistry data Result {
+728 silly mapToRegistry   raw: '@angular/http',
+728 silly mapToRegistry   scope: '@angular',
+728 silly mapToRegistry   escapedName: '@angular%2fhttp',
+728 silly mapToRegistry   name: '@angular/http',
+728 silly mapToRegistry   rawSpec: '',
+728 silly mapToRegistry   spec: 'latest',
+728 silly mapToRegistry   type: 'tag' }
+729 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fhttp
+730 verbose addRemoteTarball https://registry.npmjs.org/@angular/http/-/http-4.3.1.tgz not in flight; adding
+731 verbose addRemoteTarball [ 'https://registry.npmjs.org/@angular/http/-/http-4.3.1.tgz',
+731 verbose addRemoteTarball   'e4f661f746711e88ecbea76a3c905babf97d315a' ]
+732 silly resolveWithNewModule @angular/compiler@4.3.1 checking installable status
+733 silly cache add args [ '@angular/compiler@4.3.1', null ]
+734 verbose cache add spec @angular/compiler@4.3.1
+735 silly cache add parsed spec Result {
+735 silly cache add   raw: '@angular/compiler@4.3.1',
+735 silly cache add   scope: '@angular',
+735 silly cache add   escapedName: '@angular%2fcompiler',
+735 silly cache add   name: '@angular/compiler',
+735 silly cache add   rawSpec: '4.3.1',
+735 silly cache add   spec: '4.3.1',
+735 silly cache add   type: 'version' }
+736 silly addNamed @angular/compiler@4.3.1
+737 verbose addNamed "4.3.1" is a plain semver version for @angular/compiler
+738 silly mapToRegistry name @angular/compiler
+739 silly mapToRegistry scope (from package name) @angular
+740 verbose mapToRegistry no registry URL found in name for scope @angular
+741 silly mapToRegistry using default registry
+742 silly mapToRegistry registry https://registry.npmjs.org/
+743 silly mapToRegistry data Result {
+743 silly mapToRegistry   raw: '@angular/compiler',
+743 silly mapToRegistry   scope: '@angular',
+743 silly mapToRegistry   escapedName: '@angular%2fcompiler',
+743 silly mapToRegistry   name: '@angular/compiler',
+743 silly mapToRegistry   rawSpec: '',
+743 silly mapToRegistry   spec: 'latest',
+743 silly mapToRegistry   type: 'tag' }
+744 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fcompiler
+745 verbose addNameVersion registry:https://registry.npmjs.org/@angular%2fcompiler not in flight; fetching
+746 info retry fetch attempt 1 at 18:24:31
+747 info attempt registry request try #1 at 18:24:31
+748 http fetch GET https://registry.npmjs.org/@angular/http/-/http-4.3.1.tgz
+749 silly resolveWithNewModule @angular/core@4.3.1 checking installable status
+750 silly cache add args [ '@angular/core@4.3.1', null ]
+751 verbose cache add spec @angular/core@4.3.1
+752 silly cache add parsed spec Result {
+752 silly cache add   raw: '@angular/core@4.3.1',
+752 silly cache add   scope: '@angular',
+752 silly cache add   escapedName: '@angular%2fcore',
+752 silly cache add   name: '@angular/core',
+752 silly cache add   rawSpec: '4.3.1',
+752 silly cache add   spec: '4.3.1',
+752 silly cache add   type: 'version' }
+753 silly addNamed @angular/core@4.3.1
+754 verbose addNamed "4.3.1" is a plain semver version for @angular/core
+755 silly mapToRegistry name @angular/core
+756 silly mapToRegistry scope (from package name) @angular
+757 verbose mapToRegistry no registry URL found in name for scope @angular
+758 silly mapToRegistry using default registry
+759 silly mapToRegistry registry https://registry.npmjs.org/
+760 silly mapToRegistry data Result {
+760 silly mapToRegistry   raw: '@angular/core',
+760 silly mapToRegistry   scope: '@angular',
+760 silly mapToRegistry   escapedName: '@angular%2fcore',
+760 silly mapToRegistry   name: '@angular/core',
+760 silly mapToRegistry   rawSpec: '',
+760 silly mapToRegistry   spec: 'latest',
+760 silly mapToRegistry   type: 'tag' }
+761 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fcore
+762 verbose addNameVersion registry:https://registry.npmjs.org/@angular%2fcore not in flight; fetching
+763 verbose get https://registry.npmjs.org/@angular%2fcompiler not expired, no request
+764 silly mapToRegistry name @angular/compiler
+765 silly mapToRegistry scope (from package name) @angular
+766 verbose mapToRegistry no registry URL found in name for scope @angular
+767 silly mapToRegistry using default registry
+768 silly mapToRegistry registry https://registry.npmjs.org/
+769 silly mapToRegistry data Result {
+769 silly mapToRegistry   raw: '@angular/compiler',
+769 silly mapToRegistry   scope: '@angular',
+769 silly mapToRegistry   escapedName: '@angular%2fcompiler',
+769 silly mapToRegistry   name: '@angular/compiler',
+769 silly mapToRegistry   rawSpec: '',
+769 silly mapToRegistry   spec: 'latest',
+769 silly mapToRegistry   type: 'tag' }
+770 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fcompiler
+771 verbose addRemoteTarball https://registry.npmjs.org/@angular/compiler/-/compiler-4.3.1.tgz not in flight; adding
+772 verbose addRemoteTarball [ 'https://registry.npmjs.org/@angular/compiler/-/compiler-4.3.1.tgz',
+772 verbose addRemoteTarball   '3a24d49ecf01ac2b6e07f63e378b8ff8e257fe09' ]
+773 verbose get https://registry.npmjs.org/@angular%2fcore not expired, no request
+774 silly mapToRegistry name @angular/core
+775 silly mapToRegistry scope (from package name) @angular
+776 verbose mapToRegistry no registry URL found in name for scope @angular
+777 silly mapToRegistry using default registry
+778 silly mapToRegistry registry https://registry.npmjs.org/
+779 silly mapToRegistry data Result {
+779 silly mapToRegistry   raw: '@angular/core',
+779 silly mapToRegistry   scope: '@angular',
+779 silly mapToRegistry   escapedName: '@angular%2fcore',
+779 silly mapToRegistry   name: '@angular/core',
+779 silly mapToRegistry   rawSpec: '',
+779 silly mapToRegistry   spec: 'latest',
+779 silly mapToRegistry   type: 'tag' }
+780 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fcore
+781 verbose addRemoteTarball https://registry.npmjs.org/@angular/core/-/core-4.3.1.tgz not in flight; adding
+782 verbose addRemoteTarball [ 'https://registry.npmjs.org/@angular/core/-/core-4.3.1.tgz',
+782 verbose addRemoteTarball   'a9d0a7d644b96260674269b689a04feea632a8d3' ]
+783 info retry fetch attempt 1 at 18:24:31
+784 info attempt registry request try #1 at 18:24:31
+785 http fetch GET https://registry.npmjs.org/@angular/compiler/-/compiler-4.3.1.tgz
+786 info retry fetch attempt 1 at 18:24:31
+787 info attempt registry request try #1 at 18:24:31
+788 http fetch GET https://registry.npmjs.org/@angular/core/-/core-4.3.1.tgz
+789 verbose mirrorRemote git+https://github.com/CasperTech/angular2-datatable-pagination.git git clone https://github.com/CasperTech/angular2-datatable-pagination.git
+790 verbose setPermissions git+https://github.com/CasperTech/angular2-datatable-pagination.git skipping chownr on Windows
+791 verbose resolveHead git+https://github.com/CasperTech/angular2-datatable-pagination.git original treeish: master
+792 info git [ 'rev-list', '-n1', 'master' ]
+793 silly resolveHead git+https://github.com/CasperTech/angular2-datatable-pagination.git resolved treeish: c19dbccb739bb9c90e8ea0ecb29ac538116e95f4
+794 verbose resolveHead git+https://github.com/CasperTech/angular2-datatable-pagination.git resolved Git URL: git+https://github.com/CasperTech/angular2-datatable-pagination.git#c19dbccb739bb9c90e8ea0ecb29ac538116e95f4
+795 silly resolveHead Git working directory: C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\git-cache-069de432\c19dbccb739bb9c90e8ea0ecb29ac538116e95f4
+796 info git [ 'clone',
+796 info git   'C:\\Users\\ramir\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-https-github-com-CasperTech-angular2-datatable-pagination-git-511d7988',
+796 info git   'C:\\Users\\ramir\\AppData\\Local\\Temp\\npm-2196-cd05c71d\\git-cache-069de432\\c19dbccb739bb9c90e8ea0ecb29ac538116e95f4' ]
+797 http 200 https://registry.npmjs.org/googleapis
+798 verbose headers { server: 'nginx/1.10.1',
+798 verbose headers   'content-type': 'application/json',
+798 verbose headers   'last-modified': 'Mon, 09 Oct 2017 08:37:14 GMT',
+798 verbose headers   etag: 'W/"59db353a-3e65b"',
+798 verbose headers   'content-encoding': 'gzip',
+798 verbose headers   'cache-control': 'max-age=300',
+798 verbose headers   'content-length': '23446',
+798 verbose headers   'accept-ranges': 'bytes',
+798 verbose headers   date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+798 verbose headers   via: '1.1 varnish',
+798 verbose headers   age: '0',
+798 verbose headers   connection: 'keep-alive',
+798 verbose headers   'x-served-by': 'cache-gig17034-GIG',
+798 verbose headers   'x-cache': 'MISS',
+798 verbose headers   'x-cache-hits': '0',
+798 verbose headers   'x-timer': 'S1507760643.037960,VS0,VE388',
+798 verbose headers   vary: 'Accept-Encoding, Accept' }
+799 silly get cb [ 200,
+799 silly get   { server: 'nginx/1.10.1',
+799 silly get     'content-type': 'application/json',
+799 silly get     'last-modified': 'Mon, 09 Oct 2017 08:37:14 GMT',
+799 silly get     etag: 'W/"59db353a-3e65b"',
+799 silly get     'content-encoding': 'gzip',
+799 silly get     'cache-control': 'max-age=300',
+799 silly get     'content-length': '23446',
+799 silly get     'accept-ranges': 'bytes',
+799 silly get     date: 'Wed, 11 Oct 2017 22:24:03 GMT',
+799 silly get     via: '1.1 varnish',
+799 silly get     age: '0',
+799 silly get     connection: 'keep-alive',
+799 silly get     'x-served-by': 'cache-gig17034-GIG',
+799 silly get     'x-cache': 'MISS',
+799 silly get     'x-cache-hits': '0',
+799 silly get     'x-timer': 'S1507760643.037960,VS0,VE388',
+799 silly get     vary: 'Accept-Encoding, Accept' } ]
+800 verbose get saving googleapis to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\googleapis\.cache.json
+801 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+802 silly resolveWithNewModule googleapis@19.0.0 checking installable status
+803 silly cache add args [ 'googleapis@19.0.0', null ]
+804 verbose cache add spec googleapis@19.0.0
+805 silly cache add parsed spec Result {
+805 silly cache add   raw: 'googleapis@19.0.0',
+805 silly cache add   scope: null,
+805 silly cache add   escapedName: 'googleapis',
+805 silly cache add   name: 'googleapis',
+805 silly cache add   rawSpec: '19.0.0',
+805 silly cache add   spec: '19.0.0',
+805 silly cache add   type: 'version' }
+806 silly addNamed googleapis@19.0.0
+807 verbose addNamed "19.0.0" is a plain semver version for googleapis
+808 silly mapToRegistry name googleapis
+809 silly mapToRegistry using default registry
+810 silly mapToRegistry registry https://registry.npmjs.org/
+811 silly mapToRegistry data Result {
+811 silly mapToRegistry   raw: 'googleapis',
+811 silly mapToRegistry   scope: null,
+811 silly mapToRegistry   escapedName: 'googleapis',
+811 silly mapToRegistry   name: 'googleapis',
+811 silly mapToRegistry   rawSpec: '',
+811 silly mapToRegistry   spec: 'latest',
+811 silly mapToRegistry   type: 'tag' }
+812 silly mapToRegistry uri https://registry.npmjs.org/googleapis
+813 verbose addNameVersion registry:https://registry.npmjs.org/googleapis not in flight; fetching
+814 verbose get https://registry.npmjs.org/googleapis not expired, no request
+815 silly mapToRegistry name googleapis
+816 silly mapToRegistry using default registry
+817 silly mapToRegistry registry https://registry.npmjs.org/
+818 silly mapToRegistry data Result {
+818 silly mapToRegistry   raw: 'googleapis',
+818 silly mapToRegistry   scope: null,
+818 silly mapToRegistry   escapedName: 'googleapis',
+818 silly mapToRegistry   name: 'googleapis',
+818 silly mapToRegistry   rawSpec: '',
+818 silly mapToRegistry   spec: 'latest',
+818 silly mapToRegistry   type: 'tag' }
+819 silly mapToRegistry uri https://registry.npmjs.org/googleapis
+820 verbose addRemoteTarball https://registry.npmjs.org/googleapis/-/googleapis-19.0.0.tgz not in flight; adding
+821 verbose addRemoteTarball [ 'https://registry.npmjs.org/googleapis/-/googleapis-19.0.0.tgz',
+821 verbose addRemoteTarball   '8700eb14294777e0c196152051fd6367061dde85' ]
+822 info retry fetch attempt 1 at 18:24:31
+823 info attempt registry request try #1 at 18:24:31
+824 http fetch GET https://registry.npmjs.org/googleapis/-/googleapis-19.0.0.tgz
+825 http fetch 200 https://registry.npmjs.org/bootstrap-material-design/-/bootstrap-material-design-0.5.10.tgz
+826 http fetch 200 https://registry.npmjs.org/chartist/-/chartist-0.11.0.tgz
+827 http fetch 200 https://registry.npmjs.org/jquery/-/jquery-3.2.1.tgz
+828 http 200 https://registry.npmjs.org/@angular%2fanimations
+829 verbose headers { 'content-type': 'application/json',
+829 verbose headers   server: 'nginx/1.10.3',
+829 verbose headers   'last-modified': 'Tue, 10 Oct 2017 06:38:07 GMT',
+829 verbose headers   etag: 'W/"59dc6acf-11aae"',
+829 verbose headers   'content-encoding': 'gzip',
+829 verbose headers   'cache-control': 'max-age=0',
+829 verbose headers   'transfer-encoding': 'chunked',
+829 verbose headers   'accept-ranges': 'bytes',
+829 verbose headers   date: 'Wed, 11 Oct 2017 22:24:05 GMT',
+829 verbose headers   via: '1.1 varnish',
+829 verbose headers   age: '0',
+829 verbose headers   connection: 'keep-alive',
+829 verbose headers   'x-served-by': 'cache-gig17026-GIG',
+829 verbose headers   'x-cache': 'MISS',
+829 verbose headers   'x-cache-hits': '0',
+829 verbose headers   'x-timer': 'S1507760645.549659,VS0,VE842',
+829 verbose headers   vary: 'Accept-Encoding' }
+830 silly get cb [ 200,
+830 silly get   { 'content-type': 'application/json',
+830 silly get     server: 'nginx/1.10.3',
+830 silly get     'last-modified': 'Tue, 10 Oct 2017 06:38:07 GMT',
+830 silly get     etag: 'W/"59dc6acf-11aae"',
+830 silly get     'content-encoding': 'gzip',
+830 silly get     'cache-control': 'max-age=0',
+830 silly get     'transfer-encoding': 'chunked',
+830 silly get     'accept-ranges': 'bytes',
+830 silly get     date: 'Wed, 11 Oct 2017 22:24:05 GMT',
+830 silly get     via: '1.1 varnish',
+830 silly get     age: '0',
+830 silly get     connection: 'keep-alive',
+830 silly get     'x-served-by': 'cache-gig17026-GIG',
+830 silly get     'x-cache': 'MISS',
+830 silly get     'x-cache-hits': '0',
+830 silly get     'x-timer': 'S1507760645.549659,VS0,VE842',
+830 silly get     vary: 'Accept-Encoding' } ]
+831 verbose get saving @angular/animations to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\_40angular_252fanimations\.cache.json
+832 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+833 silly resolveWithNewModule @angular/animations@4.4.4 checking installable status
+834 silly cache add args [ '@angular/animations@^4.4.4', null ]
+835 verbose cache add spec @angular/animations@^4.4.4
+836 silly cache add parsed spec Result {
+836 silly cache add   raw: '@angular/animations@^4.4.4',
+836 silly cache add   scope: '@angular',
+836 silly cache add   escapedName: '@angular%2fanimations',
+836 silly cache add   name: '@angular/animations',
+836 silly cache add   rawSpec: '^4.4.4',
+836 silly cache add   spec: '>=4.4.4 <5.0.0',
+836 silly cache add   type: 'range' }
+837 silly addNamed @angular/animations@>=4.4.4 <5.0.0
+838 verbose addNamed ">=4.4.4 <5.0.0" is a valid semver range for @angular/animations
+839 silly addNameRange { name: '@angular/animations',
+839 silly addNameRange   range: '>=4.4.4 <5.0.0',
+839 silly addNameRange   hasData: false }
+840 silly mapToRegistry name @angular/animations
+841 silly mapToRegistry scope (from package name) @angular
+842 verbose mapToRegistry no registry URL found in name for scope @angular
+843 silly mapToRegistry using default registry
+844 silly mapToRegistry registry https://registry.npmjs.org/
+845 silly mapToRegistry data Result {
+845 silly mapToRegistry   raw: '@angular/animations',
+845 silly mapToRegistry   scope: '@angular',
+845 silly mapToRegistry   escapedName: '@angular%2fanimations',
+845 silly mapToRegistry   name: '@angular/animations',
+845 silly mapToRegistry   rawSpec: '',
+845 silly mapToRegistry   spec: 'latest',
+845 silly mapToRegistry   type: 'tag' }
+846 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fanimations
+847 verbose addNameRange registry:https://registry.npmjs.org/@angular%2fanimations not in flight; fetching
+848 verbose get https://registry.npmjs.org/@angular%2fanimations not expired, no request
+849 silly addNameRange number 2 { name: '@angular/animations',
+849 silly addNameRange   range: '>=4.4.4 <5.0.0',
+849 silly addNameRange   hasData: true }
+850 silly addNameRange versions [ '@angular/animations',
+850 silly addNameRange   [ '4.0.0-rc.0',
+850 silly addNameRange     '4.0.0-rc.1',
+850 silly addNameRange     '4.0.0-rc.2',
+850 silly addNameRange     '4.0.0-rc.3',
+850 silly addNameRange     '4.0.0-rc.4',
+850 silly addNameRange     '4.0.0-rc.5',
+850 silly addNameRange     '4.0.0-rc.6',
+850 silly addNameRange     '4.0.0',
+850 silly addNameRange     '4.0.1',
+850 silly addNameRange     '4.1.0-beta.0',
+850 silly addNameRange     '4.0.2',
+850 silly addNameRange     '4.1.0-beta.1',
+850 silly addNameRange     '4.0.3',
+850 silly addNameRange     '4.1.0-rc.0',
+850 silly addNameRange     '4.1.0',
+850 silly addNameRange     '4.1.1',
+850 silly addNameRange     '4.2.0-beta.0',
+850 silly addNameRange     '4.1.2',
+850 silly addNameRange     '4.2.0-beta.1',
+850 silly addNameRange     '4.1.3',
+850 silly addNameRange     '4.2.0-rc.0',
+850 silly addNameRange     '4.2.0-rc.1',
+850 silly addNameRange     '4.2.0-rc.2',
+850 silly addNameRange     '4.2.0',
+850 silly addNameRange     '4.2.1',
+850 silly addNameRange     '4.2.2',
+850 silly addNameRange     '4.2.3',
+850 silly addNameRange     '4.2.4',
+850 silly addNameRange     '4.3.0-beta.0',
+850 silly addNameRange     '4.3.0-beta.1',
+850 silly addNameRange     '4.2.5',
+850 silly addNameRange     '4.2.6',
+850 silly addNameRange     '4.3.0-rc.0',
+850 silly addNameRange     '4.3.0',
+850 silly addNameRange     '4.3.1',
+850 silly addNameRange     '5.0.0-beta.0',
+850 silly addNameRange     '4.3.2',
+850 silly addNameRange     '5.0.0-beta.1',
+850 silly addNameRange     '4.3.3',
+850 silly addNameRange     '5.0.0-beta.2',
+850 silly addNameRange     '5.0.0-beta.3',
+850 silly addNameRange     '4.3.4',
+850 silly addNameRange     '4.3.5',
+850 silly addNameRange     '5.0.0-beta.4',
+850 silly addNameRange     '4.3.6',
+850 silly addNameRange     '5.0.0-beta.5',
+850 silly addNameRange     '4.4.0-RC.0',
+850 silly addNameRange     '5.0.0-beta.6',
+850 silly addNameRange     '5.0.0-beta.7',
+850 silly addNameRange     '4.4.1',
+850 silly addNameRange     '4.4.2',
+850 silly addNameRange     '4.4.3',
+850 silly addNameRange     '4.4.4',
+850 silly addNameRange     '5.0.0-rc.0',
+850 silly addNameRange     '5.0.0-rc.1' ] ]
+851 silly addNamed @angular/animations@4.4.4
+852 verbose addNamed "4.4.4" is a plain semver version for @angular/animations
+853 silly mapToRegistry name @angular/animations
+854 silly mapToRegistry scope (from package name) @angular
+855 verbose mapToRegistry no registry URL found in name for scope @angular
+856 silly mapToRegistry using default registry
+857 silly mapToRegistry registry https://registry.npmjs.org/
+858 silly mapToRegistry data Result {
+858 silly mapToRegistry   raw: '@angular/animations',
+858 silly mapToRegistry   scope: '@angular',
+858 silly mapToRegistry   escapedName: '@angular%2fanimations',
+858 silly mapToRegistry   name: '@angular/animations',
+858 silly mapToRegistry   rawSpec: '',
+858 silly mapToRegistry   spec: 'latest',
+858 silly mapToRegistry   type: 'tag' }
+859 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fanimations
+860 verbose addRemoteTarball https://registry.npmjs.org/@angular/animations/-/animations-4.4.4.tgz not in flight; adding
+861 verbose addRemoteTarball [ 'https://registry.npmjs.org/@angular/animations/-/animations-4.4.4.tgz',
+861 verbose addRemoteTarball   'a2f9353604347abe15df98292058842f52f08bc2' ]
+862 info retry fetch attempt 1 at 18:24:32
+863 info attempt registry request try #1 at 18:24:32
+864 http fetch GET https://registry.npmjs.org/@angular/animations/-/animations-4.4.4.tgz
+865 http fetch 200 https://registry.npmjs.org/googleapis/-/googleapis-19.0.0.tgz
+866 verbose cloneResolved git+https://github.com/CasperTech/angular2-datatable-pagination.git clone Cloning into 'C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\git-cache-069de432\c19dbccb739bb9c90e8ea0ecb29ac538116e95f4'...
+866 verbose cloneResolved done.
+867 info git [ 'checkout', 'c19dbccb739bb9c90e8ea0ecb29ac538116e95f4' ]
+868 verbose checkoutTreeish git+https://github.com/CasperTech/angular2-datatable-pagination.git checkout Note: checking out 'c19dbccb739bb9c90e8ea0ecb29ac538116e95f4'.
+868 verbose checkoutTreeish
+868 verbose checkoutTreeish You are in 'detached HEAD' state. You can look around, make experimental
+868 verbose checkoutTreeish changes and commit them, and you can discard any commits you make in this
+868 verbose checkoutTreeish state without impacting any branches by performing another checkout.
+868 verbose checkoutTreeish
+868 verbose checkoutTreeish If you want to create a new branch to retain commits you create, you may
+868 verbose checkoutTreeish do so (now or later) by using -b with the checkout command again. Example:
+868 verbose checkoutTreeish
+868 verbose checkoutTreeish   git checkout -b <new-branch-name>
+868 verbose checkoutTreeish
+868 verbose checkoutTreeish HEAD is now at c19dbcc... Bump angular dependencies to 4.0
+869 info git [ 'submodule', '-q', 'update', '--init', '--recursive' ]
+870 http fetch 200 https://registry.npmjs.org/@angular/animations/-/animations-4.4.4.tgz
+871 http fetch 200 https://registry.npmjs.org/@angular/compiler/-/compiler-4.3.1.tgz
+872 http fetch 200 https://registry.npmjs.org/@angular/http/-/http-4.3.1.tgz
+873 http fetch 200 https://registry.npmjs.org/@angular/core/-/core-4.3.1.tgz
+874 silly fetchAndShaCheck shasum cc40ae5a1c879601c5ebba2096b5c80f0c4c3602
+875 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\zone.js\-\zone.js-0.8.4.tgz not in flight; adding
+876 verbose addTmpTarball already have metadata; skipping unpack for zone.js@0.8.4
+877 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+878 silly cache afterAdd zone.js@0.8.4
+879 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\zone.js\0.8.4\package\package.json not in flight; writing
+880 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+881 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\zone.js\0.8.4\package\package.json written
+882 http fetch 200 https://registry.npmjs.org/@angular/platform-browser-dynamic/-/platform-browser-dynamic-4.3.1.tgz
+883 verbose updateSubmodules git+https://github.com/CasperTech/angular2-datatable-pagination.git submodule update
+884 verbose addLocalDirectory C:\Users\ramir\AppData\Roaming\npm-cache\angular2-datatable-pagination\0.0.2\package.tgz not in flight; packing
+885 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+886 verbose tar pack [ 'C:\\Users\\ramir\\AppData\\Roaming\\npm-cache\\angular2-datatable-pagination\\0.0.2\\package.tgz',
+886 verbose tar pack   'C:\\Users\\ramir\\AppData\\Local\\Temp\\npm-2196-cd05c71d\\git-cache-069de432\\c19dbccb739bb9c90e8ea0ecb29ac538116e95f4' ]
+887 verbose tarball C:\Users\ramir\AppData\Roaming\npm-cache\angular2-datatable-pagination\0.0.2\package.tgz
+888 verbose folder C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\git-cache-069de432\c19dbccb739bb9c90e8ea0ecb29ac538116e95f4
+889 verbose addLocalTarball adding from inside cache C:\Users\ramir\AppData\Roaming\npm-cache\angular2-datatable-pagination\0.0.2\package.tgz
+890 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+891 verbose addRemoteGit data._from: git+https://github.com/CasperTech/angular2-datatable-pagination.git
+892 verbose addRemoteGit data._resolved: git+https://github.com/CasperTech/angular2-datatable-pagination.git#c19dbccb739bb9c90e8ea0ecb29ac538116e95f4
+893 silly cache afterAdd angular2-datatable-pagination@0.0.2
+894 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\angular2-datatable-pagination\0.0.2\package\package.json not in flight; writing
+895 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+896 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\angular2-datatable-pagination\0.0.2\package\package.json written
+897 silly resolveWithNewModule angular2-datatable-pagination@0.0.2 checking installable status
+898 silly fetchAndShaCheck shasum 564c87f20bc09b80de781124d9431695004b8020
+899 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\arrive\-\arrive-2.4.1.tgz not in flight; adding
+900 verbose addTmpTarball already have metadata; skipping unpack for arrive@2.4.1
+901 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+902 silly cache afterAdd arrive@2.4.1
+903 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\arrive\2.4.1\package\package.json not in flight; writing
+904 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+905 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\arrive\2.4.1\package\package.json written
+906 silly fetchAndShaCheck shasum 84034da60a82ef36e7effda7b3ade6e645b330b3
+907 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\_40angular\platform-browser-dynamic\-\platform-browser-dynamic-4.3.1.tgz not in flight; adding
+908 verbose addTmpTarball already have metadata; skipping unpack for @angular/platform-browser-dynamic@4.3.1
+909 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+910 silly cache afterAdd @angular/platform-browser-dynamic@4.3.1
+911 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\platform-browser-dynamic\4.3.1\package\package.json not in flight; writing
+912 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+913 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\platform-browser-dynamic\4.3.1\package\package.json written
+914 http 200 https://registry.npmjs.org/@angular%2frouter
+915 verbose headers { 'content-type': 'application/json',
+915 verbose headers   server: 'nginx/1.10.3',
+915 verbose headers   'last-modified': 'Fri, 06 Oct 2017 01:26:05 GMT',
+915 verbose headers   etag: 'W/"59d6dbad-2b316"',
+915 verbose headers   'content-encoding': 'gzip',
+915 verbose headers   'cache-control': 'max-age=0',
+915 verbose headers   'transfer-encoding': 'chunked',
+915 verbose headers   'accept-ranges': 'bytes',
+915 verbose headers   date: 'Wed, 11 Oct 2017 22:24:08 GMT',
+915 verbose headers   via: '1.1 varnish',
+915 verbose headers   age: '0',
+915 verbose headers   connection: 'keep-alive',
+915 verbose headers   'x-served-by': 'cache-gig17022-GIG',
+915 verbose headers   'x-cache': 'MISS',
+915 verbose headers   'x-cache-hits': '0',
+915 verbose headers   'x-timer': 'S1507760647.393175,VS0,VE956',
+915 verbose headers   vary: 'Accept-Encoding' }
+916 silly get cb [ 200,
+916 silly get   { 'content-type': 'application/json',
+916 silly get     server: 'nginx/1.10.3',
+916 silly get     'last-modified': 'Fri, 06 Oct 2017 01:26:05 GMT',
+916 silly get     etag: 'W/"59d6dbad-2b316"',
+916 silly get     'content-encoding': 'gzip',
+916 silly get     'cache-control': 'max-age=0',
+916 silly get     'transfer-encoding': 'chunked',
+916 silly get     'accept-ranges': 'bytes',
+916 silly get     date: 'Wed, 11 Oct 2017 22:24:08 GMT',
+916 silly get     via: '1.1 varnish',
+916 silly get     age: '0',
+916 silly get     connection: 'keep-alive',
+916 silly get     'x-served-by': 'cache-gig17022-GIG',
+916 silly get     'x-cache': 'MISS',
+916 silly get     'x-cache-hits': '0',
+916 silly get     'x-timer': 'S1507760647.393175,VS0,VE956',
+916 silly get     vary: 'Accept-Encoding' } ]
+917 verbose get saving @angular/router to C:\Users\ramir\AppData\Roaming\npm-cache\registry.npmjs.org\_40angular_252frouter\.cache.json
+918 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+919 silly resolveWithNewModule @angular/router@4.3.1 checking installable status
+920 silly cache add args [ '@angular/router@4.3.1', null ]
+921 verbose cache add spec @angular/router@4.3.1
+922 silly cache add parsed spec Result {
+922 silly cache add   raw: '@angular/router@4.3.1',
+922 silly cache add   scope: '@angular',
+922 silly cache add   escapedName: '@angular%2frouter',
+922 silly cache add   name: '@angular/router',
+922 silly cache add   rawSpec: '4.3.1',
+922 silly cache add   spec: '4.3.1',
+922 silly cache add   type: 'version' }
+923 silly addNamed @angular/router@4.3.1
+924 verbose addNamed "4.3.1" is a plain semver version for @angular/router
+925 silly mapToRegistry name @angular/router
+926 silly mapToRegistry scope (from package name) @angular
+927 verbose mapToRegistry no registry URL found in name for scope @angular
+928 silly mapToRegistry using default registry
+929 silly mapToRegistry registry https://registry.npmjs.org/
+930 silly mapToRegistry data Result {
+930 silly mapToRegistry   raw: '@angular/router',
+930 silly mapToRegistry   scope: '@angular',
+930 silly mapToRegistry   escapedName: '@angular%2frouter',
+930 silly mapToRegistry   name: '@angular/router',
+930 silly mapToRegistry   rawSpec: '',
+930 silly mapToRegistry   spec: 'latest',
+930 silly mapToRegistry   type: 'tag' }
+931 silly mapToRegistry uri https://registry.npmjs.org/@angular%2frouter
+932 verbose addNameVersion registry:https://registry.npmjs.org/@angular%2frouter not in flight; fetching
+933 verbose get https://registry.npmjs.org/@angular%2frouter not expired, no request
+934 silly mapToRegistry name @angular/router
+935 silly mapToRegistry scope (from package name) @angular
+936 verbose mapToRegistry no registry URL found in name for scope @angular
+937 silly mapToRegistry using default registry
+938 silly mapToRegistry registry https://registry.npmjs.org/
+939 silly mapToRegistry data Result {
+939 silly mapToRegistry   raw: '@angular/router',
+939 silly mapToRegistry   scope: '@angular',
+939 silly mapToRegistry   escapedName: '@angular%2frouter',
+939 silly mapToRegistry   name: '@angular/router',
+939 silly mapToRegistry   rawSpec: '',
+939 silly mapToRegistry   spec: 'latest',
+939 silly mapToRegistry   type: 'tag' }
+940 silly mapToRegistry uri https://registry.npmjs.org/@angular%2frouter
+941 verbose addRemoteTarball https://registry.npmjs.org/@angular/router/-/router-4.3.1.tgz not in flight; adding
+942 verbose addRemoteTarball [ 'https://registry.npmjs.org/@angular/router/-/router-4.3.1.tgz',
+942 verbose addRemoteTarball   '5219d44526156d816065841127610165a015b450' ]
+943 info retry fetch attempt 1 at 18:24:46
+944 info attempt registry request try #1 at 18:24:46
+945 http fetch GET https://registry.npmjs.org/@angular/router/-/router-4.3.1.tgz
+946 http fetch 200 https://registry.npmjs.org/@angular/router/-/router-4.3.1.tgz
+947 silly fetchAndShaCheck shasum db727b06eed64bda5defec71815db26a4da2f690
+948 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\_40angular\platform-browser\-\platform-browser-4.3.1.tgz not in flight; adding
+949 verbose addTmpTarball already have metadata; skipping unpack for @angular/platform-browser@4.3.1
+950 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+951 silly cache afterAdd @angular/platform-browser@4.3.1
+952 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\platform-browser\4.3.1\package\package.json not in flight; writing
+953 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+954 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\platform-browser\4.3.1\package\package.json written
+955 silly fetchAndShaCheck shasum e4f661f746711e88ecbea76a3c905babf97d315a
+956 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\_40angular\http\-\http-4.3.1.tgz not in flight; adding
+957 verbose addTmpTarball already have metadata; skipping unpack for @angular/http@4.3.1
+958 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+959 silly cache afterAdd @angular/http@4.3.1
+960 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\http\4.3.1\package\package.json not in flight; writing
+961 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+962 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\http\4.3.1\package\package.json written
+963 silly fetchAndShaCheck shasum c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f
+964 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\moment\-\moment-2.18.1.tgz not in flight; adding
+965 verbose addTmpTarball already have metadata; skipping unpack for moment@2.18.1
+966 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+967 silly cache afterAdd moment@2.18.1
+968 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\moment\2.18.1\package\package.json not in flight; writing
+969 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+970 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\moment\2.18.1\package\package.json written
+971 silly fetchAndShaCheck shasum 84ba5e05490d096d93dcfa9343ebc31ef6a3bd28
+972 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\chartist\-\chartist-0.11.0.tgz not in flight; adding
+973 verbose addTmpTarball already have metadata; skipping unpack for chartist@0.11.0
+974 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+975 silly cache afterAdd chartist@0.11.0
+976 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\chartist\0.11.0\package\package.json not in flight; writing
+977 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+978 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\chartist\0.11.0\package\package.json written
+979 silly fetchAndShaCheck shasum 260f487a7cdca326c436bd3ea9515c797de2ff72
+980 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\_40angular\common\-\common-4.3.1.tgz not in flight; adding
+981 verbose addTmpTarball already have metadata; skipping unpack for @angular/common@4.3.1
+982 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+983 silly cache afterAdd @angular/common@4.3.1
+984 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\common\4.3.1\package\package.json not in flight; writing
+985 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+986 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\common\4.3.1\package\package.json written
+987 silly fetchAndShaCheck shasum 5c4d9de652af6cd0a770154a631bba12b015c787
+988 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\jquery\-\jquery-3.2.1.tgz not in flight; adding
+989 verbose addTmpTarball already have metadata; skipping unpack for jquery@3.2.1
+990 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+991 silly cache afterAdd jquery@3.2.1
+992 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\jquery\3.2.1\package\package.json not in flight; writing
+993 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+994 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\jquery\3.2.1\package\package.json written
+995 silly fetchAndShaCheck shasum 33914da2cb146430ff901471e682c76654622dfe
+996 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\_40angular\forms\-\forms-4.3.1.tgz not in flight; adding
+997 verbose addTmpTarball already have metadata; skipping unpack for @angular/forms@4.3.1
+998 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+999 silly cache afterAdd @angular/forms@4.3.1
+1000 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\forms\4.3.1\package\package.json not in flight; writing
+1001 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1002 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\forms\4.3.1\package\package.json written
+1003 silly fetchAndShaCheck shasum 0aa9018b7f440b505fa42bd742b6738be550e720
+1004 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\rxjs\-\rxjs-5.1.0.tgz not in flight; adding
+1005 verbose addTmpTarball already have metadata; skipping unpack for rxjs@5.1.0
+1006 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1007 silly cache afterAdd rxjs@5.1.0
+1008 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\rxjs\5.1.0\package\package.json not in flight; writing
+1009 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1010 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\rxjs\5.1.0\package\package.json written
+1011 silly fetchAndShaCheck shasum 5219d44526156d816065841127610165a015b450
+1012 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\_40angular\router\-\router-4.3.1.tgz not in flight; adding
+1013 verbose addTmpTarball already have metadata; skipping unpack for @angular/router@4.3.1
+1014 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1015 silly cache afterAdd @angular/router@4.3.1
+1016 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\router\4.3.1\package\package.json not in flight; writing
+1017 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1018 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\router\4.3.1\package\package.json written
+1019 silly fetchAndShaCheck shasum a2f9353604347abe15df98292058842f52f08bc2
+1020 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\_40angular\animations\-\animations-4.4.4.tgz not in flight; adding
+1021 verbose addTmpTarball already have metadata; skipping unpack for @angular/animations@4.4.4
+1022 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1023 silly cache afterAdd @angular/animations@4.4.4
+1024 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\animations\4.4.4\package\package.json not in flight; writing
+1025 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1026 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\animations\4.4.4\package\package.json written
+1027 silly fetchAndShaCheck shasum 5a389394549f23330875a3b150656574f8a9eb71
+1028 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\bootstrap\-\bootstrap-3.3.7.tgz not in flight; adding
+1029 verbose addTmpTarball already have metadata; skipping unpack for bootstrap@3.3.7
+1030 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1031 silly cache afterAdd bootstrap@3.3.7
+1032 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\bootstrap\3.3.7\package\package.json not in flight; writing
+1033 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1034 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\bootstrap\3.3.7\package\package.json written
+1035 silly fetchAndShaCheck shasum a9d0a7d644b96260674269b689a04feea632a8d3
+1036 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\_40angular\core\-\core-4.3.1.tgz not in flight; adding
+1037 verbose addTmpTarball already have metadata; skipping unpack for @angular/core@4.3.1
+1038 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1039 silly cache afterAdd @angular/core@4.3.1
+1040 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\core\4.3.1\package\package.json not in flight; writing
+1041 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1042 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\core\4.3.1\package\package.json written
+1043 silly fetchAndShaCheck shasum 8700eb14294777e0c196152051fd6367061dde85
+1044 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\googleapis\-\googleapis-19.0.0.tgz not in flight; adding
+1045 verbose addTmpTarball already have metadata; skipping unpack for googleapis@19.0.0
+1046 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1047 silly cache afterAdd googleapis@19.0.0
+1048 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\googleapis\19.0.0\package\package.json not in flight; writing
+1049 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1050 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\googleapis\19.0.0\package\package.json written
+1051 silly fetchAndShaCheck shasum b36b0035b528a821c1758695b25d25e25e121372
+1052 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\bootstrap-material-design\-\bootstrap-material-design-0.5.10.tgz not in flight; adding
+1053 verbose addTmpTarball already have metadata; skipping unpack for bootstrap-material-design@0.5.10
+1054 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1055 silly cache afterAdd bootstrap-material-design@0.5.10
+1056 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\bootstrap-material-design\0.5.10\package\package.json not in flight; writing
+1057 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1058 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\bootstrap-material-design\0.5.10\package\package.json written
+1059 verbose mirrorRemote angular/cdk-builds git clone git://github.com/angular/cdk-builds.git
+1060 verbose setPermissions angular/cdk-builds skipping chownr on Windows
+1061 verbose resolveHead angular/cdk-builds original treeish: master
+1062 info git [ 'rev-list', '-n1', 'master' ]
+1063 silly resolveHead angular/cdk-builds resolved treeish: 51addcedcbc36ca0b9aae05a1c72538ba5eb1c89
+1064 verbose resolveHead angular/cdk-builds resolved Git URL: git://github.com/angular/cdk-builds.git#51addcedcbc36ca0b9aae05a1c72538ba5eb1c89
+1065 silly resolveHead Git working directory: C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\git-cache-1a2a3cd8\51addcedcbc36ca0b9aae05a1c72538ba5eb1c89
+1066 info git [ 'clone',
+1066 info git   'C:\\Users\\ramir\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-github-com-angular-cdk-builds-git-79fe8880',
+1066 info git   'C:\\Users\\ramir\\AppData\\Local\\Temp\\npm-2196-cd05c71d\\git-cache-1a2a3cd8\\51addcedcbc36ca0b9aae05a1c72538ba5eb1c89' ]
+1067 verbose cloneResolved angular/cdk-builds clone Cloning into 'C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\git-cache-1a2a3cd8\51addcedcbc36ca0b9aae05a1c72538ba5eb1c89'...
+1067 verbose cloneResolved done.
+1068 info git [ 'checkout', '51addcedcbc36ca0b9aae05a1c72538ba5eb1c89' ]
+1069 verbose checkoutTreeish angular/cdk-builds checkout Note: checking out '51addcedcbc36ca0b9aae05a1c72538ba5eb1c89'.
+1069 verbose checkoutTreeish
+1069 verbose checkoutTreeish You are in 'detached HEAD' state. You can look around, make experimental
+1069 verbose checkoutTreeish changes and commit them, and you can discard any commits you make in this
+1069 verbose checkoutTreeish state without impacting any branches by performing another checkout.
+1069 verbose checkoutTreeish
+1069 verbose checkoutTreeish If you want to create a new branch to retain commits you create, you may
+1069 verbose checkoutTreeish do so (now or later) by using -b with the checkout command again. Example:
+1069 verbose checkoutTreeish
+1069 verbose checkoutTreeish   git checkout -b <new-branch-name>
+1069 verbose checkoutTreeish
+1069 verbose checkoutTreeish HEAD is now at 51addce... 7fe1b81 fix(menu): add typography mat-font-weight
+1070 info git [ 'submodule', '-q', 'update', '--init', '--recursive' ]
+1071 verbose updateSubmodules angular/cdk-builds submodule update
+1072 verbose addLocalDirectory C:\Users\ramir\AppData\Roaming\npm-cache\@angular\cdk\2.0.0-beta.12-7fe1b81\package.tgz not in flight; packing
+1073 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1074 verbose tar pack [ 'C:\\Users\\ramir\\AppData\\Roaming\\npm-cache\\@angular\\cdk\\2.0.0-beta.12-7fe1b81\\package.tgz',
+1074 verbose tar pack   'C:\\Users\\ramir\\AppData\\Local\\Temp\\npm-2196-cd05c71d\\git-cache-1a2a3cd8\\51addcedcbc36ca0b9aae05a1c72538ba5eb1c89' ]
+1075 verbose tarball C:\Users\ramir\AppData\Roaming\npm-cache\@angular\cdk\2.0.0-beta.12-7fe1b81\package.tgz
+1076 verbose folder C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\git-cache-1a2a3cd8\51addcedcbc36ca0b9aae05a1c72538ba5eb1c89
+1077 silly fetchAndShaCheck shasum 3a24d49ecf01ac2b6e07f63e378b8ff8e257fe09
+1078 verbose addTmpTarball C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\registry.npmjs.org\_40angular\compiler\-\compiler-4.3.1.tgz not in flight; adding
+1079 verbose addTmpTarball already have metadata; skipping unpack for @angular/compiler@4.3.1
+1080 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1081 silly cache afterAdd @angular/compiler@4.3.1
+1082 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\compiler\4.3.1\package\package.json not in flight; writing
+1083 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1084 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\compiler\4.3.1\package\package.json written
+1085 verbose addLocalTarball adding from inside cache C:\Users\ramir\AppData\Roaming\npm-cache\@angular\cdk\2.0.0-beta.12-7fe1b81\package.tgz
+1086 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1087 verbose addRemoteGit data._from: angular/cdk-builds
+1088 verbose addRemoteGit data._resolved: git://github.com/angular/cdk-builds.git#51addcedcbc36ca0b9aae05a1c72538ba5eb1c89
+1089 silly cache afterAdd @angular/cdk@2.0.0-beta.12-7fe1b81
+1090 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\cdk\2.0.0-beta.12-7fe1b81\package\package.json not in flight; writing
+1091 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1092 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\cdk\2.0.0-beta.12-7fe1b81\package\package.json written
+1093 silly resolveWithNewModule @angular/cdk@2.0.0-beta.12-7fe1b81 checking installable status
+1094 verbose mirrorRemote angular/material2-builds git clone git://github.com/angular/material2-builds.git
+1095 verbose setPermissions angular/material2-builds skipping chownr on Windows
+1096 verbose resolveHead angular/material2-builds original treeish: master
+1097 info git [ 'rev-list', '-n1', 'master' ]
+1098 silly resolveHead angular/material2-builds resolved treeish: a865ed955ca6b7bff926d66b4bb32075695a7add
+1099 verbose resolveHead angular/material2-builds resolved Git URL: git://github.com/angular/material2-builds.git#a865ed955ca6b7bff926d66b4bb32075695a7add
+1100 silly resolveHead Git working directory: C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\git-cache-6081ab7b\a865ed955ca6b7bff926d66b4bb32075695a7add
+1101 info git [ 'clone',
+1101 info git   'C:\\Users\\ramir\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-github-com-angular-material2-builds-git-bb085d2c',
+1101 info git   'C:\\Users\\ramir\\AppData\\Local\\Temp\\npm-2196-cd05c71d\\git-cache-6081ab7b\\a865ed955ca6b7bff926d66b4bb32075695a7add' ]
+1102 verbose cloneResolved angular/material2-builds clone Cloning into 'C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\git-cache-6081ab7b\a865ed955ca6b7bff926d66b4bb32075695a7add'...
+1102 verbose cloneResolved done.
+1102 verbose cloneResolved Checking out files:  23% (221/931)   Checking out files:  24% (224/931)   Checking out files:  25% (233/931)   Checking out files:  26% (243/931)   Checking out files:  27% (252/931)   Checking out files:  28% (261/931)   Checking out files:  29% (270/931)   Checking out files:  30% (280/931)   Checking out files:  31% (289/931)   Checking out files:  32% (298/931)   Checking out files:  33% (308/931)   Checking out files:  34% (317/931)   Checking out files:  35% (326/931)   Checking out files:  36% (336/931)   Checking out files:  37% (345/931)   Checking out files:  38% (354/931)   Checking out files:  39% (364/931)   Checking out files:  40% (373/931)   Checking out files:  41% (382/931)   Checking out files:  42% (392/931)   Checking out files:  43% (401/931)   Checking out files:  44% (410/931)   Checking out files:  45% (419/931)   Checking out files:  46% (429/931)   Checking out files:  47% (438/931)   Checking out files:  48% (447/931)   Checking out files:  49% (457/931)   Checking out files:  50% (466/931)   Checking out files:  51% (475/931)   Checking out files:  52% (485/931)   Checking out files:  53% (494/931)   Checking out files:  54% (503/931)   Checking out files:  55% (513/931)   Checking out files:  56% (522/931)   Checking out files:  57% (531/931)   Checking out files:  58% (540/931)   Checking out files:  59% (550/931)   Checking out files:  60% (559/931)   Checking out files:  61% (568/931)   Checking out files:  62% (578/931)   Checking out files:  63% (587/931)   Checking out files:  64% (596/931)   Checking out files:  64% (603/931)   Checking out files:  65% (606/931)   Checking out files:  66% (615/931)   Checking out files:  67% (624/931)   Checking out files:  68% (634/931)   Checking out files:  69% (643/931)   Checking out files:  70% (652/931)   Checking out files:  71% (662/931)   Checking out files:  72% (671/931)   Checking out files:  73% (680/931)   Checking out files:  74% (689/931)   Checking out files:  75% (699/931)   Checking out files:  76% (708/931)   Checking out files:  77% (717/931)   Checking out files:  78% (727/931)   Checking out files:  79% (736/931)   Checking out files:  80% (745/931)   Checking out files:  81% (755/931)   Checking out files:  82% (764/931)   Checking out files:  83% (773/931)   Checking out files:  84% (783/931)   Checking out files:  85% (792/931)   Checking out files:  86% (801/931)   Checking out files:  87% (810/931)   Checking out files:  88% (820/931)   Checking out files:  89% (829/931)   Checking out files:  90% (838/931)   Checking out files:  91% (848/931)   Checking out files:  92% (857/931)   Checking out files:  93% (866/931)   Checking out files:  94% (876/931)   Checking out files:  95% (885/931)   Checking out files:  96% (894/931)   Checking out files:  97% (904/931)   Checking out files:  98% (913/931)   Checking out files:  99% (922/931)   Checking out files: 100% (931/931)   Checking out files: 100% (931/931), done.
+1103 info git [ 'checkout', 'a865ed955ca6b7bff926d66b4bb32075695a7add' ]
+1104 verbose checkoutTreeish angular/material2-builds checkout Note: checking out 'a865ed955ca6b7bff926d66b4bb32075695a7add'.
+1104 verbose checkoutTreeish
+1104 verbose checkoutTreeish You are in 'detached HEAD' state. You can look around, make experimental
+1104 verbose checkoutTreeish changes and commit them, and you can discard any commits you make in this
+1104 verbose checkoutTreeish state without impacting any branches by performing another checkout.
+1104 verbose checkoutTreeish
+1104 verbose checkoutTreeish If you want to create a new branch to retain commits you create, you may
+1104 verbose checkoutTreeish do so (now or later) by using -b with the checkout command again. Example:
+1104 verbose checkoutTreeish
+1104 verbose checkoutTreeish   git checkout -b <new-branch-name>
+1104 verbose checkoutTreeish
+1104 verbose checkoutTreeish HEAD is now at a865ed95... 7fe1b81 fix(menu): add typography mat-font-weight
+1105 info git [ 'submodule', '-q', 'update', '--init', '--recursive' ]
+1106 verbose updateSubmodules angular/material2-builds submodule update
+1107 verbose addLocalDirectory C:\Users\ramir\AppData\Roaming\npm-cache\@angular\material\2.0.0-beta.12-7fe1b81\package.tgz not in flight; packing
+1108 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1109 verbose tar pack [ 'C:\\Users\\ramir\\AppData\\Roaming\\npm-cache\\@angular\\material\\2.0.0-beta.12-7fe1b81\\package.tgz',
+1109 verbose tar pack   'C:\\Users\\ramir\\AppData\\Local\\Temp\\npm-2196-cd05c71d\\git-cache-6081ab7b\\a865ed955ca6b7bff926d66b4bb32075695a7add' ]
+1110 verbose tarball C:\Users\ramir\AppData\Roaming\npm-cache\@angular\material\2.0.0-beta.12-7fe1b81\package.tgz
+1111 verbose folder C:\Users\ramir\AppData\Local\Temp\npm-2196-cd05c71d\git-cache-6081ab7b\a865ed955ca6b7bff926d66b4bb32075695a7add
+1112 verbose addLocalTarball adding from inside cache C:\Users\ramir\AppData\Roaming\npm-cache\@angular\material\2.0.0-beta.12-7fe1b81\package.tgz
+1113 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1114 verbose addRemoteGit data._from: angular/material2-builds
+1115 verbose addRemoteGit data._resolved: git://github.com/angular/material2-builds.git#a865ed955ca6b7bff926d66b4bb32075695a7add
+1116 silly cache afterAdd @angular/material@2.0.0-beta.12-7fe1b81
+1117 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\material\2.0.0-beta.12-7fe1b81\package\package.json not in flight; writing
+1118 verbose correctMkdir C:\Users\ramir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+1119 verbose afterAdd C:\Users\ramir\AppData\Roaming\npm-cache\@angular\material\2.0.0-beta.12-7fe1b81\package\package.json written
+1120 silly resolveWithNewModule @angular/material@2.0.0-beta.12-7fe1b81 checking installable status
+1121 silly fetchNamedPackageData tslib
+1122 silly mapToRegistry name tslib
+1123 silly mapToRegistry using default registry
+1124 silly mapToRegistry registry https://registry.npmjs.org/
+1125 silly mapToRegistry data Result {
+1125 silly mapToRegistry   raw: 'tslib',
+1125 silly mapToRegistry   scope: null,
+1125 silly mapToRegistry   escapedName: 'tslib',
+1125 silly mapToRegistry   name: 'tslib',
+1125 silly mapToRegistry   rawSpec: '',
+1125 silly mapToRegistry   spec: 'latest',
+1125 silly mapToRegistry   type: 'tag' }
+1126 silly mapToRegistry uri https://registry.npmjs.org/tslib
+1127 verbose request uri https://registry.npmjs.org/tslib
+1128 verbose request no auth needed
+1129 info attempt registry request try #1 at 18:42:47
+1130 http request GET https://registry.npmjs.org/tslib
+1131 info retry will retry, error on last attempt: Error: read ECONNRESET
+1132 info attempt registry request try #2 at 18:42:58
+1133 http request GET https://registry.npmjs.org/tslib
+1134 info retry will retry, error on last attempt: Error: read ECONNRESET
+1135 info attempt registry request try #3 at 18:43:58
+1136 http request GET https://registry.npmjs.org/tslib
+1137 silly fetchPackageMetaData Error: read ECONNRESET
+1137 silly fetchPackageMetaData     at exports._errnoException (util.js:1018:11)
+1137 silly fetchPackageMetaData     at TLSWrap.onread (net.js:572:26)
+1137 silly fetchPackageMetaData  error for tslib@^1.7.1 { Error: read ECONNRESET
+1137 silly fetchPackageMetaData     at exports._errnoException (util.js:1018:11)
+1137 silly fetchPackageMetaData     at TLSWrap.onread (net.js:572:26) code: 'ECONNRESET', errno: 'ECONNRESET', syscall: 'read' }
+1138 silly rollbackFailedOptional Starting
+1139 silly rollbackFailedOptional Finishing
+1140 silly runTopLevelLifecycles Finishing
+1141 silly install printInstalled
+1142 verbose stack Error: read ECONNRESET
+1142 verbose stack     at exports._errnoException (util.js:1018:11)
+1142 verbose stack     at TLSWrap.onread (net.js:572:26)
+1143 verbose cwd C:\xampp\htdocs\gitHub\cueto\panel
+1144 error Windows_NT 10.0.10240
+1145 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install"
+1146 error node v6.10.2
+1147 error npm  v3.10.10
+1148 error code ECONNRESET
+1149 error errno ECONNRESET
+1150 error syscall read
+1151 error network read ECONNRESET
+1152 error network This is most likely not a problem with npm itself
+1152 error network and is related to network connectivity.
+1152 error network In most cases you are behind a proxy or have bad network settings.
+1152 error network
+1152 error network If you are behind a proxy, please make sure that the
+1152 error network 'proxy' config is set properly.  See: 'npm help config'
+1153 verbose exit [ 1, true ]

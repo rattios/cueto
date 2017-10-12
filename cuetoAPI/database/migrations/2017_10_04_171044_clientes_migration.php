@@ -19,12 +19,12 @@ class ClientesMigration extends Migration
                                     //AF_CONV = afiliado convenio con grupo familiar,
                                     //AF_CONV_S = afiliado convenio solo(independiente).
             $table->string('nombre_1');
-            $table->string('nombre_2');
+            $table->string('nombre_2')->nullable();
             $table->string('apellido_1');
-            $table->string('apellido_2');
-            $table->string('dni');
+            $table->string('apellido_2')->nullable();
+            $table->string('dni')->unique();
             $table->string('direccion');
-            $table->date('f_nacimineto'); //formato aaaa-mm-dd
+            $table->date('f_nacimiento'); //formato aaaa-mm-dd
             $table->string('estado'); //P=pendiente, N=normal, M=moroso, B=baja
             $table->string('sexo'); //M=masculino, F=femenino
             $table->float('cuota')->nullable(); //Cuota de ingreso

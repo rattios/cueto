@@ -9,6 +9,131 @@ use App\Http\Controllers\Controller;
 
 class ClienteController extends Controller
 {
+    public function storeClientes(Request $request)
+    {
+        /*Nota: el parametro cuota nombre_2
+        apellido_2 es no requerido.*/
+
+        // Primero comprobaremos si estamos recibiendo todos los campos.
+        if ( !$request->input('tipo') || !$request->input('nombre_1') ||
+            /*!$request->input('nombre_2') ||*/ !$request->input('apellido_1') ||
+            /*!$request->input('apellido_2') ||*/ !$request->input('dni') ||
+            !$request->input('direccion') || !$request->input('f_nacimiento') ||
+            !$request->input('estado') || !$request->input('sexo') ||
+            !$request->input('sucursal_id') || !$request->input('cartera_id')
+            )
+        {
+            // Se devuelve un array errors con los errores encontrados y cabecera HTTP 422 Unprocessable Entity – [Entidad improcesable] Utilizada para errores de validación.
+            return response()->json(['error'=>'Faltan datos necesarios para el proceso de alta.'],422);
+        } 
+
+        // Comprobamos si la sucursal que nos están pasando existe o no.
+        $sucursal=\App\Sucursal::find($request->input('sucursal_id'));
+
+        if(count($sucursal)==0){
+            return response()->json(['error'=>'No existe la sucursal con id '.$request->input('sucursal_id')], 404);          
+        }
+
+        // Comprobamos si la cartera que nos están pasando existe o no.
+        $cartera = \App\Cartera::where('id', $request->input('cartera_id'))
+                ->where('sucursal_id', $request->input('sucursal_id'))->get();
+
+        if(count($cartera)==0){
+            return response()->json(['error'=>'No existe la cartera con id '.$request->input('cartera_id').', o no asociada la sucursal.'], 404);          
+        } 
+
+        $auxCliente = \App\Cliente::where('dni', $request->input('dni'))->get();
+        if(count($auxCliente)!=0){
+           // Devolvemos un código 409 Conflict. 
+            return response()->json(['error'=>'Ya existe un cliente con el dni '.$request->input('dni')], 409);
+        }
+
+
+        /*Si se va a crear un tipo=AF_CUETO_S
+         se debe pasar tambien la cartera a la que pertenece*/
+        if ( $request->input('tipo') == 'AF_CUETO_S' ){
+
+            if($nuevoCliente=\App\Cliente::create($request->all())){
+               return response()->json(['status'=>'ok', 'cliente'=>$nuevoCliente], 200);
+            }else{
+                return response()->json(['error'=>'Error al crear el cliente.'], 500);
+            } 
+        }
+
+        /*Si se va a crear un tipo=AF_CUETO 
+         se debe pasar tambien los familiares*/
+        if ($request->input('tipo') == 'AF_CUETO' && !$request->input('familiares')) {
+            // Se devuelve un array errors con los errores encontrados y cabecera HTTP 422 Unprocessable Entity – [Entidad improcesable] Utilizada para errores de validación.
+            return response()->json(['error'=>'Faltan datos necesarios para el proceso de alta para familiares.'],422);
+        }
+        else if ($request->input('tipo') == 'AF_CUETO' && $request->input('familiares')){
+
+            $familiares = json_decode($request->input('familiares'));
+
+            //$familiares = $request->input('familiares');
+
+            //return count($familiares);
+
+            for ($i=0; $i < count($familiares) ; $i++) { 
+                $auxFamiliar = \App\Familiar::where('dni', $familiares[$i]->dni)->get();
+                if(count($auxFamiliar)!=0){
+                   // Devolvemos un código 409 Conflict. 
+                    return response()->json(['error'=>'Ya existe un familiar con el dni '.$familiares[$i]->dni], 409);
+                }
+            }
+
+            $nuevoCliente=\App\Cliente::create($request->all());
+
+            for ($i=0; $i < count($familiares) ; $i++) {
+
+                /*Primero creo una instancia en la tabla familiares*/
+                $familiar = new \App\Familiar;
+                $familiar->nombre_1 = $familiares[$i]->nombre_1;
+
+                if ( property_exists($familiares[$i], 'nombre_2')) {
+                    if ($familiares[$i]->nombre_2 != null && $familiares[$i]->nombre_2!='')
+                    {
+                        $familiar->nombre_2 = $familiares[$i]->nombre_2;
+                    }
+                    
+                }
+                //$familiar->nombre_2 = $familiares[$i]->nombre_2;
+
+                $familiar->apellido_1 = $familiares[$i]->apellido_1;
+
+                if ( property_exists($familiares[$i], 'apellido_2')) {
+                    if ($familiares[$i]->apellido_2 != null && $familiares[$i]->apellido_2!='')
+                    {
+                        $familiar->apellido_2 = $familiares[$i]->apellido_2;
+                    }
+                }
+                //$familiar->apellido_2 = $familiares[$i]->apellido_2;
+
+                $familiar->dni = $familiares[$i]->dni;
+                $familiar->direccion = $familiares[$i]->direccion;
+                $familiar->f_nacimiento = $familiares[$i]->f_nacimiento;
+                $familiar->sexo = $familiares[$i]->sexo;
+                $familiar->vinculo = $familiares[$i]->vinculo;
+
+                if ( property_exists($familiares[$i], 'observaciones')) {
+                    if ($familiares[$i]->observaciones != null && $familiares[$i]->observaciones!='')
+                    {
+                        $familiar->observaciones = $familiares[$i]->observaciones;
+                    }   
+                }
+                //$familiar->observaciones = $familiares[$i]->observaciones;
+
+                $familiar->sucursal_id = $request->input('sucursal_id');
+                $familiar->cliente_id = $nuevoCliente->id;
+
+                $familiar->save();
+            }
+
+            return response()->json(['status'=>'ok', 'cliente'=>$nuevoCliente], 200);
+        }
+            
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -71,7 +196,7 @@ class ClienteController extends Controller
         if ( !$request->input('tipo') || !$request->input('nombre_1') ||
             !$request->input('nombre_2') || !$request->input('apellido_1') ||
             !$request->input('apellido_2') || !$request->input('dni') ||
-            !$request->input('direccion') || !$request->input('f_nacimineto') ||
+            !$request->input('direccion') || !$request->input('f_nacimiento') ||
             !$request->input('estado') || !$request->input('sexo') ||
             !$request->input('sucursal_id')
             )
@@ -126,6 +251,12 @@ class ClienteController extends Controller
             if(count($convenio)==0){
                 return response()->json(['error'=>'No existe el convenio con id '.$request->input('convenio_id').', o no está asociado a la sucursal.'], 404);          
             }   
+        }
+
+        $auxCliente = \App\Cliente::where('dni', $request->input('dni'))->get();
+        if(count($auxCliente)!=0){
+           // Devolvemos un código 409 Conflict. 
+            return response()->json(['error'=>'Ya existe un cliente con el dni '.$request->input('dni')], 409);
         }
 
         if($nuevoCliente=\App\Cliente::create($request->all())){
@@ -191,7 +322,7 @@ class ClienteController extends Controller
         $apellido_2=$request->input('apellido_2');
         $dni=$request->input('dni');
         $direccion=$request->input('direccion'); 
-        $f_nacimineto=$request->input('f_nacimineto');  
+        $f_nacimiento=$request->input('f_nacimiento');  
         $estado=$request->input('estado'); 
         $sexo=$request->input('sexo'); 
         $cuota=$request->input('cuota');   
@@ -233,6 +364,13 @@ class ClienteController extends Controller
 
         if ($dni != null && $dni!='')
         {
+            $auxCliente = \App\Cliente::where('id', '<>', $cliente->id)->
+                    where('dni', $request->input('dni'))->get();
+            if(count($auxCliente)!=0){
+               // Devolvemos un código 409 Conflict. 
+                return response()->json(['error'=>'Ya existe otro cliente con el dni '.$request->input('dni')], 409);
+            }
+
             $cliente->dni = $dni;
             $bandera=true;
         }
@@ -243,9 +381,9 @@ class ClienteController extends Controller
             $bandera=true;
         }
 
-        if ($f_nacimineto != null && $f_nacimineto!='')
+        if ($f_nacimiento != null && $f_nacimiento!='')
         {
-            $cliente->f_nacimineto = $f_nacimineto;
+            $cliente->f_nacimiento = $f_nacimiento;
             $bandera=true;
         }
 
