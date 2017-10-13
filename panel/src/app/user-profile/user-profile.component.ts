@@ -60,22 +60,7 @@ export class UserProfileComponent implements OnInit {
 
 
     ngOnInit(): void {
-      /*this.http.get('http://rattios.com/24managerAPI/public/usuarios')
-         .toPromise()
-         .then(
-           data => { // Success
-             console.log(data);
-             this.data = data;
-             this.usuarios=data;
-             this.data=this.usuarios.usuarios;
-             console.log(this.usuarios);
 
-           },
-           msg => { // Error
-             console.log(msg.error.error);
-
-           }
-         );*/
     }
 
     enviarCliente(model){
