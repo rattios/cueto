@@ -67,4 +67,10 @@ class User extends Model implements AuthenticatableContract,
         // 1 usuario(rol != Vendedor/Cobrador) autoriza muchas rendiciones
         return $this->hasMany('App\Rendicion', 'autorizante_id');
     }
+
+    public function clientesCreados()
+    {
+        // 1 usuario tiene muchos clientes creados
+        return $this->hasMany('App\Cliente', 'user_id');
+    }
 }

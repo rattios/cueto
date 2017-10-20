@@ -27,8 +27,8 @@ class Cliente extends Model
     protected $fillable = ['tipo', 'nombre_1', 'nombre_2',
     		'apellido_1', 'apellido_2', 'dni',
     		'direccion', 'f_nacimiento', 'estado',
-    		'sexo', 'cuota', 'sucursal_id',
-    		'cartera_id', 'convenio_id'];
+    		'sexo', 'cuota', 'f_moroso', 'sucursal_id',
+    		'user_id', 'cartera_id', 'convenio_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -44,6 +44,12 @@ class Cliente extends Model
         return $this->belongsTo('App\Sucursal', 'sucursal_id');
     }
 
+    public function creador()
+    {
+        // 1 cliente fue creado por un User
+        return $this->belongsTo('App\User', 'user_id');
+    }
+
     public function convenio()
     {
         // 1 cliente(tipo == AF_CONV) es el titular de un convenio
@@ -54,6 +60,12 @@ class Cliente extends Model
     {
         // 1 cliente(tipo == AF_CUETO) pertenece a una cartera
         return $this->belongsTo('App\Cartera', 'cartera_id');
+    }
+
+    public function ticket()
+    {
+        // 1 cliente tiene un ticket 
+        return $this->hasOne('App\TicketCartera', 'cliente_id');
     }
 
     public function pagos()

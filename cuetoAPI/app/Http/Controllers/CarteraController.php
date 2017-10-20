@@ -18,8 +18,14 @@ class CarteraController extends Controller
     {
         if (!$request->input('sucursal_id')) {
 
+            /*with(['posts' => function ($query) {
+                $query->orderBy('created_at', 'desc');
+            }])->get();*/
+
             //cargar todas las carteras de todas las sucursales
-            $carteras = \App\Cartera::all();
+            $carteras = \App\Cartera::with(['tickets' => function ($query) {
+                $query->where('cliente_id', null);
+            }])->get();
 
             if(count($carteras) == 0){
                 return response()->json(['error'=>'No existen carteras.'], 404);          
@@ -37,7 +43,10 @@ class CarteraController extends Controller
 
             //cargar todas las carteras de una sucursal
             $carteras = \App\Cartera::where('sucursal_id', $request->input('sucursal_id'))
-                ->get();
+                ->with(['tickets' => function ($query) {
+                $query->where('cliente_id', null);
+            }])->get();
+    
 
             if(count($carteras) == 0){
                 return response()->json(['error'=>'No existen carteras en la sucursal con id '.$request->input('sucursal_id')], 404);          
@@ -66,7 +75,9 @@ class CarteraController extends Controller
     public function store(Request $request)
     {
         // Primero comprobaremos si estamos recibiendo todos los campos.
-        if ( !$request->input('numero') || !$request->input('nombre') ||
+        if ( !$request->input('numero') ||
+             !$request->input('limite_inf') ||
+             !$request->input('limite_sup') ||
              !$request->input('sucursal_id'))
         {
             // Se devuelve un array errors con los errores encontrados y cabecera HTTP 422 Unprocessable Entity – [Entidad improcesable] Utilizada para errores de validación.
@@ -89,6 +100,13 @@ class CarteraController extends Controller
         }
 
         if($nuevaCartera=\App\Cartera::create($request->all())){
+
+            $tickest = $request->input('limite_sup') - $request->input('limite_inf');
+            $ticket_i = $request->input('limite_inf');
+            for ($i=0; $i < $tickest+1; $i++) { 
+                $nuevaCartera->tickets()->create(['ticket' => $ticket_i]);
+                $ticket_i = $ticket_i + 1;
+            }
            return response()->json(['status'=>'ok', 'cartera'=>$nuevaCartera], 200);
         }else{
             return response()->json(['error'=>'Error al crear la cartera.'], 500);
@@ -145,7 +163,7 @@ class CarteraController extends Controller
 
         // Listado de campos recibidos teóricamente.
         $numero=$request->input('numero'); 
-        $nombre=$request->input('nombre'); 
+        //$nombre=$request->input('nombre'); 
         $descripcion=$request->input('descripcion'); 
 
         // Creamos una bandera para controlar si se ha modificado algún dato.
@@ -167,11 +185,11 @@ class CarteraController extends Controller
             $bandera=true;
         }
 
-        if ($nombre != null && $nombre!='')
+        /*if ($nombre != null && $nombre!='')
         {
             $cartera->nombre = $nombre;
             $bandera=true;
-        }
+        }*/
 
         if ($descripcion != null && $descripcion!='')
         {

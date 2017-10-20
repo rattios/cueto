@@ -24,7 +24,7 @@ class Cartera extends Model
      *
      * @var array
      */
-    protected $fillable = ['numero', 'nombre', 'descripcion', 'sucursal_id'];
+    protected $fillable = ['numero', 'descripcion', 'sucursal_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -56,6 +56,12 @@ class Cartera extends Model
     {
         // 1 cartera pertenece a un usuario(rol == Vendedor/Cobrador) 
         return $this->hasOne('App\User', 'cartera_id');
+    }
+
+    public function tickets()
+    {
+        // 1 cartera tiene muchos tickets
+        return $this->hasMany('App\TicketCartera', 'cartera_id');
     }
 
 }

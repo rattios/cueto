@@ -20,12 +20,20 @@ class ClienteController extends Controller
             /*!$request->input('apellido_2') ||*/ !$request->input('dni') ||
             !$request->input('direccion') || !$request->input('f_nacimiento') ||
             !$request->input('estado') || !$request->input('sexo') ||
-            !$request->input('sucursal_id') || !$request->input('cartera_id')
+            !$request->input('sucursal_id') || !$request->input('cartera_id') ||
+            !$request->input('user_id') || !$request->input('ticket')
             )
         {
             // Se devuelve un array errors con los errores encontrados y cabecera HTTP 422 Unprocessable Entity – [Entidad improcesable] Utilizada para errores de validación.
             return response()->json(['error'=>'Faltan datos necesarios para el proceso de alta.'],422);
         } 
+
+        /*Si el cliente es moroso estado=M, se debe pasar la fecha 
+        desde que es moroso*/
+        if($request->input('estado') == 'M' && !$request->input('f_moroso')){
+            // Se devuelve un array errors con los errores encontrados y cabecera HTTP 422 Unprocessable Entity – [Entidad improcesable] Utilizada para errores de validación.
+            return response()->json(['error'=>'Faltan datos necesarios para el proceso de alta.'],422);
+        }
 
         // Comprobamos si la sucursal que nos están pasando existe o no.
         $sucursal=\App\Sucursal::find($request->input('sucursal_id'));
@@ -42,18 +50,33 @@ class ClienteController extends Controller
             return response()->json(['error'=>'No existe la cartera con id '.$request->input('cartera_id').', o no asociada la sucursal.'], 404);          
         } 
 
+        // Comprobamos si el user que nos están pasando existe o no.
+        $user=\App\User::find($request->input('user_id'));
+
+        if(count($user)==0){
+            return response()->json(['error'=>'No existe la user con id '.$request->input('user_id')], 404);          
+        }
+
         $auxCliente = \App\Cliente::where('dni', $request->input('dni'))->get();
         if(count($auxCliente)!=0){
            // Devolvemos un código 409 Conflict. 
             return response()->json(['error'=>'Ya existe un cliente con el dni '.$request->input('dni')], 409);
         }
 
+        //Verificar si el ticket que se quiere asignar existe y esta disponible
+        $auxTicket = \App\TicketCartera::where('ticket', $request->input('ticket'))->
+                where('cliente_id', null)->get();
+        if(count($auxTicket)==0){
+           // Devolvemos un código 409 Conflict. 
+            return response()->json(['error'=>'El ticket '.$request->input('ticket').' no esta disponible.'], 409);
+        }
 
-        /*Si se va a crear un tipo=AF_CUETO_S
-         se debe pasar tambien la cartera a la que pertenece*/
+        /*Si se va a crear un tipo=AF_CUETO_S*/
         if ( $request->input('tipo') == 'AF_CUETO_S' ){
 
             if($nuevoCliente=\App\Cliente::create($request->all())){
+                $auxTicket[0]->cliente_id = $nuevoCliente->id;
+                $auxTicket[0]->save();
                return response()->json(['status'=>'ok', 'cliente'=>$nuevoCliente], 200);
             }else{
                 return response()->json(['error'=>'Error al crear el cliente.'], 500);
@@ -77,13 +100,16 @@ class ClienteController extends Controller
             for ($i=0; $i < count($familiares) ; $i++) { 
                 $auxFamiliar = \App\Familiar::where('dni', $familiares[$i]->dni)->get();
                 if(count($auxFamiliar)!=0){
+                    $titular = $auxFamiliar[0]->titular;
                    // Devolvemos un código 409 Conflict. 
-                    return response()->json(['error'=>'Ya existe un familiar con el dni '.$familiares[$i]->dni], 409);
+                    return response()->json(['error'=>'Ya existe un familiar con el dni '.$familiares[$i]->dni,
+                                'titular'=>$titular], 409);
                 }
             }
 
             $nuevoCliente=\App\Cliente::create($request->all());
-
+            $auxTicket[0]->cliente_id = $nuevoCliente->id;
+            $auxTicket[0]->save();
             for ($i=0; $i < count($familiares) ; $i++) {
 
                 /*Primero creo una instancia en la tabla familiares*/
@@ -439,6 +465,8 @@ class ClienteController extends Controller
             // Devolvemos error codigo http 404
             return response()->json(['error'=>'No existe el cliente con id '.$id], 404);
         }
+
+        //$cliente->delete();
 
         $convenio = $cliente->convenio;
         $cartera = $cliente->cartera;
