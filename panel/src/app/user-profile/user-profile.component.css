@@ -6,3 +6,11 @@ select.form-control {
 .card .card-content {
     padding: 15px 35px !important;
 }
+
+.form-group label.control-label {
+    font-size: 15px;
+    line-height: 1.07142857;
+    color: #4f4f4f;
+    font-weight: 600;
+    margin: 16px 0 0 0;
+}

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams  } from '@angular/common/http';
 import { FormGroup, FormArray, FormBuilder, Validators  } from '@angular/forms';
-import { Clientes  } from './clientes.interface';
+
+
 
 declare const $: any;
 
@@ -23,7 +24,8 @@ export class UserProfileComponent implements OnInit {
     public clientesAdd:any;
 
     constructor(private http: HttpClient, private builder: FormBuilder) {
-        this.registroClienteForm = this.builder.group({
+
+        this.registroClienteForm = builder.group({
             tipo: ['', Validators.required],
             nombre_1: ['', Validators.required],
             nombre_2: [''],
@@ -58,25 +60,10 @@ export class UserProfileComponent implements OnInit {
 
 
     ngOnInit(): void {
-      /*this.http.get('http://rattios.com/24managerAPI/public/usuarios')
-         .toPromise()
-         .then(
-           data => { // Success
-             console.log(data);
-             this.data = data;
-             this.usuarios=data;
-             this.data=this.usuarios.usuarios;
-             console.log(this.usuarios);
 
-           },
-           msg => { // Error
-             console.log(msg.error.error);
-
-           }
-         );*/
     }
 
-    enviarCliente(model: Clientes){
+    enviarCliente(model){
         this.clientesAdd=model;
         console.log(this.clientesAdd.value);
         var send=this.clientesAdd.value;

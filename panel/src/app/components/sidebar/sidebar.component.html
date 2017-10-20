@@ -1,5 +1,5 @@
 <div class="logo">
-    <a routerLink='../Usuarios' class="simple-text">
+    <a routerLink='../Usuarios' class="simple-text" style="color: #e1e1e1 !important">
         <div class="logo-img">
             <img src="../assets/img/manappger2.png"/>
         </div>
@@ -8,17 +8,17 @@
 </div>
 <div class="sidebar-wrapper">
     <form class="navbar-form navbar-right" role="search" *ngIf="isMobileMenu()">
-        <div class="form-group form-black is-empty">
+        <!-- <div class="form-group form-black is-empty">
             <input type="text" class="form-control" placeholder="Search">
             <span class="material-input"></span>
         </div>
         <button type="submit" class="btn btn-white btn-round btn-just-icon">
             <i class="material-icons">search</i><div class="ripple-container"></div>
-        </button>
+        </button> -->
     </form>
 
     <ul class="nav nav-mobile-menu" *ngIf="isMobileMenu()">
-        <li>
+        <!-- <li>
             <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="material-icons">dashboard</i>
                 <p class="hidden-lg hidden-md">Dashboard</p>
@@ -43,15 +43,15 @@
                <i class="material-icons">person</i>
                <p class="hidden-lg hidden-md">Profile</p>
             </a>
-        </li>
+        </li> -->
     </ul>
 
     <div class="nav-container">
         <ul class="nav">
             <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}}" [routerLinkActiveOptions]="{exact: true}">
                 <a  [routerLink]="[menuItem.path]">
-                    <i class="material-icons">{{menuItem.icon}}</i>
-                    <p>{{menuItem.title}}</p>
+                    <i class="material-icons" style="color: #e1e1e1">{{menuItem.icon}}</i>
+                    <p style="font-size: 20px; color: #e1e1e1">{{menuItem.title}}</p>
                 </a>
             </li>
         </ul>
