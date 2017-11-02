@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-10-2017 a las 00:06:35
+-- Tiempo de generación: 20-10-2017 a las 22:39:39
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -29,21 +29,11 @@ SET time_zone = "+00:00";
 CREATE TABLE `carteras` (
   `id` int(10) UNSIGNED NOT NULL,
   `numero` int(11) NOT NULL,
-  `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `descripcion` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sucursal_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `carteras`
---
-
-INSERT INTO `carteras` (`id`, `numero`, `nombre`, `descripcion`, `sucursal_id`, `created_at`, `updated_at`) VALUES
-(2, 1, 'cartera1', 'cartera de los chorros', 1, '2017-10-09 20:45:15', '2017-10-09 20:45:15'),
-(3, 33, 'cartera3', 'cartera de prueba', 1, '2017-10-09 21:12:28', '2017-10-09 21:17:12'),
-(5, 1231, 'cartera1', 'cartera de la mata', 3, '2017-10-09 23:26:26', '2017-10-09 23:26:26');
 
 -- --------------------------------------------------------
 
@@ -55,29 +45,23 @@ CREATE TABLE `clientes` (
   `id` int(10) UNSIGNED NOT NULL,
   `tipo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `nombre_1` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `nombre_2` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `nombre_2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `apellido_1` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `apellido_2` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `apellido_2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `dni` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `direccion` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `f_nacimineto` date NOT NULL,
+  `f_nacimiento` date NOT NULL,
   `estado` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `sexo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `cuota` double(8,2) DEFAULT NULL,
+  `f_moroso` date DEFAULT NULL,
   `sucursal_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
   `cartera_id` int(10) UNSIGNED DEFAULT NULL,
   `convenio_id` int(10) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `clientes`
---
-
-INSERT INTO `clientes` (`id`, `tipo`, `nombre_1`, `nombre_2`, `apellido_1`, `apellido_2`, `dni`, `direccion`, `f_nacimineto`, `estado`, `sexo`, `cuota`, `sucursal_id`, `cartera_id`, `convenio_id`, `created_at`, `updated_at`) VALUES
-(1, 'AF_CUETO', 'juan', 'carlos', 'ramirez', 'parra', '232455', 'merida', '2017-09-07', 'N', 'M', 3500.00, 1, 2, NULL, '2017-10-10 15:39:14', '2017-10-10 16:07:29'),
-(2, 'AF_CONV', 'daniel', 'trtre', 'ramirez', 'hdfhd', '232455', 'merida', '2017-09-07', 'N', 'M', 3500.00, 1, 2, 1, '2017-10-11 18:36:29', '2017-10-11 18:36:29');
 
 -- --------------------------------------------------------
 
@@ -114,13 +98,6 @@ CREATE TABLE `convenios` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Volcado de datos para la tabla `convenios`
---
-
-INSERT INTO `convenios` (`id`, `estado`, `empresa`, `direccion`, `telefono`, `correo`, `sucursal_id`, `created_at`, `updated_at`) VALUES
-(1, 'activo', 'rattios', 'la mata', '555555', 'rattios@gmail.com', 1, '2017-10-11 18:36:01', '2017-10-11 19:16:19');
-
 -- --------------------------------------------------------
 
 --
@@ -151,7 +128,7 @@ CREATE TABLE `empleados` (
   `apellido_2` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `dni` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `direccion` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `f_nacimineto` date NOT NULL,
+  `f_nacimiento` date NOT NULL,
   `sexo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `observaciones` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sucursal_id` int(10) UNSIGNED NOT NULL,
@@ -169,12 +146,12 @@ CREATE TABLE `empleados` (
 CREATE TABLE `familiares` (
   `id` int(10) UNSIGNED NOT NULL,
   `nombre_1` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `nombre_2` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `nombre_2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `apellido_1` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `apellido_2` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `apellido_2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `dni` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `direccion` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `f_nacimineto` date NOT NULL,
+  `f_nacimiento` date NOT NULL,
   `sexo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `vinculo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `observaciones` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -184,13 +161,6 @@ CREATE TABLE `familiares` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `familiares`
---
-
-INSERT INTO `familiares` (`id`, `nombre_1`, `nombre_2`, `apellido_1`, `apellido_2`, `dni`, `direccion`, `f_nacimineto`, `sexo`, `vinculo`, `observaciones`, `sucursal_id`, `cliente_id`, `empleado_id`, `created_at`, `updated_at`) VALUES
-(1, 'maria', 'juana', 'ramirez', 'parra', '34235234', 'merida', '2017-09-07', 'F', 'esposa', 'prueba de actualizacion de las observaciones', 1, 1, NULL, '2017-10-10 19:07:20', '2017-10-10 19:16:56');
 
 -- --------------------------------------------------------
 
@@ -220,10 +190,11 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2017_10_05_130349_rendiciones_migration', 1),
 ('2017_10_05_131440_recibos_migration', 1),
 ('2017_10_05_133330_docs_canceladores_migration', 1),
-('2017_10_06_100600_tarifas_cueto_migration', 2),
-('2017_10_06_100632_tarifas_cueto_sola_migration', 2),
-('2017_10_06_100709_tarifas_convenio_migration', 2),
-('2017_10_06_100741_tarifas_convenio_sola_migration', 2);
+('2017_10_06_100600_tarifas_cueto_migration', 1),
+('2017_10_06_100632_tarifas_cueto_sola_migration', 1),
+('2017_10_06_100709_tarifas_convenio_migration', 1),
+('2017_10_06_100741_tarifas_convenio_sola_migration', 1),
+('2017_10_20_123246_tickets_cartera_migration', 1);
 
 -- --------------------------------------------------------
 
@@ -298,14 +269,6 @@ CREATE TABLE `sucursales` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Volcado de datos para la tabla `sucursales`
---
-
-INSERT INTO `sucursales` (`id`, `nombre`, `direccion`, `telefono`, `correo`, `created_at`, `updated_at`) VALUES
-(1, 'sucursal los chorros', 'los chorros', '122323', 'loschorros@correo.com', '2017-10-09 17:26:00', '2017-10-09 17:26:00'),
-(3, 'sucursal la mata', 'la mata', '2323', 'lamata@correo.com', '2017-10-09 23:20:36', '2017-10-09 23:20:36');
-
 -- --------------------------------------------------------
 
 --
@@ -373,6 +336,21 @@ CREATE TABLE `tarifascuetosola` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tickets_cartera`
+--
+
+CREATE TABLE `tickets_cartera` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `ticket` int(11) NOT NULL,
+  `cartera_id` int(10) UNSIGNED NOT NULL,
+  `cliente_id` int(10) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuarios`
 --
 
@@ -392,15 +370,6 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Volcado de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`id`, `user`, `password`, `correo`, `rol`, `nombre`, `apellido`, `telefono`, `sucursal_id`, `cartera_id`, `created_at`, `updated_at`) VALUES
-(1, 'rengo2000', '$2y$10$invP3I/B7qwvAM6Rb6CtQuU4fywRqQx76JrQWI2UaDhVK48XGHO0m', 'rafael@correo.com', 'SU', 'rafael', 'rafa', '155884', NULL, NULL, '2017-10-09 22:20:03', '2017-10-09 22:20:03'),
-(2, 'freddy', '$2y$10$mrpkUjKxD494A7ePXV2/J.vAohQpxa5vAXi8gp0c2aCV1isicKJCW', 'freddy@correo.com', 'VC', 'Freddy', 'ramirez', '598965', 1, 2, '2017-10-09 22:23:53', '2017-10-09 22:47:38'),
-(3, 'pedro', '$2y$10$kF/UxmeHJQYW.2zyn7jWd.vcJoDvzMhWUeyC/sdG4QCZhSdbmFZuO', 'pedro@correo.com', 'VC', 'Pedro', 'Perez', '43534', 3, 5, '2017-10-09 23:40:57', '2017-10-09 23:40:57');
-
---
 -- Índices para tablas volcadas
 --
 
@@ -409,8 +378,7 @@ INSERT INTO `usuarios` (`id`, `user`, `password`, `correo`, `rol`, `nombre`, `ap
 --
 ALTER TABLE `carteras`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `numero` (`numero`),
-  ADD UNIQUE KEY `numero_2` (`numero`),
+  ADD UNIQUE KEY `carteras_numero_unique` (`numero`),
   ADD KEY `carteras_sucursal_id_foreign` (`sucursal_id`);
 
 --
@@ -418,7 +386,9 @@ ALTER TABLE `carteras`
 --
 ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `clientes_dni_unique` (`dni`),
   ADD KEY `clientes_sucursal_id_foreign` (`sucursal_id`),
+  ADD KEY `clientes_user_id_foreign` (`user_id`),
   ADD KEY `clientes_cartera_id_foreign` (`cartera_id`),
   ADD KEY `clientes_convenio_id_foreign` (`convenio_id`);
 
@@ -453,6 +423,7 @@ ALTER TABLE `docs_canceladores`
 --
 ALTER TABLE `empleados`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `empleados_dni_unique` (`dni`),
   ADD KEY `empleados_sucursal_id_foreign` (`sucursal_id`),
   ADD KEY `empleados_cliente_id_foreign` (`cliente_id`);
 
@@ -461,6 +432,7 @@ ALTER TABLE `empleados`
 --
 ALTER TABLE `familiares`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `familiares_dni_unique` (`dni`),
   ADD KEY `familiares_sucursal_id_foreign` (`sucursal_id`),
   ADD KEY `familiares_cliente_id_foreign` (`cliente_id`),
   ADD KEY `familiares_empleado_id_foreign` (`empleado_id`);
@@ -527,6 +499,14 @@ ALTER TABLE `tarifascuetosola`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `tickets_cartera`
+--
+ALTER TABLE `tickets_cartera`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tickets_cartera_cartera_id_foreign` (`cartera_id`),
+  ADD KEY `tickets_cartera_cliente_id_foreign` (`cliente_id`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -544,12 +524,12 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `carteras`
 --
 ALTER TABLE `carteras`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `contratos`
 --
@@ -559,7 +539,7 @@ ALTER TABLE `contratos`
 -- AUTO_INCREMENT de la tabla `convenios`
 --
 ALTER TABLE `convenios`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `docs_canceladores`
 --
@@ -574,7 +554,7 @@ ALTER TABLE `empleados`
 -- AUTO_INCREMENT de la tabla `familiares`
 --
 ALTER TABLE `familiares`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `pagos`
 --
@@ -594,7 +574,7 @@ ALTER TABLE `rendiciones`
 -- AUTO_INCREMENT de la tabla `sucursales`
 --
 ALTER TABLE `sucursales`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tarifasconvenio`
 --
@@ -616,10 +596,15 @@ ALTER TABLE `tarifascueto`
 ALTER TABLE `tarifascuetosola`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT de la tabla `tickets_cartera`
+--
+ALTER TABLE `tickets_cartera`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- Restricciones para tablas volcadas
 --
@@ -636,7 +621,8 @@ ALTER TABLE `carteras`
 ALTER TABLE `clientes`
   ADD CONSTRAINT `clientes_cartera_id_foreign` FOREIGN KEY (`cartera_id`) REFERENCES `carteras` (`id`),
   ADD CONSTRAINT `clientes_convenio_id_foreign` FOREIGN KEY (`convenio_id`) REFERENCES `convenios` (`id`),
-  ADD CONSTRAINT `clientes_sucursal_id_foreign` FOREIGN KEY (`sucursal_id`) REFERENCES `sucursales` (`id`);
+  ADD CONSTRAINT `clientes_sucursal_id_foreign` FOREIGN KEY (`sucursal_id`) REFERENCES `sucursales` (`id`),
+  ADD CONSTRAINT `clientes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`id`);
 
 --
 -- Filtros para la tabla `contratos`
@@ -699,6 +685,13 @@ ALTER TABLE `rendiciones`
   ADD CONSTRAINT `rendiciones_cartera_id_foreign` FOREIGN KEY (`cartera_id`) REFERENCES `carteras` (`id`),
   ADD CONSTRAINT `rendiciones_cobrador_id_foreign` FOREIGN KEY (`cobrador_id`) REFERENCES `usuarios` (`id`),
   ADD CONSTRAINT `rendiciones_sucursal_id_foreign` FOREIGN KEY (`sucursal_id`) REFERENCES `sucursales` (`id`);
+
+--
+-- Filtros para la tabla `tickets_cartera`
+--
+ALTER TABLE `tickets_cartera`
+  ADD CONSTRAINT `tickets_cartera_cartera_id_foreign` FOREIGN KEY (`cartera_id`) REFERENCES `carteras` (`id`),
+  ADD CONSTRAINT `tickets_cartera_cliente_id_foreign` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`);
 
 --
 -- Filtros para la tabla `usuarios`

@@ -15,7 +15,7 @@ class CarterasMigration extends Migration
         Schema::create('carteras', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('numero')->unique();
-            $table->string('nombre');
+            //$table->string('nombre');
             $table->string('descripcion')->nullable();
 
             $table->integer('sucursal_id')->unsigned();

@@ -28,10 +28,14 @@ class ClientesMigration extends Migration
             $table->string('estado'); //P=pendiente, N=normal, M=moroso, B=baja
             $table->string('sexo'); //M=masculino, F=femenino
             $table->float('cuota')->nullable(); //Cuota de ingreso
+            $table->date('f_moroso')->nullable(); //Fecha desde que esta moroso
 
 
             $table->integer('sucursal_id')->unsigned();
             $table->foreign('sucursal_id')->references('id')->on('sucursales');
+
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('usuarios');
 
             $table->integer('cartera_id')->unsigned()->nullable();
             $table->foreign('cartera_id')->references('id')->on('carteras');
