@@ -1,13 +1,23 @@
 .form-group label.control-label {
-    font-size: 15px !important;
+    font-size: 17px !important;
     line-height: 1.07142857 !important;
     color: #4f4f4f !important;
     font-weight: 600 !important;
     margin: 16px 0 0 0 !important;
 }
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    font-size: 15px !important;  line-height: 1.07142857 !important; color: #4f4f4f !important; font-weight: 600 !important; margin: 16px 0 0 0 !important;
+    font-size: 17px !important;  line-height: 1.07142857 !important; color: #4f4f4f !important; font-weight: 600 !important; margin: 16px 0 0 0 !important;
 }
 .labels{
-  font-size: 15px !important;  line-height: 1.07142857 !important; color: #4f4f4f !important; font-weight: 600 !important; margin: 16px 0 0 0 !important;
+  font-size: 17px !important;  line-height: 1.07142857 !important; color: #4f4f4f !important; font-weight: 600 !important; margin: 16px 0 0 0 !important;
 }
+
+p{
+ font-size: 17px;
+}
+
+.fixed{
+        position: sticky;
+        top:0;
+        z-index: 9;
+    }

@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams  } from '@angular/common/http';
+import { FormGroup, FormArray, FormBuilder, Validators  } from '@angular/forms';
+import { BsModalComponent } from 'ng2-bs3-modal';
+
+
+declare const $: any;
 
 @Component({
   selector: 'app-afiliados',
@@ -14,6 +19,13 @@ export class AfiliadosComponent implements OnInit {
   public socios:any;
   public productList:any;
   public loading=false;
+  public ver=true;
+  public verDatos=false;
+  public verEditar=false;
+  public user_id = localStorage.getItem("manappger_user_id");
+  public registroClienteForm: FormGroup;
+  public sucursal:any;
+  public carteras:any;
   public formCliente = {
             tipo: "",
             nombre_1: "",
@@ -62,8 +74,71 @@ export class AfiliadosComponent implements OnInit {
             }]
           };
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private builder: FormBuilder) {
+        this.registroClienteForm = builder.group({
+            tipo: [""],
+            tipoNombre: [""],
+            nombre_1: [""],
+            nombre_2: [""],
+            apellido_1: [""],
+            apellido_2: [""],
+            dni: [""],
+            direccion: [""],
+            f_nacimiento: [""],
+            estado: [""],
+            sexo: [""],
+            cuota: [""],
+            correo: [""],
+            telefono: [""],
+            f_alta: [""],
+            moroso:[false],
+            cuotas:this.builder.array([this.cuotaArray()]),
+            sucursal: [""],
+            sucursal_id: [""],
+            cartera_id: [""],
+            cartera: [""],
+            ticket: [""],
+            ticket_id: [""],
+            f_moroso: [""],
+            user_id: [this.user_id],
+            imagenes: [""],
+            mes_moroso: [""],
+            ano_moroso: [""],
+            familiares: this.builder.array([this.familiaresArray()])
+        })
+    }
 
+    cuotaArray(){
+        return this.builder.group({
+            Enero: [],
+            Febrero: [],
+            Marzo: [],
+            Abril: [],
+            Mayo: [],
+            Junio: [],
+            Julio: [],
+            Agosto: [],
+            Septiembre: [],
+            Octubre: [],
+            Noviembre: [],
+            Diciembre: []
+            })
+    }
+
+
+    familiaresArray(){
+        return this.builder.group({
+            nombre_1: [""],
+            nombre_2: [""],
+            apellido_1: [""],
+            apellido_2: [""],
+            dni: [""],
+            direccion: [""],
+            f_nacimiento: [""],
+            sexo: [""],
+            vinculo: [""],
+            observaciones: [""]
+            })
     }
 
     ngOnInit(): void {
@@ -93,6 +168,16 @@ export class AfiliadosComponent implements OnInit {
                  this.productList[i].estado2='Vigente';
                }else if (this.productList[i].estado=='B') {
                  this.productList[i].estado2='Baja';
+               }else if (this.productList[i].estado=='PC') {
+                 this.productList[i].estado2='Pre Cargado';
+               }else if (this.productList[i].estado=='P') {
+                 this.productList[i].estado2='Pendiente por autorización';
+               }
+
+               if(this.productList[i].user_id==1) {
+                 this.productList[i].user_id2='Araceli';
+               }else if (this.productList[i].user_id=='2') {
+                 this.productList[i].user_id2='Natalia';
                }
              }
 
@@ -105,12 +190,76 @@ export class AfiliadosComponent implements OnInit {
              this.loading=false;
            }
          );
+      this.http.get('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/sucursales/1/carteras')
+           .subscribe((data)=> {
+
+               this.data=data;
+               this.data=this.data.sucursal[0];
+               this.sucursal=this.data.nombre;
+               this.registroClienteForm.patchValue({sucursal: this.sucursal });
+               this.carteras=this.data.carteras;
+               console.log(this.data);
+               console.log(this.carteras);
+               console.log(this.sucursal);
+               const control= this.registroClienteForm.controls;
+               var esMoroso=control.moroso.value;
+               this.registroClienteForm.patchValue({sucursal_id: localStorage.getItem("manappger_user_sucursal_id") });
+
+
+
+            });
     }
 
     getUsuario(item){
+        this.ver=false;
+        this.verDatos=true;
+        this.formCliente=item;    
+    }
+    editar(item){
+        console.log(item);
 
+        if (item.moroso==0) {
+          item.moroso=false;
+        }else if (item.moroso==1) {
+          item.moroso=true;
+        }
+
+        this.ver=false;
+        this.verEditar=true; 
         this.formCliente=item;
-          
+        this.registroClienteForm.patchValue({tipo: item.tipo });
+        this.registroClienteForm.patchValue({tipoNombre: item.tipoNombre });
+        this.registroClienteForm.patchValue({nombre_1: item.nombre_1 });
+        this.registroClienteForm.patchValue({nombre_2: item.nombre_2 });
+        this.registroClienteForm.patchValue({apellido_1: item.apellido_1 });
+        this.registroClienteForm.patchValue({apellido_2: item.apellido_2 });
+        this.registroClienteForm.patchValue({dni: item.dni });
+        this.registroClienteForm.patchValue({direccion: item.direccion });
+        this.registroClienteForm.patchValue({f_nacimiento: item.f_nacimiento });
+        this.registroClienteForm.patchValue({estado: item.estado });
+        this.registroClienteForm.patchValue({sexo: item.sexo });
+        this.registroClienteForm.patchValue({cuota: item.cuota });
+        this.registroClienteForm.patchValue({correo: item.correo });
+        this.registroClienteForm.patchValue({telefono: item.telefono });
+        this.registroClienteForm.patchValue({f_alta: item.f_alta });
+        this.registroClienteForm.patchValue({f_moroso: item.f_moroso });
+        this.registroClienteForm.patchValue({moroso: item.moroso });
+        this.registroClienteForm.patchValue({sucursal: item.sucursal });
+        this.registroClienteForm.patchValue({sucursal_id: item.sucursal_id });
+        this.registroClienteForm.patchValue({cartera_id: item.cartera_id });
+        this.registroClienteForm.patchValue({cartera: item.cartera });
+        this.registroClienteForm.patchValue({ticket: item.ticket });
+        this.registroClienteForm.patchValue({ticket_id: item.ticket_id });
+        this.registroClienteForm.patchValue({imagenes: item.imagenes });
+        this.registroClienteForm.patchValue({mes_moroso: item.mes_moroso });
+        this.registroClienteForm.patchValue({ano_moroso: item.ano_moroso });
+        //this.registroClienteForm.patchValue({ticket: item.ticket });
+    
+    }
+    volver(){
+        this.ver=true;
+        this.verDatos=false;
+        this.verEditar=false;
     }
    // -------------------------------------------------------------------------------------------------------------------
    filteredItems : any;
@@ -156,6 +305,8 @@ export class AfiliadosComponent implements OnInit {
               }else if (this.productList[i].dni.indexOf(this.inputName)>=0) {
                  this.filteredItems.push(this.productList[i]);
               }else if (this.productList[i].f_alta.indexOf(this.inputName)>=0) {
+                 this.filteredItems.push(this.productList[i]);
+              }else if (this.productList[i].user_id2.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
                  this.filteredItems.push(this.productList[i]);
               }
             }
