@@ -12,6 +12,7 @@ export class NavbarComponent implements OnInit {
     location: Location;
     private toggleButton: any;
     private sidebarVisible: boolean;
+    public nombre = localStorage.getItem("manappger_user_nombre");
 
     constructor(location: Location,  private element: ElementRef) {
       this.location = location;

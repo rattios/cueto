@@ -1,191 +1,596 @@
 <div class="wrapper">
 <div class="sidebar" data-color='blue' data-image="" style="background-color: #000 !important">
-        <app-sidebar></app-sidebar>
-        <div class="sidebar-background" style="background-image: url(../assets/img/sidebar-4.jpg)"></div>
+    <app-sidebar></app-sidebar>
+    <div class="sidebar-background" style="background-image: url(../assets/img/sidebar-4.jpg)"></div>
 </div>
 <div class="main-panel">
     <app-navbar></app-navbar>
+    
     <div class="main-content">
-    <div class="container-fluid">
-        <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header" data-background-color="purple">
-                        <h4 class="title">Lista de los socios.</h4>
-                        <p class="category">Información resumida de los socios registrados.</p>
-                    </div>
-                    <div class="card-content material-datatables table-responsive">
-                        <div class="row">
-
-                            <div class="col-xs-4">
-           
-                                <div class="col-xs-6">
-                                    <div class="row">
-
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="row">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="col-xs-8 "></div>
-                            <div class="col-xs-4 form-group form-black label-floating is-empty">
-                                <label class="control-label">Filtrar por nombre:</label>
-                                <input type="text" class="form-control" [(ngModel)]="filterQuery">
-                            </div>
-                            <table class="table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
-                                   [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [mfIsServerPagination]="false" [(mfSortOrder)]="sortOrder">
-                                <thead>
-                                <tr>
-                                    <!--  -->
-                                    <th style="font-weight: bold;">
-                                        <mfDefaultSorter by="name">Nombre</mfDefaultSorter>
-                                    </th>
-                                    <th style="font-weight: bold">
-                                        <mfDefaultSorter by="email">Email</mfDefaultSorter>
-                                    </th>
-                                    <th style="font-weight: bold">
-                                        <mfDefaultSorter by="age">Teléfono</mfDefaultSorter>
-                                    </th>
-                                    <th style="font-weight: bold">
-                                        <mfDefaultSorter [by]="sortByWordLength" style="font-weight: bold">Dirección</mfDefaultSorter>
-                                    </th>
-                                    <th style="font-weight: bold"><mfDefaultSorter by="Acciones">Acciones</mfDefaultSorter></th>
-                                </tr>
-
-                                </thead>
-                                <tbody>
-                                <tr *ngFor="let item of mf.data">
-                                    <!-- <td>
-                                        <button (click)="remove(item)" class="btn btn-danger">x</button>
-                                    </td> -->
-                                    <td>{{item.nombre}}</td>
-                                    <td>{{item.correo}}</td>
-                                    <td>{{item.telefono}}</td>
-                                    <td>{{item.ubicacion | uppercase}}</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" (click)="remove(item)">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-
-                                </tr>
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <td colspan="5">
-                                        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]" ></mfBootstrapPaginator>
-                                    </td>
-                                </tr>
-                                </tfoot>
-                            </table>
-                        </div>  
-                    </div>
-                </div> 
-        </div>
+    <div class="container-fluid">  
+   
         <div class="row">
+            <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header" data-background-color="purple">
-                        <h4 class="title">Edita el perfil</h4>
-                        <p class="category">Información del perfil</p>
+                    <div class="card-header" data-background-color="orange">
+                        <h3 class="title">Registros de Clientes</h3>
+                        <h4 class="category">Registro de Afiliados Cueto Independiente y con Grupo Familiar</h4>
                     </div>
                     <div class="card-content">
-                        <form>
+                        <form  (ngSubmit)="enviarCliente()">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-4">
+                                    <label class="labels">Sucursal:</label>
+                                    <div class="form-group">
+                                        <p style="font-weight: bold; margin-top: -20px; font-size: 18px !important">{{sucursal}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="labels">Cartera:</label>
+                                    <div class="form-group">
+                                        
+                                        <select name="cartera_id" [(ngModel)]="cartera_id" class="form-control" (change)="getTicket($event)">
+                                            <!-- <option value="1" selected="true">Cartera 1</option> -->
+                                            <option *ngFor="let car of carteras" [value]="car.id">{{car.numero}} {{car.descripcion}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="labels">Numero:</label>
+                                    <div class="form-group form-black label-floating">
+                                        
+                                        <select name="ticket" [(ngModel)]="ticketSelector" class="form-control" (change)="setTicket($event)">
+                                            <option *ngFor="let tick of tickets" [value]="tick.id">{{tick.ticket}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="labels">Tipo de Cliente:</label>
+                                    <div class="form-group form-black label-floating">
+                                        
+                                        <select name="tipo" [(ngModel)]="formCliente.tipo" class="form-control" (change)="update_tipo($event)">
+                                            <option value="AF_CUETO_S">Afiliado Cueto Independiente</option>
+                                            <option value="AF_CUETO">Afiliado Cueto con grupo Familiar</option>
+                                            <!--<option value="AF_CONV_S">Afiliado Convenio Independiente</option>
+                                            <option value="AF_CONV">Afiliado Convenio con Grupo Familiar</option>-->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h2 class="control-label">Titular</h2>
+                                    <hr>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="labels">Primer Nombre</label>
                                     <div class="form-group form-black label-floating is-empty">
-                                        <label class="control-label">Servicio</label>
-                                        <input type="text" class="form-control" disabled>
+                                        
+                                        <input type="text" name="nombre_1" class="form-control" [(ngModel)]="formCliente.nombre_1" appUpp>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
+                                    <label class="labels">Segundo Nombre</label>
                                     <div class="form-group form-black label-floating is-empty">
-                                        <label class="control-label">Costo</label>
-                                        <input type="text" class="form-control" >
+                                        
+                                        <input type="text" name="nombre_2" class="form-control" [(ngModel)]="formCliente.nombre_2" appUpp>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
+                                    <label class="labels">Primer Apellido</label>
                                     <div class="form-group form-black label-floating is-empty">
-                                        <label class="control-label">Email</label>
-                                        <input type="email" class="form-control" >
+                                        
+                                        <input type="text" name="apellido_1" class="form-control" [(ngModel)]="formCliente.apellido_1" appUpp>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
+                                    <label class="labels">Segundo Apellido</label>
                                     <div class="form-group form-black label-floating is-empty">
-                                        <label class="control-label">Nombre</label>
-                                        <input type="text" class="form-control" >
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-black label-floating is-empty">
-                                        <label class="control-label">Ubicación</label>
-                                        <input type="text" class="form-control" >
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-black label-floating is-empty">
-                                        <label class="control-label">Teléfono</label>
-                                        <input type="text" class="form-control" >
+                                        
+                                        <input type="text" name="apellido_2" class="form-control" [(ngModel)]="formCliente.apellido_2" appUpp>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- <div class="row">
-                                <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="labels">DNI</label>
                                     <div class="form-group form-black label-floating is-empty">
-                                        <label class="control-label">Ubicación</label>
-                                        <input type="text" class="form-control" >
+                                        
+                                        <input type="text" name="dni" class="form-control" [(ngModel)]="formCliente.dni" appUpp>
                                     </div>
                                 </div>
-                            </div> -->
+                                <div class="col-md-4">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Sexo:</label>
+                                        <select name="sexo" [(ngModel)]="formCliente.sexo" class="form-control">
+                                            <option value="M" selected="true">Masculino</option>
+                                            <option value="F">Femenino</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
 
+                                    <div class="form-group form-black label-floating">
+                                        <!-- <label class="control-label">Fecha de nacimiento:</label> -->
+                                        <mat-form-field>
+                                        
+                                          <input matInput [matDatepicker]="picker1" placeholder="Fecha de nacimiento" class="form-control" style="width: 65%; display: inline-block;" name="f_nacimiento" [(ngModel)]="formCliente.f_nacimiento">
+                                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                          <mat-datepicker #picker1></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                            </div>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Descripción</label>
-                                        <div class="form-group form-black label-floating is-empty">
-                                            <label class="control-label"> Breve descripción...</label>
-                                            <textarea class="form-control" rows="5"></textarea>
+                                <div class="col-md-6">
+                                    <label class="labels">Correo</label>
+                                    <div class="form-group form-black label-floating is-empty">
+                                        
+                                        <input type="text" name="correo" class="form-control" [(ngModel)]="correo">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="labels">Teléfono</label>
+                                    <div class="form-group form-black label-floating is-empty">
+                                        
+                                       <input type="text" name="telefono" class="form-control" [(ngModel)]="telefono"> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group form-black label-floating">
+                                        <!-- <label class="control-label">Fecha de alta o última renovación:</label> -->
+                                        <mat-form-field>
+                                        
+                                          <input matInput [matDatepicker]="picker2" placeholder="Fecha de alta o última renovación" class="form-control" style="width: 65%; display: inline-block;" name="cuota" [(ngModel)]="formCliente.f_alta" (ngModelChange)="actual(formCliente.f_alta)">
+                                          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                          <mat-datepicker #picker2></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-md-2" >
+                                    <label class="labels">Es moroso?</label>
+                                    <div class="form-group form-black label-floating" align="center">
+                                        
+                                        <mat-slide-toggle name="moroso" [(ngModel)]="moroso" (ngModelChange)="chekarMoroso(moroso)">{{estadoMoroso}}</mat-slide-toggle>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="moroso">
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating">
+                                         <mat-form-field>
+                                        
+                                          <input matInput [matDatepicker]="picker3" placeholder="Fecha de morosidad" class="form-control" style="width: 65%; display: inline-block;" name="f_moroso" [(ngModel)]="formCliente.f_moroso" (ngModelChange)="actual(formCliente.f_moroso)">
+                                          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                          <mat-datepicker #picker3></mat-datepicker>
+                                        </mat-form-field>  
+                                    </div>
+                                </div> 
+                                <div class="col-md-6" >
+                                     <div >
+                                        <div *ngFor="let cuot of formCliente.cuotas"> <div class="row" align="center">
+                                            <label class="control-label" style="font-size: 14px !important">Meses del año {{ano}}</label>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <mat-checkbox  name="Enero" [(ngModel)]="cuot.Enero" (ngModelChange)="esMoroso(cuot.Enero)">Enero</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <mat-checkbox  name="Febrero" [(ngModel)]="cuot.Febrero" (ngModelChange)="esMoroso(cuot.Febrero)">Febrero</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <mat-checkbox  name="Marzo" [(ngModel)]="cuot.Marzo" (ngModelChange)="esMoroso(cuot.Marzo)">Marzo</mat-checkbox>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <mat-checkbox  name="Abril" [(ngModel)]="cuot.Abril" (ngModelChange)="esMoroso(cuot.Abril)">Abril</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <mat-checkbox  name="Mayo" [(ngModel)]="cuot.Mayo" (ngModelChange)="esMoroso(cuot.Mayo)">Mayo</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <mat-checkbox  name="Junio" [(ngModel)]="cuot.Junio" (ngModelChange)="esMoroso(cuot.Junio)">Junio</mat-checkbox>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <mat-checkbox  name="Julio" [(ngModel)]="cuot.Julio" (ngModelChange)="esMoroso(cuot.Julio)">Julio</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <mat-checkbox  name="Agosto" [(ngModel)]="cuot.Agosto" (ngModelChange)="esMoroso(cuot.Agosto)">Agosto</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <mat-checkbox  name="Septiembre" [(ngModel)]="cuot.Septiembre" (ngModelChange)="esMoroso(cuot.Septiembre)">Septiembre</mat-checkbox>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <mat-checkbox  name="Octubre" [(ngModel)]="cuot.Octubre" (ngModelChange)="esMoroso(cuot.Octubre)">Octubre</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <mat-checkbox  name="Nomviembre" [(ngModel)]="cuot.Noviembre" (ngModelChange)="esMoroso(cuot.Noviembre)">Noviembre</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <mat-checkbox  name="Diciembre" [(ngModel)]="cuot.Diciembre" (ngModelChange)="esMoroso(cuot.Diciembre)">Diciembre</mat-checkbox>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">   
+                                <div class="col-md-6">
+                                    <label class="labels">Estado del Cliente:</label>
+                                    <div class="form-group form-black label-floating">
+                                        
+                                        <select name="estado" [(ngModel)]="formCliente.estado" class="form-control">
+                                            <option value="P" selected="true">Pendiente por autorización</option>
+                                            <option value="P">Pre Cargado</option>
+                                            <option value="N">Vigente</option>
+                                            <option value="M">Moroso</option>
+                                            <option value="B">Baja</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-6" *ngIf="estado=='M'">
+                                    
+                                    <div class="form-group form-black label-floating">
+                                      
+                                        <mat-form-field>
+                                        
+                                          <input matInput [matDatepicker]="picker3" placeholder="Moroso desde" class="form-control" style="width: 85%; display: inline-block;" name="f_moroso" [(ngModel)]="f_moroso">
+                                          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                          <mat-datepicker #picker3></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Dirección</label>
+                                        <input type="text" name="direccion" class="form-control" [(ngModel)]="formCliente.direccion" appUpp>
+                                    </div>
+                                </div>   
+                            </div>
 
-                            <button type="submit" class="btn btn-danger pull-right">Actualizar Perfil</button>
+                            <div class="row">
+                                
+                            </div>
+                            
+                            <div *ngIf="formCliente.tipo=='AF_CUETO'">
+                                <div *ngFor="let client of formCliente.familiares; let i = index">
+                                    <div class="row" *ngIf="client.visible==true">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="row">
+                                                <h2 class="control-label">Familiar {{i+1}}</h2>
+                                                <hr>
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="control-label">Primer Nombre:</label>
+                                                        <input type="text" name="nombre_1" class="form-control" [(ngModel)]="client.nombre_1" appUpp>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="control-label">Segundo Nombre:</label>
+                                                        <input type="text" name="nombre_2" class="form-control" [(ngModel)]="client.nombre_2" appUpp>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="control-label">Primer Apellido:</label>
+                                                        <input type="text" name="apellido_1" class="form-control" [(ngModel)]="client.apellido_1" appUpp>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="control-label">Segundo Apellido:</label>
+                                                        <input type="text" name="apellido_2" class="form-control" [(ngModel)]="client.apellido_2" appUpp>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="control-label">DNI</label>
+                                                        <input type="text" name="dni" class="form-control" [(ngModel)]="client.dni">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="control-label">Vínculo</label>
+                                                        <input type="text" name="vinculo"class="form-control" [(ngModel)]="client.vinculo" appUpp>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="control-label">Sexo:</label>
+                                                        <select name="tipo" [(ngModel)]="client.sexo" class="form-control">
+                                                            <option value="M" selected="true">Masculino</option>
+                                                            <option value="F">Femenino</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <!-- <div class="form-group form-black label-floating is-empty">
+                                                        <label class="control-label">Fecha Nacimiento:</label>
+                                                        <input type="text" name="f_nacimiento" class="form-control" [(ngModel)]="f_nacimiento">
+                                                    </div> -->
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <mat-form-field>
+                                                          <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" class="form-control" style="width: 85%; display: inline-block;" name="f_nacimiento" [(ngModel)]="client.f_nacimiento">
+                                                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                          <mat-datepicker #picker></mat-datepicker>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="control-label">Observaciones:</label>
+                                                        <input type="text" name="observaciones" class="form-control" [(ngModel)]="client.observaciones" appUpp>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="control-label">Dirección:</label>
+                                                        <input type="text" name="direccion" class="form-control" [(ngModel)]="client.direccion" appUpp>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="btn btn-success pull-right" (click)=agregar()>Agregar un Familiar</div>
+                                        <div class="btn btn-success pull-right" (click)=remover(i)>Eliminar</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: center">
+                            <button type="submit" class="btn btn-danger" [disabled]="false">Guardar</button>
+                            </div>
+
                             <div class="clearfix"></div>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card card-profile">
-                    <div class="card-avatar">
-                        <a href="#pablo">
-                            <img class="img" src="../assets/img/tim_80x80.png" />
-                        </a>
+            <div class="col-md-4 fixed" >
+                <div class="card">
+                    <div class="card-header" data-background-color="orange">
+                        <h3 class="title">Datos</h3>
                     </div>
+                    <div class="card-content">
+                        
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group form-black label-floating">
+                                        <label class="control-label">Sucursal</label>
+                                        <p>{{sucursal}}</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="form-group form-black label-floating">
+                                        <label class="control-label">Cartera</label>
+                                        <p>{{cartera}}</p>
+                                    </div>
+                                </div>
 
-                    <div class="content">
-                        <h6 class="category text-gray">Información</h6>
-                        <h4 class="card-title">Socio</h4>
-                        <p class="card-content">
-                            Pequena descripción
-                        </p>
+                                <div class="col-md-4">
+                                    <div class="form-group form-black label-floating">
+                                        <label class="control-label">Numero</label>
+                                        <p>{{ticket}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group form-black label-floating">
+                                        <label class="control-label">Cliente</label>
+                                        <p>{{tipo}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="row">
+                                <div class="col-md-12">
+                                    <h2 class="control-label">Titular</h2>
+                                    
+                                </div>
+                                <div class="col-md-12">
+                                    {{formCliente.nombre_1}} {{formCliente.nombre_2}} {{formCliente.apellido_1}} {{formCliente.apellido_2}}
+                                </div>
+                                
+                            </div>
+                           <div class="row">
+                                <hr>
+                                <div class="col-md-4">
+                                    <label class="labels">DNI</label>
+                                    <div class="form-group form-black label-floating">
+                                      <p>{{formCliente.dni}}</p> 
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="labels">Sexo</label>
+                                    <div class="form-group form-black label-floating">
+                                        <p>{{formCliente.sexo}}</p> 
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="labels">Fecha de nacimiento</label>
+                                    <div class="form-group form-black label-floating">
+                                        <p>{{formCliente.f_nacimiento | date: 'dd/MM/yyyy'}}</p> 
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <hr>
+                                <div class="col-md-6">
+                                    <label class="labels">Correo</label>
+                                    <div class="form-group form-black label-floating">
+                                      <p>{{correo}}</p> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="labels">Teléfono</label>
+                                    <div class="form-group form-black label-floating">
+                                        <p>{{telefono}}</p> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <hr>
+                                <div class="col-md-4">
+                                    <label class="labels">Fecha de alta o última renovación</label>
+                                    <div class="form-group form-black label-floating">
+                                        <p>{{formCliente.f_alta | date: 'dd/MM/yyyy'}}</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-5">
+                                    <label class="labels" >Estado del Cliente</label>
+                                    <div class="form-group form-black label-floating">
+                                        <p>{{formCliente.estado}}</p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row" *ngIf="moroso">
+                                <!-- <div class="col-md-3">
+                                    <label class="control-label">Moroso</label>
+                                    <div class="form-group form-black label-floating" align="center">
+                                        <p>{{moroso}}</p>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-6">
+                                    <label class="labels">Fecha de morosidad</label>
+                                    <div class="form-group form-black label-floating" align="center">
+                                        <p>{{formCliente.f_moroso | date: 'dd/MM/yyyy'}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="labels">Mes</label>
+                                    <div class="form-group form-black label-floating" align="center">
+                                        <p>{{mes}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="labels">Año</label>
+                                    <div class="form-group form-black label-floating" align="center">
+                                        <p>{{ano}}</p>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="row">
+                                <hr>
+                                 <div class="col-md-12">
+                                    <label class="labels">Dirección</label>
+                                    <div class="form-group form-black label-floating">
+                                        <p>{{formCliente.direccion}}</p>
+                                    </div>
+                                </div>   
+                            </div>
 
+
+
+                            
+                            <div *ngIf="formCliente.tipo=='AF_CUETO'">
+
+                                <div *ngFor="let client of formCliente.familiares; let i = index">
+                                    <div class="row">
+                                         <div class="col-md-1">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="row">
+                                                <hr>
+                                                <h2 class="control-label">Familiar {{i+1}}</h2>
+                                                
+                                                <div class="col-md-12">
+                                                    <label class="labels">Primer Nombre:</label>
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <p>{{client.nombre_1}} {{client.nombre_2}} {{client.apellido_1}} {{client.apellido_2}}</p>
+                                                        <!-- <input type="text" name="nombre_1" class="form-control" [(ngModel)]="nombre_1"> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-4">
+                                                    <label class="labels">DNI</label>
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <p>{{client.dni}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="labels">Vínculo</label>
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <p>{{client.vinculo}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="labels">Sexo</label>
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <p>{{client.sexo}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6">
+                                                    <label class="labels">Fecha de Nacimiento</label>
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <p>{{client.f_nacimiento | date: 'dd/MM/yyyy'}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="labels">Observaciones</label>
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <p>{{client.observaciones}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label class="labels">Dirección</label>
+                                                    <div>
+                                                        {{client.direccion}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
-
         </div>
 
     </div>

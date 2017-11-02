@@ -19,7 +19,7 @@ export class ServiciosComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.http.get("http://rattios.com/datos/data.json")
+        this.http.get("http://rattios.com/24managerAPI/public/pedidos")
             .subscribe((data)=> {
                 setTimeout(()=> {
                     this.data = data;

@@ -13,16 +13,16 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { UpgradeComponent } from './upgrade/upgrade.component';
 import { LoginComponent } from './login/login.component';
 import { SociosComponent } from './socios/socios.component';
-import { HistorialComponent } from './historial/historial.component';
+import { AfiliadosComponent } from './afiliados/afiliados.component';
 import { ServiciosComponent } from './servicios/servicios.component';
 
 const routes: Routes =[
     { path: '',          redirectTo: '/login', pathMatch: 'full' },
     { path: 'Panel-principal',      component: DashboardComponent, pathMatch: 'full'},
-    { path: 'Usuarios',   component: UserProfileComponent, pathMatch: 'full' },
+    { path: 'Afiliados',   component: SociosComponent, pathMatch: 'full' },
+    { path: 'Clientes',     component: UserProfileComponent },
     { path: 'Socios',     component: SociosComponent },
-    { path: 'Servicios',     component: ServiciosComponent },
-    { path: 'Historial-servicios',     component: HistorialComponent },
+    { path: 'Usuarios-Afiliados',     component: AfiliadosComponent },
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },
     { path: 'icons',          component: IconsComponent },

@@ -14,8 +14,8 @@ import 'rxjs/add/operator/map'
 export class LoginComponent implements OnInit {
 
   public people:any;
-  user= 'Rafael'
-  password='123456789';
+  user= ''
+  password='';
   public token:any;
 
   constructor(private http: HttpClient,private router: Router) {
@@ -37,26 +37,28 @@ export class LoginComponent implements OnInit {
     	password: this.password
     }
 
-    this.people='exito...';
-    this.router.navigate(['/Usuarios']);
+    
 
-     // this.http.post('http://rattios.com/24managerAPI/public/login/app', datos)
-     //   .toPromise()
-     //   .then(
-     //     data => { // Success
-     //       console.log(data);
-     //       this.token=data;
-     //       localStorage.setItem('manappger', this.token.token);
-     //       //console.log(res.token);
-     //       this.people='exito...';
-     //       this.router.navigate(['/Panel-principal']);
-     //     },
-     //     msg => { // Error
-     //     	console.log(msg.error);
-     //     	this.people=msg.error;
+      this.http.post('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/login/web', datos)
+        .toPromise()
+        .then(
+          data => { // Success
+            console.log(data);
+            this.token=data;
+            localStorage.setItem('manappger_token', this.token.token);
+            console.log(this.token.user.id);
+            localStorage.setItem('manappger_user_id', this.token.user.id);
+            localStorage.setItem('manappger_user_nombre', this.token.user.nombre);
+            localStorage.setItem('manappger_user_sucursal_id', this.token.user.sucursal_id);
+            this.people='exito...';
+            this.router.navigate(['/Afiliados']);
+         },
+          msg => { // Error
+          	console.log(msg.error.error);
+          	this.people=msg.error.error;
 
-     //     }
-     //   );
+          }
+        );
   }
 
 }
