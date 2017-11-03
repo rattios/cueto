@@ -128,6 +128,7 @@ export class AfiliadosComponent implements OnInit {
 
     familiaresArray(){
         return this.builder.group({
+            id: [""],
             nombre_1: [""],
             nombre_2: [""],
             apellido_1: [""],
@@ -253,8 +254,32 @@ export class AfiliadosComponent implements OnInit {
         this.registroClienteForm.patchValue({imagenes: item.imagenes });
         this.registroClienteForm.patchValue({mes_moroso: item.mes_moroso });
         this.registroClienteForm.patchValue({ano_moroso: item.ano_moroso });
-        //this.registroClienteForm.patchValue({ticket: item.ticket });
-    
+
+        for (var i = 1; i < item.familiares.length; i++) {
+          (<FormArray>this.registroClienteForm.controls['familiares']).push(this.familiaresArray());
+        }
+       
+        for (var i = 0; i < item.familiares.length; i++) {
+            (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({id: item.familiares[i].id });
+            (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({nombre_1: item.familiares[i].nombre_1 });
+            (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({nombre_2: item.familiares[i].nombre_2 });
+            (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({apellido_1: item.familiares[i].apellido_1 });
+            (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({apellido_2: item.familiares[i].apellido_2 });
+            (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({dni: item.familiares[i].dni });
+            (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({direccion: item.familiares[i].direccion });
+            (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({f_nacimiento: item.familiares[i].f_nacimiento });
+            (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({sexo: item.familiares[i].sexo });
+            (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({vinculo: item.familiares[i].vinculo });
+            (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({observaciones: item.familiares[i].observaciones});
+
+        }
+    }
+    editarFamiliar(familiar){
+      console.log(familiar);
+    }
+
+    uppercase(value: string) {
+      return value.toUpperCase();
     }
     volver(){
         this.ver=true;

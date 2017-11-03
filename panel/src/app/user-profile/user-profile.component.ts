@@ -119,7 +119,7 @@ export class UserProfileComponent implements OnInit {
 
 
     ngOnInit(): void {
-      this.loading=true;
+      //this.loading=true;
       this.http.get('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/sucursales/1/carteras')
            .subscribe((data)=> {
 
@@ -141,7 +141,9 @@ export class UserProfileComponent implements OnInit {
     }
 
 
-
+    uppercase(value: string) {
+      return value.toUpperCase();
+    }
    
     handleUpload(data): void {
       if (data && data.response) {

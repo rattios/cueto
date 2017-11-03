@@ -68,25 +68,25 @@
                                 <div class="col-md-3">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="labels">Primer Nombre</label>  
-                                        <input type="text" name="nombre_1" class="form-control" formControlName="nombre_1" appUpp>
+                                        <input type="text" name="nombre_1" class="form-control" formControlName="nombre_1" [transformer]="uppercase">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="labels">Segundo Nombre</label>       
-                                        <input type="text" name="nombre_2" class="form-control" formControlName="nombre_2" appUpp>
+                                        <input type="text" name="nombre_2" class="form-control" formControlName="nombre_2" [transformer]="uppercase">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="labels">Primer Apellido</label>
-                                        <input type="text" name="apellido_1" class="form-control" formControlName="apellido_1" appUpp>
+                                        <input type="text" name="apellido_1" class="form-control" formControlName="apellido_1" [transformer]="uppercase">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="labels">Segundo Apellido</label>
-                                        <input type="text" name="apellido_2" class="form-control" formControlName="apellido_2" appUpp>
+                                        <input type="text" name="apellido_2" class="form-control" formControlName="apellido_2" [transformer]="uppercase">
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
                                  <div class="col-md-12">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="labels">Dirección</label>
-                                        <input type="text" name="direccion" class="form-control" formControlName="direccion" appUpp>
+                                        <input type="text" name="direccion" class="form-control" formControlName="direccion" [transformer]="uppercase">
                                     </div>
                                 </div>   
                             </div>
@@ -176,7 +176,7 @@
                                 <div class="col-md-2" >
                                     <div class="form-group form-black label-floating" align="center">
                                         <label class="labels" style="font-size: 14px !important">Es moroso?</label>
-                                        <mat-slide-toggle name="moroso" formControlName="moroso" (ngModelChange)="chekarMoroso($event)">{{estadoMoroso}}</mat-slide-toggle>
+                                        <mat-slide-toggle name="moroso" formControlName="moroso" (ngModelChange)="chekarMoroso()">{{estadoMoroso}}</mat-slide-toggle>
                                     </div>
                                 </div>
                                 <div class="row" *ngIf="registroClienteForm.value.moroso">
@@ -291,13 +291,13 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group form-black label-floating is-empty">
                                                         <label class="labels">Primer Nombre:</label>
-                                                        <input type="text" name="nombre_1" class="form-control" formControlName="nombre_1" appUpp>
+                                                        <input type="text" name="nombre_1" class="form-control" formControlName="nombre_1" [transformer]="uppercase">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group form-black label-floating is-empty">
                                                         <label class="labels">Segundo Nombre:</label>
-                                                        <input type="text" name="nombre_2" class="form-control" formControlName="nombre_2" appUpp>
+                                                        <input type="text" name="nombre_2" class="form-control" formControlName="nombre_2" [transformer]="uppercase">
                                                     </div>
                                                 </div>
                                             </div>
@@ -305,13 +305,13 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group form-black label-floating is-empty">
                                                         <label class="labels">Primer Apellido:</label>
-                                                        <input type="text" name="apellido_1" class="form-control" formControlName="apellido_1" appUpp>
+                                                        <input type="text" name="apellido_1" class="form-control" formControlName="apellido_1" [transformer]="uppercase">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group form-black label-floating is-empty">
                                                         <label class="labels">Segundo Apellido:</label>
-                                                        <input type="text" name="apellido_2" class="form-control" formControlName="apellido_2" appUpp>
+                                                        <input type="text" name="apellido_2" class="form-control" formControlName="apellido_2" [transformer]="uppercase">
                                                     </div>
                                                 </div>
                                             </div>
@@ -355,7 +355,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group form-black label-floating is-empty">
                                                         <label class="labels">Observaciones:</label>
-                                                        <input type="text" name="observaciones" class="form-control" formControlName="observaciones" appUpp>
+                                                        <input type="text" name="observaciones" class="form-control" formControlName="observaciones" [transformer]="uppercase">
                                                     </div>
                                                 </div>
                                             </div>
@@ -363,7 +363,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group form-black label-floating is-empty">
                                                         <label class="labels">Dirección:</label>
-                                                        <input type="text" name="direccion" class="form-control" formControlName="direccion" appUpp>
+                                                        <input type="text" name="direccion" class="form-control" formControlName="direccion" [transformer]="uppercase">
                                                     </div>
                                                 </div>
                                             </div>

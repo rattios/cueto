@@ -14,7 +14,7 @@ my-app .main-panel .main-content .card{
     opacity: 1;
   }
 }
-@media (min-width: 992px){
+@media (min-width: 1252px){
     .typo-line{
         padding-left: 140px;
         margin-bottom: 40px;
@@ -50,7 +50,7 @@ my-app .main-panel .main-content .card{
     width: 100%;
     bottom: 10px;
 }
-@media (max-width: 991px) {
+@media (max-width: 1251px) {
     .sidebar .nav > li.active-pro{
         position: relative;
         width: 100%;

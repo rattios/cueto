@@ -30,8 +30,8 @@ import { SociosComponent } from './socios/socios.component';
 import { AfiliadosComponent } from './afiliados/afiliados.component';
 import { ServiciosComponent } from './servicios/servicios.component';
 import { DataFilterPipe } from "./data-filter.pipe";
-import { UppDirective } from './upp.directive';
 import { DateFormat } from './date-format';
+import { TextTransformerDirective } from './text-transformer-directive.directive';
 
 
 @NgModule({
@@ -50,7 +50,7 @@ import { DateFormat } from './date-format';
     AfiliadosComponent,
     ServiciosComponent,
     DataFilterPipe,
-    UppDirective,
+    TextTransformerDirective,
 
   ],
   imports: [

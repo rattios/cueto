@@ -3472,7 +3472,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   z-index: 1029;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1251px) {
   .nav-container {
     position: relative;
   }
@@ -4687,7 +4687,7 @@ footer .btn {
   stroke: #e91e63 !important;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 2252px) {
   .navbar-form {
     margin-top: 21px;
     margin-bottom: 21px;
@@ -4775,7 +4775,7 @@ footer .btn {
   }
 }
 /*          Changes for small display      */
-@media (max-width: 991px) {
+@media (max-width: 1251px) {
   .sidebar {
     display: none;
     box-shadow: none;
@@ -5482,7 +5482,7 @@ footer .btn {
     margin-left: 0;
   }
 }
-@media (min-width: 992px) {
+@media (min-width: 2252px) {
   .table-full-width {
     margin-left: -20px;
     margin-right: -20px;
