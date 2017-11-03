@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams  } from '@angular/common/http';
 import { FormGroup, FormArray, FormBuilder, Validators  } from '@angular/forms';
 import { BsModalComponent } from 'ng2-bs3-modal';
+import { RutaService } from '../services/ruta.service';
+
 
 
 declare const $: any;
@@ -74,7 +76,7 @@ export class AfiliadosComponent implements OnInit {
             }]
           };
 
-    constructor(private http: HttpClient, private builder: FormBuilder) {
+    constructor(private http: HttpClient, private builder: FormBuilder, private ruta: RutaService) {
         this.registroClienteForm = builder.group({
             tipo: [""],
             tipoNombre: [""],
@@ -143,8 +145,9 @@ export class AfiliadosComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
       this.loading=true;
-      this.http.get('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/clientes/familiares?sucursal_id='+localStorage.getItem('manappger_user_sucursal_id'))
+      this.http.get(this.ruta.get_ruta()+'public/clientes/familiares?sucursal_id='+localStorage.getItem('manappger_user_sucursal_id'))
          .toPromise()
          .then(
            data => { // Success
@@ -193,7 +196,7 @@ export class AfiliadosComponent implements OnInit {
              this.loading=false;
            }
          );
-      this.http.get('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/sucursales/1/carteras')
+      this.http.get(this.ruta.get_ruta()+'public/sucursales/1/carteras')
            .subscribe((data)=> {
 
                this.data=data;
@@ -263,7 +266,7 @@ export class AfiliadosComponent implements OnInit {
         this.verEditar=true; 
         this.formCliente=item;
         this.registroClienteForm.patchValue({tipo: item.tipo });
-        this.registroClienteForm.patchValue({tipoNombre: item.tipoNombre });
+        this.registroClienteForm.patchValue({tipoNombre: item.tipo2 });
         this.registroClienteForm.patchValue({nombre_1: item.nombre_1 });
         this.registroClienteForm.patchValue({nombre_2: item.nombre_2 });
         this.registroClienteForm.patchValue({apellido_1: item.apellido_1 });

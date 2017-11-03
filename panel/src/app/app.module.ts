@@ -32,6 +32,7 @@ import { ServiciosComponent } from './servicios/servicios.component';
 import { DataFilterPipe } from "./data-filter.pipe";
 import { DateFormat } from './date-format';
 import { TextTransformerDirective } from './text-transformer-directive.directive';
+import { RutaService } from './services/ruta.service';
 
 
 @NgModule({
@@ -88,6 +89,7 @@ import { TextTransformerDirective } from './text-transformer-directive.directive
 
   ],
   providers: [
+    RutaService,
     { provide: DateAdapter, useClass: DateFormat },
   ],
   bootstrap: [AppComponent]

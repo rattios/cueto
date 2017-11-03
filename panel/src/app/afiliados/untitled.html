@@ -288,12 +288,13 @@
     </div>
 <!-- --------------------------------------------------------------------------------------------------------- -->
     <div class="row" *ngIf="verEditar">
-          <div class="col-md-8">
+           <div class="col-md-8">
                 <div class="card">
                     <div class="card-header" data-background-color="orange">
                         <div class="row">
                             <div class="col-md-6">
                                 <h3 class="title">Información del cliente afiliado</h3>
+                                <h4 class="category">Puedes editar la información del afiliado.</h4>
                             </div>
                             <div class="col-md-6" style="text-align: right;">
                                 <button type="button" class="btn btn-success" (click)="volver(item)">Volver</button>
@@ -559,12 +560,142 @@
                             </div>
                         </form>
                     </div>
-                </div> 
-          </div>
-          <div class="col-md-4" >
+                </div>    
                 <div class="card">
                     <div class="card-header" data-background-color="orange">
-                        <h3 class="title">Datos del afiliado titular</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3 class="title">Familiares</h3>
+                                <h4 class="category">Puedes agregar un familiar o editar la información.</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <form [formGroup]="registroClienteForm" (ngSubmit)="enviarCliente(registroClienteForm)">
+                            <div class="row">
+                                
+                            </div>
+                            
+                            <div formArrayName="familiares" [hidden]="registroClienteForm.value.tipo != 'AF_CUETO'" *ngIf="registroClienteForm.controls.familiares">
+                                <div *ngFor="let client of registroClienteForm.controls.familiares.controls; let i=index" [formGroupName]="i">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="row">
+                                                <h3 class="title">Familiar {{i+1}}</h3>
+                                                <hr>
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="labels">Primer Nombre:</label>
+                                                        <input type="text" name="nombre_1" class="form-control" formControlName="nombre_1" [transformer]="uppercase">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="labels">Segundo Nombre:</label>
+                                                        <input type="text" name="nombre_2" class="form-control" formControlName="nombre_2" [transformer]="uppercase">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="labels">Primer Apellido:</label>
+                                                        <input type="text" name="apellido_1" class="form-control" formControlName="apellido_1" [transformer]="uppercase">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="labels">Segundo Apellido:</label>
+                                                        <input type="text" name="apellido_2" class="form-control" formControlName="apellido_2" [transformer]="uppercase">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="labels">DNI</label>
+                                                        <input type="text" name="dni" class="form-control" formControlName="dni">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="labels">Vínculo</label>
+                                                        <input type="text" name="vinculo"class="form-control" formControlName="vinculo">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="labels">Sexo:</label>
+                                                        <select name="tipo" formControlName="sexo" class="form-control">
+                                                            <option value="M" selected="true">Masculino</option>
+                                                            <option value="F">Femenino</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <!-- <div class="form-group form-black label-floating is-empty">
+                                                        <label class="labels">Fecha Nacimiento:</label>
+                                                        <input type="text" name="f_nacimiento" class="form-control" formControlName="f_nacimiento">
+                                                    </div> -->
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <mat-form-field>
+                                                          <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" class="form-control" style="width: 85%; display: inline-block;" name="f_nacimiento" formControlName="f_nacimiento">
+                                                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                          <mat-datepicker #picker></mat-datepicker>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="labels">Observaciones:</label>
+                                                        <input type="text" name="observaciones" class="form-control" formControlName="observaciones" [transformer]="uppercase">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="labels">Dirección:</label>
+                                                        <input type="text" name="direccion" class="form-control" formControlName="direccion" [transformer]="uppercase">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12" style="text-align: center;" align="center">
+                                                        <div class="btn btn-danger" (click)=editarFamiliar(client)>Editar Familiar</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" >
+                                        <div class="btn btn-success pull-right" (click)=agregar()>Agregar un Familiar</div>
+                                        <!-- <div class="btn btn-success pull-right" (click)=remover(i)>Eliminar</div> -->
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="row" style="text-align: center">
+                            <!-- <button type="submit" class="btn btn-danger" [disabled]="!registroClienteForm.valid">Editar</button> -->
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div> 
+
+            <!-- --------------------------------------------------------------------------------------------------------- -->
+            <div class="col-md-4 fixed" >
+                <div class="card">
+                    <div class="card-header" data-background-color="orange">
+                        <h3 class="title">Datos</h3>
                     </div>
                     <div class="card-content">
                         
@@ -698,145 +829,13 @@
                             </div>
                         </div>
                     </div>
-            </div>
-            <div class="col-md-8" >  
+            <div  >
                 <div class="card">
                     <div class="card-header" data-background-color="orange">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h3 class="title">Familiares</h3>
-                            </div>
-                        </div>
+                        <h3 class="title">Familiares</h3>
                     </div>
                     <div class="card-content">
-                        <form [formGroup]="registroClienteForm" (ngSubmit)="enviarCliente(registroClienteForm)">
-                            <div class="row">
-                                
-                            </div>
-                            
-                            <div formArrayName="familiares" [hidden]="registroClienteForm.value.tipo != 'AF_CUETO'" *ngIf="registroClienteForm.controls.familiares">
-                                <div *ngFor="let client of registroClienteForm.controls.familiares.controls; let i=index" [formGroupName]="i">
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="row">
-                                                <h3 class="title">Familiar {{i+1}}</h3>
-                                                <hr>
-                                                <div class="col-md-6">
-                                                    <div class="form-group form-black label-floating is-empty">
-                                                        <label class="labels">Primer Nombre:</label>
-                                                        <input type="text" name="nombre_1" class="form-control" formControlName="nombre_1" [transformer]="uppercase">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group form-black label-floating is-empty">
-                                                        <label class="labels">Segundo Nombre:</label>
-                                                        <input type="text" name="nombre_2" class="form-control" formControlName="nombre_2" [transformer]="uppercase">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group form-black label-floating is-empty">
-                                                        <label class="labels">Primer Apellido:</label>
-                                                        <input type="text" name="apellido_1" class="form-control" formControlName="apellido_1" [transformer]="uppercase">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group form-black label-floating is-empty">
-                                                        <label class="labels">Segundo Apellido:</label>
-                                                        <input type="text" name="apellido_2" class="form-control" formControlName="apellido_2" [transformer]="uppercase">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group form-black label-floating is-empty">
-                                                        <label class="labels">DNI</label>
-                                                        <input type="text" name="dni" class="form-control" formControlName="dni">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group form-black label-floating is-empty">
-                                                        <label class="labels">Vínculo</label>
-                                                        <input type="text" name="vinculo"class="form-control" formControlName="vinculo">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group form-black label-floating is-empty">
-                                                        <label class="labels">Sexo:</label>
-                                                        <select name="tipo" formControlName="sexo" class="form-control">
-                                                            <option value="M" selected="true">Masculino</option>
-                                                            <option value="F">Femenino</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <!-- <div class="form-group form-black label-floating is-empty">
-                                                        <label class="labels">Fecha Nacimiento:</label>
-                                                        <input type="text" name="f_nacimiento" class="form-control" formControlName="f_nacimiento">
-                                                    </div> -->
-                                                    <div class="form-group form-black label-floating is-empty">
-                                                        <mat-form-field>
-                                                          <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" class="form-control" style="width: 85%; display: inline-block;" name="f_nacimiento" formControlName="f_nacimiento">
-                                                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                                          <mat-datepicker #picker></mat-datepicker>
-                                                        </mat-form-field>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group form-black label-floating is-empty">
-                                                        <label class="labels">Observaciones:</label>
-                                                        <input type="text" name="observaciones" class="form-control" formControlName="observaciones" [transformer]="uppercase">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group form-black label-floating is-empty">
-                                                        <label class="labels">Dirección:</label>
-                                                        <input type="text" name="direccion" class="form-control" formControlName="direccion" [transformer]="uppercase">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12" style="text-align: center;" align="center">
-                                                        <div class="btn btn-danger" (click)=editarFamiliar(client)>Editar Familiar</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-1">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12" >
-                                        <div class="btn btn-success pull-right" (click)=agregar()>Agregar un Familiar</div>
-                                        <!-- <div class="btn btn-success pull-right" (click)=remover(i)>Eliminar</div> -->
-                                    </div>
-                                </div> 
-                            </div>
-                            <div class="row" style="text-align: center">
-                            <!-- <button type="submit" class="btn btn-danger" [disabled]="!registroClienteForm.valid">Editar</button> -->
-                            </div>
-
-                            <div class="clearfix"></div>
-                        </form>
-                    </div>
-                </div>
-            </div> 
-
-            <!-- --------------------------------------------------------------------------------------------------------- -->
-            <div class="col-md-4 fixed" >
-                <div class="card">
-                    <div class="card-header" data-background-color="orange">
-                        <h3 class="title">Datos de los familiares</h3>
-                    </div>
-                    <div class="card-content">
-                              
+                        
                             <div [hidden]="registroClienteForm.value.tipo != 'AF_CUETO'" *ngIf="registroClienteForm.controls.familiares">
                                 <div *ngFor="let client of registroClienteForm.value.familiares; let i = index">
                                     <div class="row">
