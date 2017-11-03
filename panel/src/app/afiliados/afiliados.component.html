@@ -29,6 +29,7 @@
                          <th style="text-align: center;">Estado</th>
                          <th style="text-align: center;">Fecha de alta o renovación</th>
                          <th style="text-align: center;">Ingresó</th>
+                         <th style="text-align: center;">Ticket</th>
                          <th style="text-align: center;">Acciones</th>
                       </thead>
                       <tbody>
@@ -40,6 +41,7 @@
                             <td style="text-align: center; font-size: 16px">{{item.estado2}}</td>
                             <td style="text-align: center; font-size: 16px">{{item.f_alta | date:'dd/MM/yyyy'}}</td>
                             <td style="text-align: center; font-size: 16px">{{item.user_id2}}</td>
+                            <td style="text-align: center; font-size: 16px">{{item.ticket}}</td>
                             <td style="text-align: center; font-size: 16px">
                               <button type="button" class="btn btn-success" (click)="getUsuario(item)">Ver</button>
                              <button type="button" class="btn btn-warning" (click)="editar(item)">Editar</button>

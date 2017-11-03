@@ -180,6 +180,8 @@ export class AfiliadosComponent implements OnInit {
                }else if (this.productList[i].user_id=='2') {
                  this.productList[i].user_id2='Natalia';
                }
+
+                this.productList[i].ticket=this.productList[i].ticket.toString();
              }
 
              this.init();
@@ -218,6 +220,38 @@ export class AfiliadosComponent implements OnInit {
     }
     editar(item){
         console.log(item);
+
+        this.registroClienteForm = this.builder.group({
+            tipo: [""],
+            tipoNombre: [""],
+            nombre_1: [""],
+            nombre_2: [""],
+            apellido_1: [""],
+            apellido_2: [""],
+            dni: [""],
+            direccion: [""],
+            f_nacimiento: [""],
+            estado: [""],
+            sexo: [""],
+            cuota: [""],
+            correo: [""],
+            telefono: [""],
+            f_alta: [""],
+            moroso:[false],
+            cuotas:this.builder.array([this.cuotaArray()]),
+            sucursal: [""],
+            sucursal_id: [""],
+            cartera_id: [""],
+            cartera: [""],
+            ticket: [""],
+            ticket_id: [""],
+            f_moroso: [""],
+            user_id: [this.user_id],
+            imagenes: [""],
+            mes_moroso: [""],
+            ano_moroso: [""],
+            familiares: this.builder.array([this.familiaresArray()])
+        })
 
         if (item.moroso==0) {
           item.moroso=false;
@@ -328,6 +362,8 @@ export class AfiliadosComponent implements OnInit {
               }else if (this.productList[i].apellido_1.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
                  this.filteredItems.push(this.productList[i]);
               }else if (this.productList[i].dni.indexOf(this.inputName)>=0) {
+                 this.filteredItems.push(this.productList[i]);
+              }else if (this.productList[i].ticket.indexOf(this.inputName)>=0) {
                  this.filteredItems.push(this.productList[i]);
               }else if (this.productList[i].f_alta.indexOf(this.inputName)>=0) {
                  this.filteredItems.push(this.productList[i]);
