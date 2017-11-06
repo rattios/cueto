@@ -148,7 +148,7 @@ export class AfiliadosComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
+      
       this.loading=true;
       this.http.get(this.ruta.get_ruta()+'public/clientes/familiares?sucursal_id='+localStorage.getItem('manappger_user_sucursal_id'))
          .toPromise()
@@ -176,9 +176,9 @@ export class AfiliadosComponent implements OnInit {
              console.log(this.productList);
              for (var i = 0; i < this.productList.length; ++i) {
                if (this.productList[i].tipo=='AF_CUETO') {
-                 this.productList[i].tipo2='Afiliado Cueto Grupo Familiar';
+                 this.productList[i].tipo2='GFS';
                }else if (this.productList[i].tipo=='AF_CUETO_S') {
-                 this.productList[i].tipo2='Afiliado Cueto';
+                 this.productList[i].tipo2='SSF';
                }
                if (this.productList[i].estado=='M') {
                  this.productList[i].estado2='Moroso';
@@ -235,6 +235,22 @@ export class AfiliadosComponent implements OnInit {
                this.fechaSistema=this.fechaSistema.fechaSistema;
                //alert(this.fechaSistema);
             });
+    }
+
+     update_tipo(tipo){
+        var tipo_cliente = tipo.target.value;
+        console.log(tipo_cliente);
+        if (tipo_cliente == 'AF_CUETO_S') {
+
+            this.registroClienteForm.removeControl('familiares');
+            this.registroClienteForm.patchValue({tipoNombre: 'SSF' });
+            //alert('AF_CUETO_S');
+        }
+        if (tipo_cliente == 'AF_CUETO') {
+            this.registroClienteForm.addControl('familiares', this.builder.array([this.familiaresArray()]));
+            this.registroClienteForm.patchValue({tipoNombre: 'GSF' });
+            //alert('AF_CUETO');
+        }  
     }
 
     getUsuario(item){

@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('manappger_user_nombre', this.token.user.nombre);
             localStorage.setItem('manappger_user_sucursal_id', this.token.user.sucursal_id);
             this.people='exito...';
-            this.router.navigate(['/Afiliados']);
+            this.router.navigate(['/Clientes']);
          },
           msg => { // Error
           	console.log(msg.error.error);

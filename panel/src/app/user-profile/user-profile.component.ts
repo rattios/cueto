@@ -53,29 +53,29 @@ export class UserProfileComponent implements OnInit {
     constructor(private http: HttpClient, private builder: FormBuilder) {
 
         this.registroClienteForm = builder.group({
-            tipo: [""],
+            tipo: ["", Validators.required],
             tipoNombre: [""],
-            nombre_1: [""],
+            nombre_1: ["", Validators.required],
             nombre_2: [""],
-            apellido_1: [""],
+            apellido_1: ["", Validators.required],
             apellido_2: [""],
-            dni: [""],
+            dni: ["", Validators.required],
             direccion: [""],
-            f_nacimiento: [""],
-            estado: [""],
+            f_nacimiento: ["", Validators.required],
+            estado: ["", Validators.required],
             sexo: [""],
             cuota: [""],
             correo: [""],
             telefono: [""],
-            f_alta: [""],
+            f_alta: ["", Validators.required],
             moroso:[false],
             cuotas:this.builder.array([this.cuotaArray()]),
             sucursal: [""],
-            sucursal_id: [""],
-            cartera_id: [""],
+            sucursal_id: ["", Validators.required],
+            cartera_id: ["", Validators.required],
             cartera: [""],
             ticket: [""],
-            ticket_id: [""],
+            ticket_id: ["", Validators.required],
             f_moroso: [""],
             user_id: [this.user_id],
             imagenes: [""],
@@ -283,14 +283,19 @@ export class UserProfileComponent implements OnInit {
     }
 
     update_tipo(tipo){
+      console.log(this.registroClienteForm);
         var tipo_cliente = tipo.target.value;
+        console.log(tipo_cliente);
         if (tipo_cliente == 'AF_CUETO_S') {
+
             this.registroClienteForm.removeControl('familiares');
-            this.registroClienteForm.patchValue({tipoNombre: 'Afiliado Cueto Independiente' });
+            this.registroClienteForm.patchValue({tipoNombre: 'SSF' });
+            //alert('AF_CUETO_S');
         }
         if (tipo_cliente == 'AF_CUETO') {
             this.registroClienteForm.addControl('familiares', this.builder.array([this.familiaresArray()]));
-            this.registroClienteForm.patchValue({tipoNombre: 'Afiliado Cueto con Grupo Familiar' });
+            this.registroClienteForm.patchValue({tipoNombre: 'GSF' });
+            //alert('AF_CUETO');
         }  
     }
 
