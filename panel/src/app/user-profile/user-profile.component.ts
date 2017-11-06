@@ -41,6 +41,7 @@ export class UserProfileComponent implements OnInit {
     public moroso = false;
     public telefono = "";
     public correo = "";
+    public fechaSistema:any;
     uploadFile: any;
     hasBaseDropZoneOver: boolean = false;
     options: Object = {
@@ -78,6 +79,8 @@ export class UserProfileComponent implements OnInit {
             f_moroso: [""],
             user_id: [this.user_id],
             imagenes: [""],
+            mes: [""],
+            anio: [""],
             mes_moroso: [""],
             ano_moroso: [""],
             familiares: this.builder.array([this.familiaresArray()])
@@ -119,7 +122,7 @@ export class UserProfileComponent implements OnInit {
 
 
     ngOnInit(): void {
-      //this.loading=true;
+      this.loading=true;
       this.http.get('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/sucursales/1/carteras')
            .subscribe((data)=> {
 
@@ -138,6 +141,14 @@ export class UserProfileComponent implements OnInit {
 
                this.loading=false;
             });
+       this.http.get('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/getHour')
+           .subscribe((data)=> {
+             console.log(data);
+               this.fechaSistema=data;
+               this.fechaSistema=this.fechaSistema.fechaSistema;
+               //alert(this.fechaSistema);
+            });
+           
     }
 
 
@@ -218,6 +229,7 @@ export class UserProfileComponent implements OnInit {
         this.clientesAdd=model;
         console.log(this.clientesAdd.value);
         var send=this.clientesAdd.value;
+        send.user_id=localStorage.getItem("manappger_user_id");
 
         //setTimeout(function() {
           //send.familiares=JSON.stringify(send.familiares);
@@ -283,7 +295,7 @@ export class UserProfileComponent implements OnInit {
     }
 
     public resetCliente(){
-        this.loading=true;
+        //this.loading=true;
         this.registroClienteForm.patchValue({user_id: localStorage.getItem("manappger_user_id") });
         this.registroClienteForm.patchValue({sucursal: this.sucursal });
         this.carteras=[];
@@ -325,6 +337,27 @@ export class UserProfileComponent implements OnInit {
         if(index>-1) {
             this.data.splice(index, 1);
         }
+    }
+    public verEstado(estado) {
+      console.log(estado.target.value);
+        if (estado.target.value=='PC') {
+          this.registroClienteForm.patchValue({mes: "" });
+          this.registroClienteForm.patchValue({anio: "" });
+        }else if(estado.target.value=='P') {
+          this.registroClienteForm.patchValue({mes: "" });
+          this.registroClienteForm.patchValue({anio: "" });
+        }else if(estado.target.value=='V') {
+          var diaActual=new Date(this.fechaSistema);
+          this.registroClienteForm.patchValue({mes: diaActual.getMonth()+1 });
+          this.registroClienteForm.patchValue({anio: diaActual.getFullYear() });
+        }else if (estado.target.value=='M') {
+          this.registroClienteForm.patchValue({mes: "" });
+          this.registroClienteForm.patchValue({anio: "" });
+        }else if (estado.target.value=='B') {
+          this.registroClienteForm.patchValue({mes: "" });
+          this.registroClienteForm.patchValue({anio: "" });
+        }
+        console.log(this.registroClienteForm.value);
     }
 
     public chekarMoroso() {

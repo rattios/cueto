@@ -301,7 +301,7 @@
                         </div>
                     </div>
                     <div class="card-content">
-                        <form [formGroup]="registroClienteForm" (ngSubmit)="enviarCliente(registroClienteForm)">
+                        <form [formGroup]="registroClienteForm" (ngSubmit)="editarAfiliado(registroClienteForm)">
                             <div class="row">
                                 <div class="col-md-4">
                                     <label class="labels">Sucursal:</label>
@@ -532,10 +532,10 @@
                                     <label class="labels" style="font-size: 14px !important">Estado del Cliente:</label>
                                     <div class="form-group form-black label-floating">
                                         
-                                        <select name="estado" formControlName="estado" class="form-control">
+                                        <select name="estado" formControlName="estado" class="form-control" (change)="verEstado($event)">
                                             <option value="PC" selected="true">Pre Cargado</option>
                                             <option value="P">Pendiente por autorización</option>
-                                            <option value="N">Vigente</option>
+                                            <option value="V">Vigente</option>
                                             <option value="M">Moroso</option>
                                             <option value="B">Baja</option>
                                         </select>
@@ -804,7 +804,8 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12" style="text-align: center;" align="center">
-                                                        <div class="btn btn-danger" (click)=editarFamiliar(client)>Editar Familiar</div>
+                                                        <div *ngIf="registroClienteForm.value.familiares[i].existe" class="btn btn-danger" (click)=editarFamiliar(client)>Editar Familiar</div>
+                                                        <div *ngIf="!registroClienteForm.value.familiares[i].existe" class="btn btn-success" (click)=crearFamiliar(client,registroClienteForm.value.id,registroClienteForm.value.sucursal_id)>Agregar</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -814,7 +815,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12" >
-                                        <div class="btn btn-success pull-right" (click)=agregar()>Agregar un Familiar</div>
+                                        <div class="btn btn-warning pull-right" (click)=agregar()>Agregar un Familiar</div>
                                         <!-- <div class="btn btn-success pull-right" (click)=remover(i)>Eliminar</div> -->
                                     </div>
                                 </div> 

@@ -28,6 +28,7 @@ export class AfiliadosComponent implements OnInit {
   public registroClienteForm: FormGroup;
   public sucursal:any;
   public carteras:any;
+  public fechaSistema:any;
   public formCliente = {
             tipo: "",
             nombre_1: "",
@@ -78,6 +79,7 @@ export class AfiliadosComponent implements OnInit {
 
     constructor(private http: HttpClient, private builder: FormBuilder, private ruta: RutaService) {
         this.registroClienteForm = builder.group({
+            id: [""],
             tipo: [""],
             tipoNombre: [""],
             nombre_1: [""],
@@ -140,7 +142,8 @@ export class AfiliadosComponent implements OnInit {
             f_nacimiento: [""],
             sexo: [""],
             vinculo: [""],
-            observaciones: [""]
+            observaciones: [""],
+            existe: false
             })
     }
 
@@ -154,7 +157,18 @@ export class AfiliadosComponent implements OnInit {
              console.log(data);
              this.data2 = data;
              this.socios=data;
-             this.data=this.socios.clientes;
+             this.socios=this.socios.clientes;
+             for (var i = 0; i < this.socios.length; i++) {
+
+               if (this.socios[i].f_nacimiento=='0000-00-00'||this.socios[i].f_nacimiento==null) {
+                 this.socios[i].f_nacimiento='';
+               }
+               if (this.socios[i].f_alta=='0000-00-00'||this.socios[i].f_alta==null) {
+                 this.socios[i].f_nacimiento='';
+               }
+
+             }
+             this.data=this.socios;
              console.log(this.socios);
              
              this.productList = this.data;
@@ -168,7 +182,7 @@ export class AfiliadosComponent implements OnInit {
                }
                if (this.productList[i].estado=='M') {
                  this.productList[i].estado2='Moroso';
-               }else if (this.productList[i].estado=='N') {
+               }else if (this.productList[i].estado=='V') {
                  this.productList[i].estado2='Vigente';
                }else if (this.productList[i].estado=='B') {
                  this.productList[i].estado2='Baja';
@@ -214,6 +228,13 @@ export class AfiliadosComponent implements OnInit {
 
 
             });
+      this.http.get('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/getHour')
+           .subscribe((data)=> {
+             console.log(data);
+               this.fechaSistema=data;
+               this.fechaSistema=this.fechaSistema.fechaSistema;
+               //alert(this.fechaSistema);
+            });
     }
 
     getUsuario(item){
@@ -224,7 +245,14 @@ export class AfiliadosComponent implements OnInit {
     editar(item){
         console.log(item);
 
+        for (var i = 0; i < item.length; i++) {
+          item[i].f_nacimiento=new Date(item[i].f_nacimiento);
+          item[i].f_alta=new Date(item[i].f_alta);
+          item[i].f_moroso=new Date(item[i].f_moroso);
+        }
+
         this.registroClienteForm = this.builder.group({
+            id: [""],
             tipo: [""],
             tipoNombre: [""],
             nombre_1: [""],
@@ -251,6 +279,8 @@ export class AfiliadosComponent implements OnInit {
             f_moroso: [""],
             user_id: [this.user_id],
             imagenes: [""],
+            mes: [""],
+            anio: [""],
             mes_moroso: [""],
             ano_moroso: [""],
             familiares: this.builder.array([this.familiaresArray()])
@@ -265,6 +295,7 @@ export class AfiliadosComponent implements OnInit {
         this.ver=false;
         this.verEditar=true; 
         this.formCliente=item;
+        this.registroClienteForm.patchValue({id: item.id });
         this.registroClienteForm.patchValue({tipo: item.tipo });
         this.registroClienteForm.patchValue({tipoNombre: item.tipo2 });
         this.registroClienteForm.patchValue({nombre_1: item.nombre_1 });
@@ -308,16 +339,150 @@ export class AfiliadosComponent implements OnInit {
             (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({sexo: item.familiares[i].sexo });
             (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({vinculo: item.familiares[i].vinculo });
             (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({observaciones: item.familiares[i].observaciones});
-
+            (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({existe: true});
         }
     }
+
+    agregar(){
+        const control= <FormArray>this.registroClienteForm.controls["familiares"];
+        var index=control.value.length-1;
+        
+        control.push(this.familiaresArray());
+        
+    }
+    crearFamiliar(cliente,cliente_id,sucursal_id){
+
+      cliente.value.cliente_id=cliente_id;
+      cliente.value.sucursal_id=sucursal_id;
+
+      this.http.post(this.ruta.get_ruta()+'public/familiares',cliente.value)
+         .toPromise()
+         .then(
+           data => { // Success
+             console.log(data);
+             this.showNotification('top','center','Familiar creado con exito',2);
+             this.loading=false;
+           },
+           msg => { // Error
+             console.log(msg);
+             this.showNotification('top','center','Ha ocurrido un error' + JSON.stringify(msg.error),4);
+             this.loading=false;
+           }
+         );
+    }
+
+    editarAfiliado(familiar){
+      console.log(familiar.value);
+      this.loading=true;
+      this.http.put(this.ruta.get_ruta()+'public/clientes/'+familiar.value.id,familiar.value)
+         .toPromise()
+         .then(
+           data => { // Success
+             console.log(data);
+             this.showNotification('top','center','Actualizado con exito',2);
+             this.loading=false;
+           },
+           msg => { // Error
+             console.log(msg);
+             this.showNotification('top','center','Ha ocurrido un error' + JSON.stringify(msg.error),4);
+             this.loading=false;
+           }
+         );
+    }
+
     editarFamiliar(familiar){
       console.log(familiar);
+      this.loading=true;
+      this.http.put(this.ruta.get_ruta()+'public/familiares/'+familiar.value.id,familiar.value)
+         .toPromise()
+         .then(
+           data => { // Success
+             console.log(data);
+             this.showNotification('top','center','Actualizado con exito',2);
+             this.loading=false;
+           },
+           msg => { // Error
+             console.log(msg);
+             this.showNotification('top','center','Ha ocurrido un error' + JSON.stringify(msg.error),4);
+             this.loading=false;
+           }
+         );
+    }
+
+    public verEstado(estado) {
+      console.log(estado.target.value);
+        if (estado.target.value=='PC') {
+          this.registroClienteForm.patchValue({mes: "" });
+          this.registroClienteForm.patchValue({anio: "" });
+        }else if(estado.target.value=='P') {
+          this.registroClienteForm.patchValue({mes: "" });
+          this.registroClienteForm.patchValue({anio: "" });
+        }else if(estado.target.value=='V') {
+          var diaActual=new Date(this.fechaSistema);
+          this.registroClienteForm.patchValue({mes: diaActual.getMonth()+1 });
+          this.registroClienteForm.patchValue({anio: diaActual.getFullYear() });
+        }else if (estado.target.value=='M') {
+          this.registroClienteForm.patchValue({mes: "" });
+          this.registroClienteForm.patchValue({anio: "" });
+        }else if (estado.target.value=='B') {
+          this.registroClienteForm.patchValue({mes: "" });
+          this.registroClienteForm.patchValue({anio: "" });
+        }
+        console.log(this.registroClienteForm.value);
     }
 
     uppercase(value: string) {
       return value.toUpperCase();
     }
+    uploadFile: any;
+    hasBaseDropZoneOver: boolean = false;
+    options: Object = {
+      url: 'http://vivomedia.com.ar/cuetociasrl/upload.php'
+    };
+    sizeLimit = 2000000;
+    handleUpload(data): void {
+      if (data && data.response) {
+        data = JSON.parse(data.response);
+        this.uploadFile = data;
+        this.loading=false;
+        this.registroClienteForm.patchValue({imagenes: 'http://vivomedia.com.ar/cuetociasrl/uploads/'+this.uploadFile.generatedName });
+      }
+    }
+   
+    fileOverBase(e:any):void {
+      console.log('t1');
+      this.hasBaseDropZoneOver = e;
+    }
+   
+    beforeUpload(uploadingFile): void {
+      this.loading=true;
+      console.log('t2');
+      if (uploadingFile.size > this.sizeLimit) {
+        uploadingFile.setAbort();
+        alert('File is too large');
+
+      }
+    }
+
+    showNotification(from, align, mensaje,colors){
+          const type = ['','info','success','warning','danger'];
+
+          const color = colors;
+          
+          $.notify({
+              icon: "notifications",
+              message: mensaje
+
+          },{
+              type: type[color],
+              timer: 4000,
+              placement: {
+                  from: from,
+                  align: align
+              }
+          });
+    }
+
     volver(){
         this.ver=true;
         this.verDatos=false;

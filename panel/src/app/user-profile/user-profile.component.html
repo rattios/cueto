@@ -251,10 +251,10 @@
                                     <label class="labels" style="font-size: 14px !important">Estado del Cliente:</label>
                                     <div class="form-group form-black label-floating">
                                         
-                                        <select name="estado" formControlName="estado" class="form-control">
+                                        <select name="estado" formControlName="estado" class="form-control" (change)="verEstado($event)">
                                             <option value="PC" selected="true">Pre Cargado</option>
                                             <option value="P">Pendiente por autorización</option>
-                                            <option value="N">Vigente</option>
+                                            <option value="V">Vigente</option>
                                             <option value="M">Moroso</option>
                                             <option value="B">Baja</option>
                                         </select>
