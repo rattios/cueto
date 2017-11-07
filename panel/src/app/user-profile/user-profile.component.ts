@@ -106,13 +106,13 @@ export class UserProfileComponent implements OnInit {
 
     familiaresArray(){
         return this.builder.group({
-            nombre_1: [""],
+            nombre_1: ["", Validators.required],
             nombre_2: [""],
-            apellido_1: [""],
+            apellido_1: ["", Validators.required],
             apellido_2: [""],
-            dni: [""],
+            dni: ["", Validators.required],
             direccion: [""],
-            f_nacimiento: [""],
+            f_nacimiento: ["", Validators.required],
             sexo: [""],
             vinculo: [""],
             observaciones: [""]
@@ -229,25 +229,26 @@ export class UserProfileComponent implements OnInit {
         this.clientesAdd=model;
         console.log(this.clientesAdd.value);
         var send=this.clientesAdd.value;
-        send.user_id=localStorage.getItem("manappger_user_id");
+        var send2 = Object.assign({}, send);
+        send2.user_id=localStorage.getItem("manappger_user_id");
 
         //setTimeout(function() {
           //send.familiares=JSON.stringify(send.familiares);
           //send.cuotas=JSON.stringify(send.coutas);
 
-          var me=send.familiares;
+          var me=send2.familiares;
           console.log(me);
 
-          var me2=send.cuotas[0].Enero;
+          var me2=send2.cuotas[0].Enero;
           console.log(me2);
 
         //}, 1000);
-        send.familiares=JSON.stringify(send.familiares);
+        send2.familiares=JSON.stringify(send2.familiares);
          // send.cuotas=JSON.stringify(send.cuotas);
           // send=JSON.stringify(send);
-          console.log(send);
+          console.log(send2);
 
-        this.http.post('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/clientes',send)
+        this.http.post('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/clientes',send2)
          .toPromise()
          .then(
            data => { // Success
@@ -300,7 +301,8 @@ export class UserProfileComponent implements OnInit {
     }
 
     public resetCliente(){
-        //this.loading=true;
+        this.resetCliente2();
+        this.loading=true;
         this.registroClienteForm.patchValue({user_id: localStorage.getItem("manappger_user_id") });
         this.registroClienteForm.patchValue({sucursal: this.sucursal });
         this.carteras=[];
@@ -308,7 +310,7 @@ export class UserProfileComponent implements OnInit {
 
         this.http.get('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/sucursales/1/carteras')
            .subscribe((data)=> {
-
+               this.loading=false;
                this.data=data;
                this.data=this.data.sucursal[0];
                this.sucursal=this.data.nombre;
@@ -320,14 +322,19 @@ export class UserProfileComponent implements OnInit {
                const control= this.registroClienteForm.controls;
                var esMoroso=control.moroso.value;
                this.registroClienteForm.patchValue({sucursal_id: localStorage.getItem("manappger_user_sucursal_id") });
-               this.loading=false;
+               
 
-               this.loading=false;
+               
             });
       
       // setTimeout(() => {
       //   this.registroClienteForm.reset();
       // },200);
+    }
+    public resetCliente2(){
+      setTimeout(() => {
+        this.loading=false;
+      },10000);
     }
     public toInt(num: string) {
         return +num;

@@ -80,29 +80,29 @@ export class AfiliadosComponent implements OnInit {
     constructor(private http: HttpClient, private builder: FormBuilder, private ruta: RutaService) {
         this.registroClienteForm = builder.group({
             id: [""],
-            tipo: [""],
+            tipo: ["", Validators.required],
             tipoNombre: [""],
-            nombre_1: [""],
+            nombre_1: ["", Validators.required],
             nombre_2: [""],
-            apellido_1: [""],
+            apellido_1: ["", Validators.required],
             apellido_2: [""],
-            dni: [""],
+            dni: ["", Validators.required],
             direccion: [""],
-            f_nacimiento: [""],
-            estado: [""],
+            f_nacimiento: ["", Validators.required],
+            estado: ["", Validators.required],
             sexo: [""],
             cuota: [""],
             correo: [""],
             telefono: [""],
-            f_alta: [""],
+            f_alta: ["", Validators.required],
             moroso:[false],
             cuotas:this.builder.array([this.cuotaArray()]),
             sucursal: [""],
-            sucursal_id: [""],
-            cartera_id: [""],
+            sucursal_id: ["", Validators.required],
+            cartera_id: ["", Validators.required],
             cartera: [""],
             ticket: [""],
-            ticket_id: [""],
+            ticket_id: ["", Validators.required],
             f_moroso: [""],
             user_id: [this.user_id],
             imagenes: [""],
@@ -158,7 +158,7 @@ export class AfiliadosComponent implements OnInit {
              this.data2 = data;
              this.socios=data;
              this.socios=this.socios.clientes;
-             for (var i = 0; i < this.socios.length; i++) {
+             /*for (var i = 0; i < this.socios.length; i++) {
 
                if (this.socios[i].f_nacimiento=='0000-00-00'||this.socios[i].f_nacimiento==null) {
                  this.socios[i].f_nacimiento='';
@@ -167,14 +167,20 @@ export class AfiliadosComponent implements OnInit {
                  this.socios[i].f_nacimiento='';
                }
 
-             }
+             }*/
              this.data=this.socios;
              console.log(this.socios);
              
              this.productList = this.data;
              this.filteredItems = this.productList;
              console.log(this.productList);
+
+
+
              for (var i = 0; i < this.productList.length; ++i) {
+
+               this.productList[i].nFamiliares=this.productList[i].familiares.length;
+
                if (this.productList[i].tipo=='AF_CUETO') {
                  this.productList[i].tipo2='GFS';
                }else if (this.productList[i].tipo=='AF_CUETO_S') {
@@ -260,11 +266,29 @@ export class AfiliadosComponent implements OnInit {
     }
     editar(item){
         console.log(item);
+        
+        // item.f_nacimiento=new Date(item.f_nacimiento);
+        // item.f_alta=new Date(item.f_alta);
+        // item.f_moroso=new Date(item.f_moroso);
 
-        for (var i = 0; i < item.length; i++) {
-          item[i].f_nacimiento=new Date(item[i].f_nacimiento);
-          item[i].f_alta=new Date(item[i].f_alta);
-          item[i].f_moroso=new Date(item[i].f_moroso);
+        if (item.f_nacimiento=='0000-00-00'||item.f_nacimiento==null) {
+          item.f_nacimiento="";
+        }
+        if (item.f_alta=='0000-00-00'||item.f_alta==null) {
+          item.f_alta="";
+        }
+        if (item.f_moroso=='0000-00-00'||item.f_moroso==null) {
+          item.f_moroso="";
+        }
+
+        if (item.familiares.length>0) {
+          for (var j = 0; j < item.familiares.length; j++) {
+            if (item.familiares[j].f_nacimiento=='0000-00-00'||item.f_moroso==null) {
+              item.familiares[j].f_nacimiento="";
+              //item.familiares[j].f_nacimiento=new Date(item.familiares[j].f_nacimiento);
+            }
+            
+          }
         }
 
         this.registroClienteForm = this.builder.group({
