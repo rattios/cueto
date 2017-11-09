@@ -315,7 +315,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group form-black label-floating">
                                         <label class="labels">Cartera:</label>
-                                        <select name="cartera_id" formControlName="cartera_id" class="form-control" (change)="getTicket($event)">
+                                        <select name="cartera_id" formControlName="cartera_id" class="form-control" (change)="getTicket2($event)">
                                             <option *ngFor="let title of carteras" [value]="title.id">{{title.numero}} {{title.descripcion}}</option>
                                         </select>
                                     </div>
@@ -324,7 +324,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group form-black label-floating">
                                         <label class="labels">Numero:</label>
-                                        <select name="ticket" formControlName="ticket_id" class="form-control" (change)="setTicket($event)">
+                                        <select name="ticket" formControlName="ticket_id" class="form-control" (change)="setTicket2($event)">
                                             <option *ngFor="let title of ticket" [value]="title.id">{{title.ticket}}</option>
                                         </select>
                                     </div>

@@ -28,6 +28,7 @@ export class AfiliadosComponent implements OnInit {
   public registroClienteForm: FormGroup;
   public sucursal:any;
   public carteras:any;
+  public ticket:any;
   public fechaSistema:any;
   public formCliente = {
             tipo: "",
@@ -150,6 +151,26 @@ export class AfiliadosComponent implements OnInit {
     ngOnInit(): void {
       
       this.loading=true;
+      this.http.get(this.ruta.get_ruta()+'public/sucursales/1/carteras')
+           .toPromise()
+           .then(
+           data => {
+
+               this.data=data;
+               this.data=this.data.sucursal[0];
+               this.sucursal=this.data.nombre;
+               this.registroClienteForm.patchValue({sucursal: this.sucursal });
+               this.carteras=this.data.carteras;
+               console.log(this.data);
+               console.log(this.carteras);
+               console.log(this.sucursal);
+               const control= this.registroClienteForm.controls;
+               var esMoroso=control.moroso.value;
+               this.registroClienteForm.patchValue({sucursal_id: localStorage.getItem("manappger_user_sucursal_id") });
+            },
+           msg => { // Error
+             console.log(msg.error.error);
+           });
       this.http.get(this.ruta.get_ruta()+'public/clientes/familiares?sucursal_id='+localStorage.getItem('manappger_user_sucursal_id'))
          .toPromise()
          .then(
@@ -208,6 +229,7 @@ export class AfiliadosComponent implements OnInit {
              }
 
              this.init();
+             
              this.loading=false;
            },
            msg => { // Error
@@ -216,31 +238,19 @@ export class AfiliadosComponent implements OnInit {
              this.loading=false;
            }
          );
-      this.http.get(this.ruta.get_ruta()+'public/sucursales/1/carteras')
-           .subscribe((data)=> {
-
-               this.data=data;
-               this.data=this.data.sucursal[0];
-               this.sucursal=this.data.nombre;
-               this.registroClienteForm.patchValue({sucursal: this.sucursal });
-               this.carteras=this.data.carteras;
-               console.log(this.data);
-               console.log(this.carteras);
-               console.log(this.sucursal);
-               const control= this.registroClienteForm.controls;
-               var esMoroso=control.moroso.value;
-               this.registroClienteForm.patchValue({sucursal_id: localStorage.getItem("manappger_user_sucursal_id") });
-
-
-
-            });
+      
       this.http.get('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/getHour')
-           .subscribe((data)=> {
+           .toPromise()
+           .then(
+           data => {
              console.log(data);
                this.fechaSistema=data;
                this.fechaSistema=this.fechaSistema.fechaSistema;
                //alert(this.fechaSistema);
-            });
+            },
+           msg => { // Error
+             console.log(msg.error.error);
+           });
     }
 
      update_tipo(tipo){
@@ -257,6 +267,60 @@ export class AfiliadosComponent implements OnInit {
             this.registroClienteForm.patchValue({tipoNombre: 'GSF' });
             //alert('AF_CUETO');
         }  
+    }
+    getTicket(ticket_id) {
+      for (var i = 0; i < this.carteras.length; ++i) {
+
+        if (this.carteras[i].id==ticket_id) {
+                    console.log(this.carteras[i]);
+          this.registroClienteForm.patchValue({cartera: this.carteras[i].descripcion });
+          this.ticket=this.carteras[i].tickets;
+          console.log(ticket_id);
+        }
+      }
+    }
+
+
+    setTicket(tic) {
+      console.log(tic);
+
+      for (var i = 0; i < this.carteras.length; i++) {
+        for (var j = 0; j < this.carteras[i].tickets.length; j++) {
+          if (this.carteras[i].tickets[j].id==tic) {
+            console.log(this.carteras[i].tickets[j].ticket);
+            this.registroClienteForm.patchValue({ticket_id: tic });
+            this.registroClienteForm.patchValue({ticket: this.carteras[i].tickets[j].ticket });
+            //alert(this.ticket);
+          }
+        }
+      }
+    }
+    getTicket2(ticket_id) {
+      for (var i = 0; i < this.carteras.length; ++i) {
+
+        if (this.carteras[i].id==ticket_id.target.value) {
+                    console.log(this.carteras[i]);
+          this.registroClienteForm.patchValue({cartera: this.carteras[i].descripcion });
+          this.ticket=this.carteras[i].tickets;
+          console.log(ticket_id.target.value);
+        }
+      }
+    }
+
+
+    setTicket2(tic) {
+      console.log(tic.target.value);
+
+      for (var i = 0; i < this.carteras.length; i++) {
+        for (var j = 0; j < this.carteras[i].tickets.length; j++) {
+          if (this.carteras[i].tickets[j].id==tic.target.value) {
+            console.log(this.carteras[i].tickets[j].ticket);
+            this.registroClienteForm.patchValue({ticket_id: tic.target.value });
+            this.registroClienteForm.patchValue({ticket: this.carteras[i].tickets[j].ticket });
+            //alert(this.ticket);
+          }
+        }
+      }
     }
 
     getUsuario(item){
@@ -363,6 +427,9 @@ export class AfiliadosComponent implements OnInit {
         this.registroClienteForm.patchValue({mes_moroso: item.mes_moroso });
         this.registroClienteForm.patchValue({ano_moroso: item.ano_moroso });
 
+        this.getTicket(item.cartera_id);
+        this.setTicket(item.ticket_id);
+
         for (var i = 1; i < item.familiares.length; i++) {
           (<FormArray>this.registroClienteForm.controls['familiares']).push(this.familiaresArray());
         }
@@ -402,10 +469,82 @@ export class AfiliadosComponent implements OnInit {
              console.log(data);
              this.showNotification('top','center','Familiar creado con exito',2);
              this.loading=false;
+             this.restaurar();
            },
            msg => { // Error
              console.log(msg);
              this.showNotification('top','center','Ha ocurrido un error' + JSON.stringify(msg.error),4);
+             this.loading=false;
+           }
+         );
+    }
+
+    restaurar(){
+      this.loading=true;
+      this.http.get(this.ruta.get_ruta()+'public/clientes/familiares?sucursal_id='+localStorage.getItem('manappger_user_sucursal_id'))
+         .toPromise()
+         .then(
+           data => { // Success
+             console.log(data);
+             this.data2 = data;
+             this.socios=data;
+             this.socios=this.socios.clientes;
+             /*for (var i = 0; i < this.socios.length; i++) {
+
+               if (this.socios[i].f_nacimiento=='0000-00-00'||this.socios[i].f_nacimiento==null) {
+                 this.socios[i].f_nacimiento='';
+               }
+               if (this.socios[i].f_alta=='0000-00-00'||this.socios[i].f_alta==null) {
+                 this.socios[i].f_nacimiento='';
+               }
+
+             }*/
+             this.data=this.socios;
+             console.log(this.socios);
+             
+             this.productList = this.data;
+             this.filteredItems = this.productList;
+             console.log(this.productList);
+
+
+
+             for (var i = 0; i < this.productList.length; ++i) {
+
+               this.productList[i].nFamiliares=this.productList[i].familiares.length;
+
+               if (this.productList[i].tipo=='AF_CUETO') {
+                 this.productList[i].tipo2='GFS';
+               }else if (this.productList[i].tipo=='AF_CUETO_S') {
+                 this.productList[i].tipo2='SSF';
+               }
+               if (this.productList[i].estado=='M') {
+                 this.productList[i].estado2='Moroso';
+               }else if (this.productList[i].estado=='V') {
+                 this.productList[i].estado2='Vigente';
+               }else if (this.productList[i].estado=='B') {
+                 this.productList[i].estado2='Baja';
+               }else if (this.productList[i].estado=='PC') {
+                 this.productList[i].estado2='Pre Cargado';
+               }else if (this.productList[i].estado=='P') {
+                 this.productList[i].estado2='Pendiente por autorización';
+               }
+
+               if(this.productList[i].user_id==1) {
+                 this.productList[i].user_id2='Araceli';
+               }else if (this.productList[i].user_id=='2') {
+                 this.productList[i].user_id2='Natalia';
+               }
+
+                this.productList[i].ticket=this.productList[i].ticket.toString();
+             }
+
+             this.init();
+             
+             this.loading=false;
+           },
+           msg => { // Error
+             console.log(msg.error.error);
+             alert('error, por favor recargar la pagina.');
              this.loading=false;
            }
          );
@@ -421,6 +560,7 @@ export class AfiliadosComponent implements OnInit {
              console.log(data);
              this.showNotification('top','center','Actualizado con exito',2);
              this.loading=false;
+             this.restaurar();
            },
            msg => { // Error
              console.log(msg);
@@ -440,6 +580,7 @@ export class AfiliadosComponent implements OnInit {
              console.log(data);
              this.showNotification('top','center','Actualizado con exito',2);
              this.loading=false;
+             this.restaurar();
            },
            msg => { // Error
              console.log(msg);
