@@ -104,6 +104,7 @@ export class AfiliadosComponent implements OnInit {
             cartera: [""],
             ticket: [""],
             ticket_id: ["", Validators.required],
+            ticket_id_viejo: [""],
             f_moroso: [""],
             user_id: [this.user_id],
             imagenes: [""],
@@ -380,6 +381,7 @@ export class AfiliadosComponent implements OnInit {
             cartera: [""],
             ticket: [""],
             ticket_id: [""],
+            ticket_id_viejo: [""],
             f_moroso: [""],
             user_id: [this.user_id],
             imagenes: [""],
@@ -423,6 +425,7 @@ export class AfiliadosComponent implements OnInit {
         this.registroClienteForm.patchValue({cartera: item.cartera });
         this.registroClienteForm.patchValue({ticket: item.ticket });
         this.registroClienteForm.patchValue({ticket_id: item.ticket_id });
+        this.registroClienteForm.patchValue({ticket_id_viejo: item.ticket_id });
         this.registroClienteForm.patchValue({imagenes: item.imagenes });
         this.registroClienteForm.patchValue({mes_moroso: item.mes_moroso });
         this.registroClienteForm.patchValue({ano_moroso: item.ano_moroso });

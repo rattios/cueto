@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams  } from '@angular/common/http';
-import { FormGroup, FormArray, FormBuilder, Validators  } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder, Validators, FormControl  } from '@angular/forms';
 import { BsModalComponent } from 'ng2-bs3-modal';
 
 
@@ -48,6 +48,8 @@ export class UserProfileComponent implements OnInit {
       url: 'http://vivomedia.com.ar/cuetociasrl/upload.php'
     };
     sizeLimit = 2000000;
+
+    private formSumitAttempt: boolean;
 
 
     constructor(private http: HttpClient, private builder: FormBuilder) {
@@ -151,6 +153,20 @@ export class UserProfileComponent implements OnInit {
            
     }
 
+  isFieldValid(field: string) {
+    return (
+      (!this.registroClienteForm.get(field).valid && this.registroClienteForm.get(field).touched) ||
+      (this.registroClienteForm.get(field).untouched && this.formSumitAttempt)
+    );
+  }
+
+  displayFieldCss(field: string) {
+    return {
+      'has-error': this.isFieldValid(field),
+      'has-feedback': this.isFieldValid(field)
+    };
+  }
+
 
     uppercase(value: string) {
       return value.toUpperCase();
@@ -226,6 +242,10 @@ export class UserProfileComponent implements OnInit {
     }
 
     enviarCliente(model){
+      this.formSumitAttempt = true;
+    if (this.registroClienteForm.valid) {
+      console.log('form submitted');
+    
         this.clientesAdd=model;
         console.log(this.clientesAdd.value);
         var send=this.clientesAdd.value;
@@ -265,7 +285,7 @@ export class UserProfileComponent implements OnInit {
              this.registroClienteForm.reset();
            }
          );
-
+      }
     }
 
     agregar(){

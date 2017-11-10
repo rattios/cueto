@@ -30,26 +30,30 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <div class="form-group form-black label-floating">
+                                    <div class="form-group form-black label-floating" [ngClass]="displayFieldCss('cartera_id')">
                                         <label class="labels">Cartera:</label>
                                         <select name="cartera_id" formControlName="cartera_id" class="form-control" (change)="getTicket($event)">
                                             <option *ngFor="let title of carteras" [value]="title.id">{{title.numero}} {{title.descripcion}}</option>
                                         </select>
+                                        <app-field-error-display [displayError]="isFieldValid('cartera_id')" errorMsg="Te falto este campo!">
+                                         </app-field-error-display>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
-                                    <div class="form-group form-black label-floating">
+                                    <div class="form-group form-black label-floating" [ngClass]="displayFieldCss('ticket_id')">
                                         <label class="labels">Numero:</label>
-                                        <select name="ticket" formControlName="ticket_id" class="form-control" (change)="setTicket($event)">
+                                        <select name="ticket" formControlName="ticket_id" class="form-control" (change)="setTicket($event)" required>
                                             <option *ngFor="let title of ticket" [value]="title.id">{{title.ticket}}</option>
                                         </select>
+                                        <app-field-error-display [displayError]="isFieldValid('ticket_id')" errorMsg="Te falto este campo!">
+                                         </app-field-error-display>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="form-group form-black label-floating">
+                                    <div class="form-group form-black label-floating" [ngClass]="displayFieldCss('tipo')">
                                         <label class="labels">Tipo de Cliente:</label>
                                         <select name="tipo" formControlName="tipo" class="form-control" (change)="update_tipo($event)">
                                             <option value="AF_CUETO_S">SSF</option>
@@ -57,18 +61,22 @@
                                             <!--<option value="AF_CONV_S">Afiliado Convenio Independiente</option>
                                             <option value="AF_CONV">Afiliado Convenio con Grupo Familiar</option>-->
                                         </select>
+                                        <app-field-error-display [displayError]="isFieldValid('tipo')" errorMsg="Te falto este campo!">
+                                         </app-field-error-display>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row form-group">
                                 <div class="col-md-12">
                                     <h2>Titular</h2>
                                     <hr>
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="form-group form-black label-floating is-empty">
+                                    <div class="form-group form-black label-floating is-empty" [ngClass]="displayFieldCss('nombre_1')">
                                         <label class="labels">Primer Nombre</label>  
-                                        <input type="text" name="nombre_1" class="form-control" formControlName="nombre_1" [transformer]="uppercase">
+                                        <input type="text" name="nombre_1" class="form-control" formControlName="nombre_1" [transformer]="uppercase" required>
+                                        <app-field-error-display [displayError]="isFieldValid('nombre_1')" errorMsg="Te falto este campo!">
+                                         </app-field-error-display>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -77,10 +85,12 @@
                                         <input type="text" name="nombre_2" class="form-control" formControlName="nombre_2" [transformer]="uppercase">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3" [ngClass]="displayFieldCss('apellido_1')">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="labels">Primer Apellido</label>
                                         <input type="text" name="apellido_1" class="form-control" formControlName="apellido_1" [transformer]="uppercase">
+                                        <app-field-error-display [displayError]="isFieldValid('apellido_1')" errorMsg="Te falto este campo!">
+                                         </app-field-error-display>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -92,9 +102,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="form-group form-black label-floating is-empty">
+                                    <div class="form-group form-black label-floating is-empty" [ngClass]="displayFieldCss('dni')">
                                         <label class="labels">DNI</label>
                                         <input type="text" name="dni" class="form-control" formControlName="dni">
+                                        <app-field-error-display [displayError]="isFieldValid('dni')" errorMsg="Te falto este campo!">
+                                         </app-field-error-display>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -107,7 +119,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="form-group form-black label-floating">
+                                    <div class="form-group form-black label-floating"  [ngClass]="displayFieldCss('f_nacimiento')">
                                         <!-- <label class="labels">Fecha de nacimiento:</label> -->
                                         <mat-form-field>
                                         
@@ -115,6 +127,8 @@
                                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                           <mat-datepicker #picker1></mat-datepicker>
                                         </mat-form-field>
+                                        <app-field-error-display [displayError]="isFieldValid('f_nacimiento')" errorMsg="Te falto este campo!">
+                                         </app-field-error-display>
                                     </div>
                                 </div>
                                 
@@ -163,7 +177,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-8">
-                                    <div class="form-group form-black label-floating">
+                                    <div class="form-group form-black label-floating" [ngClass]="displayFieldCss('f_alta')">
                                         <!-- <label class="labels">Fecha de alta o última renovación:</label> -->
                                         <mat-form-field>
                                         
@@ -171,6 +185,8 @@
                                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                           <mat-datepicker #picker2></mat-datepicker>
                                         </mat-form-field>
+                                        <app-field-error-display [displayError]="isFieldValid('f_alta')" errorMsg="Te falto este campo!">
+                                         </app-field-error-display>
                                     </div>
                                 </div>
                                 <div class="col-md-2" >
@@ -290,9 +306,11 @@
                                                 <h3 >Familiar {{i+1}}</h3>
                                                 <hr>
                                                 <div class="col-md-6">
-                                                    <div class="form-group form-black label-floating is-empty">
+                                                    <div class="form-group form-black label-floating is-empty" [ngClass]="displayFieldCss('nombre_1')">
                                                         <label class="labels">Primer Nombre:</label>
-                                                        <input type="text" name="nombre_1" class="form-control" formControlName="nombre_1" [transformer]="uppercase">
+                                                        <input type="text" name="nombre_1" class="form-control" formControlName="nombre_1" [transformer]="uppercase" required>
+                                                        <app-field-error-display [displayError]="isFieldValid('nombre_1')" errorMsg="Please inform your address">
+                                                        </app-field-error-display>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -304,9 +322,11 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="form-group form-black label-floating is-empty">
+                                                    <div class="form-group form-black label-floating is-empty" [ngClass]="displayFieldCss('apellido_1')">
                                                         <label class="labels">Primer Apellido:</label>
                                                         <input type="text" name="apellido_1" class="form-control" formControlName="apellido_1" [transformer]="uppercase">
+                                                        <app-field-error-display [displayError]="isFieldValid('apellido_1')" errorMsg="Please inform your address">
+                                                        </app-field-error-display>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -318,9 +338,11 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <div class="form-group form-black label-floating is-empty">
+                                                    <div class="form-group form-black label-floating is-empty" [ngClass]="displayFieldCss('dni')">
                                                         <label class="labels">DNI</label>
                                                         <input type="text" name="dni" class="form-control" formControlName="dni">
+                                                        <app-field-error-display [displayError]="isFieldValid('dni')" errorMsg="Please inform your address">
+                                                        </app-field-error-display>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -345,12 +367,14 @@
                                                         <label class="labels">Fecha Nacimiento:</label>
                                                         <input type="text" name="f_nacimiento" class="form-control" formControlName="f_nacimiento">
                                                     </div> -->
-                                                    <div class="form-group form-black label-floating is-empty">
+                                                    <div class="form-group form-black label-floating is-empty" [ngClass]="displayFieldCss('f_nacimiento')">
                                                         <mat-form-field>
                                                           <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" class="form-control" style="width: 85%; display: inline-block;" name="f_nacimiento" formControlName="f_nacimiento">
                                                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                                           <mat-datepicker #picker></mat-datepicker>
                                                         </mat-form-field>
+                                                        <app-field-error-display [displayError]="isFieldValid('f_nacimiento')" errorMsg="Please inform your address">
+                                                        </app-field-error-display>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -381,7 +405,7 @@
                                 </div>
                             </div>
                             <div class="row" style="text-align: center">
-                            <button type="submit" class="btn btn-danger" [disabled]="!registroClienteForm.valid">Guardar</button>
+                            <button type="submit" class="btn btn-danger" >Guardar</button>
                             </div>
 
                             <div class="clearfix"></div>

@@ -31,3 +31,11 @@ select.form-control {
 p{
  font-size: 17px;
 }
+/* You can add global styles to this file, and also import other style files */
+.control-label.required:after { 
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: 5px;
+    top:7px;
+}

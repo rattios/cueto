@@ -33,6 +33,7 @@ import { DataFilterPipe } from "./data-filter.pipe";
 import { DateFormat } from './date-format';
 import { TextTransformerDirective } from './text-transformer-directive.directive';
 import { RutaService } from './services/ruta.service';
+import { FieldErrorDisplayComponent } from './field-error-display/field-error-display.component';
 
 
 @NgModule({
@@ -52,7 +53,7 @@ import { RutaService } from './services/ruta.service';
     ServiciosComponent,
     DataFilterPipe,
     TextTransformerDirective,
-
+    FieldErrorDisplayComponent
   ],
   imports: [
     BrowserModule,
