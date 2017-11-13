@@ -21,3 +21,11 @@ p{
         top:0;
         z-index: 9;
     }
+
+
+@media (min-width:768px){
+    .modal-dialog{
+        width:100% !important;
+        margin:30px auto
+    }
+}

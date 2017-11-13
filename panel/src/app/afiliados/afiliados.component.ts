@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, NgZone } from '@angular/core';
 import { HttpClient, HttpParams  } from '@angular/common/http';
 import { FormGroup, FormArray, FormBuilder, Validators  } from '@angular/forms';
 import { BsModalComponent } from 'ng2-bs3-modal';
@@ -15,12 +15,22 @@ declare const $: any;
 })
 export class AfiliadosComponent implements OnInit {
 
+  ESCAPE_KEYCODE = 27;
+    @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+        if (event.keyCode === this.ESCAPE_KEYCODE) {
+            console.log(event.keyCode);
+            window.location.reload()
+        }
+    }
+
   private data:any;
   //private data:any;
   public data2:any;
   public socios:any;
   public productList:any;
   public loading=false;
+  public loadingSucursales=false;
+  public loadingAfiliados=false;
   public ver=true;
   public verDatos=false;
   public verEditar=false;
@@ -30,6 +40,9 @@ export class AfiliadosComponent implements OnInit {
   public carteras:any;
   public ticket:any;
   public fechaSistema:any;
+  public imagen:any;
+  private zone: NgZone;
+  private progress: number = 0;
   public formCliente = {
             tipo: "",
             nombre_1: "",
@@ -152,6 +165,9 @@ export class AfiliadosComponent implements OnInit {
     ngOnInit(): void {
       
       this.loading=true;
+      this.loadingSucursales=true;
+      this.loadingAfiliados=true;
+      this.zone = new NgZone({ enableLongStackTrace: false });
       this.http.get(this.ruta.get_ruta()+'public/sucursales/1/carteras')
            .toPromise()
            .then(
@@ -168,9 +184,12 @@ export class AfiliadosComponent implements OnInit {
                const control= this.registroClienteForm.controls;
                var esMoroso=control.moroso.value;
                this.registroClienteForm.patchValue({sucursal_id: localStorage.getItem("manappger_user_sucursal_id") });
+               this.loadingSucursales=false;
+               this.checkLoading();
             },
            msg => { // Error
              console.log(msg.error.error);
+             alert('error:'+msg.error);
            });
       this.http.get(this.ruta.get_ruta()+'public/clientes/familiares?sucursal_id='+localStorage.getItem('manappger_user_sucursal_id'))
          .toPromise()
@@ -231,7 +250,8 @@ export class AfiliadosComponent implements OnInit {
 
              this.init();
              
-             this.loading=false;
+             this.loadingAfiliados=false;
+             this.checkLoading();
            },
            msg => { // Error
              console.log(msg.error.error);
@@ -251,10 +271,17 @@ export class AfiliadosComponent implements OnInit {
             },
            msg => { // Error
              console.log(msg.error.error);
+             alert('error:'+msg.error);
            });
     }
 
-     update_tipo(tipo){
+    checkLoading(){
+      if (this.loadingAfiliados==false && this.loadingSucursales==false) {
+        this.loading=false;
+      }  
+    }
+
+    update_tipo(tipo){
         var tipo_cliente = tipo.target.value;
         console.log(tipo_cliente);
         if (tipo_cliente == 'AF_CUETO_S') {
@@ -327,10 +354,13 @@ export class AfiliadosComponent implements OnInit {
     getUsuario(item){
         this.ver=false;
         this.verDatos=true;
-        this.formCliente=item;    
+        this.formCliente=item;  
+        this.imagen=item.imagenes;
+        console.log(item);
     }
     editar(item){
         console.log(item);
+        this.imagen=item.imagenes;
         
         // item.f_nacimiento=new Date(item.f_nacimiento);
         // item.f_alta=new Date(item.f_alta);
@@ -492,16 +522,13 @@ export class AfiliadosComponent implements OnInit {
              this.data2 = data;
              this.socios=data;
              this.socios=this.socios.clientes;
-             /*for (var i = 0; i < this.socios.length; i++) {
+             for (var i = 0; i < this.socios.length; i++) {
 
-               if (this.socios[i].f_nacimiento=='0000-00-00'||this.socios[i].f_nacimiento==null) {
-                 this.socios[i].f_nacimiento='';
-               }
-               if (this.socios[i].f_alta=='0000-00-00'||this.socios[i].f_alta==null) {
-                 this.socios[i].f_nacimiento='';
+               if (this.socios[i].f_moroso=='0000-00-00'||this.socios[i].f_moroso==null) {
+                 this.socios[i].f_moroso='';
                }
 
-             }*/
+             }
              this.data=this.socios;
              console.log(this.socios);
              
@@ -621,16 +648,23 @@ export class AfiliadosComponent implements OnInit {
     uploadFile: any;
     hasBaseDropZoneOver: boolean = false;
     options: Object = {
-      url: 'http://vivomedia.com.ar/cuetociasrl/upload.php'
+      url: 'http://vivomedia.com.ar/cuetociasrl/upload.php',
+      calculateSpeed: true
     };
     sizeLimit = 2000000;
     handleUpload(data): void {
+      
       if (data && data.response) {
         data = JSON.parse(data.response);
         this.uploadFile = data;
         this.loading=false;
         this.registroClienteForm.patchValue({imagenes: 'http://vivomedia.com.ar/cuetociasrl/uploads/'+this.uploadFile.generatedName });
+        this.imagen='http://vivomedia.com.ar/cuetociasrl/uploads/'+this.uploadFile.generatedName;
+        this.progress=0;
       }
+      this.zone.run(() => {
+        this.progress = Math.floor(data.progress.percent );
+      });
     }
    
     fileOverBase(e:any):void {
@@ -639,7 +673,7 @@ export class AfiliadosComponent implements OnInit {
     }
    
     beforeUpload(uploadingFile): void {
-      this.loading=true;
+      //this.loading=true;
       console.log('t2');
       if (uploadingFile.size > this.sizeLimit) {
         uploadingFile.setAbort();
@@ -769,5 +803,7 @@ export class AfiliadosComponent implements OnInit {
          this.currentIndex = index;
          this.refreshItems();
     }
+
+    
 
 }

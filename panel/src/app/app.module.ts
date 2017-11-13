@@ -11,6 +11,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { BsModalModule } from 'ng2-bs3-modal';
 import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 import { Ng2UploaderModule } from 'ng2-uploader';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
@@ -77,6 +78,7 @@ import { FieldErrorDisplayComponent } from './field-error-display/field-error-di
     Ng2SearchPipeModule,
     BsModalModule,
     Ng2UploaderModule,
+    ProgressbarModule.forRoot(),
     LoadingModule.forRoot({
         animationType: ANIMATION_TYPES.wanderingCubes,
         backdropBackgroundColour: 'rgba(0,0,0,0.5)', 

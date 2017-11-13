@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,HostListener } from '@angular/core';
 import { HttpClient, HttpParams  } from '@angular/common/http';
 import { FormGroup, FormArray, FormBuilder, Validators, FormControl  } from '@angular/forms';
 import { BsModalComponent } from 'ng2-bs3-modal';
@@ -13,6 +13,14 @@ declare const $: any;
 })
 
 export class UserProfileComponent implements OnInit {
+
+    ESCAPE_KEYCODE = 27;
+    @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+        if (event.keyCode === this.ESCAPE_KEYCODE) {
+            console.log(event.keyCode);
+            window.location.reload()
+        }
+    }
 
     public data: any;
     public filterQuery = "";
