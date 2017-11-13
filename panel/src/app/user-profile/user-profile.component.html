@@ -9,7 +9,17 @@
     
     <div class="main-content">
     <div class="container-fluid">  
-
+        
+        <bs-modal #modal >
+              <bs-modal-header [showDismiss]="true">
+                  
+              </bs-modal-header> 
+              <bs-modal-body >
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <img src="{{imagen}}" alt="" style="width: 100%; height: 100%">
+              </bs-modal-body>
+              <bs-modal-footer ></bs-modal-footer>
+        </bs-modal>
         
    
         <div class="row">
@@ -162,6 +172,9 @@
                                  <div class="col-md-12">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="labels">Subir imagen:</label>
+                                        <div *ngIf="progress!=0">
+                                          <progressbar class="progress progress-striped" [value]="progress" [max]="100" type="dynamic">{{progress}}%</progressbar>
+                                        </div>
                                         <button class="btn btn-warning btn-block" >    Seleccionar imagen    </button>
                                         <input type="file" ngFileSelect [options]="options" (onUpload)="handleUpload($event)" (beforeUpload)="beforeUpload($event)">
                                          
@@ -510,8 +523,9 @@
                                 <hr>
                                  <div class="col-md-12">
                                     <label class="labels">Imagen</label>
-                                    <div class="form-group form-black label-floating">
-                                        <img src="{{registroClienteForm.value.imagenes}}" alt="">
+                                    <div class="form-group form-black label-floating" *ngIf="loading3">
+                                        <img [hidden]="loading2" (load)="onLoad()" src="{{registroClienteForm.value.imagenes}}" alt="" (click)="modal.open()">
+                                        <img *ngIf="loading2" src="/assets/gif/loading.gif" alt="loading2" style="width: 15%; height: 15; text-align: center"  />
                                         <!-- <p>{{registroClienteForm.value.imagenes}}</p> -->
                                     </div>
                                 </div>   

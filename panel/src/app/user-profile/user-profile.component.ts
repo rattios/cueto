@@ -1,4 +1,4 @@
-import { Component, OnInit,HostListener } from '@angular/core';
+import { Component, OnInit,HostListener, NgZone } from '@angular/core';
 import { HttpClient, HttpParams  } from '@angular/common/http';
 import { FormGroup, FormArray, FormBuilder, Validators, FormControl  } from '@angular/forms';
 import { BsModalComponent } from 'ng2-bs3-modal';
@@ -52,6 +52,9 @@ export class UserProfileComponent implements OnInit {
     public telefono = "";
     public correo = "";
     public fechaSistema:any;
+    private zone: NgZone;
+    private progress: number = 0;
+    public imagen:any;
     uploadFile: any;
     hasBaseDropZoneOver: boolean = false;
     options: Object = {
@@ -135,6 +138,7 @@ export class UserProfileComponent implements OnInit {
 
     ngOnInit(): void {
       this.loading=true;
+      this.zone = new NgZone({ enableLongStackTrace: false });
       this.http.get('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/sucursales/1/carteras')
            .subscribe((data)=> {
 
@@ -181,14 +185,24 @@ export class UserProfileComponent implements OnInit {
     uppercase(value: string) {
       return value.toUpperCase();
     }
-   
+    public loading2: boolean = true;
+    public loading3: boolean = false;
+    onLoad() {
+        this.loading2 = false;
+    }
     handleUpload(data): void {
       if (data && data.response) {
         data = JSON.parse(data.response);
         this.uploadFile = data;
         this.loading=false;
         this.registroClienteForm.patchValue({imagenes: 'http://vivomedia.com.ar/cuetociasrl/uploads/'+this.uploadFile.generatedName });
+        this.progress=0;
+        this.loading2 = true;
+        this.imagen='http://vivomedia.com.ar/cuetociasrl/uploads/'+this.uploadFile.generatedName;
       }
+      this.zone.run(() => {
+        this.progress = Math.floor(data.progress.percent );
+      });
     }
    
     fileOverBase(e:any):void {
@@ -197,7 +211,8 @@ export class UserProfileComponent implements OnInit {
     }
    
     beforeUpload(uploadingFile): void {
-      this.loading=true;
+      //this.loading=true;
+      this.loading3=true;
       console.log('t2');
       if (uploadingFile.size > this.sizeLimit) {
         uploadingFile.setAbort();

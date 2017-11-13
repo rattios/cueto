@@ -682,10 +682,12 @@
                             </div>
                             <div class="row">
                                 
-                                 <div class="col-md-12">
+                                 <div class="col-md-12" *ngIf="registroClienteForm.value.imagenes!=''">
                                     <label class="labels">Imagen</label>
                                     <!-- <div class="form-group form-black label-floating"> -->
-                                        <img src="{{registroClienteForm.value.imagenes}}" alt="" (click)="modal.open()">
+                                        <!-- <img src="{{registroClienteForm.value.imagenes}}" alt="" (click)="modal.open()"> -->
+                                        <img [hidden]="loading2" (load)="onLoad()" src="{{registroClienteForm.value.imagenes}}" alt="" (click)="modal.open()">
+                                        <img *ngIf="loading2" src="/assets/gif/loading.gif" alt="loading2" style="width: 15%; height: 15; text-align: center"  />
                                         <!-- <p>{{registroClienteForm.value.imagenes}}</p> -->
                                     <!-- </div> -->
                                 </div>   

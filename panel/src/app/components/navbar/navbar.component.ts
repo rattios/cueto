@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,7 @@ export class NavbarComponent implements OnInit {
     private sidebarVisible: boolean;
     public nombre = localStorage.getItem("manappger_user_nombre");
 
-    constructor(location: Location,  private element: ElementRef) {
+    constructor(location: Location,  private element: ElementRef,private router: Router) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -64,5 +65,10 @@ export class NavbarComponent implements OnInit {
           }
       }
       return titlee;
+    }
+    cerrarSesion(){
+      localStorage.setItem('manappger_token', '');
+
+      this.router.navigate(['/login']);
     }
 }

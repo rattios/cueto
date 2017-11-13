@@ -647,6 +647,13 @@ export class AfiliadosComponent implements OnInit {
     uppercase(value: string) {
       return value.toUpperCase();
     }
+
+    public loading2: boolean = true;
+    public loading3: boolean = false;
+    onLoad() {
+        this.loading2 = false;
+    }
+
     uploadFile: any;
     hasBaseDropZoneOver: boolean = false;
     options: Object = {
@@ -663,6 +670,7 @@ export class AfiliadosComponent implements OnInit {
         this.registroClienteForm.patchValue({imagenes: 'http://vivomedia.com.ar/cuetociasrl/uploads/'+this.uploadFile.generatedName });
         this.imagen='http://vivomedia.com.ar/cuetociasrl/uploads/'+this.uploadFile.generatedName;
         this.progress=0;
+        this.loading2 = true;
       }
       this.zone.run(() => {
         this.progress = Math.floor(data.progress.percent );
@@ -676,6 +684,7 @@ export class AfiliadosComponent implements OnInit {
    
     beforeUpload(uploadingFile): void {
       //this.loading=true;
+      this.loading3=true;
       console.log('t2');
       if (uploadingFile.size > this.sizeLimit) {
         uploadingFile.setAbort();
