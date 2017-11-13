@@ -17,8 +17,10 @@ export class UserProfileComponent implements OnInit {
     ESCAPE_KEYCODE = 27;
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
         if (event.keyCode === this.ESCAPE_KEYCODE) {
+            if (this.loading==true) {
             console.log(event.keyCode);
-            window.location.reload()
+            window.location.reload();
+          }  
         }
     }
 
