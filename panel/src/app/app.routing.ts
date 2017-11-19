@@ -5,32 +5,31 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { TableListComponent } from './table-list/table-list.component';
-import { TypographyComponent } from './typography/typography.component';
-import { IconsComponent } from './icons/icons.component';
-import { MapsComponent } from './maps/maps.component';
-import { NotificationsComponent } from './notifications/notifications.component';
-import { UpgradeComponent } from './upgrade/upgrade.component';
+
 import { LoginComponent } from './login/login.component';
 import { SociosComponent } from './socios/socios.component';
 import { AfiliadosComponent } from './afiliados/afiliados.component';
 import { ServiciosComponent } from './servicios/servicios.component';
+import { ReportesComponent } from './reportes/reportes.component';
+import { AprobarRendicionesComponent } from './aprobar-rendiciones/aprobar-rendiciones.component';
+import { IngresarRendicionesComponent } from './ingresar-rendiciones/ingresar-rendiciones.component';
+import { EmitirRecibosCobroComponent } from './emitir-recibos-cobro/emitir-recibos-cobro.component';
+import { TarifasComponent } from './tarifas/tarifas.component';
 
 const routes: Routes =[
-    { path: '',          redirectTo: '/login', pathMatch: 'full' },
+    { path: '',                     redirectTo: '/login', pathMatch: 'full' },
     { path: 'Panel-principal',      component: DashboardComponent, pathMatch: 'full'},
-    { path: 'Afiliados',   component: SociosComponent, pathMatch: 'full' },
-    { path: 'Clientes',     component: UserProfileComponent },
-    { path: 'Socios',     component: SociosComponent },
-    { path: 'Usuarios-Afiliados',     component: AfiliadosComponent },
-    { path: 'table-list',     component: TableListComponent },
-    { path: 'typography',     component: TypographyComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
-    { path: 'notifications',  component: NotificationsComponent },
-    { path: 'upgrade',        component: UpgradeComponent },
-    { path: 'login',        component: LoginComponent },
-    { path: '**', redirectTo: '/login' }
+    { path: 'Afiliados',            component: SociosComponent, pathMatch: 'full' },
+    { path: 'Clientes',             component: UserProfileComponent },
+    { path: 'Socios',               component: SociosComponent },
+    { path: 'Usuarios-Afiliados',   component: AfiliadosComponent },
+    { path: 'login',                component: LoginComponent },
+    { path: 'Reportes',             component: ReportesComponent },
+    { path: 'AprobarRendiciones',   component: AprobarRendicionesComponent },
+    { path: 'IngresarRendiciones',  component: IngresarRendicionesComponent },
+    { path: 'EmitirRecibosCobro',   component: EmitirRecibosCobroComponent },
+    { path: 'Tarifas',              component: TarifasComponent },
+    { path: '**',                   redirectTo: '/login' }
       
 ];
 

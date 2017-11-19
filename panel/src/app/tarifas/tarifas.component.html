@@ -1,0 +1,233 @@
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+<div class="wrapper">
+<div class="sidebar" data-color='blue' data-image="" style="background-color: #000 !important">
+    <app-sidebar></app-sidebar>
+    <div class="sidebar-background" style="background-image: url(../assets/img/sidebar-4.jpg)"></div>
+</div>
+<div class="main-panel">
+    <app-navbar></app-navbar>
+    <div class="main-content">
+    	<div class="container-fluid row">
+    		<div class="row"> 
+    			<div class="col-md-2"></div> 
+    			<div class="col-md-8"> 
+		    		<bs-modal #modal [size]="'sm'" >
+		              <bs-modal-header [showDismiss]="true">
+		              		<h3 *ngIf="crear">Crear una Tarifa</h3>
+		                	<h3 *ngIf="!crear">Editar o Eliminar la Tarifa</h3>
+		              </bs-modal-header> 
+		              <bs-modal-body >
+		                <div class="form-group">
+		                	<div class="row">
+			                	<div class="col-md-6">
+								    <label class="labels">Edad mínima:</label>
+								    <input type="text" class="form-control" [(ngModel)]="edad_min">
+							    </div>
+							    <div class="col-md-6">
+								    <label class="labels">Edad máxima:</label>
+								    <input type="text" class="form-control" [(ngModel)]="edad_max">
+							    </div>
+						    </div>
+						    <div class="row">
+			                	<div class="col-md-12">
+								    <label class="labels">Tarifa:</label>
+								    <input type="text" class="form-control" [(ngModel)]="tarifa">
+							    </div>
+						    </div>
+						    <div class="row">
+			                	<div class="col-md-12">
+								    <label class="labels">Carencia:</label>
+								    <input type="text" class="form-control" [(ngModel)]="carencia">
+							    </div>
+						    </div>
+						    <div class="row">
+			                	<div class="col-md-12" align="center" *ngIf="crear">
+								    <button type="button" class="btn btn-success" (click)="crearTarifa();modal.close()"><i class="fa fa-plus-square"></i></button>
+							    </div>
+						    </div>
+						    <div class="row">
+			                	<div class="col-md-6" align="center" *ngIf="!crear">
+								    <button type="button" class="btn btn-info" (click)="editar();modal.close()"><i class="fa fa-floppy-o"></i></button>
+							    </div>
+							    <div class="col-md-6" align="center" *ngIf="!crear">
+								    <button type="button" class="btn btn-danger" (click)="eliminar();modal.close()"><i class="fa fa-trash-o"></i></button>
+							    </div>
+						    </div>
+						</div>
+		              </bs-modal-body>
+		              <bs-modal-footer ></bs-modal-footer>
+		        	</bs-modal>
+		       	</div> 
+		        <div class="col-md-2"></div> 
+        	</div>
+        	<div class="card">
+                <div class="card-header" data-background-color="red">
+                    <h3 class="title">Tarifas</h3>
+                    <h4 class="category">Tablas de tarifas</h4>
+                </div>
+                <div class="card-content">
+			        <mat-tab-group>
+					  <mat-tab label="Tarifas de particulares">
+					  	<div class="row">
+						  	<div class="col-md-1"></div>
+						  	<div class="col-md-10">
+					  			<mat-tab-group>
+									<br>
+									<br>
+									<br>
+									<br>
+									<br>
+								    <mat-tab label="Para grupo familiar">
+
+								    <button type="button" class="btn btn-success pull-right" style="border-radius: 100px;" (click)="checkCrear(true,'tarifas_familiar');modal.open()"><i class="fa fa-plus"></i></button>
+								  <table class="table table-striped">
+                                  <thead>
+                                     <th></th>
+                                     <!-- <th style="text-align: center;">ID</th> -->
+                                     <th style="text-align: center; font-size: 18px; font-weight: bold">Rango</th>
+                                     <th style="text-align: center; font-size: 18px; font-weight: bold">Tarifa</th>
+                                     <th style="text-align: center; font-size: 18px; font-weight: bold">Carencia</th>
+                                     <th style="text-align: center; font-size: 18px; font-weight: bold">Acciones</th>
+                                  </thead>
+                                  <tbody>
+                                        <tr *ngFor="let item of familiares" >
+                                            <td>
+                                                    
+                                            </td>
+                                            <!-- <td style="text-align: center;">{{item.id}}</td> -->
+                                            <td style="text-align: center;">{{item.edad_min}}&nbsp;&nbsp;&nbsp;a&nbsp;&nbsp;&nbsp;{{item.edad_max}}</td>
+                                            <td style="text-align: center;">$.&nbsp;{{item.tarifa}}</td>
+                                            <td style="text-align: center;">{{item.carencia}}&nbsp; MESES</td>
+                                            <td style="text-align: center;">
+                                            
+                                                <button type="button" class="btn btn-warning" (click)="getTarifa(item,'tarifas_familiar');checkCrear(false,'tarifas_familiar');modal.open()"><i class="fa fa-eye"></i>&nbsp; Ver</button>
+
+                                            </td>
+                                        </tr>
+                                       
+                                  </tbody>
+                                </table>
+								    </mat-tab>
+								    <mat-tab label="Para sola persona">
+								    	<button type="button" class="btn btn-success pull-right" style="border-radius: 100px;" (click)="checkCrear(true,'tarifas_solo');modal.open()"><i class="fa fa-plus"></i></button>
+								    	<table class="table table-striped">
+                                  <thead>
+                                     <th></th>
+                                     <!-- <th style="text-align: center;">ID</th> -->
+                                     <th style="text-align: center; font-size: 18px; font-weight: bold">Rango</th>
+                                     <th style="text-align: center; font-size: 18px; font-weight: bold">Tarifa</th>
+                                     <th style="text-align: center; font-size: 18px; font-weight: bold">Carencia</th>
+                                     <th style="text-align: center; font-size: 18px; font-weight: bold">Acciones</th>
+                                  </thead>
+                                  <tbody>
+                                        <tr *ngFor="let item of familiaresSolo" >
+                                            <td>
+                                                    
+                                            </td>
+                                            <!-- <td style="text-align: center;">{{item.id}}</td> -->
+                                            <td style="text-align: center;">{{item.edad_min}}&nbsp;&nbsp;&nbsp;a&nbsp;&nbsp;&nbsp;{{item.edad_max}}</td>
+                                            <td style="text-align: center;">$.&nbsp;{{item.tarifa}}</td>
+                                            <td style="text-align: center;">{{item.carencia}}&nbsp; MESES</td>
+                                            <td style="text-align: center;">
+
+                                                <button type="button" class="btn btn-warning" (click)="getTarifa(item,'tarifas_solo');checkCrear(false,'tarifas_solo');modal.open()"><i class="fa fa-eye"></i>&nbsp; Ver</button>
+
+                                            </td>
+                                        </tr>
+                                       
+                                  </tbody>
+                                </table>
+								    </mat-tab>
+							    </mat-tab-group>
+							</div>
+							<div class="col-md-1"></div>
+						</div>
+					  </mat-tab>
+					  <mat-tab label="Tarifas de convenios">
+					  	<div class="row">
+						  	<div class="col-md-1"></div>
+						  	<div class="col-md-10">
+					  			<mat-tab-group>
+									<br>
+									<br>
+									<br>
+									<br>
+									<br>
+								    <mat-tab label="Para grupo familiar">
+
+									<button type="button" class="btn btn-success pull-right" style="border-radius: 100px;" (click)="checkCrear(true,'tarifas_convenio');modal.open()"><i class="fa fa-plus"></i></button>
+								    	<table class="table table-striped">
+                                  <thead>
+                                     <th></th>
+                                     <!-- <th style="text-align: center;">ID</th> -->
+                                     <th style="text-align: center; font-size: 18px; font-weight: bold">Rango</th>
+                                     <th style="text-align: center; font-size: 18px; font-weight: bold">Tarifa</th>
+                                     <th style="text-align: center; font-size: 18px; font-weight: bold">Carencia</th>
+                                     <th style="text-align: center; font-size: 18px; font-weight: bold">Acciones</th>
+                                  </thead>
+                                  <tbody>
+                                        <tr *ngFor="let item of convenio" >
+                                            <td>
+                                                    
+                                            </td>
+                                            <!-- <td style="text-align: center;">{{item.id}}</td> -->
+                                            <td style="text-align: center;">{{item.edad_min}}&nbsp;&nbsp;&nbsp;a&nbsp;&nbsp;&nbsp;{{item.edad_max}}</td>
+                                            <td style="text-align: center;">$.&nbsp;{{item.tarifa}}</td>
+                                            <td style="text-align: center;">{{item.carencia}}&nbsp; MESES</td>
+                                            
+                                            <td style="text-align: center;">
+
+                                                <button type="button" class="btn btn-warning" (click)="getTarifa(item,'tarifas_convenio');checkCrear(false,'tarifas_convenio');modal.open()"><i class="fa fa-eye"></i>&nbsp; Ver</button>
+
+
+                                            </td>
+                                        </tr>
+                                       
+                                  </tbody>
+                                </table>
+								    </mat-tab>
+								    <mat-tab label="Para sola persona">
+								    	<button type="button" class="btn btn-success pull-right" style="border-radius: 100px;" (click)="checkCrear(true,'tarifas_convenio_sola');modal.open()"><i class="fa fa-plus"></i></button>
+									
+								    	<table class="table table-striped">
+                                  <thead>
+                                     <th></th>
+                                     <!-- <th style="text-align: center;">ID</th> -->
+                                     <th style="text-align: center; font-size: 18px; font-weight: bold">Rango</th>
+                                     <th style="text-align: center; font-size: 18px; font-weight: bold">Tarifa</th>
+                                     <th style="text-align: center; font-size: 18px; font-weight: bold">Carencia</th>
+                                     <th style="text-align: center; font-size: 18px; font-weight: bold">Acciones</th>
+                                  </thead>
+                                  <tbody>
+                                        <tr *ngFor="let item of convenioSolo" >
+                                            <td>
+                                                    
+                                            </td>
+                                            <!-- <td style="text-align: center;">{{item.id}}</td> -->
+                                            <td style="text-align: center;">{{item.edad_min}}&nbsp;&nbsp;&nbsp;a&nbsp;&nbsp;&nbsp;{{item.edad_max}}</td>
+                                            <td style="text-align: center;">$.&nbsp;{{item.tarifa}}</td>
+                                            <td style="text-align: center;">{{item.carencia}}&nbsp; MESES</td>
+                                            <td style="text-align: center;">
+
+                                                <button type="button" class="btn btn-warning" (click)="getTarifa(item,'tarifas_convenio_sola');checkCrear(false,'tarifas_convenio_sola');modal.open()"><i class="fa fa-eye"></i>&nbsp; Ver</button>
+
+
+                                            </td>
+                                        </tr>
+                                       
+                                  </tbody>
+                                </table>
+								    </mat-tab>
+							    </mat-tab-group>
+							</div>
+							<div class="col-md-1"></div>
+						</div>
+					  </mat-tab>
+					</mat-tab-group>
+				</div>
+			</div>
+    	</div>
+    </div>
+    <app-footer></app-footer>
+ </div>
+ </div>

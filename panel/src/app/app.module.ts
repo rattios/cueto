@@ -3,15 +3,18 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule, MatMenuModule, MatToolbarModule, MatIconModule,MatCardModule, MatDatepickerModule, MatNativeDateModule, MatCheckboxModule, MatSlideToggleModule, DateAdapter } from '@angular/material';
-import {NG2DataTableModule} from "angular2-datatable-pagination";
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
+import { NG2DataTableModule} from "angular2-datatable-pagination";
 import { ReactiveFormsModule} from "@angular/forms";
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { BsModalModule } from 'ng2-bs3-modal';
 import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 import { Ng2UploaderModule } from 'ng2-uploader';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
@@ -35,6 +38,11 @@ import { DateFormat } from './date-format';
 import { TextTransformerDirective } from './text-transformer-directive.directive';
 import { RutaService } from './services/ruta.service';
 import { FieldErrorDisplayComponent } from './field-error-display/field-error-display.component';
+import { ReportesComponent } from './reportes/reportes.component';
+import { AprobarRendicionesComponent } from './aprobar-rendiciones/aprobar-rendiciones.component';
+import { IngresarRendicionesComponent } from './ingresar-rendiciones/ingresar-rendiciones.component';
+import { EmitirRecibosCobroComponent } from './emitir-recibos-cobro/emitir-recibos-cobro.component';
+import { TarifasComponent } from './tarifas/tarifas.component';
 
 
 @NgModule({
@@ -54,7 +62,12 @@ import { FieldErrorDisplayComponent } from './field-error-display/field-error-di
     ServiciosComponent,
     DataFilterPipe,
     TextTransformerDirective,
-    FieldErrorDisplayComponent
+    FieldErrorDisplayComponent,
+    ReportesComponent,
+    AprobarRendicionesComponent,
+    IngresarRendicionesComponent,
+    EmitirRecibosCobroComponent,
+    TarifasComponent
   ],
   imports: [
     BrowserModule,
@@ -72,6 +85,8 @@ import { FieldErrorDisplayComponent } from './field-error-display/field-error-di
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
+    MatTableModule,
+    MatTabsModule,
     NG2DataTableModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
@@ -79,6 +94,7 @@ import { FieldErrorDisplayComponent } from './field-error-display/field-error-di
     BsModalModule,
     Ng2UploaderModule,
     ProgressbarModule.forRoot(),
+    NgxPermissionsModule.forRoot(),
     LoadingModule.forRoot({
         animationType: ANIMATION_TYPES.wanderingCubes,
         backdropBackgroundColour: 'rgba(0,0,0,0.5)', 

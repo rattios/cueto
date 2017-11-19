@@ -53,7 +53,7 @@ export class UserProfileComponent implements OnInit {
     public correo = "";
     public fechaSistema:any;
     private zone: NgZone;
-    private progress: number = 0;
+    public progress: number = 0;
     public imagen:any;
     uploadFile: any;
     hasBaseDropZoneOver: boolean = false;

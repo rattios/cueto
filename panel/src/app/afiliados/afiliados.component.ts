@@ -44,7 +44,7 @@ export class AfiliadosComponent implements OnInit {
   public fechaSistema:any;
   public imagen:any;
   private zone: NgZone;
-  private progress: number = 0;
+  public progress: number = 0;
   public formCliente = {
             tipo: "",
             nombre_1: "",
