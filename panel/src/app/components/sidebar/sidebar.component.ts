@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -12,9 +13,10 @@ export const ROUTES: RouteInfo[] = [
     // { path: '/Afiliados', title: 'Ingresar Afiliados',  icon:'person', class: '' },
      { path: '/Clientes', title: 'Ingresar Afiliados',  icon:'supervisor_account', class: '' },
      { path: '/Usuarios-Afiliados', title: 'Afiliados',  icon:'folder_shared', class: '' },
-    //{ path: '/Afiliados', title: 'Ingresar Afiliados',  icon:'person', class: '' },
-    
-    
+     { path: '/Tarifas', title: 'Tarifas',  icon:'library_books', class: '' },
+     //{ path: '/Usuarios-Afiliados', title: 'Afiliados',  icon:'folder_shared', class: '' },
+     //{ path: '/Usuarios-Afiliados', title: 'Afiliados',  icon:'folder_shared', class: '' },
+     //{ path: '/Usuarios-Afiliados', title: 'Afiliados',  icon:'folder_shared', class: '' },        
      // { path: '../table-list', title: 'Typography',  icon:'library_books', class: '' },
      // { path: '../typography', title: 'Typography',  icon:'library_books', class: '' },
      // { path: '../icons', title: 'Icons',  icon:'bubble_chart', class: '' },
@@ -31,7 +33,7 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -42,5 +44,26 @@ export class SidebarComponent implements OnInit {
           return false;
       }
       return true;
+  };
+  clientes() {
+    this.router.navigate(['/Clientes']);
+  };
+  usuariosAfiliados() {
+    this.router.navigate(['/Usuarios-Afiliados']);
+  };
+  aprobarRendiciones() {
+    this.router.navigate(['/AprobarRendiciones']);
+  };
+  ingresarRendiciones() {
+    this.router.navigate(['/IngresarRendiciones']);
+  };
+  emitirRecibosCobro() {
+    this.router.navigate(['/EmitirRecibosCobro']);
+  };
+  tarifas() {
+    this.router.navigate(['/Tarifas']);
+  };
+  reportes() {
+    this.router.navigate(['/Reportes']);
   };
 }

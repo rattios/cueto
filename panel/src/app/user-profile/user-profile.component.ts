@@ -2,6 +2,7 @@ import { Component, OnInit,HostListener, NgZone } from '@angular/core';
 import { HttpClient, HttpParams  } from '@angular/common/http';
 import { FormGroup, FormArray, FormBuilder, Validators, FormControl  } from '@angular/forms';
 import { BsModalComponent } from 'ng2-bs3-modal';
+import { RutaService } from '../services/ruta.service';
 
 
 declare const $: any;
@@ -65,7 +66,7 @@ export class UserProfileComponent implements OnInit {
     private formSumitAttempt: boolean;
 
 
-    constructor(private http: HttpClient, private builder: FormBuilder) {
+    constructor(private http: HttpClient, private builder: FormBuilder, private ruta: RutaService) {
 
         this.registroClienteForm = builder.group({
             tipo: ["", Validators.required],
@@ -139,7 +140,7 @@ export class UserProfileComponent implements OnInit {
     ngOnInit(): void {
       this.loading=true;
       this.zone = new NgZone({ enableLongStackTrace: false });
-      this.http.get('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/sucursales/1/carteras')
+      this.http.get(this.ruta.get_ruta()+'public/sucursales/1/carteras')
            .subscribe((data)=> {
 
                this.data=data;
@@ -157,7 +158,7 @@ export class UserProfileComponent implements OnInit {
 
                this.loading=false;
             });
-       this.http.get('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/getHour')
+       this.http.get(this.ruta.get_ruta()+'public/getHour')
            .subscribe((data)=> {
              console.log(data);
                this.fechaSistema=data;
@@ -293,7 +294,7 @@ export class UserProfileComponent implements OnInit {
           // send=JSON.stringify(send);
           console.log(send2);
 
-        this.http.post('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/clientes',send2)
+        this.http.post(this.ruta.get_ruta()+'public/clientes',send2)
          .toPromise()
          .then(
            data => { // Success
@@ -353,7 +354,7 @@ export class UserProfileComponent implements OnInit {
         this.carteras=[];
         this.ticket=[];
 
-        this.http.get('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/sucursales/1/carteras')
+        this.http.get(this.ruta.get_ruta()+'public/sucursales/1/carteras')
            .subscribe((data)=> {
                this.loading=false;
                this.data=data;

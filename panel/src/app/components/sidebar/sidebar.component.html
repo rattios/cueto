@@ -47,13 +47,50 @@
     </ul>
 
     <div class="nav-container">
-        <ul class="nav">
+        <!-- <ul class="nav">
             <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}}" [routerLinkActiveOptions]="{exact: true}">
                 <a  [routerLink]="[menuItem.path]">
                     <i class="material-icons" style="color: #e1e1e1">{{menuItem.icon}}</i>
                     <p style="font-size: 20px; color: #e1e1e1">{{menuItem.title}}</p>
                 </a>
             </li>
+        </ul> -->
+        <ul class="nav" style="padding-left: 20px; color: #FFFFFF; font-size: 17px">
+            <li class="menu">
+                <button (click)="clientes()" style="padding-top: 12px; background-color: transparent; border: none;">&nbsp;<i class="material-icons" style="color: #FFF !important">supervisor_account</i>&nbsp;Clientes</button>
+            </li>
+            <li class="menu">
+                <button (click)="usuariosAfiliados()" style="padding-top: 12px; background-color: transparent; border: none;">&nbsp;<i class="material-icons" style="color: #FFF !important">folder_shared</i>&nbsp;Usuarios Afiliados</button>
+            </li>
+            <li class="menu">
+                <button (click)="tarifas()" style="padding-top: 12px; background-color: transparent; border: none;">&nbsp;<i class="material-icons" style="color: #FFF !important">library_books</i>&nbsp;Tarifas</button>
+            </li>
+            <li class="menu">
+                <button (click)="emitirRecibosCobro()" style="padding-top: 12px; background-color: transparent; border: none;">&nbsp;<i class="material-icons" style="color: #FFF !important">local_printshop</i>&nbsp;Emitir Recibos Cobro</button>
+            </li>
+            <li class="menu">
+                <button (click)="ingresarRendiciones()" style="padding-top: 12px; background-color: transparent; border: none;">&nbsp;<i class="material-icons" style="color: #FFF !important">note_add</i>&nbsp;Ingresar Rendiciones</button>
+            </li>
+            <li class="menu">
+                <button (click)="aprobarRendiciones()" style="padding-top: 12px; background-color: transparent; border: none;">&nbsp;<i class="material-icons" style="color: #FFF !important">playlist_add_check</i>&nbsp;Aprobar Rendiciones</button>
+            </li>
+            <li class="menu">
+                <button (click)="reportes()" style="padding-top: 12px; background-color: transparent; border: none;">&nbsp;<i class="material-icons" style="color: #FFF !important">assessment</i>&nbsp;Reportes</button>
+            </li>
+
+                <!-- <div *ngIf="i==4">
+                    <mat-accordion style="color: #FFF;padding-top: 10px">
+                      <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            &nbsp;<i class="material-icons" style="color: #FFF !important">settings</i> &nbsp; Configuración del sistema
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+                            <button (click)="slider()" style="padding-top: 10px; background-color: transparent; border: none">&nbsp;<i class="material-icons" style="color: #FFF !important">view_carousel</i>&nbsp;Slider</button><br>
+                            <button (click)="datos()" style="padding-top: 10px; background-color: transparent; border: none">&nbsp;<i class="material-icons" style="color: #FFF !important">settings_phone</i>&nbsp;Contacto</button>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                </div> -->
         </ul>
     </div>
 </div>

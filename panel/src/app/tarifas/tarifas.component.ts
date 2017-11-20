@@ -49,7 +49,33 @@ export class TarifasComponent implements OnInit {
 	ngOnInit() {
 		this.loading=true;
 
-        this.http.get(this.ruta.get_ruta()+'public/tarifas_familiar')
+		this.http.get(this.ruta.get_ruta()+'public/tarifas')
+           .toPromise()
+           .then(
+           data => {
+               this.familiares=data;
+               this.familiares=this.familiares.familiares;
+
+               this.familiaresSolo=data;
+               this.familiaresSolo=this.familiaresSolo.familiaresSolo;
+
+               this.convenio=data;
+               this.convenio=this.convenio.convenio;
+
+               this.convenioSolo=data;
+               this.convenioSolo=this.convenioSolo.convenioSolo;
+
+               this.loading=false;
+               //this.checkLoading();
+               console.log(data);
+            },
+           msg => { // Error
+             console.log(msg.error.error);
+             this.loading=false;
+             alert('error:'+msg.error);
+           });
+
+        /*this.http.get(this.ruta.get_ruta()+'public/tarifas_familiar')
            .toPromise()
            .then(
            data => {
@@ -104,7 +130,7 @@ export class TarifasComponent implements OnInit {
              console.log(msg.error.error);
              this.loading=false;
              alert('error:'+msg.error);
-           });
+           });*/
 	}
 
 	getTarifa(item,ruta){
@@ -229,7 +255,32 @@ export class TarifasComponent implements OnInit {
     }
 
     resetear(){
-    	this.http.get(this.ruta.get_ruta()+'public/tarifas_familiar')
+    	this.http.get(this.ruta.get_ruta()+'public/tarifas')
+           .toPromise()
+           .then(
+           data => {
+               this.familiares=data;
+               this.familiares=this.familiares.familiares;
+
+               this.familiaresSolo=data;
+               this.familiaresSolo=this.familiaresSolo.familiaresSolo;
+
+               this.convenio=data;
+               this.convenio=this.convenio.convenio;
+
+               this.convenioSolo=data;
+               this.convenioSolo=this.convenioSolo.convenioSolo;
+
+               this.loading=false;
+               //this.checkLoading();
+               console.log(data);
+            },
+           msg => { // Error
+             console.log(msg.error.error);
+             this.loading=false;
+             alert('error:'+msg.error);
+           });
+    	/*this.http.get(this.ruta.get_ruta()+'public/tarifas_familiar')
            .toPromise()
            .then(
            data => {
@@ -284,7 +335,7 @@ export class TarifasComponent implements OnInit {
              console.log(msg.error.error);
              this.loading=false;
              alert('error:'+msg.error);
-           });
+           });*/
     }
 
 }

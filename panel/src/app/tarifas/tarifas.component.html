@@ -67,7 +67,7 @@
                 </div>
                 <div class="card-content">
 			        <mat-tab-group>
-					  <mat-tab label="Tarifas de particulares">
+					  <mat-tab label="Tarifas de particulares" class="tabless">
 					  	<div class="row">
 						  	<div class="col-md-1"></div>
 						  	<div class="col-md-10">
@@ -100,7 +100,7 @@
                                             <td style="text-align: center;">{{item.carencia}}&nbsp; MESES</td>
                                             <td style="text-align: center;">
                                             
-                                                <button type="button" class="btn btn-warning" (click)="getTarifa(item,'tarifas_familiar');checkCrear(false,'tarifas_familiar');modal.open()"><i class="fa fa-eye"></i>&nbsp; Ver</button>
+                                                <button type="button" class="btn btn-warning" (click)="getTarifa(item,'tarifas_familiar');checkCrear(false,'tarifas_familiar');modal.open()">Ver</button>
 
                                             </td>
                                         </tr>
@@ -130,7 +130,7 @@
                                             <td style="text-align: center;">{{item.carencia}}&nbsp; MESES</td>
                                             <td style="text-align: center;">
 
-                                                <button type="button" class="btn btn-warning" (click)="getTarifa(item,'tarifas_solo');checkCrear(false,'tarifas_solo');modal.open()"><i class="fa fa-eye"></i>&nbsp; Ver</button>
+                                                <button type="button" class="btn btn-warning" (click)="getTarifa(item,'tarifas_solo');checkCrear(false,'tarifas_solo');modal.open()">Ver</button>
 
                                             </td>
                                         </tr>
@@ -177,7 +177,7 @@
                                             
                                             <td style="text-align: center;">
 
-                                                <button type="button" class="btn btn-warning" (click)="getTarifa(item,'tarifas_convenio');checkCrear(false,'tarifas_convenio');modal.open()"><i class="fa fa-eye"></i>&nbsp; Ver</button>
+                                                <button type="button" class="btn btn-warning" (click)="getTarifa(item,'tarifas_convenio');checkCrear(false,'tarifas_convenio');modal.open()">Ver</button>
 
 
                                             </td>
@@ -209,7 +209,7 @@
                                             <td style="text-align: center;">{{item.carencia}}&nbsp; MESES</td>
                                             <td style="text-align: center;">
 
-                                                <button type="button" class="btn btn-warning" (click)="getTarifa(item,'tarifas_convenio_sola');checkCrear(false,'tarifas_convenio_sola');modal.open()"><i class="fa fa-eye"></i>&nbsp; Ver</button>
+                                                <button type="button" class="btn btn-warning" (click)="getTarifa(item,'tarifas_convenio_sola');checkCrear(false,'tarifas_convenio_sola');modal.open()">Ver</button>
 
 
                                             </td>
