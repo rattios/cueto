@@ -75,7 +75,7 @@ class ReciboController extends Controller
             return response()->json(['error'=>'La cartera no contiene clientes ó todos fuerón dados de baja.'], 404);
         }
 
-        $recibosGenerados = 0;
+        $recibosGenerados = 0; 
 
         //Recorrer los clentes y buscar su ultimo pago.
         for ($i=0; $i < count($clientes); $i++) { 
@@ -105,11 +105,13 @@ class ReciboController extends Controller
                 //$clientes[$i]->mesesDeuda = $mesesDeuda;
 
                 //Si tiene mas de tres meses que no paga, se pasa a estado moroso
-                if($mesesDeuda > 3 ){
+                 if($mesesDeuda >= 3 ){
                     $clientes[$i]->estado = 'M';
                     $clientes[$i]->ano_moroso = $ultimoPago[0]->anio;
                     $clientes[$i]->mes_moroso = $ultimoPago[0]->mes;
-                    $cliente[$i]->save();
+                    $clientes[$i]->save();
+
+                   //return response()->json(['clientes'=>$clientes[$i]], 200);
                 }
 
                 //Si debe un mes o mas, se hace el calculo de lo que debe
