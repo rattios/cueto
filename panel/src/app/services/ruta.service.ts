@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class RutaService {
 
-  public ruta_servidor="http://vivomedia.com.ar/cuetociasrl/cuetoAPI/";
+  //public ruta_servidor="http://vivomedia.com.ar/cuetociasrl/cuetoAPI/";
+  public ruta_servidor="http://localhost/cueto/cuetoAPI/";
 
   constructor() { }
 
