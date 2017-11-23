@@ -3,7 +3,8 @@ import {Router} from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
+import { RutaService } from '../services/ruta.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   password='';
   public token:any;
 
-  constructor(private http: HttpClient,private router: Router) {
+  constructor(private http: HttpClient,private router: Router, private ruta: RutaService) {
 
   }
 
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
 
     
 
-      this.http.post('http://vivomedia.com.ar/cuetociasrl/cuetoAPI/public/login/web', datos)
+      this.http.post(this.ruta.get_ruta()+'public/login/web', datos)
         .toPromise()
         .then(
           data => { // Success
