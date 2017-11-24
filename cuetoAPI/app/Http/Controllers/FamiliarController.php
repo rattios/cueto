@@ -117,10 +117,19 @@ class FamiliarController extends Controller
             } 
         }
 
+        //verificar que no exista ninguna persona en toda la BD con ese dni
+        $auxCliente = \App\Cliente::where('dni', $request->input('dni'))->get();
+        if(count($auxCliente)!=0){
+           // Devolvemos un código 409 Conflict. 
+            return response()->json(['error'=>'Existe un cliente con el dni '.$request->input('dni')], 409);
+        }
+
         $auxFamiliar = \App\Familiar::where('dni', $request->input('dni'))->get();
         if(count($auxFamiliar)!=0){
+            $titular = $auxFamiliar[0]->titular;
            // Devolvemos un código 409 Conflict. 
-            return response()->json(['error'=>'Ya existe un familiar con el dni '.$request->input('dni')], 409);
+            return response()->json(['error'=>'Ya existe un familiar con el dni '.$request->input('dni'),
+                'titular'=>$titular], 409);
         }
 
         if($nuevoFamiliar=\App\Familiar::create($request->all())){
@@ -184,11 +193,20 @@ class FamiliarController extends Controller
 
         if ($dni != null && $dni!='')
         {
+            //verificar que no exista ninguna persona en toda la BD con ese dni
+            $auxCliente = \App\Cliente::where('dni', $request->input('dni'))->get();
+            if(count($auxCliente)!=0){
+               // Devolvemos un código 409 Conflict. 
+                return response()->json(['error'=>'Existe un cliente con el dni '.$request->input('dni')], 409);
+            }
+
             $auxFamiliar = \App\Familiar::where('id', '<>', $familiar->id)->
                     where('dni', $request->input('dni'))->get();
             if(count($auxFamiliar)!=0){
+                $titular = $auxFamiliar[0]->titular;
                // Devolvemos un código 409 Conflict. 
-                return response()->json(['error'=>'Ya existe otro familiar con el dni '.$request->input('dni')], 409);
+                return response()->json(['error'=>'Ya existe otro familiar con el dni '.$request->input('dni'),
+                    'titular'=>$titular], 409);
             }
         }
          $book = \App\Familiar::where('id',$id)->first();
