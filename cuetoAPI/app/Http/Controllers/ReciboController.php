@@ -19,7 +19,48 @@ class ReciboController extends Controller
      */
     public function index()
     {
-        //
+        if (!$request->input('estado')) {
+
+            //Cargar los recibos 
+            $recibos=\App\Recibo::with('cliente')
+                ->get();
+
+            if(count($recibos) == 0){
+                return response()->json(['error'=>'No existen recibos.'], 404);          
+            }else{
+
+                for ($i=0; $i < count($recibos); $i++) { 
+                    $recibos[$i]->detalle = json_decode($recibos[$i]->detalle);
+
+                    if ($recibos[$i]->cliente->tipo == 'AF_CUETO') {
+                        $recibos[$i]->cliente->familiares = $recibos[$i]->cliente->familiares;
+                    }
+                }
+
+                return response()->json(['status'=>'ok', 'cartera'=>$cartera, 'recibos'=>$recibos], 200);
+            }
+        }
+        else{
+            //Cargar los recibos cun un estado especifico
+            $recibos=\App\Recibo::with('cliente')
+                ->where('estado',$request->input('estado'))
+                ->get();
+
+            if(count($recibos) == 0){
+                return response()->json(['error'=>'No existen recibos con estado '.$request->input('estado')], 404);          
+            }else{
+
+                for ($i=0; $i < count($recibos); $i++) { 
+                    $recibos[$i]->detalle = json_decode($recibos[$i]->detalle);
+
+                    if ($recibos[$i]->cliente->tipo == 'AF_CUETO') {
+                        $recibos[$i]->cliente->familiares = $recibos[$i]->cliente->familiares;
+                    }
+                }
+
+                return response()->json(['status'=>'ok', 'recibos'=>$recibos], 200);
+            }
+        }
     }
 
     /**
