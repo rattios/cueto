@@ -17,7 +17,7 @@ class ReciboController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if (!$request->input('estado')) {
 
