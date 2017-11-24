@@ -15,6 +15,7 @@ class LoginController extends Controller
 
     public function loginWeb(Request $request)
     {
+        return 1;
         $credentials = $request->only('user', 'password');
         $token = null;
         $user = null;
