@@ -65,10 +65,19 @@ class ClienteController extends Controller
             return response()->json(['error'=>'No existe la user con id '.$request->input('user_id')], 404);          
         }
 
+        //verificar que no exista ninguna persona en toda la BD con ese dni
         $auxCliente = \App\Cliente::where('dni', $request->input('dni'))->get();
         if(count($auxCliente)!=0){
            // Devolvemos un código 409 Conflict. 
             return response()->json(['error'=>'Ya existe un cliente con el dni '.$request->input('dni')], 409);
+        }
+
+        $auxFamiliar = \App\Familiar::where('dni', $request->input('dni'))->get();
+        if(count($auxFamiliar)!=0){
+            $titular = $auxFamiliar[0]->titular;
+           // Devolvemos un código 409 Conflict. 
+            return response()->json(['error'=>'Ya existe un familiar con el dni '.$request->input('dni'),
+                        'titular'=>$titular], 409);
         }
 
         //Verificar si el ticket que se quiere asignar existe y esta disponible
@@ -116,6 +125,13 @@ class ClienteController extends Controller
             //return count($familiares);
 
             for ($i=0; $i < count($familiares) ; $i++) { 
+                //verificar que no exista ninguna persona en toda la BD con ese dni
+                $auxCliente = \App\Cliente::where('dni', $familiares[$i]->dni)->get();
+                if(count($auxCliente)!=0){
+                   // Devolvemos un código 409 Conflict. 
+                    return response()->json(['error'=>'Ya existe un cliente con el dni '.$familiares[$i]->dni], 409);
+                }
+
                 $auxFamiliar = \App\Familiar::where('dni', $familiares[$i]->dni)->get();
                 if(count($auxFamiliar)!=0){
                     $titular = $auxFamiliar[0]->titular;
@@ -401,6 +417,14 @@ class ClienteController extends Controller
             if(count($auxCliente)!=0){
                // Devolvemos un código 409 Conflict. 
                 return response()->json(['error'=>'Ya existe otro cliente con el dni '.$request->input('dni')], 409);
+            }
+
+            $auxFamiliar = \App\Familiar::where('dni', $request->input('dni'))->get();
+            if(count($auxFamiliar)!=0){
+                $titular = $auxFamiliar[0]->titular;
+               // Devolvemos un código 409 Conflict. 
+                return response()->json(['error'=>'Existe un familiar con el dni '.$request->input('dni'),
+                            'titular'=>$titular], 409);
             }
         }
 
