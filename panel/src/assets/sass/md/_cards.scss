@@ -98,6 +98,50 @@
         }
 
     }
+    .card-header{
+        padding: 15px 20px 0;
+        z-index: 3;
+        .category{
+            margin-bottom: 0;
+        }
+
+        &.card-header-text{
+            display: inline-block;
+
+            &:after{
+                content: "";
+                display: table;
+            }
+        }
+
+        &.card-header-icon{
+            // display: inline-block;
+            float: left;
+
+            i{
+                width: 33px;
+                height: 33px;
+                text-align: center;
+                line-height: 33px;
+            }
+        }
+
+        &.card-header-tabs{
+            .nav-tabs{
+                background: transparent;
+                padding: 0;
+            }
+            .nav-tabs-title{
+                float: left;
+                padding: 10px 10px 10px 0;
+                line-height: 24px;
+            }
+        }
+
+        &.card-header-icon + .card-content .card-title{
+            padding-bottom: 15px;
+        }
+    }
 
     .chart-title{
         position: absolute;;

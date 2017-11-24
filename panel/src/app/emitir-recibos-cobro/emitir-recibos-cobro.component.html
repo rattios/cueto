@@ -11,13 +11,13 @@
     		<div class="row"> 
     			
         	</div>
-        	<div class="card">
+        	<div class="card" *ngIf="verCarteras">
                 <div class="card-header" data-background-color="blue">
                     <h3 class="title">Emitir los recibos de cobro</h3>
-                    <h4 class="category"></h4>
+                    <h4 class="category">Lista de carteras por vendedor</h4>
                 </div>
-                <div class="card-content">
-			        <div class="card-content" *ngIf="!loading">
+                <div class="card-content" *ngIf="!loading">
+			        <div class="card-content" >
 
 
                         <ul class="nav nav-pills nav-pills-warning">
@@ -54,7 +54,7 @@
                                                 <td style="text-align: center;">{{item.numero}}</td>
                                                 <td style="text-align: center;">
                                                 
-                                                    <button type="button" class="btn btn-warning" (click)="getTarifa(item,'tarifas_familiar');checkCrear(false,'tarifas_familiar');modal.open()">IR</button>
+                                                    <button type="button" class="btn btn-warning" (click)="ir(item.id, item.descripcion,item.numero)">IR</button>
 
                                                 </td>
                                             </tr>   
@@ -63,11 +63,71 @@
                                 </div>
                             </div>  
                         </div>
-
-                        <!-- aqui va el recibo -->
                     </div>
 				</div>
 			</div>
+            <!-- aqui va el recibo -->
+            <div class="col-md-12" *ngIf="verRecibos">
+                <div class="card">
+                   
+                    <div class="card-header card-header-text" data-background-color="blue">
+                        <h4 class="card-title">Cartera{{nombreCartera}} {{numeroCartera}}</h4>
+                    </div>
+                    <div class="card-content" *ngIf="!loading">
+                        <div *ngIf="generarRecibos">
+                           <h3>No se han generado los recibos para esta cartera. </h3> 
+                           <button type="button" class="btn btn-success" (click)="generarRecibo()">Generar</button>
+                        </div>
+                        <div *ngIf="generados">
+                            <table class="table table-striped">
+                                    <thead>
+                                         <th style="text-align: center;">Nombre</th>
+                                         <th style="text-align: center;">DNI</th>
+                                         <th style="text-align: center;">Tipo</th>
+                                         <th style="text-align: center;">Familiares</th>
+                                         <th style="text-align: center;">Estado</th>
+                                         <th style="text-align: center;">Fecha de alta o renovación</th>
+                                         <th style="text-align: center;">Ingresó</th>
+                                         <th style="text-align: center;">Ticket</th>
+                                         <th style="text-align: center;">Acciones</th>
+                                    </thead>
+                                    <tbody>
+                                         <tr *ngFor="let item of items">
+                                            
+                                            <td style="text-align: center; font-size: 16px">{{item.nombre_1}} {{item.nombre_2}} {{item.apellido_1}} {{item.apellido_1}}</td>
+                                            <td style="text-align: center; font-size: 16px">{{item.dni}}</td>
+                                            <td style="text-align: center; font-size: 16px">{{item.tipo2}}</td>
+                                            <td style="text-align: center; font-size: 16px">{{item.nFamiliares}}</td>
+                                            <td style="text-align: center; font-size: 16px">{{item.estado2}}</td>
+                                            <td style="text-align: center; font-size: 16px">{{item.f_alta | date:'dd/MM/yyyy'}}</td>
+                                            <td style="text-align: center; font-size: 16px">{{item.user_id2}}</td>
+                                            <td style="text-align: center; font-size: 16px">{{item.ticket}}</td>
+                                            <td style="text-align: center; font-size: 16px">
+                                              <button type="button" class="btn btn-success" (click)="getUsuario(item)">Ver</button>
+                                              <button type="button" class="btn btn-warning" (click)="editar(item)">Editar</button>
+                                            </td>
+                                         </tr>
+                                    </tbody>
+                            </table>
+                            <div class="btn-toolbar" role="toolbar" style="margin: 0;">
+                                <div class="btn-group">
+                                   <label style="margin-top:10px">Página {{currentIndex}}/{{pageNumber}} </label>
+                                </div>
+                                <div class="btn-group pull-right">
+                                   <ul class="pagination" >
+                                      <li [ngClass]="{'disabled': (currentIndex == 1 || pageNumber == 0)}" ><a  (click)="prevPage()">Atrás</a></li>
+                                         <li *ngFor="let page of pagesIndex"  [ngClass]="{'active': (currentIndex == page)}">
+                                            <a (click)="setPage(page)" >{{page}} </a>
+                                         </li>
+                                      <li [ngClass]="{'disabled': (currentIndex == pageNumber || pageNumber == 0)}" ><a   (click)="nextPage()">Siguiente</a></li>
+                                   </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
     	</div>
     </div>
     <app-footer></app-footer>

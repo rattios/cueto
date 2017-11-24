@@ -26,6 +26,15 @@ export class EmitirRecibosCobroComponent implements OnInit {
     public data:any;
     public vendedores:any;
     public vendedores2:any;
+    public verCarteras=true;
+    public verRecibos=false;
+    public verRecibo=false;
+    public generados=false;
+    public generarRecibos=false;
+    public idRecibo:any;
+    public nombreCartera:any;
+    public numeroCartera:any;
+    public recibos:any;
 
 	constructor(private http: HttpClient, private builder: FormBuilder, private ruta: RutaService) { }
 
@@ -68,7 +77,7 @@ export class EmitirRecibosCobroComponent implements OnInit {
 				  return exists;
 				});
 
-               	for (var i = 1; i < this.data.carteras.length; i++) {
+               	for (var i = 0; i < this.data.carteras.length; i++) {
                		for (var j = 0; j < this.vendedores.length; j++) {
                			if (this.vendedores[j].vendedor==this.data.carteras[i].descripcion) {
                				this.vendedores[j].cartera.push(this.data.carteras[i]);
@@ -97,6 +106,58 @@ export class EmitirRecibosCobroComponent implements OnInit {
    			}
    		}
 	}
+  ir(id,name,number){
+    console.log(id);
+    this.idRecibo=id;
+    this.verCarteras=false;
+    this.verRecibos=true;
+    this.verRecibo=false;
+    this.nombreCartera=name;
+    this.numeroCartera=number;
+
+    this.loading=true;
+    this.http.get(this.ruta.get_ruta()+'public/recibos/'+id)
+         .toPromise()
+         .then(
+           data => { // Success
+             console.log(data);
+             this.recibos=data;
+             this.productList = this.data;
+             this.filteredItems = this.productList;
+             
+             this.init();
+             this.generados=true;
+             this.loading=false;
+             //this.showNotification('top','center','Actualizado con exito',2);
+           },
+           msg => { // Error
+             this.generarRecibos=true;
+             console.log(msg.error.error);
+
+             this.loading=false;
+             this.showNotification('top','center',JSON.stringify(msg.error.error),1);
+           }
+         );
+  }
+  generarRecibo(){
+    var send={};
+    this.loading=true;
+    this.http.post(this.ruta.get_ruta()+'public/recibos/'+this.idRecibo,send)
+         .toPromise()
+         .then(
+           data => { // Success
+             console.log(data);
+             this.showNotification('top','center','Los recibos se han creado con exito',2);
+             this.loading=false;
+           },
+           msg => { // Error
+             console.log(msg);
+             this.showNotification('top','center',JSON.stringify(msg.error.error),4);
+             this.loading=false;
+           }
+         );
+  }
+
 	showNotification(from, align, mensaje,colors){
           const type = ['','info','success','warning','danger'];
 
@@ -114,6 +175,105 @@ export class EmitirRecibosCobroComponent implements OnInit {
                   align: align
               }
           });
+    }
+
+    // -------------------------------------------------------------------------------------------------------------------
+   productList : any;
+   filteredItems : any;
+   pages : number = 4;
+   pageSize : number = 5;
+   pageNumber : number = 0;
+   currentIndex : number = 1;
+   items: any;
+   pagesIndex : Array<number>;
+   pageStart : number = 1;
+   inputName : string = '';
+
+   init(){
+         this.currentIndex = 1;
+         this.pageStart = 1;
+         this.pages = 4;
+
+         this.pageNumber = parseInt(""+ (this.filteredItems.length / this.pageSize));
+         if(this.filteredItems.length % this.pageSize != 0){
+            this.pageNumber ++;
+         }
+    
+         if(this.pageNumber  < this.pages){
+               this.pages =  this.pageNumber;
+         }
+       
+         this.refreshItems();
+         console.log("this.pageNumber :  "+this.pageNumber);
+   }
+
+   FilterByName(){
+      this.filteredItems = [];
+      if(this.inputName != ""){
+            for (var i = 0; i < this.productList.length; ++i) {
+              if (this.productList[i].nombre_1.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
+                 this.filteredItems.push(this.productList[i]);
+              }else if (this.productList[i].nombre_2.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
+                 this.filteredItems.push(this.productList[i]);
+              }else if (this.productList[i].apellido_1.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
+                 this.filteredItems.push(this.productList[i]);
+              }else if (this.productList[i].apellido_1.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
+                 this.filteredItems.push(this.productList[i]);
+              }else if (this.productList[i].dni.indexOf(this.inputName)>=0) {
+                 this.filteredItems.push(this.productList[i]);
+              }else if (this.productList[i].ticket.indexOf(this.inputName)>=0) {
+                 this.filteredItems.push(this.productList[i]);
+              }else if (this.productList[i].f_alta.indexOf(this.inputName)>=0) {
+                 this.filteredItems.push(this.productList[i]);
+              }else if (this.productList[i].user_id2.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
+                 this.filteredItems.push(this.productList[i]);
+              }
+            }
+
+            // this.productList.forEach(element => {
+            //     if(element.nombre.toUpperCase().indexOf(this.inputName.toUpperCase())>=0){
+            //       this.filteredItems.push(element);
+            //    }
+            // });
+      }else{
+         this.filteredItems = this.productList;
+      }
+      console.log(this.filteredItems);
+      this.init();
+   }
+   fillArray(): any{
+      var obj = new Array();
+      for(var index = this.pageStart; index< this.pageStart + this.pages; index ++) {
+                  obj.push(index);
+      }
+      return obj;
+   }
+   refreshItems(){
+               this.items = this.filteredItems.slice((this.currentIndex - 1)*this.pageSize, (this.currentIndex) * this.pageSize);
+               this.pagesIndex =  this.fillArray();
+   }
+   prevPage(){
+      if(this.currentIndex>1){
+         this.currentIndex --;
+      } 
+      if(this.currentIndex < this.pageStart){
+         this.pageStart = this.currentIndex;
+      }
+      this.refreshItems();
+   }
+   nextPage(){
+      if(this.currentIndex < this.pageNumber){
+            this.currentIndex ++;
+      }
+      if(this.currentIndex >= (this.pageStart + this.pages)){
+         this.pageStart = this.currentIndex - this.pages + 1;
+      }
+ 
+      this.refreshItems();
+   }
+    setPage(index : number){
+         this.currentIndex = index;
+         this.refreshItems();
     }
 
 }
