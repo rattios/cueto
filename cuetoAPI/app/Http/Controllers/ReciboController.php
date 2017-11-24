@@ -319,7 +319,7 @@ class ReciboController extends Controller
     }
 
     //retorna los recibos de la cartera_id
-    public function recibosCartera($cartera_id)
+    public function recibosCartera(Request $request, $cartera_id)
     {
         //Comprobamos si la cartera que nos están pasando existe o no.
         $cartera=\App\Cartera::find($cartera_id);
@@ -328,26 +328,49 @@ class ReciboController extends Controller
             return response()->json(['error'=>'No existe la cartera con id '.$cartera_id], 404);          
         }
 
-        //Cargar los recibos
-        $recibos=\App\Recibo::with('cliente')
-            ->where('cartera_id',$cartera_id)
-            ->where('mes',DB::raw('MONTH(now())'))
-            ->where('anio',DB::raw('YEAR(now())'))
-            ->get();
+        if (!$request->input('estado')) {
 
-        if(count($recibos) == 0){
-            return response()->json(['error'=>'Los recibos de esta cartera no han sido generados.'], 404);          
-        }else{
+            //Cargar los recibos del mes actual
+            $recibos=\App\Recibo::with('cliente')
+                ->where('cartera_id',$cartera_id)
+                ->get();
 
-            for ($i=0; $i < count($recibos); $i++) { 
-                $recibos[$i]->detalle = json_decode($recibos[$i]->detalle);
+            if(count($recibos) == 0){
+                return response()->json(['error'=>'No existen recibos asociados a la cartera.'], 404);          
+            }else{
 
-                if ($recibos[$i]->cliente->tipo == 'AF_CUETO') {
-                    $recibos[$i]->cliente->familiares = $recibos[$i]->cliente->familiares;
+                for ($i=0; $i < count($recibos); $i++) { 
+                    $recibos[$i]->detalle = json_decode($recibos[$i]->detalle);
+
+                    if ($recibos[$i]->cliente->tipo == 'AF_CUETO') {
+                        $recibos[$i]->cliente->familiares = $recibos[$i]->cliente->familiares;
+                    }
                 }
-            }
 
-            return response()->json(['status'=>'ok', 'cartera'=>$cartera, 'recibos'=>$recibos], 200);
+                return response()->json(['status'=>'ok', 'cartera'=>$cartera, 'recibos'=>$recibos], 200);
+            }
+        }
+        else{
+            //Cargar los recibos del mes actual cun un estado especifico
+            $recibos=\App\Recibo::with('cliente')
+                ->where('estado',$request->input('estado'))
+                ->where('cartera_id',$cartera_id)
+                ->get();
+
+            if(count($recibos) == 0){
+                return response()->json(['error'=>'No existen recibos con estado '.$request->input('estado').' en la cartera con id '.$cartera_id], 404);          
+            }else{
+
+                for ($i=0; $i < count($recibos); $i++) { 
+                    $recibos[$i]->detalle = json_decode($recibos[$i]->detalle);
+
+                    if ($recibos[$i]->cliente->tipo == 'AF_CUETO') {
+                        $recibos[$i]->cliente->familiares = $recibos[$i]->cliente->familiares;
+                    }
+                }
+
+                return response()->json(['status'=>'ok', 'cartera'=>$cartera, 'recibos'=>$recibos], 200);
+            }
         }
 
 
