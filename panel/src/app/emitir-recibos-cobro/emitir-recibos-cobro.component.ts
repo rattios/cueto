@@ -35,6 +35,7 @@ export class EmitirRecibosCobroComponent implements OnInit {
     public nombreCartera:any;
     public numeroCartera:any;
     public recibos:any;
+    public nombreSucursal:any;
 
 	constructor(private http: HttpClient, private builder: FormBuilder, private ruta: RutaService) { }
 
@@ -49,6 +50,7 @@ export class EmitirRecibosCobroComponent implements OnInit {
                	this.loading=false;
                	console.log(this.data);
 
+               	this.nombreSucursal=this.data.nombre;
                	this.vendedores=[];
                	this.vendedores.push({
                		id:0,
@@ -122,7 +124,11 @@ export class EmitirRecibosCobroComponent implements OnInit {
            data => { // Success
              console.log(data);
              this.recibos=data;
-             this.productList = this.data;
+             this.recibos=this.recibos.recibos;
+             for (var i = 0; i < this.recibos.length; ++i) {
+             	this.recibos[i].mes=this.meses(this.recibos[i].mes);
+             }
+             this.productList = this.recibos;
              this.filteredItems = this.productList;
              
              this.init();
@@ -156,6 +162,110 @@ export class EmitirRecibosCobroComponent implements OnInit {
              this.loading=false;
            }
          );
+  }
+
+  public nAfiliado:any;
+  public nRecibo:any;
+  public cuotaMes:any;
+  public detalle:any;
+  public sucursal:any;
+  public importe:any;
+  public tipoAfiliado:any;
+  
+  verDetalleRecibo(item){
+  	console.log(item);
+  	this.nAfiliado=item.cliente.id;
+  	this.nRecibo=item.num_recibo;
+  	this.cuotaMes=this.meses(item.mes)+'-'+item.anio;
+  	this.detalle=item.detalle;
+  	this.importe=item.importe;
+  	this.tipoAfiliado=item.cliente.tipo;
+
+  	if(this.tipoAfiliado=="AF_CUETO") {
+  		this.tipoAfiliado='GFS';
+  	}else if(this.tipoAfiliado=="AF_CUETO_S") {
+  		this.tipoAfiliado='SSF';
+  	}
+
+  	
+
+  	if(this.detalle.length>1) {
+  		this.detalle[0].nombre=item.cliente.nombre_1+' '+this.checkNULL(item.cliente.nombre_2)+' '+item.cliente.apellido_1+' '+this.checkNULL(item.cliente.apellido_2);
+  		this.detalle[0].dni=item.cliente.dni;
+  		this.detalle[0].vinculo='TITULAR';
+  		for (var i = 1; i < this.detalle.length; i++) {
+  			for (var j = 0; j < item.cliente.familiares.length; j++) {
+  				if(this.detalle[i].id_persona==item.cliente.familiares[j].id) {
+  					this.detalle[i].nombre=item.cliente.familiares[j].nombre_1+' '+this.checkNULL(item.cliente.familiares[j].nombre_2)+' '+item.cliente.familiares[j].apellido_1+' '+this.checkNULL(item.cliente.familiares[j].apellido_2);
+  					this.detalle[i].dni=item.cliente.familiares[j].dni;
+  					this.detalle[i].vinculo=item.cliente.familiares[j].vinculo;
+  				}
+  			}
+  		}
+  	}else if(this.detalle.length==1){
+  		for (var i = 0; i < this.detalle.length; i++) {
+  			if(this.detalle[i].id_persona==item.cliente.id) {
+  					this.detalle[i].nombre=item.cliente.nombre_1+' '+this.checkNULL(item.cliente.nombre_2)+' '+item.cliente.apellido_1+' '+this.checkNULL(item.cliente.apellido_2);
+  					this.detalle[i].dni=item.cliente.dni;
+  					this.detalle[i].vinculo='TITULAR';
+  				}
+  		}
+  	}
+  	
+
+  	this.verCarteras=false;
+    this.verRecibos=false;
+    this.verRecibo=true;
+    this.sucursal=localStorage.getItem("manappger_user_sucursal_id");
+  }
+
+  meses(mes){
+  	if(mes==1) {
+  		return 'ENERO';
+  	}else if(mes==2) {
+  		return 'FEBRERO';
+  	}else if(mes==3) {
+  		return 'MARZO';
+  	}else if(mes==4) {
+  		return 'ABRIL';
+  	}else if(mes==5) {
+  		return 'MAYO';
+  	}else if(mes==6) {
+  		return 'JUNIO';
+  	}else if(mes==7) {
+  		return 'JULIO';
+  	}else if(mes==8) {
+  		return 'AGOSTO';
+  	}else if(mes==9) {
+  		return 'SEPTIEMBRE';
+  	}else if(mes==10) {
+  		return 'OCTUBRE';
+  	}else if(mes==11) {
+  		return 'NOVIEMBRE';
+  	}else if(mes==12) {
+  		return 'DICIEMBRE';
+  	}
+  }
+
+  checkNULL(item){
+  	console.log(item);
+  	if(item==null || item=='NULL' || item=='') {
+  		console.log('entro null');
+  		return '';
+  	}else{
+  		console.log('else');
+  		return item;
+  	}
+  }
+  volverGenerarRecibos(){
+  	this.verCarteras=true;
+    this.verRecibos=false;
+    this.verRecibo=false;
+  }
+  volverVerRecibo(){
+  	this.verCarteras=false;
+    this.verRecibos=true;
+    this.verRecibo=false;
   }
 
 	showNotification(from, align, mensaje,colors){
