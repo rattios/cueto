@@ -345,7 +345,16 @@ class ReciboController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $recibos=\App\Recibo::find($id);
+        
+        $recibos->estado=$request->input('estado');
+        //return $recibos;
+        if ($recibos->save()) {
+            return response()->json(['status'=>'ok','recibos'=>$recibos], 200);
+        }else{
+            return response()->json(['error'=>'No se pudo actualizar '.$cartera_id], 404); 
+        }
     }
 
     /**
