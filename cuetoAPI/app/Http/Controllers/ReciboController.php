@@ -35,9 +35,11 @@ class ReciboController extends Controller
                     if ($recibos[$i]->cliente->tipo == 'AF_CUETO') {
                         $recibos[$i]->cliente->familiares = $recibos[$i]->cliente->familiares;
                     }
+
+                    $recibos[$i]->cartera=\App\Cartera::find($recibos[$i]->cartera_id);
                 }
 
-                return response()->json(['status'=>'ok', 'cartera'=>$cartera, 'recibos'=>$recibos], 200);
+                return response()->json(['status'=>'ok', 'recibos'=>$recibos], 200);
             }
         }
         else{
@@ -56,6 +58,8 @@ class ReciboController extends Controller
                     if ($recibos[$i]->cliente->tipo == 'AF_CUETO') {
                         $recibos[$i]->cliente->familiares = $recibos[$i]->cliente->familiares;
                     }
+
+                    $recibos[$i]->cartera=\App\Cartera::find($recibos[$i]->cartera_id);
                 }
 
                 return response()->json(['status'=>'ok', 'recibos'=>$recibos], 200);
