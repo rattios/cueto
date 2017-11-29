@@ -51,4 +51,10 @@ class DocCancelador extends Model
         // 1 documento cancelador es generado por una rendicion
         return $this->belongsTo('App\Rendicion', 'rendicion_id');
     }
+
+    public function pagos()
+    {
+        // 1 docCancelador puede tener varios pagos
+        return $this->hasMany('App\Pago', 'doc_cancelador_id');
+    }
 }

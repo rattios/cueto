@@ -24,6 +24,9 @@ class PagosMigration extends Migration
             $table->integer('cliente_id')->unsigned();
             $table->foreign('cliente_id')->references('id')->on('clientes');
 
+            $table->integer('doc_cancelador_id')->unsigned();
+            $table->foreign('doc_cancelador_id')->references('id')->on('docs_canceladores');
+
             $table->timestamps();
         });
     }

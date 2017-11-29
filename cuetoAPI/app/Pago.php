@@ -25,7 +25,7 @@ class Pago extends Model
      * @var array
      */
     protected $fillable = ['monto', 'mes', 'anio',
-    		'sucursal_id', 'cliente_id'];
+    		'sucursal_id', 'cliente_id', 'doc_cancelador_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -45,5 +45,11 @@ class Pago extends Model
     {
         // 1 pago pertene a un cliente
         return $this->belongsTo('App\Cliente', 'cliente_id');
+    }
+
+    public function docCancelador()
+    {
+        // 1 pago tiene un cliente cancelador
+        return $this->belongsTo('App\DocCancelador', 'doc_cancelador_id');
     }
 }
