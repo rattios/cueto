@@ -25,7 +25,7 @@ class DeudasMigration extends Migration
             $table->integer('cliente_id')->unsigned();
             $table->foreign('cliente_id')->references('id')->on('clientes');
 
-            $table->integer('recibo_id')->unsigned();
+            $table->integer('recibo_id')->unsigned()->nullable();
             $table->foreign('recibo_id')->references('id')->on('recibos');
 
             $table->timestamps();

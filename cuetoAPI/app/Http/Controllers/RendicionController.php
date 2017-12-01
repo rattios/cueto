@@ -56,7 +56,53 @@ class RendicionController extends Controller
         $recibos = json_decode($request->input('recibos'));
 
         for ($i=0; $i < count($recibos) ; $i++) { 
-            # code...
+            //El cliente no pago nada
+            if ($recibos[$i]->abono == 0) {
+
+                //Extraer el total de los importes parciales
+                $detalleAux = $recibos[$i]->detalle;
+                $montoAux = 0;
+                for ($m=0; $m < count($detalleAux); $m++) { 
+                    $montoAux = $montoAux + $detalleAux[$m]->importeParcial;
+                }
+
+                //Generar deuda
+                $nuevaDeuda = new \App\Deuda;
+                $nuevaDeuda->monto=$montoAux;
+                $nuevaDeuda->mes=$recibos[$i]->item->mes;
+                $nuevaDeuda->anio=$recibos[$i]->item->anio;
+                $nuevaDeuda->sucursal_id=$recibos[$i]->item->sucursal_id;
+                $nuevaDeuda->cliente_id=$recibos[$i]->item->cliente_id;
+                $nuevaDeuda->recibo_id=$recibos[$i]->item->id;
+                $nuevaDeuda->save();
+            }
+            //El cliente pago a medias
+            else if ($recibos[$i]->abono > 0 && $recibos[$i]->abono < $recibos[$i]->importe) {
+
+                //Cargar cliente
+                $cliente = \App\Cliente::find($recibos[$i]->item->cliente_id)
+                //Borrar deudas anteriores si las tiene
+                $deudas = $cliente->deudas;    
+
+                if (count($deudas)>0) {
+                    for ($k=0; $k < count($deudas); $k++) { 
+                        $deudas[$k]->delete();
+                    } 
+                }
+
+                //Recalcular deuda
+                $montoAux = $recibos[$i]->importe - $recibos[$i]->abono;
+
+                //Generar deuda
+                $nuevaDeuda = new \App\Deuda;
+                $nuevaDeuda->monto=$montoAux;
+                $nuevaDeuda->mes=$recibos[$i]->item->mes;
+                $nuevaDeuda->anio=$recibos[$i]->item->anio;
+                $nuevaDeuda->sucursal_id=$recibos[$i]->item->sucursal_id;
+                $nuevaDeuda->cliente_id=$recibos[$i]->item->cliente_id;
+                $nuevaDeuda->recibo_id=$recibos[$i]->item->id;
+                $nuevaDeuda->save();
+            }
         }
 
 

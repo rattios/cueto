@@ -485,6 +485,8 @@ class ReciboController extends Controller
             //Cargar los recibos del mes actual
             $recibos=\App\Recibo::with('cliente')
                 ->where('cartera_id',$cartera_id)
+                ->where('mes',DB::raw('MONTH(now())'))
+                ->where('anio',DB::raw('YEAR(now())'))
                 ->get();
 
             if(count($recibos) == 0){
@@ -506,6 +508,8 @@ class ReciboController extends Controller
         else{
             //Cargar los recibos del mes actual cun un estado especifico
             $recibos=\App\Recibo::with('cliente')
+                ->where('mes',DB::raw('MONTH(now())'))
+                ->where('anio',DB::raw('YEAR(now())'))
                 ->where('estado',$request->input('estado'))
                 ->where('cartera_id',$cartera_id)
                 ->get();
