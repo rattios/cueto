@@ -31,6 +31,7 @@ class ReciboController extends Controller
 
                 for ($i=0; $i < count($recibos); $i++) { 
                     $recibos[$i]->detalle = json_decode($recibos[$i]->detalle);
+                    $recibos[$i]->deuda = json_decode($recibos[$i]->deuda);
 
                     if ($recibos[$i]->cliente->tipo == 'AF_CUETO') {
                         $recibos[$i]->cliente->familiares = $recibos[$i]->cliente->familiares;
@@ -54,6 +55,7 @@ class ReciboController extends Controller
 
                 for ($i=0; $i < count($recibos); $i++) { 
                     $recibos[$i]->detalle = json_decode($recibos[$i]->detalle);
+                    $recibos[$i]->deuda = json_decode($recibos[$i]->deuda);
 
                     if ($recibos[$i]->cliente->tipo == 'AF_CUETO') {
                         $recibos[$i]->cliente->familiares = $recibos[$i]->cliente->familiares;
@@ -95,7 +97,7 @@ class ReciboController extends Controller
         }
 
         //Verificar si ya estan generados los recibos de la cartera_id para el mes actual
-        $yaGenerados = DB::select("SELECT MAX(id) as idMax FROM recibos
+        /*$yaGenerados = DB::select("SELECT MAX(id) as idMax FROM recibos
                  WHERE mes = MONTH(now())
                  AND anio = YEAR(now())
                  AND cartera_id = ".$cartera_id);
@@ -103,13 +105,6 @@ class ReciboController extends Controller
         if ($yaGenerados) {
             // Devolvemos un código 409 Conflict.
             return response()->json(['error'=>'Los recibos de esta cartera ya fuerón generados.'], 409);
-        }
-
-        /*//Cargar los tickets de la cartera que estan asignados a clientes
-        $tickets = \App\TicketCartera::where('cartera_id', $cartera_id)->
-                whereNotNull('cliente_id')->get();
-        if(count($tickets)==0){ 
-            return response()->json(['error'=>'La cartera no tiene tickets asignados a clientes.'], 404);
         }*/
 
         //Cargar los clientes que pertenecen a la cartera
@@ -122,16 +117,59 @@ class ReciboController extends Controller
 
         $recibosGenerados = 0; 
 
-        //Recorrer los clentes y buscar su ultimo pago.
+        //Recorrer los clientes y buscar su ultimo pago.
         for ($i=0; $i < count($clientes); $i++) { 
 
             $idMax = DB::select("SELECT max(id) as idMax FROM `pagos` WHERE cliente_id = ".$clientes[$i]->id);
 
             $ultimoPago = \App\Pago::where('id', $idMax[0]->idMax)->get();
 
-            //Si tiene ultimo pago, calcular el periodo de tiempo
+            //verificar que el cliente no tenga el recibo generado para el mes actual
+            $reciboCliente = \App\Recibo::where('cliente_id',$clientes[$i]->id)
+                ->where('mes',DB::raw('MONTH(now())'))
+                ->where('anio',DB::raw('YEAR(now())'))
+                ->get();
+
+            //Si tiene ultimo pago y no tiene el recibo generado para el mes actual,
+            //calcular el periodo de tiempo
             //en meses con respecto al mes actual
-            if (sizeof($ultimoPago) > 0) {
+            if (sizeof($ultimoPago) > 0 && sizeof($reciboCliente) == 0) {
+
+                //verificar si el cliente ya tenia recibos aneriores sin pagar o rendir
+                //autorendirlos y agregarlos como deuda
+                $recibosPendientes = \App\Recibo::where('cliente_id',$clientes[$i]->id)
+                ->where('estado', '<>', 'A')
+                ->where('estado', '<>', 'RS')
+                ->get();
+
+                if (count($recibosPendientes)>0) {
+                    for ($l=0; $l < count($recibosPendientes) ; $l++) { 
+                        //Autorendir
+                        $recibosPendientes[$l]->estado = 'RS';
+                        $recibosPendientes[$l]->save();
+
+                        //Extraer el total de los importes parciales
+                        //Nota: las deudas que pudiera tener el cliente no se toman 
+                        //en cuenta para no sobreescribirlas
+                        $detalleAux = json_decode($recibosPendientes[$l]->detalle);
+                        $montoAux = 0;
+                        for ($m=0; $m < count($detalleAux); $m++) { 
+                            $montoAux = $montoAux + $detalleAux[$m]->importeParcial;
+                        }
+
+                        //Generar deuda
+                        $nuevaDeuda = new \App\Deuda;
+                        $nuevaDeuda->monto=$montoAux;
+                        $nuevaDeuda->mes=$recibosPendientes[$l]->mes;
+                        $nuevaDeuda->anio=$recibosPendientes[$l]->anio;
+                        $nuevaDeuda->sucursal_id=$recibosPendientes[$l]->sucursal_id;
+                        $nuevaDeuda->cliente_id=$recibosPendientes[$l]->cliente_id;
+                        $nuevaDeuda->recibo_id=$recibosPendientes[$l]->id;
+                        $nuevaDeuda->save();
+                    }
+                }
+
+                //Calcular los meses que debe
                 $fechaActual = new DateTime("now");
                 //$fechaActual = new DateTime('2017-11-21');
                 $anioActual = date("Y");
@@ -149,14 +187,12 @@ class ReciboController extends Controller
 
                 //$clientes[$i]->mesesDeuda = $mesesDeuda;
 
-                //Si tiene mas de tres meses que no paga, se pasa a estado moroso
-                 if($mesesDeuda >= 3 ){
+                //Si tiene mas de un mes que no paga, se pasa a estado moroso
+                if($mesesDeuda > 1 ){
                     $clientes[$i]->estado = 'M';
                     $clientes[$i]->ano_moroso = $ultimoPago[0]->anio;
                     $clientes[$i]->mes_moroso = $ultimoPago[0]->mes;
                     $clientes[$i]->save();
-
-                   //return response()->json(['clientes'=>$clientes[$i]], 200);
                 }
 
                 //Si debe un mes o mas, se hace el calculo de lo que debe
@@ -169,29 +205,53 @@ class ReciboController extends Controller
 
                         $edadActual = $interval->y;
 
+                        if ($edadActual == 0) {
+                            $edadActualAux = 1;
+                        }else if($edadActual > 125){
+                            $edadActualAux = 125;
+                        }else{
+                            $edadActualAux = $edadActual;
+                        }
+
                         //$clientes[$i]->edadActual = $edadActual;
 
                         //Cargar la tarifa correspondiente a la edad actual
-                        $tarifa = \App\TarifaCuetoSola::where('edad_min', '<=', $edadActual)
-                            ->where('edad_max', '>=', $edadActual)->get();
+                        $tarifa = \App\TarifaCuetoSola::where('edad_min', '<=', $edadActualAux)
+                            ->where('edad_max', '>=', $edadActualAux)->get();
 
                         //$clientes[$i]->tarifa = $tarifa[0];
 
+                        //Cargar las deudas de meses anteriores
+                        $deudas = $clientes[$i]->deudas;    
+                        //$clientes[$i]->deudas = $clientes[$i]->deudas;
+
                         //Calcular el importe (total)
-                        $importeTotal = $tarifa[0]->tarifa * $mesesDeuda; 
-                        //$clientes[$i]->importeTotal = $importeTotal;
+                        if (count($deudas)>0) {
+                            $importeParcial = $tarifa[0]->tarifa;
+                            $importeTotal = 0;
+                            for ($k=0; $k < count($deudas); $k++) { 
+                                 $importeTotal = $importeTotal + $deudas[$k]->monto;
+                             } 
+                             $importeTotal = $importeParcial + $importeTotal;
+                             //$clientes[$i]->importeTotal = $importeTotal;
+                        }else{
+                            $importeParcial = $tarifa[0]->tarifa * $mesesDeuda; 
+                            //$clientes[$i]->importeTotal = $importeTotal;
+                            $importeTotal = $importeParcial;
+                        }
+                        
 
                         //Preparar el detalle del recibo
                         $detalle = [
                             [
                             'id_persona' => $clientes[$i]->id,
                             'edad' => $edadActual,
-                            'importeParcial' => $importeTotal
+                            'importeParcial' => $importeParcial
                             ]
                         ];
 
                         //Consultar el id del ultimo recibo para setear num_recibo de forma secuencial
-                        $ultimoRecibo = DB::select("SELECT MAX(id) as idMax FROM recibos");
+                        $ultimoRecibo = DB::select("SELECT MAX(num_recibo) as idMax FROM recibos");
                         $ultimoRecibo = $ultimoRecibo[0]->idMax;
                         if (!$ultimoRecibo) {
                             $ultimoRecibo = 0;
@@ -209,6 +269,8 @@ class ReciboController extends Controller
                         $recibo->cliente_id=$clientes[$i]->id;
                         $recibo->detalle=json_encode($detalle);
                         //$recibo->detalle2=$detalle;
+                        $recibo->deuda=json_encode($deudas);
+                        //$recibo->deuda2=$deudas;
                         $recibo->save();
                         
                         //$clientes[$i]->recibo = $recibo;
@@ -224,17 +286,40 @@ class ReciboController extends Controller
 
                         $edadActual = $interval->y;
 
+                        if ($edadActual == 0) {
+                            $edadActualAux = 1;
+                        }else if($edadActual > 125){
+                            $edadActualAux = 125;
+                        }else{
+                            $edadActualAux = $edadActual;
+                        }
+
                         //$clientes[$i]->edadActual = $edadActual;
 
                         //Cargar la tarifa correspondiente a la edad actual
-                        $tarifa = \App\TarifaCueto::where('edad_min', '<=', $edadActual)
-                            ->where('edad_max', '>=', $edadActual)->get();
+                        $tarifa = \App\TarifaCueto::where('edad_min', '<=', $edadActualAux)
+                            ->where('edad_max', '>=', $edadActualAux)->get();
 
                         //$clientes[$i]->tarifa = $tarifa[0];
 
+                        //Cargar las deudas de meses anteriores
+                        $deudas = $clientes[$i]->deudas;    
+                        //$clientes[$i]->deudas = $clientes[$i]->deudas;
+
                         //Calcular el importe (parcial)
-                        $importeParcial = $tarifa[0]->tarifa * $mesesDeuda; 
-                        //$clientes[$i]->importeParcial = $importeParcial;
+                        if (count($deudas)>0) {
+                            $importeParcial = $tarifa[0]->tarifa;
+                            $importeTotal = 0;
+                            for ($k=0; $k < count($deudas); $k++) { 
+                                 $importeTotal = $importeTotal + $deudas[$k]->monto;
+                             } 
+                             $importeTotal = $importeParcial + $importeTotal;
+                        }else{
+                            $importeParcial = $tarifa[0]->tarifa * $mesesDeuda; 
+                            //$clientes[$i]->importeParcial = $importeParcial;
+
+                            $importeTotal = $importeParcial;
+                        }
 
                         //Preparar el detalle del recibo
                         $detalle = [
@@ -245,11 +330,9 @@ class ReciboController extends Controller
                             ]
                         ];
 
-                        $importeTotal = $importeParcial;
-
                         //Cargar los familiares del cliente titular
                         $familiares = $clientes[$i]->familiares;
-                        $clientes[$i]->familiares = $familiares;
+                        //$clientes[$i]->familiares = $familiares;
 
                         //Recorrer los familiares y calcular el importe parcial
                         for ($j=0; $j < count($familiares) ; $j++) { 
@@ -259,17 +342,30 @@ class ReciboController extends Controller
 
                             $edadActual = $interval->y;
 
+                            if ($edadActual == 0) {
+                                $edadActualAux = 1;
+                            }else if($edadActual > 125){
+                                $edadActualAux = 125;
+                            }else{
+                                $edadActualAux = $edadActual;
+                            }
+
                             //$familiares[$j]->edadActual = $edadActual;
 
                             //Cargar la tarifa correspondiente a la edad actual
-                            $tarifa = \App\TarifaCueto::where('edad_min', '<=', $edadActual)
-                                ->where('edad_max', '>=', $edadActual)->get();
+                            $tarifa = \App\TarifaCueto::where('edad_min', '<=', $edadActualAux)
+                                ->where('edad_max', '>=', $edadActualAux)->get();
 
                             //$familiares[$j]->tarifa = $tarifa[0];
 
                             //Calcular el importe (parcial)
-                            $importeParcial = $tarifa[0]->tarifa * $mesesDeuda; 
-                            //$familiares[$j]->importeParcial = $importeParcial;
+                            if (count($deudas)>0) {
+                                $importeParcial = $tarifa[0]->tarifa;
+                            }else{
+                                $importeParcial = $tarifa[0]->tarifa * $mesesDeuda; 
+                                //$familiares[$j]->importeParcial = $importeParcial;
+                            }
+                            
 
                             //Preparar el detalle del recibo
                             array_push($detalle, ['id_persona' => $familiares[$j]->id,
@@ -280,7 +376,7 @@ class ReciboController extends Controller
                         }
 
                         //Consultar el id del ultimo recibo para setear num_recibo de forma secuencial
-                        $ultimoRecibo = DB::select("SELECT MAX(id) as idMax FROM recibos");
+                        $ultimoRecibo = DB::select("SELECT MAX(num_recibo) as idMax FROM recibos");
                         $ultimoRecibo = $ultimoRecibo[0]->idMax;
                         if (!$ultimoRecibo) {
                             $ultimoRecibo = 0;
@@ -300,6 +396,8 @@ class ReciboController extends Controller
                         $recibo->cliente_id=$clientes[$i]->id;
                         $recibo->detalle=json_encode($detalle);
                         //$recibo->detalle2=$detalle;
+                        $recibo->deuda=json_encode($deudas);
+                        //$recibo->deuda2=$deudas;
                         $recibo->save();
                         
                         //$clientes[$i]->recibo = $recibo;
@@ -395,6 +493,7 @@ class ReciboController extends Controller
 
                 for ($i=0; $i < count($recibos); $i++) { 
                     $recibos[$i]->detalle = json_decode($recibos[$i]->detalle);
+                    $recibos[$i]->deuda = json_decode($recibos[$i]->deuda);
 
                     if ($recibos[$i]->cliente->tipo == 'AF_CUETO') {
                         $recibos[$i]->cliente->familiares = $recibos[$i]->cliente->familiares;
@@ -417,6 +516,7 @@ class ReciboController extends Controller
 
                 for ($i=0; $i < count($recibos); $i++) { 
                     $recibos[$i]->detalle = json_decode($recibos[$i]->detalle);
+                    $recibos[$i]->deuda = json_decode($recibos[$i]->deuda);
 
                     if ($recibos[$i]->cliente->tipo == 'AF_CUETO') {
                         $recibos[$i]->cliente->familiares = $recibos[$i]->cliente->familiares;

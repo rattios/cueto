@@ -24,7 +24,7 @@ class Rendicion extends Model
      *
      * @var array
      */
-    protected $fillable = ['estado', 'sucursal_id', 'cartera_id',
+    protected $fillable = ['estado', 'monto', 'sucursal_id', 'cartera_id',
     		'cobrador_id', 'autorizante_id', 'f_autorizacion'];
 
     /**

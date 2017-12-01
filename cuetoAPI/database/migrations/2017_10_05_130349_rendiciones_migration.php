@@ -15,6 +15,7 @@ class RendicionesMigration extends Migration
         Schema::create('rendiciones', function (Blueprint $table) {
             $table->increments('id');
             $table->string('estado'); //pendiente, confirmado
+            $table->float('monto');
 
             $table->integer('sucursal_id')->unsigned();
             $table->foreign('sucursal_id')->references('id')->on('sucursales');

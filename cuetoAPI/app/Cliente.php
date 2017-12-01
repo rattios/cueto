@@ -97,4 +97,10 @@ class Cliente extends Model
         // 1 cliente tiene muchos recibos de cobro
         return $this->hasMany('App\Recibo', 'cliente_id');
     }
+
+    public function deudas()
+    {
+        // 1 cliente puede tener varias deudas
+        return $this->hasMany('App\Deuda', 'cliente_id');
+    }
 }

@@ -15,7 +15,7 @@ class RecibosMigration extends Migration
         Schema::create('recibos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('num_recibo')->unique();
-            $table->integer('importe');
+            $table->float('importe');
             $table->string('estado'); //emitido ...
             $table->integer('mes');
             $table->integer('anio');
@@ -35,6 +35,9 @@ class RecibosMigration extends Migration
 
             $table->integer('rendicion_id')->unsigned()->nullable();
             $table->foreign('rendicion_id')->references('id')->on('rendiciones');
+
+            $table->text('detalle');
+            $table->text('deuda')->nullable();
 
             $table->timestamps();
         });
