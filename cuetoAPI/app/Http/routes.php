@@ -117,7 +117,7 @@ Route::group(  ['middleware' =>'cors'], function(){
         Route::delete('/recibos/{id}','ReciboController@destroy');
         Route::get('/recibos/{id}','ReciboController@show');
 
-        //----Pruebas RendicionController
+        //----Pruebas RendicionController Prueba
         Route::get('/rendiciones','RendicionController@index');
         Route::get('/rendiciones/{cartera_id}','RendicionController@rendicionesCartera');
         Route::post('/rendiciones/{cartera_id}','RendicionController@store');
