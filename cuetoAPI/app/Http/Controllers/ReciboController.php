@@ -115,6 +115,8 @@ class ReciboController extends Controller
             return response()->json(['error'=>'La cartera no contiene clientes ó todos fuerón dados de baja.'], 404);
         }
 
+        set_time_limit(300);
+
         $recibosGenerados = 0; 
 
         //Recorrer los clientes y buscar su ultimo pago.
