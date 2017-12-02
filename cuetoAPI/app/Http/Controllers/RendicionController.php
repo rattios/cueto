@@ -17,9 +17,69 @@ class RendicionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if (!$request->input('estado')) {
+
+            //Cargar las rendiciones 
+            $rendiciones=\App\Rendicion::with('cartera')
+                ->with('cobrador')
+                ->with('recibos')
+                ->with('docsCanceladores.pagos')
+                ->get();
+
+            if(count($rendiciones) == 0){
+                return response()->json(['error'=>'No existen rendiciones.'], 404);          
+            }else{
+
+                for ($i=0; $i < count($rendiciones); $i++) { 
+                    for ($j=0; $j < count($rendiciones[$i]->recibos) ; $j++) { 
+                        $rendiciones[$i]->recibos[$j]->detalle = json_decode($rendiciones[$i]->recibos[$j]->detalle);
+                        $rendiciones[$i]->recibos[$j]->deuda = json_decode($rendiciones[$i]->recibos[$j]->deuda);
+
+                        if ($rendiciones[$i]->recibos[$j]->cliente->tipo == 'AF_CUETO') {
+                            $rendiciones[$i]->recibos[$j]->cliente->familiares = $rendiciones[$i]->recibos[$j]->cliente->familiares;
+                        }
+                    }
+                    
+
+                }
+
+                return response()->json(['status'=>'ok', 'rendiciones'=>$rendiciones], 200);
+            }
+        }
+        else{
+            //Cargar las rendiciones cun un estado especifico
+            $rendiciones=\App\Rendicion::with('cartera')
+                ->with('cobrador')
+                ->with('recibos')
+                ->with('docsCanceladores.pagos')
+                ->where('estado',$request->input('estado'))
+                ->get();
+
+            if(count($rendiciones) == 0){
+                return response()->json(['error'=>'No existen rendiciones con estado '.$request->input('estado')], 404);          
+            }else{
+
+                //return response()->json(['status'=>'ok', 'rendiciones'=>$rendiciones], 200);
+
+                for ($i=0; $i < count($rendiciones); $i++) { 
+                    for ($j=0; $j < count($rendiciones[$i]->recibos) ; $j++) { 
+                        $rendiciones[$i]->recibos[$j]->detalle = json_decode($rendiciones[$i]->recibos[$j]->detalle);
+                        $rendiciones[$i]->recibos[$j]->deuda = json_decode($rendiciones[$i]->recibos[$j]->deuda);
+
+                        if ($rendiciones[$i]->recibos[$j]->cliente->tipo == 'AF_CUETO') {
+                            $rendiciones[$i]->recibos[$j]->cliente->familiares = $rendiciones[$i]->recibos[$j]->cliente->familiares;
+                        }
+                    }
+                    
+
+                }
+
+                return response()->json(['status'=>'ok', 'rendiciones'=>$rendiciones], 200);
+            }
+        }
+
     }
 
     /**
