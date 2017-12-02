@@ -43,6 +43,8 @@ import { AprobarRendicionesComponent } from './aprobar-rendiciones/aprobar-rendi
 import { IngresarRendicionesComponent } from './ingresar-rendiciones/ingresar-rendiciones.component';
 import { EmitirRecibosCobroComponent } from './emitir-recibos-cobro/emitir-recibos-cobro.component';
 import { TarifasComponent } from './tarifas/tarifas.component';
+import { AprobarPagosComponent } from './aprobar-pagos/aprobar-pagos.component';
+import { HistorialPagosComponent } from './historial-pagos/historial-pagos.component';
 
 
 @NgModule({
@@ -67,7 +69,9 @@ import { TarifasComponent } from './tarifas/tarifas.component';
     AprobarRendicionesComponent,
     IngresarRendicionesComponent,
     EmitirRecibosCobroComponent,
-    TarifasComponent
+    TarifasComponent,
+    AprobarPagosComponent,
+    HistorialPagosComponent
   ],
   imports: [
     BrowserModule,

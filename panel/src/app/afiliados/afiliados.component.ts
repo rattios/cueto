@@ -170,7 +170,7 @@ export class AfiliadosComponent implements OnInit {
       this.loadingSucursales=true;
       this.loadingAfiliados=true;
       this.zone = new NgZone({ enableLongStackTrace: false });
-      this.http.get(this.ruta.get_ruta()+'public/sucursales/1/carteras')
+      this.http.get(this.ruta.get_ruta()+'public/sucursales/'+localStorage.getItem("manappger_user_sucursal_id")+'/carteras')
            .toPromise()
            .then(
            data => {
@@ -720,7 +720,7 @@ export class AfiliadosComponent implements OnInit {
    // -------------------------------------------------------------------------------------------------------------------
    filteredItems : any;
    pages : number = 4;
-   pageSize : number = 5;
+   pageSize : number = 10;
    pageNumber : number = 0;
    currentIndex : number = 1;
    items: any;

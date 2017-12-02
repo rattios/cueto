@@ -140,7 +140,7 @@ export class UserProfileComponent implements OnInit {
     ngOnInit(): void {
       this.loading=true;
       this.zone = new NgZone({ enableLongStackTrace: false });
-      this.http.get(this.ruta.get_ruta()+'public/sucursales/1/carteras')
+      this.http.get(this.ruta.get_ruta()+'public/sucursales/'+localStorage.getItem("manappger_user_sucursal_id")+'/carteras')
            .subscribe((data)=> {
 
                this.data=data;

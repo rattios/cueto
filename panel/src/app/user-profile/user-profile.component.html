@@ -130,10 +130,10 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-black label-floating"  [ngClass]="displayFieldCss('f_nacimiento')">
-                                        <!-- <label class="labels">Fecha de nacimiento:</label> -->
+                                        <label class="labels">Fecha de nacimiento:</label>
                                         <mat-form-field>
                                         
-                                          <input matInput [matDatepicker]="picker1" placeholder="Fecha de nacimiento" class="form-control" style="width: 65%; display: inline-block;" name="f_nacimiento" formControlName="f_nacimiento">
+                                          <input matInput [matDatepicker]="picker1" class="form-control" style="width: 65%; display: inline-block;" name="f_nacimiento" formControlName="f_nacimiento">
                                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                           <mat-datepicker #picker1></mat-datepicker>
                                         </mat-form-field>
@@ -191,10 +191,10 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form-group form-black label-floating" [ngClass]="displayFieldCss('f_alta')">
-                                        <!-- <label class="labels">Fecha de alta o última renovación:</label> -->
+                                        <label class="labels">Fecha de alta o última renovación:</label> 
                                         <mat-form-field>
                                         
-                                          <input matInput [matDatepicker]="picker2" placeholder="Fecha de alta o última renovación" class="form-control" style="width: 65%; display: inline-block;" name="f_alta" formControlName="f_alta">
+                                          <input matInput [matDatepicker]="picker2" class="form-control" style="width: 65%; display: inline-block;" name="f_alta" formControlName="f_alta">
                                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                           <mat-datepicker #picker2></mat-datepicker>
                                         </mat-form-field>
@@ -381,8 +381,9 @@
                                                         <input type="text" name="f_nacimiento" class="form-control" formControlName="f_nacimiento">
                                                     </div> -->
                                                     <div class="form-group form-black label-floating is-empty" [ngClass]="displayFieldCss('f_nacimiento')">
+                                                        <label class="labels">Fecha de nacimiento:</label> 
                                                         <mat-form-field>
-                                                          <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" class="form-control" style="width: 85%; display: inline-block;" name="f_nacimiento" formControlName="f_nacimiento">
+                                                          <input matInput [matDatepicker]="picker"  class="form-control" style="width: 75%; display: inline-block;" name="f_nacimiento" formControlName="f_nacimiento">
                                                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                                           <mat-datepicker #picker></mat-datepicker>
                                                         </mat-form-field>

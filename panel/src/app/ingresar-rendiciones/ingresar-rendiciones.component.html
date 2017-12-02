@@ -12,12 +12,102 @@
     			
         	</div>
         	<div class="card" *ngIf="!verRecibo">
-                <div class="card-header" data-background-color="rose">
+              <div class="card-header" data-background-color="rose">
                     <h3 class="title">Rendiciones</h3>
-                    <h4 class="category">Buscar e ingresar rendiciones</h4>
-                </div>
-                <div class="card-content">
-			        <div class="form-group form-black label-floating is-empty">
+                    <h4 class="category">Ingresa una rendición</h4>
+              </div>
+              <div class="card-content">
+                <form [formGroup]="registroClienteForm" (ngSubmit)="enviar(registroClienteForm)">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="labels">Sucursal:</label>
+                            <div class="form-group form-black label-floating">
+                                <h3 style="font-weight: bold; margin-top: -20px">{{sucursal}}</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-black label-floating is-empty">
+                                <label class="labels">Cobrador:</label>
+                                <input type="text" name="direccion" class="form-control" formControlName="cobrador" [transformer]="uppercase" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-black label-floating" [ngClass]="displayFieldCss('cartera_id')">
+                                <label class="labels">Cartera:</label>
+                                <select name="cartera_id" formControlName="cartera_id" class="form-control" (change)="getTicket($event)">
+                                    <option *ngFor="let title of carteras" [value]="title.id">{{title.numero}} {{title.descripcion}}</option>
+                                </select>
+                                <app-field-error-display [displayError]="isFieldValid('cartera_id')" errorMsg="Te falto este campo!">
+                                 </app-field-error-display>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-black label-floating is-empty">
+                                <label class="labels">Fecha:</label>
+                                <p>{{registroClienteForm.value.fecha | date: 'dd/MM/yyyy'}}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-black label-floating is-empty">
+                                <label class="labels">Monto:</label>
+                                <h3>{{registroClienteForm.value.monto}}</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row card" formArrayName="recibos" *ngIf="registroClienteForm.value.recibos[1]">
+                      <div class="card-header" data-background-color="rose">
+                            <h3 class="title">Recibos:</h3>
+                            <h4 class="category"></h4>
+                      </div>
+                      <div class="col-md-1"></div>
+                      <div class="col-md-10">
+                        <br><br>
+                      <table class="table">
+                        <thead>
+                           <th style=""></th>
+                           <th style="">Nº Recibo</th>
+                           <th style="">Importe</th>
+                           <th style="">Abono</th>
+                           <th style=""></th>
+                        </thead>
+                        <tbody>
+                                  <tr *ngFor="let client of registroClienteForm.controls.recibos.controls; let i=index" [formGroupName]="i">
+                                      <td style="text-align: center; font-size: 16px">
+                                        <mat-checkbox  name="check" formControlName="check" (change)="checks($event,i,client)"></mat-checkbox>
+                                      </td>
+                                      <td style="text-align: center; font-size: 16px">
+                                        <input type="text" name="id" class="form-control" formControlName="id" disabled>
+                                      </td>
+                                      <td style="text-align: center; font-size: 16px">
+                                        <input type="text" name="importe" class="form-control" formControlName="importe" disabled>
+                                      </td>
+                                      <td style="text-align: center; font-size: 16px">
+                                        <input type="text" name="abono" class="form-control" formControlName="abono" (change)="changeMonto($event,i)">
+                                      </td>
+                                      <td style="text-align: center; font-size: 16px">
+                                        <button type="button" class="btn btn-warning" (click)="verDetalleRecibo(client)">Ver</button>
+                                      </td>
+                                  </tr>
+                        </tbody>
+                      </table>
+                      </div>
+                      <div class="col-md-1"></div>
+                    </div>
+                    
+                    <div class="row" style="text-align: center">
+                        <button type="submit" class="btn btn-danger">Guardar</button>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </form>
+			              <!-- <div class="form-group form-black label-floating is-empty">
                          <label class="labels" style="font-size: 18px; font-weight: bold">Buscar: </label>
                          <input  class="form-control" type="text"  id="inputName" [(ngModel)]="inputName" (ngModelChange)="FilterByName()"/>
                          <br>
@@ -57,9 +147,9 @@
                               <li [ngClass]="{'disabled': (currentIndex == pageNumber || pageNumber == 0)}" ><a   (click)="nextPage()">Siguiente</a></li>
                            </ul>
                         </div>
-                      </div>
-				</div>
-			</div>
+                      </div> -->
+			       	</div>
+			      </div>
 
             <div class="card" *ngIf="verRecibo">
                 <div class="card-header card-header-text" data-background-color="rose">
@@ -72,7 +162,7 @@
                             
                             <div  class="row" style="padding-right: 5%">
                                     <button type="button" class="btn btn-success pull-right" style="" (click)="volver()">VOLVER</button>
-                                    <button type="button" class="btn btn-warning pull-right" style="" (click)="aprobar(item)">APROBAR</button>
+                                    
                             </div>
                             <div class="card-content row" style="padding-right: 3%; padding-left: 3%">
 
@@ -140,7 +230,8 @@
                     </div>
                 </div>
             </div>
-    	</div>
+    	
+      </div>
     </div>
     <app-footer></app-footer>
  </div>

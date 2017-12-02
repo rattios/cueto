@@ -29,3 +29,8 @@ p{
         margin:30px auto
     }
 }
+
+.form-control, .form-group .form-control{
+    background-image: none;
+    border-bottom: 1px solid #ccc !important;
+}

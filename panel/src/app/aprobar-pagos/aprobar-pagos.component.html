@@ -1,0 +1,119 @@
+<div *ngIf="!verRecibo">
+    <div class="form-group form-black label-floating is-empty">
+        <label class="labels" style="font-size: 18px; font-weight: bold">Buscar: </label>
+        <input  class="form-control" type="text"  id="inputName" [(ngModel)]="inputName" (ngModelChange)="FilterByName()"/>
+        <br>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <th style="text-align: center;">Numero de recibo</th>
+            <th style="text-align: center;">Nombre</th>
+             <th style="text-align: center;">Documento</th>
+             <th style="text-align: center;">Periodo</th>
+             <th style="text-align: center;">Importe</th>
+             <th style="text-align: center;"></th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of items">
+                <td style="text-align: center; font-size: 16px">{{item.id}}</td>
+                <td style="text-align: center; font-size: 16px">{{item.cliente.nombre_1}} {{item.cliente.nombre_2}} {{item.cliente.apellido_1}} {{item.cliente.apellido_1}}</td>
+                <td style="text-align: center; font-size: 16px">{{item.cliente.dni}}</td>
+                <td style="text-align: center; font-size: 16px">{{item.mes}}-{{item.anio}}</td>
+                <td style="text-align: center; font-size: 16px">$.{{item.importe}}</td>
+                <td style="text-align: center; font-size: 16px">
+                    <button type="button" class="btn btn-warning" (click)="verDetalleRecibo(item)">IR</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="btn-toolbar" role="toolbar" style="margin: 0;">
+        <div class="btn-group">
+           <label style="margin-top:10px">Página {{currentIndex}}/{{pageNumber}} </label>
+        </div>
+        <div class="btn-group pull-right">
+           <ul class="pagination" >
+              <li [ngClass]="{'disabled': (currentIndex == 1 || pageNumber == 0)}" ><a  (click)="prevPage()">Atrás</a></li>
+                 <li *ngFor="let page of pagesIndex"  [ngClass]="{'active': (currentIndex == page)}">
+                    <a (click)="setPage(page)" >{{page}} </a>
+                 </li>
+              <li [ngClass]="{'disabled': (currentIndex == pageNumber || pageNumber == 0)}" ><a   (click)="nextPage()">Siguiente</a></li>
+           </ul>
+        </div>
+    </div>
+</div>
+<div class="card" *ngIf="verRecibo">
+
+    <div class="card-content">
+        <div class="col-md-12" >
+            <div class="card">
+           
+                <div  class="row" style="padding-right: 5%">
+                    <button type="button" class="btn btn-success pull-right" style="" (click)="volver()">VOLVER</button>
+                    <button type="button" class="btn btn-warning pull-right" style="" (click)="aprobar(item)">APROBAR P</button>
+                </div>
+                <div class="card-content row" style="padding-right: 3%; padding-left: 3%">
+
+                    <div style="border: 1px solid #26c6da; border-radius: 10px;min-height: 650px">
+                        <div class="row" style="margin-left: 0px; margin-right: 0px;">
+                            <div class="col-sm-4" style="border-right: 1px solid #26c6da; text-align: center;border-bottom: 1px solid #26c6da;">
+                                <p style="margin-bottom: 0px;">Asociado Nº</p>
+                            </div>
+                            <div class="col-sm-4" style="border-right: 1px solid #26c6da; text-align: center;border-bottom: 1px solid #26c6da;">
+                                <p style="margin-bottom: 0px;">Recibo Nº</p>
+                            </div>
+                            <div class="col-sm-4" style="text-align: center;border-bottom: 1px solid #26c6da;">
+                                <p style="margin-bottom: 0px;">Cuota-Mes</p>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-left: 0px; margin-right: 0px;">
+                            <div class="col-sm-4" style="border-right: 1px solid #26c6da; text-align: center;border-bottom: 1px solid #26c6da;">
+                                <p style="margin: 5px 0px">{{nAfiliado}}</p>
+                            </div>
+                            <div class="col-sm-4" style="border-right: 1px solid #26c6da; text-align: center;border-bottom: 1px solid #26c6da;">
+                                <p style="margin: 5px 0px">{{nRecibo}}</p>
+                            </div>
+                            <div class="col-sm-4" style="text-align: center;border-bottom: 1px solid #26c6da;">
+                                <p style="margin: 5px 0px">{{cuotaMes}}</p>
+                            </div>
+                        </div>
+                        <table class="table ">
+                            <thead style="border-bottom: 1px solid #26c6da;">
+                                 <th style="text-align: center;"></th>
+                                 <th style="text-align: center;border-right: 1px solid #26c6da;">Relacion</th>
+                                 <th style="text-align: center;border-right: 1px solid #26c6da;">Apellido y Nombre</th>
+                                 <th style="text-align: center;border-right: 1px solid #26c6da;">Edad</th>
+                                 <th style="text-align: center;border-right: 1px solid #26c6da;">Documento</th>
+                                 <th style="text-align: center;">Importe</th>
+                            </thead>
+                            <tbody>
+                                 <tr *ngFor="let detalle of detalle">
+                                    
+                                    <td style="text-align: center; font-size: 16px"></td>
+                                    <td style="text-align: center; font-size: 16px">{{detalle.vinculo}}</td>
+                                    <td style="text-align: center; font-size: 16px">{{detalle.nombre}}</td>
+                                    <td style="text-align: center; font-size: 16px">{{detalle.edad}}</td>
+                                    <td style="text-align: center; font-size: 16px">{{detalle.dni}}</td>
+                                    <td style="text-align: center; font-size: 16px">$.{{detalle.importeParcial}}</td>
+                                 </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                    
+                        <div style="text-align: center;position: absolute;bottom: 20px;margin: auto;left: 0;right: 0;">
+                            <div style="text-align: right;padding-right: 3%;">
+                                <h4> $.{{importe}}</h4>
+                            </div>
+                        
+                            <div style="text-align: center;">
+                                <h4>{{tipoAfiliado}}</h4>
+                            </div>
+                            <div style="text-align: center;">
+                                <h4>{{nombreSucursal}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

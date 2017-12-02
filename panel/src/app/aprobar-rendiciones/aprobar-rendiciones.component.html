@@ -8,18 +8,34 @@
     <app-navbar></app-navbar>
     <div class="main-content">
     	<div class="container-fluid row">
-    		<div class="row"> 
-    			
-        	</div>
-        	<div class="card">
+
+        	<div class="card"  *ngIf="!verRecibo">
                 <div class="card-header" data-background-color="green">
                     <h3 class="title">Aprobar rendiciones</h3>
-                    <h4 class="category"></h4>
+                    <h4 class="category">Lista de rendiciones por aprobar y historial de pagos aprobados</h4>
                 </div>
                 <div class="card-content">
-			        
-				</div>
-			</div>
+                    
+                    <ul class="nav nav-pills nav-pills-warning">
+                        <li class="active">
+                            <a href="#pill1" data-toggle="tab">POR APROBAR</a>
+                        </li>
+                        <li>
+                            <a href="#pill2" data-toggle="tab">APROBADOS</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="pill1">
+
+                           <app-aprobar-pagos></app-aprobar-pagos>
+
+                        </div>
+                        <div class="tab-pane" id="pill2">
+
+                        </div>
+                    </div>
+                </div>
+            </div>  
     	</div>
     </div>
     <app-footer></app-footer>

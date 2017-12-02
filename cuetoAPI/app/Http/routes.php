@@ -116,6 +116,14 @@ Route::group(  ['middleware' =>'cors'], function(){
         Route::put('/recibos/{id}','ReciboController@update');
         Route::delete('/recibos/{id}','ReciboController@destroy');
         Route::get('/recibos/{id}','ReciboController@show');
+
+        //----Pruebas TarifaConvenioSolaController
+        Route::get('/pago','PagoController@index');
+        Route::post('/pago','PagoController@store');
+        Route::put('/pago/{id}','PagoController@update');
+        Route::delete('/pago/{id}','PagoController@destroy');
+        Route::get('/pago/{id}','PagoController@show');
+
     
 
     Route::group(['middleware' => 'jwt-auth'], function(){

@@ -25,38 +25,93 @@ export class IngresarRendicionesComponent implements OnInit {
     public loading:any;
     public data:any;
     public recibos:any;
+    public carteras:any;
+    public fechaSistema:any;
+    public registroClienteForm: FormGroup;
 
-	constructor(private http: HttpClient, private builder: FormBuilder, private ruta: RutaService) { }
+
+	constructor(private http: HttpClient, private builder: FormBuilder, private ruta: RutaService) { 
+		this.registroClienteForm = builder.group({
+            estado: ["P"],
+            sucursal_id: [localStorage.getItem("manappger_user_sucursal_id")],
+            sucursal: [localStorage.getItem("manappger_user_sucursal_id")],
+            cartera_id: [""],
+            cobrador_id: [localStorage.getItem("manappger_user_id")],
+            cobrador: [localStorage.getItem("manappger_user_nombre")],
+            fecha: [],
+            monto: [""],
+            todos: [true],
+            recibos: this.builder.array([this.recibosArray()])
+        })
+	}
+
+	recibosArray(){
+        return this.builder.group({
+            id: [],
+            importe: [],
+            abono: [],
+            detalle: [],
+            check: [true],
+            item: [],
+            cliente_id: []
+            })
+    }
 
 	ngOnInit() {
+
 		this.loading=true;
-		this.http.get(this.ruta.get_ruta()+'public/recibos?estado=E')
-         .toPromise()
-         .then(
-           data => { // Success
+		setTimeout(()=>{
+   			this.http.get(this.ruta.get_ruta()+'public/recibos?estado=E')
+	         .toPromise()
+	         .then(
+	           data => { // Success
+	             console.log(data);
+	             this.recibos=data;
+	             this.recibos=this.recibos.recibos;
+	             for (var i = 0; i < this.recibos.length; i++) {
+	             	this.recibos[i].mes=this.meses(this.recibos[i].mes);
+	             }
+	             this.loading=false;
+
+		      	 console.log(this.registroClienteForm);
+	           },
+	           msg => { // Error
+	            
+	             console.log(msg);
+
+	             this.loading=false;
+	             this.showNotification('top','center',JSON.stringify(msg.error.error),1);
+	           }
+	        );
+  		}, 1000);
+		
+
+        this.http.get(this.ruta.get_ruta()+'public/sucursales/'+localStorage.getItem("manappger_user_sucursal_id")+'/carteras')
+           .subscribe((data)=> {
+
+               this.data=data;
+               this.data=this.data.sucursal[0];
+               this.carteras=this.data.carteras;
+               this.sucursal=this.data.nombre;
+               this.registroClienteForm.patchValue({sucursal: this.sucursal });
+               console.log(this.data);
+               console.log(this.sucursal);
+              
+                this.loading=false;
+            });
+       	this.http.get(this.ruta.get_ruta()+'public/getHour')
+           .subscribe((data)=> {
              console.log(data);
-            	this.recibos=data;
-             this.recibos=this.recibos.recibos;
-             for (var i = 0; i < this.recibos.length; ++i) {
-             	this.recibos[i].mes=this.meses(this.recibos[i].mes);
-             }
-             this.productList = this.recibos;
-             this.filteredItems = this.productList;
-             
-             this.init();
-
-             this.loading=false;
-             //this.showNotification('top','center','Actualizado con exito',2);
-           },
-           msg => { // Error
-            
-             console.log(msg.error.error);
-
-             this.loading=false;
-             this.showNotification('top','center',JSON.stringify(msg.error.error),1);
-           }
-         );
+               this.fechaSistema=data;
+               this.fechaSistema=this.fechaSistema.fechaSistema;
+               this.registroClienteForm.patchValue({fecha: this.fechaSistema });
+               //alert(this.fechaSistema);
+            });
 	}
+
+	uppercase(value: string) {
+      return value.toUpperCase();
+    }
 
 	meses(mes){
 	  	if(mes==1) {
@@ -85,6 +140,34 @@ export class IngresarRendicionesComponent implements OnInit {
 	  		return 'DICIEMBRE';
 	  	}
 	}
+
+	meses2(mes){
+	  	if(mes=='ENERO') {
+	  		return 1;
+	  	}else if(mes=='FEBRERO') {
+	  		return 2;
+	  	}else if(mes=='MARZO') {
+	  		return 3;
+	  	}else if(mes=='ABRIL') {
+	  		return 4;
+	  	}else if(mes=='MAYO') {
+	  		return 5;
+	  	}else if(mes=='JUNIO') {
+	  		return 6;
+	  	}else if(mes=='JULIO') {
+	  		return 7;
+	  	}else if(mes=='AGOSTO') {
+	  		return 8;
+	  	}else if(mes=='SEPTIEMBRE') {
+	  		return 9;
+	  	}else if(mes=='OCTUBRE') {
+	  		return 10;
+	  	}else if(mes=='NOVIEMBRE') {
+	  		return 11;
+	  	}else if(mes=='DICIEMBRE') {
+	  		return 12;
+	  	}
+	}
 	  public id:any;
 	  public nAfiliado:any;
 	  public nRecibo:any;
@@ -97,10 +180,11 @@ export class IngresarRendicionesComponent implements OnInit {
 	  public fRendicion:any;
 	  
 	  verDetalleRecibo(item){
+	  	item=item.value.item;
 	  	console.log(item);
 	  	this.nAfiliado=item.cliente.id;
 	  	this.nRecibo=item.num_recibo;
-	  	this.cuotaMes=this.meses(item.mes)+'-'+item.anio;
+	  	this.cuotaMes=item.mes+'-'+item.anio;
 	  	this.detalle=item.detalle;
 	  	this.importe=item.importe;
 	  	this.tipoAfiliado=item.cliente.tipo;
@@ -139,7 +223,7 @@ export class IngresarRendicionesComponent implements OnInit {
 
 
 	    this.verRecibo=true;
-	    this.sucursal=localStorage.getItem("manappger_user_sucursal_id");
+	    //this.sucursal=localStorage.getItem("manappger_user_sucursal_id");
 	  }
 	  checkNULL(item){
 	  	console.log(item);
@@ -150,6 +234,19 @@ export class IngresarRendicionesComponent implements OnInit {
 	  		console.log('else');
 	  		return item;
 	  	}
+	  }
+	  private formSumitAttempt: boolean;
+	   isFieldValid(field: string) {
+	    return (
+	      (!this.registroClienteForm.get(field).valid && this.registroClienteForm.get(field).touched) ||
+	      (this.registroClienteForm.get(field).untouched && this.formSumitAttempt)
+	    );
+	  }
+	  displayFieldCss(field: string) {
+	    return {
+	      'has-error': this.isFieldValid(field),
+	      'has-feedback': this.isFieldValid(field)
+	    };
 	  }
 
 	  volver(){
@@ -176,7 +273,7 @@ export class IngresarRendicionesComponent implements OnInit {
          );
 	  }
 
-		showNotification(from, align, mensaje,colors){
+	showNotification(from, align, mensaje,colors){
           const type = ['','info','success','warning','danger'];
 
           const color = colors;
@@ -195,104 +292,107 @@ export class IngresarRendicionesComponent implements OnInit {
           });
     }
 
-    // -------------------------------------------------------------------------------------------------------------------
-   productList : any;
-   filteredItems : any;
-   pages : number = 4;
-   pageSize : number = 5;
-   pageNumber : number = 0;
-   currentIndex : number = 1;
-   items: any;
-   pagesIndex : Array<number>;
-   pageStart : number = 1;
-   inputName : string = '';
+    public getTicket(id) {
+      console.log(id.target.value);
+      const control= <FormArray>this.registroClienteForm.controls["recibos"];
+      this.clearArray();
 
-   init(){
-         this.currentIndex = 1;
-         this.pageStart = 1;
-         this.pages = 4;
-
-         this.pageNumber = parseInt(""+ (this.filteredItems.length / this.pageSize));
-         if(this.filteredItems.length % this.pageSize != 0){
-            this.pageNumber ++;
-         }
-    
-         if(this.pageNumber  < this.pages){
-               this.pages =  this.pageNumber;
-         }
-       
-         this.refreshItems();
-         console.log("this.pageNumber :  "+this.pageNumber);
-   }
-
-   FilterByName(){
-      this.filteredItems = [];
-      if(this.inputName != ""){
-            for (var i = 0; i < this.productList.length; ++i) {
-              if (this.productList[i].nombre_1.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
-                 this.filteredItems.push(this.productList[i]);
-              }else if (this.productList[i].nombre_2.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
-                 this.filteredItems.push(this.productList[i]);
-              }else if (this.productList[i].apellido_1.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
-                 this.filteredItems.push(this.productList[i]);
-              }else if (this.productList[i].apellido_1.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
-                 this.filteredItems.push(this.productList[i]);
-              }else if (this.productList[i].dni.indexOf(this.inputName)>=0) {
-                 this.filteredItems.push(this.productList[i]);
-              }else if (this.productList[i].ticket.indexOf(this.inputName)>=0) {
-                 this.filteredItems.push(this.productList[i]);
-              }else if (this.productList[i].f_alta.indexOf(this.inputName)>=0) {
-                 this.filteredItems.push(this.productList[i]);
-              }else if (this.productList[i].user_id2.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
-                 this.filteredItems.push(this.productList[i]);
-              }
-            }
-
-            // this.productList.forEach(element => {
-            //     if(element.nombre.toUpperCase().indexOf(this.inputName.toUpperCase())>=0){
-            //       this.filteredItems.push(element);
-            //    }
-            // });
-      }else{
-         this.filteredItems = this.productList;
-      }
-      console.log(this.filteredItems);
-      this.init();
-   }
-   fillArray(): any{
-      var obj = new Array();
-      for(var index = this.pageStart; index< this.pageStart + this.pages; index ++) {
-                  obj.push(index);
-      }
-      return obj;
-   }
-   refreshItems(){
-               this.items = this.filteredItems.slice((this.currentIndex - 1)*this.pageSize, (this.currentIndex) * this.pageSize);
-               this.pagesIndex =  this.fillArray();
-   }
-   prevPage(){
-      if(this.currentIndex>1){
-         this.currentIndex --;
-      } 
-      if(this.currentIndex < this.pageStart){
-         this.pageStart = this.currentIndex;
-      }
-      this.refreshItems();
-   }
-   nextPage(){
-      if(this.currentIndex < this.pageNumber){
-            this.currentIndex ++;
-      }
-      if(this.currentIndex >= (this.pageStart + this.pages)){
-         this.pageStart = this.currentIndex - this.pages + 1;
-      }
- 
-      this.refreshItems();
-   }
-    setPage(index : number){
-         this.currentIndex = index;
-         this.refreshItems();
+      
+      setTimeout(()=>{
+	      for (var i = 1; i < this.recibos.length; i++) {
+	      	if(id.target.value==this.recibos[i].cartera_id) {
+	          (<FormArray>this.registroClienteForm.controls['recibos']).push(this.recibosArray());
+	        }
+	      }
+	      var monto=0;
+	      for (var i = 0; i < this.recibos.length; i++) {
+	      	if(id.target.value==this.recibos[i].cartera_id) {
+		      	(<FormArray>this.registroClienteForm.controls['recibos']).at(i).patchValue({id: this.recibos[i].id });
+		        (<FormArray>this.registroClienteForm.controls['recibos']).at(i).patchValue({importe: this.recibos[i].importe });
+		        (<FormArray>this.registroClienteForm.controls['recibos']).at(i).patchValue({abono: this.recibos[i].importe });
+		        (<FormArray>this.registroClienteForm.controls['recibos']).at(i).patchValue({detalle: this.recibos[i].detalle });
+		      /*  (<FormArray>this.registroClienteForm.controls['recibos']).at(i).patchValue({check: false });*/
+		        (<FormArray>this.registroClienteForm.controls['recibos']).at(i).patchValue({cliente_id: this.recibos[i].cliente.id });
+		        (<FormArray>this.registroClienteForm.controls['recibos']).at(i).patchValue({item: this.recibos[i] });
+		        monto=monto+this.recibos[i].importe;
+		    }
+		  }
+		  this.registroClienteForm.patchValue({monto: monto });
+	  }, 1000);
     }
+    public clearArray(){
+        this.registroClienteForm.controls['recibos'] = this.builder.array([this.recibosArray()]);
+    }
+
+
+    todos(state){
+    	console.log(state.target.value);
+    }
+    checks(state,index,client){
+
+    	console.log((<FormArray>this.registroClienteForm.controls['recibos']).at(index).value);
+    	
+    	if(state.checked) {
+    		this.registroClienteForm.patchValue({monto: this.registroClienteForm.value.monto+ parseFloat((<FormArray>this.registroClienteForm.controls['recibos']).at(index).value.abono)});
+    	}else{
+    		this.registroClienteForm.patchValue({monto: this.registroClienteForm.value.monto- parseFloat((<FormArray>this.registroClienteForm.controls['recibos']).at(index).value.abono)});
+    	}
+
+    	
+    }
+    changeMonto(e,index){
+    	var monto=0;
+    	for (var i = 0; i < (<FormArray>this.registroClienteForm.controls['recibos']).length; i++) {
+    		if((<FormArray>this.registroClienteForm.controls['recibos']).at(i).value.check) {
+    			if((<FormArray>this.registroClienteForm.controls['recibos']).at(i).value.abono=='') {
+    				monto=monto+0;
+    				(<FormArray>this.registroClienteForm.controls['recibos']).at(i).patchValue({abono: 0 });
+    			}else{
+    				monto=monto+parseFloat((<FormArray>this.registroClienteForm.controls['recibos']).at(i).value.abono);
+    			}
+    		}
+    		
+    	}
+    	this.registroClienteForm.patchValue({monto: monto });
+    }
+    enviar(form){
+    	
+    	console.log((<FormArray>this.registroClienteForm.controls['recibos'].value));
+    	var reci=<FormArray>this.registroClienteForm.controls['recibos'].value;
+    	for (var i = 0; i < reci.length; ++i) {
+    		reci[i].item.mes=this.meses2(reci[i].item.mes);
+    	}
+    	var reci2=JSON.stringify(reci);
+    	var send={
+    		estado: this.registroClienteForm.value.estado,
+            sucursal_id: this.registroClienteForm.value.sucursal_id,
+            cartera_id: this.registroClienteForm.value.cartera_id,
+            cobrador_id: this.registroClienteForm.value.cobrador_id,
+            fecha: this.registroClienteForm.value.fecha,
+            monto: this.registroClienteForm.value.monto,
+            recibos: reci2
+        }
+    	setTimeout(()=>{
+    	console.log(send);
+    	this.http.post(this.ruta.get_ruta()+'public/rendiciones/'+send.cartera_id,send)
+         .toPromise()
+         .then(
+           data => { // Success
+             this.loading=false;
+             console.log(data);
+             
+             //this.showNotification('top','center','Actualizado con exito',2);
+           },
+           msg => { // Error
+             console.log(msg.error);
+
+             this.loading=false;
+             this.showNotification('top','center',JSON.stringify(msg.error.error),1);
+           }
+         );
+    	}, 200);
+    }	
+
 
 
 }

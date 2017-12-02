@@ -118,7 +118,7 @@ export class EmitirRecibosCobroComponent implements OnInit {
     this.numeroCartera=number;
 
     this.loading=true;
-    this.http.get(this.ruta.get_ruta()+'public/recibos/'+id)
+    this.http.get(this.ruta.get_ruta()+'public/recibos/'+id+'?estado=E')
          .toPromise()
          .then(
            data => { // Success
@@ -154,7 +154,33 @@ export class EmitirRecibosCobroComponent implements OnInit {
            data => { // Success
              console.log(data);
              this.showNotification('top','center','Los recibos se han creado con exito',2);
-             this.loading=false;
+             this.http.get(this.ruta.get_ruta()+'public/recibos/'+this.idRecibo+'?estado=E')
+             .toPromise()
+             .then(
+               data => { // Success
+                 console.log(data);
+                 this.recibos=data;
+                 this.recibos=this.recibos.recibos;
+                 for (var i = 0; i < this.recibos.length; ++i) {
+                   this.recibos[i].mes=this.meses(this.recibos[i].mes);
+                 }
+                 this.productList = this.recibos;
+                 this.filteredItems = this.productList;
+                 
+                 this.init();
+                 this.generados=true;
+                 this.loading=false;
+                 //this.showNotification('top','center','Actualizado con exito',2);
+               },
+               msg => { // Error
+                 this.generarRecibos=true;
+                 console.log(msg.error.error);
+
+                 this.loading=false;
+                 this.showNotification('top','center',JSON.stringify(msg.error.error),1);
+               }
+             );
+             //this.loading=false;
            },
            msg => { // Error
              console.log(msg);
@@ -168,6 +194,8 @@ export class EmitirRecibosCobroComponent implements OnInit {
   public nRecibo:any;
   public cuotaMes:any;
   public detalle:any;
+  public deuda:any;
+  public tamDeuda:any;
   public sucursal:any;
   public importe:any;
   public tipoAfiliado:any;
@@ -176,10 +204,16 @@ export class EmitirRecibosCobroComponent implements OnInit {
   	console.log(item);
   	this.nAfiliado=item.cliente.id;
   	this.nRecibo=item.num_recibo;
-  	this.cuotaMes=this.meses(item.mes)+'-'+item.anio;
+  	this.cuotaMes=item.mes+'-'+item.anio;
   	this.detalle=item.detalle;
+    this.deuda=item.deuda;
+    this.tamDeuda=this.deuda.length;
   	this.importe=item.importe;
   	this.tipoAfiliado=item.cliente.tipo;
+
+    for (var i = 0; i < this.deuda.length; ++i) {
+      this.deuda[i].mes=this.meses(this.deuda[i].mes);
+    }
 
   	if(this.tipoAfiliado=="AF_CUETO") {
   		this.tipoAfiliado='GFS';
@@ -187,7 +221,6 @@ export class EmitirRecibosCobroComponent implements OnInit {
   		this.tipoAfiliado='SSF';
   	}
 
-  	
 
   	if(this.detalle.length>1) {
   		this.detalle[0].nombre=item.cliente.nombre_1+' '+this.checkNULL(item.cliente.nombre_2)+' '+item.cliente.apellido_1+' '+this.checkNULL(item.cliente.apellido_2);
@@ -248,12 +281,11 @@ export class EmitirRecibosCobroComponent implements OnInit {
   }
 
   checkNULL(item){
-  	console.log(item);
   	if(item==null || item=='NULL' || item=='') {
-  		console.log('entro null');
+
   		return '';
   	}else{
-  		console.log('else');
+
   		return item;
   	}
   }
