@@ -117,6 +117,7 @@ Route::group(  ['middleware' =>'cors'], function(){
         Route::delete('/recibos/{id}','ReciboController@destroy');
         Route::get('/recibos/{id}','ReciboController@show');
 
+<<<<<<< HEAD
         //----Pruebas TarifaConvenioSolaController
         Route::get('/pago','PagoController@index');
         Route::post('/pago','PagoController@store');
@@ -124,6 +125,15 @@ Route::group(  ['middleware' =>'cors'], function(){
         Route::delete('/pago/{id}','PagoController@destroy');
         Route::get('/pago/{id}','PagoController@show');
 
+=======
+        //----Pruebas RendicionController
+        Route::get('/rendiciones','RendicionController@index');
+        Route::get('/rendiciones/{cartera_id}','RendicionController@rendicionesCartera');
+        Route::post('/rendiciones/{cartera_id}','RendicionController@store');
+        Route::put('/rendiciones/{id}','RendicionController@update');
+        Route::delete('/rendiciones/{id}','RendicionController@destroy');
+        Route::get('/rendiciones/{id}','RendicionController@show');
+>>>>>>> 9c348732f954bd07b2eb518c23c80b7486986683
     
 
     Route::group(['middleware' => 'jwt-auth'], function(){

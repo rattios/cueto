@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use BD;
+use Illuminate\Support\Facades\DB;
+use DateTime;
 
 class RendicionController extends Controller
 {
@@ -55,6 +58,19 @@ class RendicionController extends Controller
         //Tratamiento de los recibos a rendir
         $recibos = json_decode($request->input('recibos'));
 
+        return response()->json(['status'=>'ok', 'recibos'=>$recibos], 200);
+
+        //Generar rendicion
+        $rendicion = new \App\Rendicion;
+        $rendicion->estado='P';
+        $rendicion->monto=$request->input('monto');
+        $rendicion->sucursal_id=$cartera->sucursal_id;
+        $rendicion->cartera_id=$cartera->id;
+        $rendicion->cobrador_id=$cartera->vendedor_id;
+        //$rendicion->autorizante_id=;
+        //$rendicion->f_autorizacion=;
+        $rendicion->save();
+
         for ($i=0; $i < count($recibos) ; $i++) { 
             //El cliente no pago nada
             if ($recibos[$i]->abono == 0) {
@@ -81,9 +97,9 @@ class RendicionController extends Controller
 
                 //Cargar cliente
                 $cliente = \App\Cliente::find($recibos[$i]->item->cliente_id)
+
                 //Borrar deudas anteriores si las tiene
                 $deudas = $cliente->deudas;    
-
                 if (count($deudas)>0) {
                     for ($k=0; $k < count($deudas); $k++) { 
                         $deudas[$k]->delete();
@@ -102,9 +118,75 @@ class RendicionController extends Controller
                 $nuevaDeuda->cliente_id=$recibos[$i]->item->cliente_id;
                 $nuevaDeuda->recibo_id=$recibos[$i]->item->id;
                 $nuevaDeuda->save();
+
+                //Rendir recibo
+                DB::table('recibos')
+                    ->where('id', $recibos[$i]->item->id)
+                    ->update(['estado' => 'R']);
+
+                //Generar documento cancelador
+                $docCancelador = new \App\DocCancelador;
+                $docCancelador->estado='P';
+                $docCancelador->sucursal_id=$recibos[$i]->item->sucursal_id;
+                $docCancelador->recibo_id=$recibos[$i]->item->id;
+                $docCancelador->rendicion_id=$rendicion->id;
+                $docCancelador->save();
+
+                //Generar pago
+                $pago = new \App\Pago;
+                $pago->monto=$recibos[$i]->abono;
+                $pago->mes=$recibos[$i]->item->mes;
+                $pago->anio=$recibos[$i]->item->anio;
+                $pago->sucursal_id=$recibos[$i]->item->sucursal_id;
+                $pago->cliente_id=$recibos[$i]->item->cliente_id;
+                $pago->doc_cancelador_id=$docCancelador->id;
+                $pago->save();
+            }
+            //El cliente pago completo
+            else if ($recibos[$i]->abono >= $recibos[$i]->importe) {
+
+                //Cargar cliente
+                $cliente = \App\Cliente::find($recibos[$i]->item->cliente_id)
+
+                //Borrar deudas anteriores si las tiene
+                $deudas = $cliente->deudas;    
+                if (count($deudas)>0) {
+                    for ($k=0; $k < count($deudas); $k++) { 
+                        $deudas[$k]->delete();
+                    } 
+                }
+
+                /*if ($cliente->estado == 'M') {
+                    $cliente->estado = 'V';
+                    $cliente->save();
+                }*/
+
+                //Rendir recibo
+                DB::table('recibos')
+                    ->where('id', $recibos[$i]->item->id)
+                    ->update(['estado' => 'R']);
+
+                //Generar documento cancelador
+                $docCancelador = new \App\DocCancelador;
+                $docCancelador->estado='P';
+                $docCancelador->sucursal_id=$recibos[$i]->item->sucursal_id;
+                $docCancelador->recibo_id=$recibos[$i]->item->id;
+                $docCancelador->rendicion_id=$rendicion->id;
+                $docCancelador->save();
+
+                //Generar pago
+                $pago = new \App\Pago;
+                $pago->monto=$recibos[$i]->abono;
+                $pago->mes=$recibos[$i]->item->mes;
+                $pago->anio=$recibos[$i]->item->anio;
+                $pago->sucursal_id=$recibos[$i]->item->sucursal_id;
+                $pago->cliente_id=$recibos[$i]->item->cliente_id;
+                $pago->doc_cancelador_id=$docCancelador->id;
+                $pago->save();
             }
         }
 
+        return response()->json(['status'=>'ok', 'rendicion'=>$rendicion], 200);
 
     }
 
