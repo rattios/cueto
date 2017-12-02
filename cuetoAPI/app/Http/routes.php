@@ -116,6 +116,14 @@ Route::group(  ['middleware' =>'cors'], function(){
         Route::put('/recibos/{id}','ReciboController@update');
         Route::delete('/recibos/{id}','ReciboController@destroy');
         Route::get('/recibos/{id}','ReciboController@show');
+
+        //----Pruebas RendicionController
+        Route::get('/rendiciones','RendicionController@index');
+        Route::get('/rendiciones/{cartera_id}','RendicionController@rendicionesCartera');
+        Route::post('/rendiciones/{cartera_id}','RendicionController@store');
+        Route::put('/rendiciones/{id}','RendicionController@update');
+        Route::delete('/rendiciones/{id}','RendicionController@destroy');
+        Route::get('/rendiciones/{id}','RendicionController@show');
     
 
     Route::group(['middleware' => 'jwt-auth'], function(){
