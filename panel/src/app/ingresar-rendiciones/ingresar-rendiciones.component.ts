@@ -362,7 +362,13 @@ export class IngresarRendicionesComponent implements OnInit {
     	for (var i = 0; i < reci.length; ++i) {
     		reci[i].item.mes=this.meses2(reci[i].item.mes);
     	}
-    	var reci2=JSON.stringify(reci);
+    	var reci3=[];
+    	for (var i = 0; i < reci.length; i++) {
+    		if(reci[i].check) {
+    			reci3.push(reci[i]);
+    		}
+    	}
+    	var reci2=JSON.stringify(reci3);
     	var send={
     		estado: this.registroClienteForm.value.estado,
             sucursal_id: this.registroClienteForm.value.sucursal_id,
@@ -384,10 +390,10 @@ export class IngresarRendicionesComponent implements OnInit {
              //this.showNotification('top','center','Actualizado con exito',2);
            },
            msg => { // Error
-             console.log(msg.error);
+             console.log(msg);
 
              this.loading=false;
-             this.showNotification('top','center',JSON.stringify(msg.error.error),1);
+             //this.showNotification('top','center',JSON.stringify(msg.error.error),1);
            }
          );
     	}, 200);

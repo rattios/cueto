@@ -58,7 +58,7 @@ class RendicionController extends Controller
         //Tratamiento de los recibos a rendir
         $recibos = json_decode($request->input('recibos'));
 
-        return response()->json(['status'=>'ok', 'recibos'=>$recibos], 200);
+        //return response()->json(['status'=>'ok', 'recibos'=>$recibos], 200);
 
         //Generar rendicion
         $rendicion = new \App\Rendicion;
@@ -96,7 +96,7 @@ class RendicionController extends Controller
             else if ($recibos[$i]->abono > 0 && $recibos[$i]->abono < $recibos[$i]->importe) {
 
                 //Cargar cliente
-                $cliente = \App\Cliente::find($recibos[$i]->item->cliente_id)
+                $cliente = \App\Cliente::find($recibos[$i]->item->cliente_id);
 
                 //Borrar deudas anteriores si las tiene
                 $deudas = $cliente->deudas;    
@@ -146,7 +146,7 @@ class RendicionController extends Controller
             else if ($recibos[$i]->abono >= $recibos[$i]->importe) {
 
                 //Cargar cliente
-                $cliente = \App\Cliente::find($recibos[$i]->item->cliente_id)
+                $cliente = \App\Cliente::find($recibos[$i]->item->cliente_id);
 
                 //Borrar deudas anteriores si las tiene
                 $deudas = $cliente->deudas;    
