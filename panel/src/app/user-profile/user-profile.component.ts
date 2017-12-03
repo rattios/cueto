@@ -85,9 +85,7 @@ export class UserProfileComponent implements OnInit {
             telefono: [""],
             f_alta: ["", Validators.required],
             f_pago:["", Validators.required],
-            f_deuda: ["", Validators.required],
             deuda:["", Validators.required],
-            pago:["", Validators.required],
             moroso:[false],
             cuotas:this.builder.array([this.cuotaArray()]),
             sucursal: [""],
@@ -420,6 +418,9 @@ export class UserProfileComponent implements OnInit {
           this.registroClienteForm.patchValue({anio: "" });
         }
         console.log(this.registroClienteForm.value);
+    }
+    public checkarSiEsMoroso(){
+
     }
 
     public chekarMoroso() {

@@ -145,7 +145,7 @@ class ClienteController extends Controller
             $auxTicket[0]->cliente_id = $nuevoCliente->id;
             $auxTicket[0]->save();
             $pago=new \App\Pago;
-               // if ($request->input('estado')=='V') {
+               // if ($request->input('estado')=='V') {asasas
                     $pago->cliente_id=$nuevoCliente->id;
                     $pago->sucursal_id=$request->input('sucursal_id');
                     $pago->mes=$request->input('mes');

@@ -218,13 +218,7 @@
                                          </app-field-error-display>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    
-                                    <div class="form-group form-black label-floating is-empty">
-                                        <label class="labels">Monto del pago:</label>
-                                        <input type="text" name="pago" class="form-control" formControlName="pago">
-                                    </div>
-                                </div>
+                            
                                 <div class="col-md-4">
                                     <div class="form-group form-black label-floating" align="center">
                                         <label class="labels" style="font-size: 14px !important">¿Es moroso?</label>
@@ -232,28 +226,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group form-black label-floating" align="center">
-                                        <label class="labels" style="font-size: 14px !important">¿Posee deuda?</label>
-                                        <mat-slide-toggle name="moroso" formControlName="moroso" (ngModelChange)="chekarMoroso()">{{estadoDeuda}}</mat-slide-toggle>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-black label-floating" [ngClass]="displayFieldCss('f_deuda')">
-                                        <label class="labels">Fecha de la deuda: </label> 
-                                        <mat-form-field>
-                                        
-                                          <input matInput [matDatepicker]="picker4" class="form-control" style="width: 65%; display: inline-block;" name="f_deuda" formControlName="f_deuda">
-                                          <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
-                                          <mat-datepicker #picker4></mat-datepicker>
-                                        </mat-form-field>
-                                        <app-field-error-display [displayError]="isFieldValid('f_deuda')" errorMsg="Te falto este campo!">
-                                         </app-field-error-display>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    
+                            <div class="row" *ngIf="esMoroso">
+                                <div class="col-md-4">    
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="labels">Monto de la deuda:</label>
                                          <input type="text" name="deuda" class="form-control" formControlName="deuda">
