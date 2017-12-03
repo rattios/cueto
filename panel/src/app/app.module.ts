@@ -45,6 +45,7 @@ import { EmitirRecibosCobroComponent } from './emitir-recibos-cobro/emitir-recib
 import { TarifasComponent } from './tarifas/tarifas.component';
 import { AprobarPagosComponent } from './aprobar-pagos/aprobar-pagos.component';
 import { HistorialPagosComponent } from './historial-pagos/historial-pagos.component';
+import { AprobadosComponent } from './aprobados/aprobados.component';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { HistorialPagosComponent } from './historial-pagos/historial-pagos.compo
     EmitirRecibosCobroComponent,
     TarifasComponent,
     AprobarPagosComponent,
-    HistorialPagosComponent
+    HistorialPagosComponent,
+    AprobadosComponent
   ],
   imports: [
     BrowserModule,

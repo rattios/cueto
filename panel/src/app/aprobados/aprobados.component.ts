@@ -7,13 +7,13 @@ import { RutaService } from '../services/ruta.service';
 declare const $: any;
 
 @Component({
-  selector: 'app-aprobar-pagos',
-  templateUrl: './aprobar-pagos.component.html',
-  styleUrls: ['./aprobar-pagos.component.css']
+  selector: 'app-aprobados',
+  templateUrl: './aprobados.component.html',
+  styleUrls: ['./aprobados.component.css']
 })
-export class AprobarPagosComponent implements OnInit {
+export class AprobadosComponent implements OnInit {
 
-	ESCAPE_KEYCODE = 27;
+  ESCAPE_KEYCODE = 27;
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
         if (event.keyCode === this.ESCAPE_KEYCODE) {
           if (this.loading==true) {
@@ -30,7 +30,7 @@ export class AprobarPagosComponent implements OnInit {
 
 	ngOnInit() {
 		this.loading=true;
-		this.http.get(this.ruta.get_ruta()+'public/rendiciones?estado=P')
+		this.http.get(this.ruta.get_ruta()+'public/rendiciones?estado=A')
          .toPromise()
          .then(
            data => { // Success
@@ -348,6 +348,5 @@ export class AprobarPagosComponent implements OnInit {
          this.currentIndex = index;
          this.refreshItems();
     }
-
 
 }

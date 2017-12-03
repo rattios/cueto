@@ -61,7 +61,7 @@
                         </div>
                     </div>
 
-                    <div class="row card" formArrayName="recibos" *ngIf="registroClienteForm.value.recibos[1]">
+                    <div class="row card" formArrayName="recibos" *ngIf="registroClienteForm.value.recibos[0].detalle!=''">
                       <div class="card-header" data-background-color="rose">
                             <h3 class="title">Recibos:</h3>
                             <h4 class="category"></h4>

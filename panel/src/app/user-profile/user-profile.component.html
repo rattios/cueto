@@ -202,79 +202,71 @@
                                          </app-field-error-display>
                                     </div>
                                 </div>
-                                <div class="col-md-2" >
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group form-black label-floating" [ngClass]="displayFieldCss('f_pago')">
+                                        <label class="labels">Fecha del último pago: </label> 
+                                        <mat-form-field>
+                                        
+                                          <input matInput [matDatepicker]="picker3" class="form-control" style="width: 65%; display: inline-block;" name="f_pago" formControlName="f_pago">
+                                          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                          <mat-datepicker #picker3></mat-datepicker>
+                                        </mat-form-field>
+                                        <app-field-error-display [displayError]="isFieldValid('f_pago')" errorMsg="Te falto este campo!">
+                                         </app-field-error-display>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="labels">Monto del pago:</label>
+                                        <input type="text" name="pago" class="form-control" formControlName="pago">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group form-black label-floating" align="center">
-                                        <label class="labels" style="font-size: 14px !important">Es moroso?</label>
+                                        <label class="labels" style="font-size: 14px !important">¿Es moroso?</label>
                                         <mat-slide-toggle name="moroso" formControlName="moroso" (ngModelChange)="chekarMoroso()">{{estadoMoroso}}</mat-slide-toggle>
                                     </div>
                                 </div>
-                                <div class="row" *ngIf="registroClienteForm.value.moroso">
-                                    <div class="col-md-6">
-                                        <div class="form-group form-black label-floating">
-
-                                             <mat-form-field>
-                                            
-                                              <input matInput [matDatepicker]="picker3" placeholder="Fecha de morosidad" class="form-control" style="width: 65%; display: inline-block;" name="f_moroso" formControlName="f_moroso" (change)="actual($event)" (ngModelChange)="actual($event)">
-                                              <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                                              <mat-datepicker #picker3></mat-datepicker>
-                                            </mat-form-field>  
-                                        </div>
-                                    </div> 
-                                    <div class="col-md-6" >
-                                     <div formArrayName="cuotas">
-                                        <div *ngFor="let cuot of registroClienteForm.controls.cuotas.controls; let i=index" [formGroupName]="i"> <div class="row" align="center">
-                                            <label class="labels" style="font-size: 14px !important">Meses del año {{ano}}</label>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Enero" formControlName="Enero">Enero</mat-checkbox>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Febrero" formControlName="Febrero">Febrero</mat-checkbox>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Marzo" formControlName="Marzo">Marzo</mat-checkbox>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Abril" formControlName="Abril">Abril</mat-checkbox>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Mayo" formControlName="Mayo">Mayo</mat-checkbox>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Junio" formControlName="Junio">Junio</mat-checkbox>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Julio" formControlName="Julio">Julio</mat-checkbox>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Agosto" formControlName="Agosto">Agosto</mat-checkbox>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Septiembre" formControlName="Septiembre">Septiembre</mat-checkbox>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Octubre" formControlName="Octubre">Octubre</mat-checkbox>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Nomviembre" formControlName="Noviembre">Noviembre</mat-checkbox>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Diciembre" formControlName="Diciembre">Diciembre</mat-checkbox>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                     </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group form-black label-floating" align="center">
+                                        <label class="labels" style="font-size: 14px !important">¿Posee deuda?</label>
+                                        <mat-slide-toggle name="moroso" formControlName="moroso" (ngModelChange)="chekarMoroso()">{{estadoDeuda}}</mat-slide-toggle>
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-black label-floating" [ngClass]="displayFieldCss('f_deuda')">
+                                        <label class="labels">Fecha de la deuda: </label> 
+                                        <mat-form-field>
+                                        
+                                          <input matInput [matDatepicker]="picker4" class="form-control" style="width: 65%; display: inline-block;" name="f_deuda" formControlName="f_deuda">
+                                          <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                                          <mat-datepicker #picker4></mat-datepicker>
+                                        </mat-form-field>
+                                        <app-field-error-display [displayError]="isFieldValid('f_deuda')" errorMsg="Te falto este campo!">
+                                         </app-field-error-display>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="labels">Monto de la deuda:</label>
+                                         <input type="text" name="deuda" class="form-control" formControlName="deuda">
+                                    </div>
+                                </div>
+                                
                             </div>
+                            <!-- <div class="row">
+                                <label class="labels">Deuda</label>
+                                <div class="form-group form-black label-floating is-empty">
+                                    <input type="text" name="deuda" class="form-control" formControlName="deuda">
+                                </div>
+                            </div> -->
                             <div class="row">   
                                 <div class="col-md-6">
                                     <label class="labels" style="font-size: 14px !important">Estado del Cliente:</label>
