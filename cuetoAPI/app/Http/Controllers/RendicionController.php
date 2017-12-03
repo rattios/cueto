@@ -192,6 +192,7 @@ class RendicionController extends Controller
                 DB::table('recibos')
                     ->where('id', $recibos[$i]->item->id)
                     ->update(['estado' => 'R',
+                        'abono' => $recibos[$i]->abono,
                         'rendicion_id' => $rendicion->id]);
 
                 //Generar documento cancelador
@@ -235,6 +236,7 @@ class RendicionController extends Controller
                 DB::table('recibos')
                     ->where('id', $recibos[$i]->item->id)
                     ->update(['estado' => 'R',
+                        'abono' => $recibos[$i]->abono,
                         'rendicion_id' => $rendicion->id]);
 
                 //Generar documento cancelador
@@ -290,9 +292,47 @@ class RendicionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $rendicion_id)
     {
-        //
+        //Comprobamos si la rendicion que nos están pasando existe o no.
+        $rendicion=\App\Rendicion::with('recibos.cliente')
+                ->with('docsCanceladores')
+                ->find($rendicion_id);
+
+        if(count($rendicion)==0){
+            return response()->json(['error'=>'No existe la rendicion con id '.$rendicion_id], 404);          
+        }
+
+        set_time_limit(300);
+
+        //Aprobar rendicion
+        $rendicion->estado = 'A';
+        $rendicion->autorizante_id = $request->input('autorizante_id');
+        $rendicion->f_autorizacion = date('Y-m-d H:i:s');
+        $rendicion->save();
+
+        //Aprobar recibos relacionados con la rendicion
+        for ($i=0; $i < count($rendicion->recibos); $i++) { 
+            $rendicion->recibos[$i]->estado = 'A';
+            $rendicion->recibos[$i]->save();
+
+            //Si el cliente estaba moroso(M) y abono el total adeudado se pasa a vigente(V)
+            if ($rendicion->recibos[$i]->cliente->estado == 'M' &&
+             $rendicion->recibos[$i]->abono >= $rendicion->recibos[$i]->importe) {
+                $rendicion->recibos[$i]->cliente->estado = 'V';
+                $rendicion->recibos[$i]->cliente->save();
+            }
+        }
+
+        //Aprobar los documentos canceladores relacionados con la rendicion
+        for ($j=0; $j < count($rendicion->docs_canceladores); $j++) { 
+            $rendicion->docs_canceladores[$j]->estado = 'A';
+            $rendicion->docs_canceladores[$j]->save();
+        }
+
+
+        return response()->json(['status'=>'ok', 'rendicion'=>$rendicion], 200);
+        
     }
 
     /**

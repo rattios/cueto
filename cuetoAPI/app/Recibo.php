@@ -24,7 +24,7 @@ class Recibo extends Model
      *
      * @var array
      */
-    protected $fillable = ['num_recibo', 'importe', 'estado',
+    protected $fillable = ['num_recibo', 'importe', 'abono', 'estado',
             'mes', 'anio', 'sucursal_id',
             'convenio_id', 'cartera_id', 'cliente_id', 
             'rendicion_id', 'detalle'];

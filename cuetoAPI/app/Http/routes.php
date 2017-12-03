@@ -121,7 +121,7 @@ Route::group(  ['middleware' =>'cors'], function(){
         Route::get('/rendiciones','RendicionController@index');
         Route::get('/rendiciones/{cartera_id}','RendicionController@rendicionesCartera');
         Route::post('/rendiciones/{cartera_id}','RendicionController@store');
-        Route::put('/rendiciones/{id}','RendicionController@update');
+        Route::put('/rendiciones/{rendicion_id}','RendicionController@update');
         Route::delete('/rendiciones/{id}','RendicionController@destroy');
         Route::get('/rendiciones/{id}','RendicionController@show');
     
