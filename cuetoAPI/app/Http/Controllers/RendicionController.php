@@ -325,10 +325,15 @@ class RendicionController extends Controller
         }
 
         //Aprobar los documentos canceladores relacionados con la rendicion
-        for ($j=0; $j < count($rendicion->docs_canceladores); $j++) { 
+        /*for ($j=0; $j < count($rendicion->docs_canceladores); $j++) { 
             $rendicion->docs_canceladores[$j]->estado = 'A';
             $rendicion->docs_canceladores[$j]->save();
-        }
+        }*/
+        DB::table('docs_canceladores')
+            ->where('rendicion_id', $rendicion->id)
+            ->update(['estado' => 'A']);
+
+
 
 
         return response()->json(['status'=>'ok', 'rendicion'=>$rendicion], 200);
