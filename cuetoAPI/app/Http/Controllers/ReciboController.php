@@ -96,6 +96,15 @@ class ReciboController extends Controller
             return response()->json(['error'=>'No existe la cartera con id '.$cartera_id], 404);          
         }
 
+        //verificar si la cartera tiene rendiciones pendientes por aprobar
+        $rendiciones = \App\Rendicion::where('cartera_id', $cartera->id)
+                ->where('estado', 'P')->get();
+        if(count($rendiciones)>0){ 
+            // Devolvemos un código 409 Conflict.
+            return response()->json(['error'=>'La cartera contiene rendiciones por aprobar.
+             Apruebe las rendiciones y luego genere los recibos'], 409);
+        }
+
         //Verificar si ya estan generados los recibos de la cartera_id para el mes actual
         /*$yaGenerados = DB::select("SELECT MAX(id) as idMax FROM recibos
                  WHERE mes = MONTH(now())
