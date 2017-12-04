@@ -85,7 +85,7 @@ export class UserProfileComponent implements OnInit {
             telefono: [""],
             f_alta: ["", Validators.required],
             f_pago:["", Validators.required],
-            deuda:["", Validators.required],
+            deuda:[0.00, Validators.required],
             moroso:[false],
             cuotas:this.builder.array([this.cuotaArray()]),
             sucursal: [""],
@@ -283,6 +283,8 @@ export class UserProfileComponent implements OnInit {
         //setTimeout(function() {
           //send.familiares=JSON.stringify(send.familiares);
           //send.cuotas=JSON.stringify(send.coutas);
+          send2.deuda=send2.deuda.toString();
+          send2.deuda=parseFloat(send2.deuda.replace(",", "."));
 
           var me=send2.familiares;
           console.log(me);
@@ -398,29 +400,52 @@ export class UserProfileComponent implements OnInit {
             this.data.splice(index, 1);
         }
     }
-    public verEstado(estado) {
-      console.log(estado.target.value);
-        if (estado.target.value=='PC') {
+    public verEstado() {
+      setTimeout(() => {
+        const control = this.registroClienteForm.controls;
+        var estado=control.estado.value;
+        console.log(estado);
+        if (estado=='PC') {
           this.registroClienteForm.patchValue({mes: "" });
           this.registroClienteForm.patchValue({anio: "" });
-        }else if(estado.target.value=='P') {
+        }else if(estado=='P') {
           this.registroClienteForm.patchValue({mes: "" });
           this.registroClienteForm.patchValue({anio: "" });
-        }else if(estado.target.value=='V') {
+        }else if(estado=='V') {
           var diaActual=new Date(this.fechaSistema);
           this.registroClienteForm.patchValue({mes: diaActual.getMonth()+1 });
           this.registroClienteForm.patchValue({anio: diaActual.getFullYear() });
-        }else if (estado.target.value=='M') {
-          this.registroClienteForm.patchValue({mes: "" });
-          this.registroClienteForm.patchValue({anio: "" });
-        }else if (estado.target.value=='B') {
+        }else if (estado=='M') {
+          const control = this.registroClienteForm.controls;
+          var f_pago=new Date(control.f_pago.value);
+          this.registroClienteForm.patchValue({mes: f_pago.getMonth()+1 });
+          this.registroClienteForm.patchValue({anio: f_pago.getFullYear() });
+        }else if (estado=='B') {
           this.registroClienteForm.patchValue({mes: "" });
           this.registroClienteForm.patchValue({anio: "" });
         }
         console.log(this.registroClienteForm.value);
+      }, 1500);
     }
     public checkarSiEsMoroso(){
+      setTimeout(() => {
+        const control = this.registroClienteForm.controls;
+        var f_pago=new Date(control.f_pago.value);
+        console.log(f_pago);
+        var fSistema=new Date(this.fechaSistema);
+        console.log(fSistema);
 
+        var timeDiff = Math.abs(f_pago.getTime() - fSistema.getTime());
+        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+        console.log(diffDays);
+
+        if(diffDays>=30){
+          this.registroClienteForm.patchValue({moroso: true });
+          this.registroClienteForm.patchValue({estado: 'M' });
+        }
+        
+
+      }, 500); 
     }
 
     public chekarMoroso() {

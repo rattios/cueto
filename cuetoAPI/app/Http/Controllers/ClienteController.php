@@ -106,7 +106,7 @@ class ClienteController extends Controller
                 if ($request->input('estado')=='M') {
                     //Generar deuda
                     $nuevaDeuda = new \App\Deuda;
-                    $nuevaDeuda->monto=input('deuda');
+                    $nuevaDeuda->monto=$request->input('deuda');
                     $nuevaDeuda->mes=$request->input('mes');
                     $nuevaDeuda->anio=$request->input('anio');
                     $nuevaDeuda->sucursal_id=$request->input('sucursal_id');
@@ -165,7 +165,7 @@ class ClienteController extends Controller
             if ($request->input('estado')=='M') {
                 //Generar deuda
                 $nuevaDeuda = new \App\Deuda;
-                $nuevaDeuda->monto=input('deuda');
+                $nuevaDeuda->monto=$request->input('deuda');
                 $nuevaDeuda->mes=$request->input('mes');
                 $nuevaDeuda->anio=$request->input('anio');
                 $nuevaDeuda->sucursal_id=$request->input('sucursal_id');
