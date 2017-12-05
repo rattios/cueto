@@ -59,7 +59,18 @@ export class IngresarRendicionesComponent implements OnInit {
 
 	ngOnInit() {
 
+		this.https();
+	}
+
+	public loading1=false;
+	public loading2=false;
+	public loading3=false;
+
+	https(){
 		this.loading=true;
+		this.loading1=true;
+		this.loading2=true;
+		this.loading3=true;
 		setTimeout(()=>{
    			this.http.get(this.ruta.get_ruta()+'public/recibos?estado=E')
 	         .toPromise()
@@ -71,7 +82,8 @@ export class IngresarRendicionesComponent implements OnInit {
 	             for (var i = 0; i < this.recibos.length; i++) {
 	             	this.recibos[i].mes=this.meses(this.recibos[i].mes);
 	             }
-	             this.loading=false;
+	             this.loading1=false;
+	             this.checkLoading();
 
 		      	 console.log(this.registroClienteForm);
 	           },
@@ -79,7 +91,8 @@ export class IngresarRendicionesComponent implements OnInit {
 	            
 	             console.log(msg);
 
-	             this.loading=false;
+	             this.loading1=false;
+	             this.checkLoading();
 	             this.showNotification('top','center',JSON.stringify(msg.error.error),1);
 	           }
 	        );
@@ -97,7 +110,8 @@ export class IngresarRendicionesComponent implements OnInit {
                console.log(this.data);
                console.log(this.sucursal);
               
-                this.loading=false;
+                this.loading2=false;
+                this.checkLoading();
             });
        	this.http.get(this.ruta.get_ruta()+'public/getHour')
            .subscribe((data)=> {
@@ -105,9 +119,19 @@ export class IngresarRendicionesComponent implements OnInit {
                this.fechaSistema=data;
                this.fechaSistema=this.fechaSistema.fechaSistema;
                this.registroClienteForm.patchValue({fecha: this.fechaSistema });
+               this.loading3=false;
+               this.checkLoading();
                //alert(this.fechaSistema);
             });
 	}
+
+	checkLoading(){
+		if(this.loading1==false && this.loading2==false && this.loading3==false) {
+			this.loading=false;
+		} 
+	}
+
+
 
 	uppercase(value: string) {
       return value.toUpperCase();
@@ -291,17 +315,21 @@ export class IngresarRendicionesComponent implements OnInit {
               }
           });
     }
-
+    public tamRecibos=false;
     public getTicket(id) {
+
       console.log(id.target.value);
       const control= <FormArray>this.registroClienteForm.controls["recibos"];
       this.clearArray();
 
-      
+      this.tamRecibos=false;
+
       setTimeout(()=>{
 	      for (var i = 1; i < this.recibos.length; i++) {
 	      	if(id.target.value==this.recibos[i].cartera_id) {
 	          (<FormArray>this.registroClienteForm.controls['recibos']).push(this.recibosArray());
+	          this.tamRecibos=true;
+	          console.log(this.tamRecibos);
 	        }
 	      }
 	      var monto=0;
@@ -315,6 +343,7 @@ export class IngresarRendicionesComponent implements OnInit {
 		        (<FormArray>this.registroClienteForm.controls['recibos']).at(i).patchValue({cliente_id: this.recibos[i].cliente.id });
 		        (<FormArray>this.registroClienteForm.controls['recibos']).at(i).patchValue({item: this.recibos[i] });
 		        monto=monto+this.recibos[i].importe;
+		         this.tamRecibos=true;
 		    }
 		  }
 		  this.registroClienteForm.patchValue({monto: monto });
@@ -387,13 +416,18 @@ export class IngresarRendicionesComponent implements OnInit {
              this.loading=false;
              console.log(data);
              
-             //this.showNotification('top','center','Actualizado con exito',2);
+             this.showNotification('top','center','Se ha  enviando la rendición con éxito',2);
+             //this.https();
+             //this.volver();
+             setTimeout(()=>{
+               window.location.reload();
+             }, 2000);;
            },
            msg => { // Error
              console.log(msg);
 
              this.loading=false;
-             //this.showNotification('top','center',JSON.stringify(msg.error.error),1);
+             this.showNotification('top','center',JSON.stringify(msg.error.error),1);
            }
          );
     	}, 200);

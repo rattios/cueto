@@ -30,6 +30,7 @@
                         <h4 class="category">Registro de Afiliados Cueto Independiente y con Grupo Familiar</h4>
                     </div>
                     <div class="card-content">
+
                         <form [formGroup]="registroClienteForm" (ngSubmit)="enviarCliente(registroClienteForm)">
                             <div class="row">
                                 <div class="col-md-4">
@@ -65,7 +66,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group form-black label-floating" [ngClass]="displayFieldCss('tipo')">
                                         <label class="labels">Tipo de Cliente:</label>
-                                        <select name="tipo" formControlName="tipo" class="form-control" (change)="update_tipo($event)">
+                                        <select name="tipo" formControlName="tipo" class="form-control" (change)="update_tipo($event); setDireccion()">
                                             <option value="AF_CUETO_S">SSF</option>
                                             <option value="AF_CUETO">GSF</option>
                                             <!--<option value="AF_CONV_S">Afiliado Convenio Independiente</option>
@@ -114,7 +115,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group form-black label-floating is-empty" [ngClass]="displayFieldCss('dni')">
                                         <label class="labels">DNI</label>
-                                        <input type="text" name="dni" class="form-control" formControlName="dni">
+                                        <input type="number" name="dni" class="form-control" formControlName="dni">
                                         <app-field-error-display [displayError]="isFieldValid('dni')" errorMsg="Te falto este campo!">
                                          </app-field-error-display>
                                     </div>
@@ -123,8 +124,8 @@
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="labels">Sexo:</label>
                                         <select name="sexo" formControlName="sexo" class="form-control">
-                                            <option value="M" selected="true">Masculino</option>
-                                            <option value="F">Femenino</option>
+                                            <option value="M" selected="true">MASCULINO</option>
+                                            <option value="F">FEMENINO</option>
                                         </select>
                                     </div>
                                 </div>
@@ -133,11 +134,11 @@
                                         <label class="labels">Fecha de nacimiento:</label>
                                         <mat-form-field>
                                         
-                                          <input matInput [matDatepicker]="picker1" class="form-control" style="width: 65%; display: inline-block;" name="f_nacimiento" formControlName="f_nacimiento">
+                                          <input matInput [matDatepicker]="picker1" [max]="maxDate" class="form-control" style="width: 65%; display: inline-block;" name="f_nacimiento" formControlName="f_nacimiento">
                                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                                          <mat-datepicker #picker1></mat-datepicker>
+                                          <mat-datepicker #picker1 startView="year" [startAt]="startDate"></mat-datepicker>
                                         </mat-form-field>
-                                        <app-field-error-display [displayError]="isFieldValid('f_nacimiento')" errorMsg="Te falto este campo!">
+                                        <app-field-error-display [displayError]="isFieldValid('f_nacimiento')" errorMsg="!Fecha incorrecta!">
                                          </app-field-error-display>
                                     </div>
                                 </div>
@@ -155,7 +156,7 @@
                                     <label class="labels">Teléfono</label>
                                     <div class="form-group form-black label-floating is-empty">
                                         
-                                       <input type="text" name="telefono" class="form-control" formControlName="telefono">
+                                       <input type="number" name="telefono" class="form-control" formControlName="telefono">
 
                                     </div>
                                 </div>
@@ -164,7 +165,7 @@
                                  <div class="col-md-12">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="labels">Dirección</label>
-                                        <input type="text" name="direccion" class="form-control" formControlName="direccion" [transformer]="uppercase">
+                                        <input type="text" name="direccion" class="form-control" formControlName="direccion" [transformer]="uppercase" (blur)="setDireccion()">
                                     </div>
                                 </div>   
                             </div>
@@ -194,11 +195,11 @@
                                         <label class="labels">Fecha de alta o última renovación:</label> 
                                         <mat-form-field>
                                         
-                                          <input matInput [matDatepicker]="picker2" class="form-control" style="width: 65%; display: inline-block;" name="f_alta" formControlName="f_alta">
+                                          <input matInput [matDatepicker]="picker2" [max]="maxDate" class="form-control" style="width: 65%; display: inline-block;" name="f_alta" formControlName="f_alta" (ngModelChange)="compFechPago()">
                                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                           <mat-datepicker #picker2></mat-datepicker>
                                         </mat-form-field>
-                                        <app-field-error-display [displayError]="isFieldValid('f_alta')" errorMsg="Te falto este campo!">
+                                        <app-field-error-display [displayError]="isFieldValid('f_alta')" errorMsg="!Fecha incorrecta!">
                                          </app-field-error-display>
                                     </div>
                                 </div>
@@ -207,14 +208,14 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group form-black label-floating" [ngClass]="displayFieldCss('f_pago')">
-                                        <label class="labels">Fecha del último pago: </label> 
+                                        <label class="labels">Fecha del último mes de pago: </label> 
                                         <mat-form-field>
                                         
-                                          <input matInput [matDatepicker]="picker3" class="form-control" style="width: 65%; display: inline-block;" name="f_pago" formControlName="f_pago" (ngModelChange)="checkarSiEsMoroso(); verEstado()">
+                                          <input matInput [matDatepicker]="picker3" [max]="maxDate" class="form-control" style="width: 65%; display: inline-block;" name="f_pago" formControlName="f_pago" (ngModelChange)="checkarSiEsMoroso(); verEstado(); compFechPago()">
                                           <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                                           <mat-datepicker #picker3></mat-datepicker>
                                         </mat-form-field>
-                                        <app-field-error-display [displayError]="isFieldValid('f_pago')" errorMsg="Te falto este campo!">
+                                        <app-field-error-display [displayError]="isFieldValid('f_pago')" errorMsg="!Fecha incorrecta!">
                                          </app-field-error-display>
                                     </div>
                                 </div>
@@ -226,21 +227,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" *ngIf="registroClienteForm.value.moroso">
-                                <div class="col-md-4">    
-                                    <div class="form-group form-black label-floating is-empty">
-                                        <label class="labels">Monto de la deuda:</label>
-                                         <input type="number" step="0.01" min="0" value="0.00" name="deuda" class="form-control" formControlName="deuda">
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <!-- <div class="row">
-                                <label class="labels">Deuda</label>
-                                <div class="form-group form-black label-floating is-empty">
-                                    <input type="text" name="deuda" class="form-control" formControlName="deuda">
-                                </div>
-                            </div> -->
+                            
                             <div class="row">   
                                 <div class="col-md-6">
                                     <label class="labels" style="font-size: 14px !important">Estado del Cliente:</label>
@@ -255,19 +242,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <!-- <div class="col-md-6" *ngIf="registroClienteForm.value.estado=='M'">
-                                    
-                                    <div class="form-group form-black label-floating">
-                                      
-                                        <mat-form-field>
-                                        
-                                          <input matInput [matDatepicker]="picker3" placeholder="Moroso desde" class="form-control" style="width: 85%; display: inline-block;" name="f_moroso" formControlName="f_moroso">
-                                          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                                          <mat-datepicker #picker3></mat-datepicker>
-                                        </mat-form-field>
-                                    </div>
-                                </div> -->
-                                <hr>
+                                
                             </div>
                             
 
@@ -319,7 +294,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group form-black label-floating is-empty" [ngClass]="displayFieldCss('dni')">
                                                         <label class="labels">DNI</label>
-                                                        <input type="text" name="dni" class="form-control" formControlName="dni">
+                                                        <input type="number" name="dni" class="form-control" formControlName="dni">
                                                         <app-field-error-display [displayError]="isFieldValid('dni')" errorMsg="Please inform your address">
                                                         </app-field-error-display>
                                                     </div>
@@ -327,15 +302,23 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group form-black label-floating is-empty">
                                                         <label class="labels">Vínculo</label>
-                                                        <input type="text" name="vinculo"class="form-control" formControlName="vinculo">
+                                                        <select name="vinculo" formControlName="vinculo" class="form-control">
+                                                            <option value="HIJO" selected="true">HIJO</option>
+                                                            <option value="HERMANO">HERMANO</option>
+                                                            <option value="PADRE">PADRE</option>
+                                                            <option value="MADRE">MADRE</option>
+                                                            <option value="ABUELO">ABUELO</option>
+                                                            <option value="SOBRINO">SOBRINO</option>
+                                                            <option value="ALLEGADO">ALLEGADO</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group form-black label-floating is-empty">
                                                         <label class="labels">Sexo:</label>
                                                         <select name="tipo" formControlName="sexo" class="form-control">
-                                                            <option value="M" selected="true">Masculino</option>
-                                                            <option value="F">Femenino</option>
+                                                            <option value="M" selected="true">MASCULINO</option>
+                                                            <option value="F">FEMENINO</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -349,11 +332,11 @@
                                                     <div class="form-group form-black label-floating is-empty" [ngClass]="displayFieldCss('f_nacimiento')">
                                                         <label class="labels">Fecha de nacimiento:</label> 
                                                         <mat-form-field>
-                                                          <input matInput [matDatepicker]="picker"  class="form-control" style="width: 75%; display: inline-block;" name="f_nacimiento" formControlName="f_nacimiento">
+                                                          <input matInput [matDatepicker]="picker" [max]="maxDate" class="form-control" style="width: 75%; display: inline-block;" name="f_nacimiento" formControlName="f_nacimiento">
                                                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                                          <mat-datepicker #picker></mat-datepicker>
+                                                          <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
                                                         </mat-form-field>
-                                                        <app-field-error-display [displayError]="isFieldValid('f_nacimiento')" errorMsg="Please inform your address">
+                                                        <app-field-error-display [displayError]="isFieldValid('f_nacimiento')" errorMsg="!Fecha incorrecta!">
                                                         </app-field-error-display>
                                                     </div>
                                                 </div>
@@ -368,7 +351,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group form-black label-floating is-empty">
                                                         <label class="labels">Dirección:</label>
-                                                        <input type="text" name="direccion" class="form-control" formControlName="direccion" [transformer]="uppercase">
+                                                        <input type="text" name="direccion" class="form-control" formControlName="direccion" [transformer]="uppercase" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -379,7 +362,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="btn btn-success pull-right" (click)=agregar()>Agregar un Familiar</div>
+                                        <div class="btn btn-success pull-right" (click)="agregar(); setDireccion()">Agregar un Familiar</div>
                                         <div class="btn btn-success pull-right" (click)=remover(i)>Eliminar</div>
                                     </div>
                                 </div>
@@ -499,12 +482,21 @@
                             </div>
                             <div class="row">
                                 <hr>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label class="labels">Fecha de alta o última renovación</label>
                                     <div class="form-group form-black label-floating">
                                         <p>{{registroClienteForm.value.f_alta | date: 'dd/MM/yyyy'}}</p>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <label class="labels">Fecha del último mes de pago</label>
+                                    <div class="form-group form-black label-floating">
+                                        <p>{{registroClienteForm.value.f_pago | date: 'dd/MM/yyyy'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <hr>
                                 <!-- <div class="col-md-3" *ngIf="registroClienteForm.value.cuota!=''" > -->
                                 <div class="col-md-3">
                                     <label class="labels">Moroso</label>

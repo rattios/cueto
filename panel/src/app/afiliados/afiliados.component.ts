@@ -217,7 +217,7 @@ export class AfiliadosComponent implements OnInit {
              this.productList = this.data;
              this.filteredItems = this.productList;
              console.log(this.productList);
-
+             this.productList.sort((function(a,b) {return (a.id > b.id) ? -1 : ((b.id > a.id) ? 1 : 0);} ));
 
 
              for (var i = 0; i < this.productList.length; ++i) {
@@ -275,6 +275,14 @@ export class AfiliadosComponent implements OnInit {
              console.log(msg.error.error);
              alert('error:'+msg.error);
            });
+    }
+
+    compare(a,b) {
+      if (a.id < b.id)
+        return -1;
+      if (a.id > b.id)
+        return 1;
+      return 0;
     }
 
     checkLoading(){

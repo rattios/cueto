@@ -26,6 +26,7 @@
                     <h4 class="category">Información resumida de los afiliados.</h4>
                 </div>
                 <div class="card-content table-responsive">
+
                     <div class="form-group form-black label-floating is-empty">
                          <label class="labels" style="font-size: 18px; font-weight: bold">Buscar: </label>
                          <input  class="form-control" type="text"  id="inputName" [(ngModel)]="inputName" (ngModelChange)="FilterByName()"/>
@@ -95,207 +96,187 @@
                         </div>
                     </div>
                     <div class="card-content">
-                        
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group form-black label-floating">
-                                        <label class="labels">Sucursal</label>
-                                        <p>{{formCliente.sucursal}}</p>
-                                    </div>
+                            <ul class="nav nav-pills nav-pills-warning">
+                            <li class="active">
+                                <a href="#pill1" data-toggle="tab">Información del cliente</a>
+                            </li>
+                            <li>
+                                <a href="#pill2" data-toggle="tab">Deudas</a>
+                            </li>
+                            <li>
+                                <a href="#pill3" data-toggle="tab">Pagos</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="pill1">
+                              <div>
+                                <div class="row">
+                                  <div class="col-md-4">
+                                      <div class="form-group form-black label-floating">
+                                          <label class="labels">Sucursal</label>
+                                          <p>{{formCliente.sucursal}}</p>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                      <div class="form-group form-black label-floating">
+                                          <label class="labels">Cartera</label>
+                                          <p>{{formCliente.cartera}}</p>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                      <div class="form-group form-black label-floating">
+                                          <label class="labels">Numero</label>
+                                          <p>{{formCliente.ticket}}</p>
+                                      </div>
+                                  </div>
                                 </div>
-                                
-                                <div class="col-md-4">
-                                    <div class="form-group form-black label-floating">
-                                        <label class="labels">Cartera</label>
-                                        <p>{{formCliente.cartera}}</p>
-                                    </div>
+                                <div class="row">
+                                  <hr>
+                                  <div class="col-md-8">
+                                    <label class="labels">Cliente</label>
+                                      <p>{{formCliente.tipo2}}</p>
+                                  </div>
                                 </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group form-black label-floating">
-                                        <label class="labels">Numero</label>
-                                        <p>{{formCliente.ticket}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <hr>
-                                <div class="col-md-8">
-                                    
-                                        <label class="labels">Cliente</label>
-                                        <p>{{formCliente.tipo2}}</p>
-                                    
-                                </div>
-                            </div>
-                             <div class="row">
-                                <hr>
-                                <div class="col-md-12">
+                                <div class="row">
+                                  <hr>
+                                  <div class="col-md-12">
                                     <h4 class="labels">Titular</h4>
-                                    
-                                </div>
-                                <div class="col-md-12">
+                                  </div>
+                                  <div class="col-md-12">
                                     <p>{{formCliente.nombre_1}} {{formCliente.nombre_2}} {{formCliente.apellido_1}} {{formCliente.apellido_2}}</p>
+                                  </div>
                                 </div>
-                                
-                            </div>
-                           <div class="row">
-                                <hr>
-                                <div class="col-md-4">
-                                     <label class="labels">DNI</label>
+                                <div class="row">
+                                  <hr>
+                                  <div class="col-md-4">
+                                    <label class="labels">DNI</label>
                                     <div class="form-group form-black label-floating">
                                       <p>{{formCliente.dni}}</p> 
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                     <label class="labels">Sexo</label>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label class="labels">Sexo</label>
                                     <div class="form-group form-black label-floating">
                                         <p>{{formCliente.sexo}}</p> 
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                     <label class="labels">Fecha de nacimiento</label>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label class="labels">Fecha de nacimiento</label>
                                     <div class="form-group form-black label-floating">
-                                        <p>{{formCliente.f_nacimiento | date: 'dd/MM/yyyy'}}</p> 
+                                      <p>{{formCliente.f_nacimiento | date: 'dd/MM/yyyy'}}</p> 
                                     </div>
+                                  </div>
                                 </div>
-                                
-                            </div>
-                            <div class="row">
-                                <hr>
-                                 <div class="col-md-12">
-                                     <label class="labels">Dirección</label>
-                                    <div class="form-group form-black label-floating">
-                                        <p>{{formCliente.direccion}}</p>
-                                    </div>
-                                </div>   
-                            </div>
-                            <div class="row">
-                                <hr>
-                                <div class="col-md-4">
-                                     <label class="labels">Fecha de alta o última renovación</label>
-                                    <div class="form-group form-black label-floating">
-                                        <p>{{formCliente.f_alta | date: 'dd/MM/yyyy'}}</p>
-                                    </div>
+                                <div class="row">
+                                    <hr>
+                                    <div class="col-md-12">
+                                        <label class="labels">Dirección</label>
+                                        <div class="form-group form-black label-floating">
+                                          <p>{{formCliente.direccion}}</p>
+                                        </div>
+                                    </div>   
                                 </div>
-                                
-                                <div class="col-md-5">
-                                     <label class="labels" >Estado del Cliente</label>
+                                <div class="row">
+                                  <hr>
+                                  <div class="col-md-4">
+                                    <label class="labels">Fecha de alta o última renovación</label>
                                     <div class="form-group form-black label-floating">
-                                        <p>{{formCliente.estado}}</p>
+                                      <p>{{formCliente.f_alta | date: 'dd/MM/yyyy'}}</p>
                                     </div>
+                                  </div>
+                                  <div class="col-md-5">
+                                    <label class="labels" >Estado del Cliente</label>
+                                    <div class="form-group form-black label-floating">
+                                      <p>{{formCliente.estado}}</p>
+                                    </div>
+                                  </div>  
                                 </div>
-                                
-                            </div>
-                            <div class="row">
-                                
-                                 <div class="col-md-12">
+                                <div class="row">
+                                  <div class="col-md-12">
                                     <label class="labels">Imagen</label>
-                                    <!-- <div class="form-group form-black label-floating"> -->
-                                        <img src="{{formCliente.imagenes}}" alt="" (click)="modal.open()">
-                                        <!-- <p>{{registroClienteForm.value.imagenes}}</p> -->
-                                    <!-- </div> -->
-                                </div>   
-                            </div>
-                            <div class="row" *ngIf="true">
-                                <!-- <div class="col-md-3">
-                                    <label class="labels">Moroso</label>
-                                    <div class="form-group form-black label-floating" align="center">
-                                        <p>{{moroso}}</p>
-                                    </div>
-                                </div> -->
-                                <div class="col-md-6">
-                                     <label class="labels">Fecha de morosidad</label>
-                                    <div class="form-group form-black label-floating" align="center">
-                                        <p>{{formCliente.f_moroso | date: 'dd/MM/yyyy'}}</p>
-                                    </div>
+                                    <img src="{{formCliente.imagenes}}" alt="" (click)="modal.open()">
+                                  </div>   
                                 </div>
-                                <div class="col-md-3">
-                                     <label class="labels">Mes</label>
-                                    <div class="form-group form-black label-floating" align="center">
-                                        <p>{{mes}}</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                     <label class="labels">Año</label>
-                                    <div class="form-group form-black label-floating" align="center">
-                                        <p>{{ano}}</p>
-                                    </div>
-                                </div>
-                            </div>
-        
-                            <hr>
-
-
-
                             
-                            <div *ngIf="formCliente.tipo=='AF_CUETO'">
-
-                                <div *ngFor="let client of formCliente.familiares; let i = index">
+                                <hr>
+                                <div *ngIf="formCliente.tipo=='AF_CUETO'">
+                                  <div *ngFor="let client of formCliente.familiares; let i = index">
                                     <div class="row">
-                                         <div class="col-md-1">
+                                      <div class="col-md-1">
+                                      </div>
+                                      <div class="col-md-10">
+                                        <div class="row">
+                                          <hr>
+                                          <h3 class="labels" style="font-size: 24px !important; font-weight: bold !important;">Familiar {{i+1}}</h3>
+                                          <div class="col-md-12">
+                                            <label class="labels">Nombre:</label>
+                                            <div class="form-group form-black label-floating is-empty">
+                                              <p>{{client.nombre_1}} {{client.nombre_2}} {{client.apellido_1}} {{client.apellido_2}}</p>
+                                            </div>
+                                          </div>
                                         </div>
-                                        <div class="col-md-10">
-                                            <div class="row">
-                                                <hr>
-                                                <h3 class="labels" style="font-size: 24px !important; font-weight: bold !important;">Familiar {{i+1}}</h3>
-                                                
-                                                <div class="col-md-12">
-                                                    <label class="labels">Nombre:</label>
-                                                    <div class="form-group form-black label-floating is-empty">
-                                                        <p>{{client.nombre_1}} {{client.nombre_2}} {{client.apellido_1}} {{client.apellido_2}}</p>
-                                                        <!-- <input type="text" name="nombre_1" class="form-control" [(ngModel)]="nombre_1"> -->
-                                                    </div>
-                                                </div>
+                                        <div class="row">
+                                          <div class="col-md-4">
+                                            <label class="labels">DNI</label>
+                                            <div class="form-group form-black label-floating is-empty">
+                                              <p>{{client.dni}}</p>
                                             </div>
-                                            <div class="row">
-                                                
-                                                <div class="col-md-4">
-                                                     <label class="labels">DNI</label>
-                                                    <div class="form-group form-black label-floating is-empty">
-                                                        <p>{{client.dni}}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                     <label class="labels">Vínculo</label>
-                                                    <div class="form-group form-black label-floating is-empty">
-                                                        <p>{{client.vinculo}}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                     <label class="labels">Sexo</label>
-                                                    <div class="form-group form-black label-floating is-empty">
-                                                        <p>{{client.sexo}}</p>
-                                                    </div>
-                                                </div>
+                                          </div>
+                                          <div class="col-md-4">
+                                            <label class="labels">Vínculo</label>
+                                            <div class="form-group form-black label-floating is-empty">
+                                              <p>{{client.vinculo}}</p>
                                             </div>
-                                            <div class="row">
-                                                
-                                                <div class="col-md-6">
-                                                     <label class="labels">Fecha de Nacimiento</label>
-                                                    <div class="form-group form-black label-floating is-empty">
-                                                        <p>{{client.f_nacimiento | date: 'dd/MM/yyyy'}}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                     <label class="labels">Observaciones</label>
-                                                    <div class="form-group form-black label-floating is-empty">
-                                                        <p>{{client.observaciones}}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                     <label class="labels">Dirección</label>
-                                                    <div>
-                                                        {{client.direccion}}
-                                                    </div>
-                                                </div>
-                                            </div>
+                                          </div>
+                                          <div class="col-md-4">
+                                            <label class="labels">Sexo</label>
+                                              <div class="form-group form-black label-floating is-empty">
+                                                <p>{{client.sexo}}</p>
+                                              </div>
+                                          </div>
                                         </div>
-                                        <div class="col-md-1">
+                                        <div class="row">
+                                          <div class="col-md-6">
+                                            <label class="labels">Fecha de Nacimiento</label>
+                                            <div class="form-group form-black label-floating is-empty">
+                                              <p>{{client.f_nacimiento | date: 'dd/MM/yyyy'}}</p>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                            <label class="labels">Observaciones</label>
+                                            <div class="form-group form-black label-floating is-empty">
+                                              <p>{{client.observaciones}}</p>
+                                            </div>
+                                          </div>
                                         </div>
+                                        <div class="row">
+                                          <div class="col-md-12">
+                                            <label class="labels">Dirección</label>
+                                            <div>
+                                              {{client.direccion}}
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-1">
+                                      </div>
                                     </div>
+                                  </div>
                                 </div>
+                              </div> 
+                            </div>
+                            <div class="tab-pane" id="pill2">
+                                Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.
+                                <br />
+                                <br />Dramatically maintain clicks-and-mortar solutions without functional solutions.
+                            </div>
+                            <div class="tab-pane" id="pill3">
+                                Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas.
+                                <br />
+                                <br />Dynamically innovate resource-leveling customer service for state of the art customer service.
+                            </div>
+                        </div>
+
                         <div style="text-align: center;">
                             <button type="button" class="btn btn-success" (click)="volver(item)">Volver</button>
                         </div>
@@ -397,15 +378,15 @@
                                 <div class="col-md-4">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="labels">DNI</label>
-                                        <input type="text" name="dni" class="form-control" formControlName="dni">
+                                        <input type="number" name="dni" class="form-control" formControlName="dni">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="labels">Sexo:</label>
                                         <select name="sexo" formControlName="sexo" class="form-control">
-                                            <option value="M" selected="true">Masculino</option>
-                                            <option value="F">Femenino</option>
+                                            <option value="M" selected="true">MASCULINO</option>
+                                            <option value="F">FEMENINO</option>
                                         </select>
                                     </div>
                                 </div>
@@ -434,7 +415,7 @@
                                     <label class="labels">Teléfono</label>
                                     <div class="form-group form-black label-floating is-empty">
                                         
-                                       <input type="text" name="telefono" class="form-control" formControlName="telefono">
+                                       <input type="number" name="telefono" class="form-control" formControlName="telefono">
 
                                     </div>
                                 </div>
@@ -479,78 +460,12 @@
                                         </mat-form-field>
                                     </div>
                                 </div>
-                                <div class="col-md-2" >
+                                <!-- <div class="col-md-2" >
                                     <div class="form-group form-black label-floating" align="center">
                                         <label class="labels" style="font-size: 14px !important">Es moroso?</label>
                                         <mat-slide-toggle name="moroso" formControlName="moroso" (ngModelChange)="chekarMoroso($event)">{{estadoMoroso}}</mat-slide-toggle>
                                     </div>
-                                </div>
-                                <div class="row" *ngIf="registroClienteForm.value.moroso">
-                                    <div class="col-md-6">
-                                        <div class="form-group form-black label-floating">
-
-                                             <mat-form-field>
-                                            
-                                              <input matInput [matDatepicker]="picker3" placeholder="Fecha de morosidad" class="form-control" style="width: 65%; display: inline-block;" name="f_moroso" formControlName="f_moroso" (change)="actual($event)" (ngModelChange)="actual($event)">
-                                              <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                                              <mat-datepicker #picker3></mat-datepicker>
-                                            </mat-form-field>  
-                                        </div>
-                                    </div> 
-                                    <div class="col-md-6" >
-                                     <div formArrayName="cuotas">
-                                        <div *ngFor="let cuot of registroClienteForm.controls.cuotas.controls; let i=index" [formGroupName]="i"> <div class="row" align="center">
-                                            <label class="labels" style="font-size: 14px !important">Meses del año {{ano}}</label>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Enero" formControlName="Enero">Enero</mat-checkbox>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Febrero" formControlName="Febrero">Febrero</mat-checkbox>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Marzo" formControlName="Marzo">Marzo</mat-checkbox>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Abril" formControlName="Abril">Abril</mat-checkbox>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Mayo" formControlName="Mayo">Mayo</mat-checkbox>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Junio" formControlName="Junio">Junio</mat-checkbox>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Julio" formControlName="Julio">Julio</mat-checkbox>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Agosto" formControlName="Agosto">Agosto</mat-checkbox>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Septiembre" formControlName="Septiembre">Septiembre</mat-checkbox>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Octubre" formControlName="Octubre">Octubre</mat-checkbox>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Nomviembre" formControlName="Noviembre">Noviembre</mat-checkbox>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  name="Diciembre" formControlName="Diciembre">Diciembre</mat-checkbox>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                     </div>
-                                    </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="row">   
                                 <div class="col-md-6">
@@ -781,7 +696,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group form-black label-floating is-empty">
                                                         <label class="labels">DNI</label>
-                                                        <input type="text" name="dni" class="form-control" formControlName="dni">
+                                                        <input type="number" name="dni" class="form-control" formControlName="dni">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -794,8 +709,8 @@
                                                     <div class="form-group form-black label-floating is-empty">
                                                         <label class="labels">Sexo:</label>
                                                         <select name="tipo" formControlName="sexo" class="form-control">
-                                                            <option value="M" selected="true">Masculino</option>
-                                                            <option value="F">Femenino</option>
+                                                            <option value="M" selected="true">MASCULINO</option>
+                                                            <option value="F">FEMENINO</option>
                                                         </select>
                                                     </div>
                                                 </div>

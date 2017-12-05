@@ -25,6 +25,8 @@ export class UserProfileComponent implements OnInit {
         }
     }
 
+    public startDate = new Date(1990, 0, 1);
+    public maxDate = new Date();
     public data: any;
     public filterQuery = "";
     public rowsOnPage = 5;
@@ -85,7 +87,6 @@ export class UserProfileComponent implements OnInit {
             telefono: [""],
             f_alta: ["", Validators.required],
             f_pago:["", Validators.required],
-            deuda:[0.00, Validators.required],
             moroso:[false],
             cuotas:this.builder.array([this.cuotaArray()]),
             sucursal: [""],
@@ -268,6 +269,19 @@ export class UserProfileComponent implements OnInit {
         }
       }
     }
+    public compFechPago(){
+      
+      console.log(this.registroClienteForm.value.f_pago);
+      console.log(this.registroClienteForm.value.f_alta);
+      var d1= new Date(this.registroClienteForm.value.f_pago);
+      var d2= new Date(this.registroClienteForm.value.f_alta);
+
+      if(d1.getTime()<=d2.getTime()){
+        alert('La fecha de pago no puede ser menor que la de alta.');
+      }else{
+        //alert('si sirve');
+      }
+    }
 
     enviarCliente(model){
       this.formSumitAttempt = true;
@@ -283,8 +297,6 @@ export class UserProfileComponent implements OnInit {
         //setTimeout(function() {
           //send.familiares=JSON.stringify(send.familiares);
           //send.cuotas=JSON.stringify(send.coutas);
-          send2.deuda=send2.deuda.toString();
-          send2.deuda=parseFloat(send2.deuda.replace(",", "."));
 
           var me=send2.familiares;
           console.log(me);
@@ -327,10 +339,21 @@ export class UserProfileComponent implements OnInit {
             control.push(this.familiaresArray());
         }
     }
+
     remover(i){
         const control= <FormArray>this.registroClienteForm.controls["familiares"];
         var index=control.value.length-1;
         control.removeAt(index);
+    }
+
+    setDireccion(){
+      setTimeout(()=>{
+        var control= <FormArray>this.registroClienteForm.controls["familiares"];
+        var tam=control.value.length;
+        console.log(tam);
+        console.log(this.registroClienteForm.value);
+        (<FormArray>this.registroClienteForm.controls['familiares']).at(tam-1).patchValue({direccion: this.registroClienteForm.value.direccion });
+      },500)
     }
 
     update_tipo(tipo){
@@ -435,13 +458,29 @@ export class UserProfileComponent implements OnInit {
         var fSistema=new Date(this.fechaSistema);
         console.log(fSistema);
 
-        var timeDiff = Math.abs(f_pago.getTime() - fSistema.getTime());
-        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-        console.log(diffDays);
+        var mesPago=f_pago.getMonth();
+        var mesSistema=fSistema.getMonth();
+        var meses=[1,2,3,4,5,6,7,8,9,10,11,12];
+        var i1=0;
+        var i2=0;
 
-        if(diffDays>=30){
+        for (var i = 0; i < meses.length; ++i) {
+          if(meses[i]==mesPago) {
+            i1=i;
+          }
+          if(meses[i]==mesSistema) {
+            i2=i;
+          }
+        }
+
+        var diffmes=i2-i1;
+        console.log(diffmes);
+        if(diffmes>=2){
           this.registroClienteForm.patchValue({moroso: true });
           this.registroClienteForm.patchValue({estado: 'M' });
+        }else{
+          this.registroClienteForm.patchValue({moroso: false });
+          this.registroClienteForm.patchValue({estado: '' });
         }
         
 

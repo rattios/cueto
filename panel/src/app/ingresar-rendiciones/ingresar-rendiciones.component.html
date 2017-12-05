@@ -17,7 +17,7 @@
                     <h4 class="category">Ingresa una rendición</h4>
               </div>
               <div class="card-content">
-                <form [formGroup]="registroClienteForm" (ngSubmit)="enviar(registroClienteForm)">
+                <form [formGroup]="registroClienteForm">
                     <div class="row">
                         <div class="col-md-12">
                             <label class="labels">Sucursal:</label>
@@ -60,8 +60,7 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="row card" formArrayName="recibos" *ngIf="registroClienteForm.value.recibos[0].detalle!=''">
+                    <div class="row card" formArrayName="recibos" *ngIf="tamRecibos">
                       <div class="card-header" data-background-color="rose">
                             <h3 class="title">Recibos:</h3>
                             <h4 class="category"></h4>
@@ -101,8 +100,8 @@
                       <div class="col-md-1"></div>
                     </div>
                     
-                    <div class="row" style="text-align: center">
-                        <button type="submit" class="btn btn-danger">Guardar</button>
+                    <div class="row" style="text-align: center" *ngIf="tamRecibos">
+                        <div class="btn btn-success" (click)="enviar(registroClienteForm)">Enviar Rendición</div>
                     </div>
 
                     <div class="clearfix"></div>

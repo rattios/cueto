@@ -221,6 +221,9 @@ export class AprobarPagosComponent implements OnInit {
              console.log(data);
              this.loading=false;
              this.showNotification('top','center','Aprobada la rendición con éxito.',1);
+             setTimeout(()=>{
+               window.location.reload();
+             }, 2000);
            },
            msg => { // Error
              console.log(msg);
