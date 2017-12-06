@@ -479,12 +479,27 @@ class ClienteController extends Controller
         }
 
         //cargar todos los clientes de una sucursal
-        $clientes = \App\Cliente::where('sucursal_id', $request->input('sucursal_id'))->with('familiares')
+        $clientes = \App\Cliente::where('sucursal_id', $request->input('sucursal_id'))->with('familiares')->with('recibos.cliente')
             ->get();
 
         if(count($clientes) == 0){
             return response()->json(['error'=>'No existen clientes en la sucursal con id '.$request->input('sucursal_id')], 404);          
         }else{
+
+            for ($j=0; $j < count($clientes) ; $j++) { 
+
+                for ($i=0; $i < count($clientes[$j]->recibos); $i++) { 
+                    $clientes[$j]->recibos[$i]->detalle = json_decode($clientes[$j]->recibos[$i]->detalle);
+                    $clientes[$j]->recibos[$i]->deuda = json_decode($clientes[$j]->recibos[$i]->deuda);
+
+                    if ($clientes[$j]->recibos[$i]->cliente->tipo == 'AF_CUETO') {
+                        $clientes[$j]->recibos[$i]->cliente->familiares = $clientes[$j]->recibos[$i]->cliente->familiares;
+                    }
+
+                    $clientes[$j]->recibos[$i]->cartera=\App\Cartera::find($clientes[$j]->recibos[$i]->cartera_id);
+                }
+            }
+
             return response()->json(['status'=>'ok', 'clientes'=>$clientes], 200);
         }
         
