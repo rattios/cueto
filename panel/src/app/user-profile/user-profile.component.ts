@@ -450,6 +450,17 @@ export class UserProfileComponent implements OnInit {
         console.log(this.registroClienteForm.value);
       }, 1500);
     }
+    public setMesAnio() {
+      setTimeout(() => {
+        
+        const control = this.registroClienteForm.controls;
+        var f_pago=new Date(control.f_pago.value);
+        this.registroClienteForm.patchValue({mes: f_pago.getMonth()+1 });
+        this.registroClienteForm.patchValue({anio: f_pago.getFullYear() });
+        
+        console.log(this.registroClienteForm.value);
+      }, 1500);
+    }
     public checkarSiEsMoroso(){
       setTimeout(() => {
         const control = this.registroClienteForm.controls;

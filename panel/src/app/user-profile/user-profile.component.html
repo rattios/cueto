@@ -211,7 +211,7 @@
                                         <label class="labels">Fecha del último mes de pago: </label> 
                                         <mat-form-field>
                                         
-                                          <input matInput [matDatepicker]="picker3" [max]="maxDate" class="form-control" style="width: 65%; display: inline-block;" name="f_pago" formControlName="f_pago" (ngModelChange)="checkarSiEsMoroso(); verEstado(); compFechPago()">
+                                          <input matInput [matDatepicker]="picker3" [max]="maxDate" class="form-control" style="width: 65%; display: inline-block;" name="f_pago" formControlName="f_pago" (ngModelChange)="checkarSiEsMoroso(); verEstado(); compFechPago();setMesAnio()">
                                           <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                                           <mat-datepicker #picker3></mat-datepicker>
                                         </mat-form-field>
@@ -234,11 +234,11 @@
                                     <div class="form-group form-black label-floating">
                                         
                                         <select name="estado" formControlName="estado" class="form-control" (change)="verEstado()">
-                                            <option value="PC" selected="true">Pre Cargado</option>
-                                            <option value="P">Pendiente por autorización</option>
-                                            <option value="V">Vigente</option>
-                                            <option value="M">Moroso</option>
-                                            <option value="B">Baja</option>
+                                            <option value="PC" selected="true">PRE CARGADO</option>
+                                            <option value="P">PENDIENTE POR AUTORIZACION</option>
+                                            <option value="V">VIGENTE</option>
+                                            <option value="M">MOROSO</option>
+                                            <option value="B">BAJA</option>
                                         </select>
                                     </div>
                                 </div>

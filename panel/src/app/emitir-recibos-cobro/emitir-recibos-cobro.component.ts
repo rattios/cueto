@@ -153,7 +153,7 @@ export class EmitirRecibosCobroComponent implements OnInit {
          .then(
            data => { // Success
              console.log(data);
-             this.showNotification('top','center','Los recibos se han creado con exito',2);
+             //this.showNotification('top','center','Los recibos se han creado con exito',2);
              this.http.get(this.ruta.get_ruta()+'public/recibos/'+this.idRecibo+'?estado=E')
              .toPromise()
              .then(

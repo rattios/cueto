@@ -39,7 +39,7 @@
                          <th style="text-align: center;">Tipo</th>
                          <th style="text-align: center;">Familiares</th>
                          <th style="text-align: center;">Estado</th>
-                         <th style="text-align: center;">Fecha de alta o renovación</th>
+                         <th style="text-align: center;">Fecha de alta</th>
                          <th style="text-align: center;">Ingresó</th>
                          <th style="text-align: center;">Ticket</th>
                          <th style="text-align: center;">Acciones</th>
@@ -47,7 +47,7 @@
                       <tbody>
                          <tr *ngFor="let item of items">
                             
-                            <td style="text-align: center; font-size: 16px">{{item.nombre_1}} {{item.nombre_2}} {{item.apellido_1}} {{item.apellido_1}}</td>
+                            <td style="text-align: center; font-size: 16px">{{item.nombre_1}} {{item.nombre_2}} {{item.apellido_1}} {{item.apellido_2}}</td>
                             <td style="text-align: center; font-size: 16px">{{item.dni}}</td>
                             <td style="text-align: center; font-size: 16px">{{item.tipo2}}</td>
                             <td style="text-align: center; font-size: 16px">{{item.nFamiliares}}</td>
@@ -266,14 +266,10 @@
                               </div> 
                             </div>
                             <div class="tab-pane" id="pill2">
-                                Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.
-                                <br />
-                                <br />Dramatically maintain clicks-and-mortar solutions without functional solutions.
+                                <app-recibos [recibos]="formCliente.recibos"></app-recibos>
                             </div>
                             <div class="tab-pane" id="pill3">
-                                Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas.
-                                <br />
-                                <br />Dynamically innovate resource-leveling customer service for state of the art customer service.
+                                <app-recibos [recibos]="formCliente.recibos"></app-recibos>
                             </div>
                         </div>
 
@@ -324,7 +320,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group form-black label-floating">
-                                        <label class="labels">Numero:</label>
+                                        <label class="labels">Numero:</label> 
                                         <select name="ticket" formControlName="ticket_id" class="form-control" (change)="setTicket2($event)">
                                             <option *ngFor="let title of ticket" [value]="title.id">{{title.ticket}}</option>
                                         </select>
@@ -392,12 +388,12 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-black label-floating">
-                                        <!-- <label class="labels">Fecha de nacimiento:</label> -->
+                                        <label class="labels">Fecha de nacimiento:</label> 
                                         <mat-form-field>
                                         
-                                          <input matInput [matDatepicker]="picker1" placeholder="Fecha de nacimiento" class="form-control" style="width: 65%; display: inline-block;" name="f_nacimiento" formControlName="f_nacimiento">
+                                          <input matInput [matDatepicker]="picker1" [max]="maxDate" class="form-control" style="width: 65%; display: inline-block;" name="f_nacimiento" formControlName="f_nacimiento">
                                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                                          <mat-datepicker #picker1></mat-datepicker>
+                                          <mat-datepicker #picker1 startView="year" [startAt]="startDate"></mat-datepicker>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -451,12 +447,12 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form-group form-black label-floating">
-                                        <!-- <label class="labels">Fecha de alta o última renovación:</label> -->
+                                         <label class="labels">Fecha de alta o última renovación:</label> 
                                         <mat-form-field>
                                         
-                                          <input matInput [matDatepicker]="picker2" placeholder="Fecha de alta o última renovación" class="form-control" style="width: 65%; display: inline-block;" name="f_alta" formControlName="f_alta">
+                                          <input matInput [matDatepicker]="picker2" [max]="maxDate" class="form-control" style="width: 65%; display: inline-block;" name="f_alta" formControlName="f_alta">
                                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                                          <mat-datepicker #picker2></mat-datepicker>
+                                          <mat-datepicker #picker2 startView="year" [startAt]="startDate"></mat-datepicker>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -473,11 +469,11 @@
                                     <div class="form-group form-black label-floating">
                                         
                                         <select name="estado" formControlName="estado" class="form-control" (change)="verEstado($event)">
-                                            <option value="PC" selected="true">Pre Cargado</option>
-                                            <option value="P">Pendiente por autorización</option>
-                                            <option value="V">Vigente</option>
-                                            <option value="M">Moroso</option>
-                                            <option value="B">Baja</option>
+                                            <option value="PC" selected="true">PRE CARGADO</option>
+                                            <option value="P">PENDIENTE POR AUTORIZACION</option>
+                                            <option value="V">VIGENTE</option>
+                                            <option value="M">MOROSO</option>
+                                            <option value="B">BAJA</option>
                                         </select>
                                     </div>
                                 </div>
@@ -526,7 +522,7 @@
                                 <div class="col-md-4">
                                     <!-- <div class="form-group form-black label-floating"> -->
                                         <label class="labels">Numero</label>
-                                        <p>{{registroClienteForm.value.ticket}}</p>
+                                        <p style="color:#FF0000; font-weight: bold">{{registroClienteForm.value.ticket}}</p>
                                     <!-- </div> -->
                                 </div>
                             </div>
@@ -609,20 +605,15 @@
                             </div>
                             <div class="row">
                                 <hr>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label class="labels">Fecha de alta o última renovación</label>
                                     <!-- <div class="form-group form-black label-floating"> -->
                                         <p>{{registroClienteForm.value.f_alta | date: 'dd/MM/yyyy'}}</p>
                                     <!-- </div> -->
                                 </div>
                                 <!-- <div class="col-md-3" *ngIf="registroClienteForm.value.cuota!=''" > -->
-                                <div class="col-md-3">
-                                    <label class="labels">Moroso</label>
-                                    <!-- <div class="form-group form-black label-floating" align="center"> -->
-                                        <p>{{estadoMoroso}}</p>
-                                   <!--  </div> -->
-                                </div>
-                                <div class="col-md-5">
+                                
+                                <div class="col-md-6">
                                     <label class="labels" >Estado del Cliente</label>
                                    <!--  <div class="form-group form-black label-floating"> -->
                                         <p>{{registroClienteForm.value.estado}}</p>
@@ -630,14 +621,7 @@
                                 </div>
                                 
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label class="labels">Fecha de Morosidad</label>
-                                    <!-- <div class="form-group form-black label-floating"> -->
-                                        <p>{{registroClienteForm.value.f_moroso | date: 'dd/MM/yyyy'}}</p>
-                                   <!--  </div> -->
-                                </div>    
-                            </div>
+                            
                         </div>
                     </div>
             </div>
@@ -702,7 +686,15 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group form-black label-floating is-empty">
                                                         <label class="labels">Vínculo</label>
-                                                        <input type="text" name="vinculo"class="form-control" formControlName="vinculo">
+                                                        <select name="vinculo" formControlName="vinculo" class="form-control">
+                                                            <option value="HIJO" selected="true">HIJO</option>
+                                                            <option value="HERMANO">HERMANO</option>
+                                                            <option value="PADRE">PADRE</option>
+                                                            <option value="MADRE">MADRE</option>
+                                                            <option value="ABUELO">ABUELO</option>
+                                                            <option value="SOBRINO">SOBRINO</option>
+                                                            <option value="ALLEGADO">ALLEGADO</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -721,11 +713,12 @@
                                                         <label class="labels">Fecha Nacimiento:</label>
                                                         <input type="text" name="f_nacimiento" class="form-control" formControlName="f_nacimiento">
                                                     </div> -->
+                                                    <label class="labels">Fecha Nacimiento:</label>
                                                     <div class="form-group form-black label-floating is-empty">
                                                         <mat-form-field>
-                                                          <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" class="form-control" style="width: 85%; display: inline-block;" name="f_nacimiento" formControlName="f_nacimiento">
+                                                          <input matInput [matDatepicker]="picker" [max]="maxDate" class="form-control" style="width: 85%; display: inline-block;" name="f_nacimiento" formControlName="f_nacimiento">
                                                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                                          <mat-datepicker #picker></mat-datepicker>
+                                                          <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
                                                         </mat-form-field>
                                                     </div>
                                                 </div>

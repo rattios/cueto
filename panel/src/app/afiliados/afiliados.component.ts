@@ -24,7 +24,8 @@ export class AfiliadosComponent implements OnInit {
           }   
         }
     }
-
+  public startDate = new Date(1990, 0, 1);
+  public maxDate = new Date();
   private data:any;
   //private data:any;
   public data2:any;
@@ -230,15 +231,15 @@ export class AfiliadosComponent implements OnInit {
                  this.productList[i].tipo2='SSF';
                }
                if (this.productList[i].estado=='M') {
-                 this.productList[i].estado2='Moroso';
+                 this.productList[i].estado2='MOROSO';
                }else if (this.productList[i].estado=='V') {
-                 this.productList[i].estado2='Vigente';
+                 this.productList[i].estado2='VIGENTE';
                }else if (this.productList[i].estado=='B') {
-                 this.productList[i].estado2='Baja';
+                 this.productList[i].estado2='BAJA';
                }else if (this.productList[i].estado=='PC') {
-                 this.productList[i].estado2='Pre Cargado';
+                 this.productList[i].estado2='PRE CARGADA';
                }else if (this.productList[i].estado=='P') {
-                 this.productList[i].estado2='Pendiente por autorización';
+                 this.productList[i].estado2='PENDIENTE POR AUTORIZACION';
                }
 
                if(this.productList[i].user_id==1) {
@@ -542,10 +543,12 @@ export class AfiliadosComponent implements OnInit {
              this.data=this.socios;
              console.log(this.socios);
              
+             
+
              this.productList = this.data;
              this.filteredItems = this.productList;
              console.log(this.productList);
-
+             this.productList.sort((function(a,b) {return (a.id > b.id) ? -1 : ((b.id > a.id) ? 1 : 0);} ));
 
 
              for (var i = 0; i < this.productList.length; ++i) {
