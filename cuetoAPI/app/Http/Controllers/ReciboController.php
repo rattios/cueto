@@ -96,29 +96,11 @@ class ReciboController extends Controller
             return response()->json(['error'=>'No existe la cartera con id '.$cartera_id], 404);          
         }
 
-        //verificar si la cartera tiene rendiciones pendientes por aprobar
-        $rendiciones = \App\Rendicion::where('cartera_id', $cartera->id)
-                ->where('estado', 'P')->get();
-        if(count($rendiciones)>0){ 
-            // Devolvemos un código 409 Conflict.
-            return response()->json(['error'=>'La cartera contiene rendiciones por aprobar. Apruebe las rendiciones y luego genere los recibos'], 409);
-        }
-
-        //Verificar si ya estan generados los recibos de la cartera_id para el mes actual
-        /*$yaGenerados = DB::select("SELECT MAX(id) as idMax FROM recibos
-                 WHERE mes = MONTH(now())
-                 AND anio = YEAR(now())
-                 AND cartera_id = ".$cartera_id);
-        $yaGenerados = $yaGenerados[0]->idMax;
-        if ($yaGenerados) {
-            // Devolvemos un código 409 Conflict.
-            return response()->json(['error'=>'Los recibos de esta cartera ya fuerón generados.'], 409);
-        }*/
-
         //Cargar los clientes que pertenecen a la cartera
-        //y que no esten dados de baja
+        //y que no esten dados de baja y no esten como precargados
         $clientes = \App\Cliente::where('cartera_id', $cartera_id)
-                ->where('estado', '<>', 'B')->get();
+                ->where('estado', '<>', 'B')
+                ->where('estado', '<>', 'P')->get();
         if(count($clientes)==0){ 
             return response()->json(['error'=>'La cartera no contiene clientes ó todos fuerón dados de baja.'], 404);
         }
@@ -127,12 +109,14 @@ class ReciboController extends Controller
 
         $recibosGenerados = 0; 
 
-        //Recorrer los clientes y buscar su ultimo pago.
+        $fechaActual = new DateTime("now");
+        //$fechaActual = new DateTime('2017-11-21');
+        $anioActual = date("Y");
+        $mesActual = date("m");
+        $diaActual = date("d");
+
+        //Recorrer los clientes
         for ($i=0; $i < count($clientes); $i++) { 
-
-            $idMax = DB::select("SELECT max(id) as idMax FROM `pagos` WHERE cliente_id = ".$clientes[$i]->id);
-
-            $ultimoPago = \App\Pago::where('id', $idMax[0]->idMax)->get();
 
             //verificar que el cliente no tenga el recibo generado para el mes actual
             $reciboCliente = \App\Recibo::where('cliente_id',$clientes[$i]->id)
@@ -140,78 +124,88 @@ class ReciboController extends Controller
                 ->where('anio',DB::raw('YEAR(now())'))
                 ->get();
 
-            //Si tiene ultimo pago y no tiene el recibo generado para el mes actual,
-            //calcular el periodo de tiempo
-            //en meses con respecto al mes actual
-            if (sizeof($ultimoPago) > 0 && sizeof($reciboCliente) == 0) {
+            //Si no tiene generado el recibo del mes actual
+            if (sizeof($reciboCliente) == 0) {
 
-                //verificar si el cliente ya tenia recibos aneriores sin pagar o rendir
-                //autorendirlos y agregarlos como deuda
-                $recibosPendientes = \App\Recibo::where('cliente_id',$clientes[$i]->id)
-                ->where('estado', '<>', 'A')
-                ->where('estado', '<>', 'RS')
-                ->get();
+                //Cargar el ultimo recibo (Anterior)
+                $idMax = DB::select("SELECT max(id) as idMax FROM `recibos` WHERE cliente_id = ".$clientes[$i]->id);
+                $reciboAnterior = \App\Recibo::where('id', $idMax[0]->idMax)->get();
 
-                if (count($recibosPendientes)>0) {
-                    for ($l=0; $l < count($recibosPendientes) ; $l++) { 
-                        //Autorendir
-                        $recibosPendientes[$l]->estado = 'RS';
-                        $recibosPendientes[$l]->save();
+                //Cargar el ultimo pago
+                $idMax = DB::select("SELECT max(id) as idMax FROM `pagos` WHERE cliente_id = ".$clientes[$i]->id);
+                $ultimoPago = \App\Pago::where('id', $idMax[0]->idMax)->get();
 
-                        //Extraer el total de los importes parciales
-                        //Nota: las deudas que pudiera tener el cliente no se toman 
-                        //en cuenta para no sobreescribirlas
-                        $detalleAux = json_decode($recibosPendientes[$l]->detalle);
-                        $montoAux = 0;
-                        for ($m=0; $m < count($detalleAux); $m++) { 
-                            $montoAux = $montoAux + $detalleAux[$m]->importeParcial;
-                        }
+                //logica para sacar los meses que debe
 
-                        //Generar deuda
-                        $nuevaDeuda = new \App\Deuda;
-                        $nuevaDeuda->monto=$montoAux;
-                        $nuevaDeuda->mes=$recibosPendientes[$l]->mes;
-                        $nuevaDeuda->anio=$recibosPendientes[$l]->anio;
-                        $nuevaDeuda->sucursal_id=$recibosPendientes[$l]->sucursal_id;
-                        $nuevaDeuda->cliente_id=$recibosPendientes[$l]->cliente_id;
-                        $nuevaDeuda->recibo_id=$recibosPendientes[$l]->id;
-                        $nuevaDeuda->save();
+                //Referencia: recibo anterior
+                if (sizeof($reciboAnterior) > 0) {
+                    $f_ultimoPago = new DateTime($reciboAnterior[0]->anio.'-'.$reciboAnterior[0]->mes.'-'.$diaActual);
+                    $interval = $f_ultimoPago->diff($fechaActual);
+
+                    $mesesDeuda = $interval->m + $interval->y * 12;
+
+                    $diaAux = $diaActual;
+                    $mesAux = $reciboAnterior[0]->mes;
+                    $anioAux = $reciboAnterior[0]->anio;
+
+                    //Logica para el cambio del mes siguiente
+                    if ($mesAux == 12) {
+                        $mesAux = 1;
+                        $anioAux = $anioAux + 1;
+                    } else {
+                        $mesAux = $mesAux + 1;
+                        $anioAux = $anioAux;
                     }
+
                 }
+                //Referencia: ultimo pago
+                else if (sizeof($ultimoPago) > 0){
+                    $f_ultimoPago = new DateTime($ultimoPago[0]->anio.'-'.$ultimoPago[0]->mes.'-'.$diaActual);
+                    $interval = $f_ultimoPago->diff($fechaActual);
 
-                //Calcular los meses que debe
-                $fechaActual = new DateTime("now");
-                //$fechaActual = new DateTime('2017-11-21');
-                $anioActual = date("Y");
-                $mesActual = date("m");
-                $diaActual = date("d");
-                $f_ultimoPago = new DateTime($ultimoPago[0]->anio.'-'.$ultimoPago[0]->mes.'-'.$diaActual);
-                $interval = $f_ultimoPago->diff($fechaActual);
+                    $mesesDeuda = $interval->m + $interval->y * 12;
 
-                /*$yearsDiff = $interval->format('%y'); 
-                $monthsDiff = $interval->format('%m');
-                $clientes[$i]->yearsDiff = $yearsDiff;
-                $clientes[$i]->monthsDiff = $monthsDiff;*/
+                    $diaAux = $diaActual;
+                    $mesAux = $ultimoPago[0]->mes;
+                    $anioAux = $ultimoPago[0]->anio;
 
-                $mesesDeuda = $interval->m + $interval->y * 12;
+                    //Logica para el cambio del mes siguiente
+                    if ($mesAux == 12) {
+                        $mesAux = 1;
+                        $anioAux = $anioAux + 1;
+                    } else {
+                        $mesAux = $mesAux + 1;
+                        $anioAux = $anioAux;
+                    }
 
-                //$clientes[$i]->mesesDeuda = $mesesDeuda;
+                }
+                //Referencia: mes actual (Un mes)
+                else{
+                    $mesesDeuda = 1;
+
+                    $diaAux = $diaActual;
+                    $mesAux = $mesActual;
+                    $anioAux = $anioActual;
+                }
 
                 //Si tiene mas de un mes que no paga, se pasa a estado moroso
                 if($mesesDeuda > 1 ){
                     $clientes[$i]->estado = 'M';
-                    $clientes[$i]->ano_moroso = $ultimoPago[0]->anio;
-                    $clientes[$i]->mes_moroso = $ultimoPago[0]->mes;
+                    $clientes[$i]->ano_moroso = $anioAux;
+                    $clientes[$i]->mes_moroso = $mesAux;
                     $clientes[$i]->save();
                 }
 
-                //Si debe un mes o mas, se hace el calculo de lo que debe
-                if($mesesDeuda > 0 ){
-                    //Si el cliente es afiliado cueto independiente (AF_CUETO_S)
-                    if ($clientes[$i]->tipo == 'AF_CUETO_S') {
-                        //Calcular la edad del cliente
+                //Si el cliente es afiliado cueto independiente (AF_CUETO_S)
+                if ($clientes[$i]->tipo == 'AF_CUETO_S') {
+
+                    //Generar un recibo por cada mes que debe hasta el actual
+                    for ($k=0; $k < $mesesDeuda; $k++) {
+
+                        //Calcular la edad del cliente para el mes actual en la iteracion
                         $f_nacimiento = new DateTime($clientes[$i]->f_nacimiento);
-                        $interval = $f_nacimiento->diff($fechaActual);
+                        $f_deuda = new DateTime($anioAux.'-'.$mesAux.'-'.$diaAux);
+                        $interval = $f_nacimiento->diff($f_deuda);
 
                         $edadActual = $interval->y;
 
@@ -231,25 +225,10 @@ class ReciboController extends Controller
 
                         //$clientes[$i]->tarifa = $tarifa[0];
 
-                        //Cargar las deudas de meses anteriores
-                        $deudas = $clientes[$i]->deudas;    
-                        //$clientes[$i]->deudas = $clientes[$i]->deudas;
-
                         //Calcular el importe (total)
-                        if (count($deudas)>0) {
-                            $importeParcial = $tarifa[0]->tarifa;
-                            $importeTotal = 0;
-                            for ($k=0; $k < count($deudas); $k++) { 
-                                 $importeTotal = $importeTotal + $deudas[$k]->monto;
-                             } 
-                             $importeTotal = $importeParcial + $importeTotal;
-                             //$clientes[$i]->importeTotal = $importeTotal;
-                        }else{
-                            $importeParcial = $tarifa[0]->tarifa * $mesesDeuda; 
-                            //$clientes[$i]->importeTotal = $importeTotal;
-                            $importeTotal = $importeParcial;
-                        }
-                        
+                        $importeParcial = $tarifa[0]->tarifa; 
+                        //$clientes[$i]->importeTotal = $importeTotal;
+                        $importeTotal = $importeParcial;
 
                         //Preparar el detalle del recibo
                         $detalle = [
@@ -271,28 +250,47 @@ class ReciboController extends Controller
                         $recibo = new \App\Recibo;
                         $recibo->num_recibo=$ultimoRecibo + 1;
                         $recibo->importe=$importeTotal;
-                        $recibo->estado='E'; //E = emitido
-                        $recibo->mes=$mesActual;
-                        $recibo->anio=$anioActual;
+
+                        if ($k == $mesesDeuda-1) {
+                            $recibo->estado='E'; //E = emitido
+                        }else{
+                            $recibo->estado='D'; //D = deuda
+                        }
+                        
+                        $recibo->mes=$mesAux;
+                        $recibo->anio=$anioAux;
                         $recibo->sucursal_id=$cartera->sucursal_id;
                         $recibo->cartera_id=$cartera->id;
                         $recibo->cliente_id=$clientes[$i]->id;
                         $recibo->detalle=json_encode($detalle);
                         //$recibo->detalle2=$detalle;
-                        $recibo->deuda=json_encode($deudas);
-                        //$recibo->deuda2=$deudas;
                         $recibo->save();
                         
                         //$clientes[$i]->recibo = $recibo;
 
                         $recibosGenerados = $recibosGenerados + 1;
 
+                        //Logica para el cambio del mes siguiente
+                        if ($mesAux == 12) {
+                            $mesAux = 1;
+                            $anioAux = $anioAux + 1;
+                        } else {
+                            $mesAux = $mesAux + 1;
+                            $anioAux = $anioAux;
+                        }
                     }
-                    //Si el cliente es afiliado cueto con grupo familiar (AF_CUETO)
-                    else if ($clientes[$i]->tipo == 'AF_CUETO') {
-                        //Calcular la edad del cliente titular
+
+                }
+                //Si el cliente es afiliado cueto con grupo familiar (AF_CUETO)
+                else if ($clientes[$i]->tipo == 'AF_CUETO') {
+
+                    //Generar un recibo por cada mes que debe hasta el actual
+                    for ($k=0; $k < $mesesDeuda; $k++) {
+
+                        //Calcular la edad del cliente titular para el mes actual en la iteracion
                         $f_nacimiento = new DateTime($clientes[$i]->f_nacimiento);
-                        $interval = $f_nacimiento->diff($fechaActual);
+                        $f_deuda = new DateTime($anioAux.'-'.$mesAux.'-'.$diaAux);
+                        $interval = $f_nacimiento->diff($f_deuda);
 
                         $edadActual = $interval->y;
 
@@ -312,24 +310,11 @@ class ReciboController extends Controller
 
                         //$clientes[$i]->tarifa = $tarifa[0];
 
-                        //Cargar las deudas de meses anteriores
-                        $deudas = $clientes[$i]->deudas;    
-                        //$clientes[$i]->deudas = $clientes[$i]->deudas;
-
                         //Calcular el importe (parcial)
-                        if (count($deudas)>0) {
-                            $importeParcial = $tarifa[0]->tarifa;
-                            $importeTotal = 0;
-                            for ($k=0; $k < count($deudas); $k++) { 
-                                 $importeTotal = $importeTotal + $deudas[$k]->monto;
-                             } 
-                             $importeTotal = $importeParcial + $importeTotal;
-                        }else{
-                            $importeParcial = $tarifa[0]->tarifa * $mesesDeuda; 
-                            //$clientes[$i]->importeParcial = $importeParcial;
+                        $importeParcial = $tarifa[0]->tarifa; 
+                        //$clientes[$i]->importeParcial = $importeParcial;
 
-                            $importeTotal = $importeParcial;
-                        }
+                        $importeTotal = $importeParcial;
 
                         //Preparar el detalle del recibo
                         $detalle = [
@@ -346,9 +331,9 @@ class ReciboController extends Controller
 
                         //Recorrer los familiares y calcular el importe parcial
                         for ($j=0; $j < count($familiares) ; $j++) { 
-                            //Calcular la edad del familiar
+                            //Calcular la edad del familiar para el mes actual en la iteracion
                             $f_nacimiento = new DateTime($familiares[$j]->f_nacimiento);
-                            $interval = $f_nacimiento->diff($fechaActual);
+                            $interval = $f_nacimiento->diff($f_deuda);
 
                             $edadActual = $interval->y;
 
@@ -369,13 +354,8 @@ class ReciboController extends Controller
                             //$familiares[$j]->tarifa = $tarifa[0];
 
                             //Calcular el importe (parcial)
-                            if (count($deudas)>0) {
-                                $importeParcial = $tarifa[0]->tarifa;
-                            }else{
-                                $importeParcial = $tarifa[0]->tarifa * $mesesDeuda; 
-                                //$familiares[$j]->importeParcial = $importeParcial;
-                            }
-                            
+                            $importeParcial = $tarifa[0]->tarifa; 
+                            //$familiares[$j]->importeParcial = $importeParcial;
 
                             //Preparar el detalle del recibo
                             array_push($detalle, ['id_persona' => $familiares[$j]->id,
@@ -398,24 +378,38 @@ class ReciboController extends Controller
                         $recibo = new \App\Recibo;
                         $recibo->num_recibo=$ultimoRecibo + 1;
                         $recibo->importe=$importeTotal;
-                        $recibo->estado='E'; //E = emitido
-                        $recibo->mes=$mesActual;
-                        $recibo->anio=$anioActual;
+                        
+                        if ($k == $mesesDeuda-1) {
+                            $recibo->estado='E'; //E = emitido
+                        }else{
+                            $recibo->estado='D'; //D = deuda
+                        }
+
+                        $recibo->mes=$mesAux;
+                        $recibo->anio=$anioAux;
                         $recibo->sucursal_id=$cartera->sucursal_id;
                         $recibo->cartera_id=$cartera->id;
                         $recibo->cliente_id=$clientes[$i]->id;
                         $recibo->detalle=json_encode($detalle);
                         //$recibo->detalle2=$detalle;
-                        $recibo->deuda=json_encode($deudas);
-                        //$recibo->deuda2=$deudas;
                         $recibo->save();
                         
                         //$clientes[$i]->recibo = $recibo;
 
                         $recibosGenerados = $recibosGenerados + 1;
 
+                        //Logica para el cambio del mes siguiente
+                        if ($mesAux == 12) {
+                            $mesAux = 1;
+                            $anioAux = $anioAux + 1;
+                        } else {
+                            $mesAux = $mesAux + 1;
+                            $anioAux = $anioAux;
+                        }
+
                     }
                 }
+                
             }
 
             //$clientes[$i]->ultimoPago = $ultimoPago;

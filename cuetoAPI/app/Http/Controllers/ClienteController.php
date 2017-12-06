@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use BD;
+use Illuminate\Support\Facades\DB;
+use DateTime;
 
 class ClienteController extends Controller
 {   
@@ -92,10 +95,11 @@ class ClienteController extends Controller
         if ( $request->input('tipo') == 'AF_CUETO_S' ){
 
             if($nuevoCliente=\App\Cliente::create($request->all())){
-
+                //Asignar ticket al cliente
                 $auxTicket[0]->cliente_id = $nuevoCliente->id;
                 $auxTicket[0]->save();
 
+                //Registrar ultimo pago
                 $pago=new \App\Pago;
                 $pago->cliente_id=$nuevoCliente->id;
                 $pago->sucursal_id=$request->input('sucursal_id');
@@ -103,16 +107,100 @@ class ClienteController extends Controller
                 $pago->anio=$request->input('anio');
                 $pago->save();
 
-                if ($request->input('estado')=='M') {
-                    //Generar deuda
-                    $nuevaDeuda = new \App\Deuda;
-                    $nuevaDeuda->monto=$request->input('deuda');
-                    $nuevaDeuda->mes=$request->input('mes');
-                    $nuevaDeuda->anio=$request->input('anio');
-                    $nuevaDeuda->sucursal_id=$request->input('sucursal_id');
-                    $nuevaDeuda->cliente_id=$nuevoCliente->id;
-                    //$nuevaDeuda->recibo_id=null;
-                    $nuevaDeuda->save();
+                //Calcular los meses que debe en base al ultimo pago
+                $fechaActual = new DateTime("now");
+                //$fechaActual = new DateTime('2017-11-21');
+                $anioActual = date("Y");
+                $mesActual = date("m");
+                $diaActual = date("d");
+                $f_ultimoPago = new DateTime($request->input('anio').'-'.$request->input('mes').'-'.$diaActual);
+                $interval = $f_ultimoPago->diff($fechaActual);
+
+                $mesesDeuda = $interval->m + $interval->y * 12;
+
+                //Si debe mas de dos meses, se crean recibos en estado D
+                //por los meses que debe
+                //Nota: no se toma en cuenta el mes actual porque ese recibo
+                //se genera en otro proceso
+                if($mesesDeuda > 1 ){
+
+                    $diaAux = 1;
+                    $mesAux = $request->input('mes');
+                    $anioAux = $request->input('anio');
+
+                    //Logica para el cambio del mes
+                    if ($mesAux == 12) {
+                        $mesSiguiente = 1;
+                        $anioDeuda = $anioAux + 1;
+                    } else {
+                        $mesSiguiente = $mesAux + 1;
+                        $anioDeuda = $anioAux;
+                    }
+
+                    //Generar un recibo por cada mes que debe hasta el mes actual-1
+                    for ($k=0; $k < $mesesDeuda-1 ; $k++) { 
+
+                        //Calcular la edad del cliente para ese mes
+                        $f_nacimiento = new DateTime($nuevoCliente->f_nacimiento);
+                        $f_deuda = new DateTime($anioDeuda.'-'.$mesSiguiente.'-'.$diaAux);
+                        $interval = $f_nacimiento->diff($f_deuda);
+
+                        $edadActual = $interval->y;
+
+                        if ($edadActual == 0) {
+                            $edadActualAux = 1;
+                        }else if($edadActual > 125){
+                            $edadActualAux = 125;
+                        }else{
+                            $edadActualAux = $edadActual;
+                        }
+
+                        //Cargar la tarifa correspondiente a la edad actual
+                        $tarifa = \App\TarifaCuetoSola::where('edad_min', '<=', $edadActualAux)
+                            ->where('edad_max', '>=', $edadActualAux)->get();   
+
+                        $importeParcial = $tarifa[0]->tarifa; 
+                        $importeTotal = $importeParcial;
+                        
+                        //Preparar el detalle del recibo
+                        $detalle = [
+                            [
+                            'id_persona' => $nuevoCliente->id,
+                            'edad' => $edadActual,
+                            'importeParcial' => $importeParcial
+                            ]
+                        ];
+
+                        //Consultar el id del ultimo recibo para setear num_recibo de forma secuencial
+                        $ultimoRecibo = DB::select("SELECT MAX(num_recibo) as idMax FROM recibos");
+                        $ultimoRecibo = $ultimoRecibo[0]->idMax;
+                        if (!$ultimoRecibo) {
+                            $ultimoRecibo = 0;
+                        }
+
+                        //Generar el recibo
+                        $recibo = new \App\Recibo;
+                        $recibo->num_recibo=$ultimoRecibo + 1;
+                        $recibo->importe=$importeTotal;
+                        $recibo->estado='D'; //D = deuda
+                        $recibo->mes=$mesSiguiente;
+                        $recibo->anio=$anioDeuda;
+                        $recibo->sucursal_id=$request->input('sucursal_id');
+                        $recibo->cartera_id=$request->input('cartera_id');
+                        $recibo->cliente_id=$nuevoCliente->id;
+                        $recibo->detalle=json_encode($detalle);
+                        //$recibo->detalle2=$detalle;
+                        $recibo->save();
+
+                        //Logica para el cambio del mes
+                        if ($mesSiguiente == 12) {
+                            $mesSiguiente = 1;
+                            $anioDeuda = $anioDeuda + 1;
+                        } else {
+                            $mesSiguiente = $mesSiguiente + 1;
+                            $anioDeuda = $anioDeuda;
+                        }
+                    }
                 }
                 return response()->json(['status'=>'ok', 'cliente'=>$nuevoCliente, 'auxTicket'=>$auxTicket, 'pago'=>$pago], 200);
             }else{
@@ -152,27 +240,18 @@ class ClienteController extends Controller
             }
 
             $nuevoCliente=\App\Cliente::create($request->all());
+
+            //Asignar ticket al cliente
             $auxTicket[0]->cliente_id = $nuevoCliente->id;
             $auxTicket[0]->save();
             
+            //Registrar ultimo pago
             $pago=new \App\Pago;
             $pago->cliente_id=$nuevoCliente->id;
             $pago->sucursal_id=$request->input('sucursal_id');
             $pago->mes=$request->input('mes');
             $pago->anio=$request->input('anio');
             $pago->save();
-
-            if ($request->input('estado')=='M') {
-                //Generar deuda
-                $nuevaDeuda = new \App\Deuda;
-                $nuevaDeuda->monto=$request->input('deuda');
-                $nuevaDeuda->mes=$request->input('mes');
-                $nuevaDeuda->anio=$request->input('anio');
-                $nuevaDeuda->sucursal_id=$request->input('sucursal_id');
-                $nuevaDeuda->cliente_id=$nuevoCliente->id;
-                //$nuevaDeuda->recibo_id=null;
-                $nuevaDeuda->save();
-            }
                 
             for ($i=0; $i < count($familiares) ; $i++) {
 
@@ -217,6 +296,135 @@ class ClienteController extends Controller
                 $familiar->cliente_id = $nuevoCliente->id;
 
                 $familiar->save();
+
+                $familiares[$i]->id = $familiar->id;
+            }
+
+            //Calcular los meses que debe en base al ultimo pago
+            $fechaActual = new DateTime("now");
+            //$fechaActual = new DateTime('2017-11-21');
+            $anioActual = date("Y");
+            $mesActual = date("m");
+            $diaActual = date("d");
+            $f_ultimoPago = new DateTime($request->input('anio').'-'.$request->input('mes').'-'.$diaActual);
+            $interval = $f_ultimoPago->diff($fechaActual);
+
+            $mesesDeuda = $interval->m + $interval->y * 12;
+
+            //Si debe mas de dos meses, se crean recibos en estado D
+            //por los meses que debe
+            //Nota: no se toma en cuenta el mes actual porque ese recibo
+            //se genera en otro proceso
+            if($mesesDeuda > 1 ){
+
+                $diaAux = 1;
+                $mesAux = $request->input('mes');
+                $anioAux = $request->input('anio');
+
+                //Logica para el cambio del mes
+                if ($mesAux == 12) {
+                    $mesSiguiente = 1;
+                    $anioDeuda = $anioAux + 1;
+                } else {
+                    $mesSiguiente = $mesAux + 1;
+                    $anioDeuda = $anioAux;
+                }
+
+                //Generar un recibo por cada mes que debe hasta el mes actual-1
+                for ($k=0; $k < $mesesDeuda-1 ; $k++) { 
+
+                    //Calcular la edad del cliente para ese mes
+                    $f_nacimiento = new DateTime($nuevoCliente->f_nacimiento);
+                    $f_deuda = new DateTime($anioDeuda.'-'.$mesSiguiente.'-'.$diaAux);
+                    $interval = $f_nacimiento->diff($f_deuda);
+
+                    $edadActual = $interval->y;
+
+                    if ($edadActual == 0) {
+                        $edadActualAux = 1;
+                    }else if($edadActual > 125){
+                        $edadActualAux = 125;
+                    }else{
+                        $edadActualAux = $edadActual;
+                    }
+
+                    //Cargar la tarifa correspondiente a la edad actual
+                    $tarifa = \App\TarifaCueto::where('edad_min', '<=', $edadActualAux)
+                        ->where('edad_max', '>=', $edadActualAux)->get();   
+
+                    $importeParcial = $tarifa[0]->tarifa; 
+                    $importeTotal = $importeParcial;
+                    
+                    //Preparar el detalle del recibo
+                    $detalle = [
+                        [
+                        'id_persona' => $nuevoCliente->id,
+                        'edad' => $edadActual,
+                        'importeParcial' => $importeParcial
+                        ]
+                    ];
+
+                    //Recorrer los familiares y calcular el importe parcial
+                    for ($l=0; $l < count($familiares) ; $l++) { 
+                        //Calcular la edad del familiar para ese mes
+                        $f_nacimiento = new DateTime($familiares[$l]->f_nacimiento);
+                        $interval = $f_nacimiento->diff($f_deuda);
+
+                        $edadActual = $interval->y;
+
+                        if ($edadActual == 0) {
+                            $edadActualAux = 1;
+                        }else if($edadActual > 125){
+                            $edadActualAux = 125;
+                        }else{
+                            $edadActualAux = $edadActual;
+                        }
+
+                        //Cargar la tarifa correspondiente a la edad actual
+                        $tarifa = \App\TarifaCueto::where('edad_min', '<=', $edadActualAux)
+                            ->where('edad_max', '>=', $edadActualAux)->get();
+
+                        //Calcular el importe (parcial)
+                        $importeParcial = $tarifa[0]->tarifa;
+
+                        //Preparar el detalle del recibo
+                        array_push($detalle, ['id_persona' => $familiares[$l]->id,
+                                            'edad' => $edadActual,
+                                            'importeParcial' => $importeParcial]);
+
+                        $importeTotal = $importeTotal + $importeParcial;
+                    }
+
+                    //Consultar el id del ultimo recibo para setear num_recibo de forma secuencial
+                    $ultimoRecibo = DB::select("SELECT MAX(num_recibo) as idMax FROM recibos");
+                    $ultimoRecibo = $ultimoRecibo[0]->idMax;
+                    if (!$ultimoRecibo) {
+                        $ultimoRecibo = 0;
+                    }
+
+                    //Generar el recibo
+                    $recibo = new \App\Recibo;
+                    $recibo->num_recibo=$ultimoRecibo + 1;
+                    $recibo->importe=$importeTotal;
+                    $recibo->estado='D'; //D = deuda
+                    $recibo->mes=$mesSiguiente;
+                    $recibo->anio=$anioDeuda;
+                    $recibo->sucursal_id=$request->input('sucursal_id');
+                    $recibo->cartera_id=$request->input('cartera_id');
+                    $recibo->cliente_id=$nuevoCliente->id;
+                    $recibo->detalle=json_encode($detalle);
+                    //$recibo->detalle2=$detalle;
+                    $recibo->save();
+
+                    //Logica para el cambio del mes
+                    if ($mesSiguiente == 12) {
+                        $mesSiguiente = 1;
+                        $anioDeuda = $anioDeuda + 1;
+                    } else {
+                        $mesSiguiente = $mesSiguiente + 1;
+                        $anioDeuda = $anioDeuda;
+                    }
+                }
             }
 
             return response()->json(['status'=>'ok', 'cliente'=>$nuevoCliente], 200);

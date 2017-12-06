@@ -317,10 +317,25 @@ class RendicionController extends Controller
             $rendicion->recibos[$i]->save();
 
             //Si el cliente estaba moroso(M) y abono el total adeudado se pasa a vigente(V)
-            if ($rendicion->recibos[$i]->cliente->estado == 'M' &&
+            /*if ($rendicion->recibos[$i]->cliente->estado == 'M' &&
              $rendicion->recibos[$i]->abono >= $rendicion->recibos[$i]->importe) {
                 $rendicion->recibos[$i]->cliente->estado = 'V';
                 $rendicion->recibos[$i]->cliente->save();
+            }*/
+
+            //Si el cliente estaba moroso(M) 
+            if ($rendicion->recibos[$i]->cliente->estado == 'M') {
+
+                //verificar si todavia tiene recibos por pagar
+                $recibosPendientes = \App\Recibo::where('cliente_id',$rendicion->recibos[$i]->cliente->id)
+                ->where('estado', '<>', 'A')
+                ->get();
+
+                //Si no tiene recibos pendientes se pasa a vigente (V)
+                if (sizeof($recibosPendientes) == 0) {
+                    $rendicion->recibos[$i]->cliente->estado = 'V';
+                    $rendicion->recibos[$i]->cliente->save();
+                }
             }
         }
 
