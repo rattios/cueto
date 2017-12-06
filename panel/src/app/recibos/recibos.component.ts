@@ -31,7 +31,7 @@ export class RecibosComponent implements OnInit {
 	  	this.nAfiliado=item.cliente_id;
 	  	this.nRecibo=item.num_recibo;
 	  	this.cuotaMes=item.mes+'-'+item.anio;
-	  	this.detalle=JSON.parse(item.detalle);
+	  	this.detalle=item.detalle;
 	  	this.importe=item.importe;
 	  	
 

@@ -537,4 +537,41 @@ class ReciboController extends Controller
 
 
     }
+
+    //retorna los recibos de la cartera_id para las condonaciones
+    public function recibosCarteraCondonaciones(Request $request, $cartera_id)
+    {
+        //Comprobamos si la cartera que nos están pasando existe o no.
+        $cartera=\App\Cartera::find($cartera_id);
+
+        if(count($cartera)==0){
+            return response()->json(['error'=>'No existe la cartera con id '.$cartera_id], 404);          
+        }
+
+    
+            //Cargar los recibos del mes actual cun un estado especifico
+            $recibos=\App\Recibo::with('cliente')
+                ->where('estado','<>' , 'A')
+                ->where('cartera_id',$cartera_id)
+                ->get();
+
+            if(count($recibos) == 0){
+                return response()->json(['error'=>'No existen recibos con estado '.$request->input('estado').' en la cartera con id '.$cartera_id], 404);          
+            }else{
+
+                for ($i=0; $i < count($recibos); $i++) { 
+                    $recibos[$i]->detalle = json_decode($recibos[$i]->detalle);
+                    $recibos[$i]->deuda = json_decode($recibos[$i]->deuda);
+
+                    if ($recibos[$i]->cliente->tipo == 'AF_CUETO') {
+                        $recibos[$i]->cliente->familiares = $recibos[$i]->cliente->familiares;
+                    }
+                }
+
+                return response()->json(['status'=>'ok', 'cartera'=>$cartera, 'recibos'=>$recibos], 200);
+            }
+        
+
+
+    }
 }

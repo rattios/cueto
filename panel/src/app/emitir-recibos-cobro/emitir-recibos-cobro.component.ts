@@ -206,14 +206,10 @@ export class EmitirRecibosCobroComponent implements OnInit {
   	this.nRecibo=item.num_recibo;
   	this.cuotaMes=item.mes+'-'+item.anio;
   	this.detalle=item.detalle;
-    this.deuda=item.deuda;
-    this.tamDeuda=this.deuda.length;
+
   	this.importe=item.importe;
   	this.tipoAfiliado=item.cliente.tipo;
 
-    for (var i = 0; i < this.deuda.length; ++i) {
-      this.deuda[i].mes=this.meses(this.deuda[i].mes);
-    }
 
   	if(this.tipoAfiliado=="AF_CUETO") {
   		this.tipoAfiliado='GFS';

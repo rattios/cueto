@@ -112,6 +112,7 @@ Route::group(  ['middleware' =>'cors'], function(){
         //----Pruebas ReciboController
         Route::get('/recibos','ReciboController@index');
         Route::get('/recibos/{cartera_id}','ReciboController@recibosCartera');
+        Route::get('/recibos/condonaciones/{cartera_id}','ReciboController@recibosCarteraCondonaciones');
         Route::post('/recibos/{cartera_id}','ReciboController@store');
         Route::put('/recibos/{id}','ReciboController@update');
         Route::delete('/recibos/{id}','ReciboController@destroy');
