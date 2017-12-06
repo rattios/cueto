@@ -1,3 +1,4 @@
+
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
 <div class="wrapper">
 <div class="sidebar" data-color='blue' data-image="" style="background-color: #000 !important">
@@ -167,6 +168,19 @@
                                         <label class="labels">Dirección</label>
                                         <input type="text" name="direccion" class="form-control" formControlName="direccion" [transformer]="uppercase" (blur)="setDireccion()">
                                     </div>
+                                </div>   
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input placeholder="Buscar dirección por google maps..." autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search  onFocus="geolocate()" >
+                                 </div>
+                            </div>
+                            <div class="row">    
+                                 <div class="col-md-12">
+
+                                    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                                      <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                                    </agm-map>
                                 </div>   
                             </div>
                             <div class="row">

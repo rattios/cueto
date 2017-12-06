@@ -1,11 +1,12 @@
-import { Component, OnInit,HostListener, NgZone } from '@angular/core';
+import { Component, OnInit,HostListener, NgZone, ViewChild, ElementRef} from '@angular/core';
 import { HttpClient, HttpParams  } from '@angular/common/http';
 import { FormGroup, FormArray, FormBuilder, Validators, FormControl  } from '@angular/forms';
 import { BsModalComponent } from 'ng2-bs3-modal';
 import { RutaService } from '../services/ruta.service';
-
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 
 declare const $: any;
+declare var google: any;
 
 @Component({
   selector: 'app-user-profile',
@@ -67,8 +68,19 @@ export class UserProfileComponent implements OnInit {
 
     private formSumitAttempt: boolean;
 
+    lat: number = -38.938771;
+    lng: number = -67.995493;
+    zoom: number = 16;
 
-    constructor(private http: HttpClient, private builder: FormBuilder, private ruta: RutaService) {
+    public searchControl: FormControl;
+    public latitude: number;
+    public longitude: number;
+
+    @ViewChild("search")
+    public searchElementRef: ElementRef;
+
+    constructor(private http: HttpClient, private builder: FormBuilder, private ruta: RutaService, private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone) {
 
         this.registroClienteForm = builder.group({
             tipo: ["", Validators.required],
@@ -168,8 +180,71 @@ export class UserProfileComponent implements OnInit {
                this.fechaSistema=this.fechaSistema.fechaSistema;
                //alert(this.fechaSistema);
             });
-           
+        //create search FormControl
+        this.searchControl = new FormControl();
+        
+        //set current position
+        this.setCurrentPosition();
+        
+
+        
+
+        //load Places Autocomplete
+        this.mapsAPILoader.load().then(() => {
+
+      
+
+          var defaultBounds = new google.maps.LatLngBounds(
+            new google.maps.LatLng(-38.512445, -70.482788),
+            new google.maps.LatLng(-37.673767, -67.692261),
+            new google.maps.LatLng(-38.778443, -62.616577),
+            new google.maps.LatLng(-40.009472, -68.076782)
+          );
+
+          var options = { 
+            bounds: defaultBounds,
+            //componentRestrictions: {country: "AR"}
+            //types: ['(cities)'],
+            //componentRestrictions: {country: 'fr'}
+          };
+          let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+            types: ["address"]
+          }, options);
+           var circle = new google.maps.Circle({
+                  center: {lat:  -38.938771, lng: -67.995493},
+                  radius: 10*1000
+                });
+                autocomplete.setBounds(circle.getBounds());
+          autocomplete.addListener("place_changed", () => {
+            this.ngZone.run(() => {
+              //get the place result
+              let place = autocomplete.getPlace();
+      
+              //verify result
+              if (place.geometry === undefined || place.geometry === null) {
+                return;
+              }
+              
+              //set latitude, longitude and zoom
+              this.latitude = place.geometry.location.lat();
+              this.longitude = place.geometry.location.lng();
+              this.zoom = 12;
+            });
+          });
+        });
     }
+
+
+
+  private setCurrentPosition() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 12;
+      });
+    }
+  }
 
   isFieldValid(field: string) {
     return (

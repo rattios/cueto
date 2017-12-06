@@ -15,6 +15,7 @@ import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 import { Ng2UploaderModule } from 'ng2-uploader';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { AgmCoreModule } from '@agm/core';
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
@@ -110,6 +111,10 @@ import { RecibosComponent } from './recibos/recibos.component';
         primaryColour: '#ffffff', 
         secondaryColour: '#ffffff', 
         tertiaryColour: '#ffffff'
+    }),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDABbmFlmZWzBTd9m1C3Euiw83A2lFtKcY',
+      libraries: ["places"]
     })
   ],
   exports: [
