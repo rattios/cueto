@@ -40,12 +40,13 @@
                          <th style="text-align: center;">Familiares</th>
                          <th style="text-align: center;">Estado</th>
                          <th style="text-align: center;">Fecha de alta</th>
-                         <th style="text-align: center;">Ingresó</th>
+                         <!-- <th style="text-align: center;">Ingresó</th> -->
+                         <th style="text-align: center;">Cartera</th>
                          <th style="text-align: center;">Ticket</th>
                          <th style="text-align: center;">Acciones</th>
                       </thead>
                       <tbody>
-                         <tr *ngFor="let item of items">
+                         <tr *ngFor="let item of items" [ngClass]="{moroso: item.estado=='M'}">
                             
                             <td style="text-align: center; font-size: 16px">{{item.nombre_1}} {{item.nombre_2}} {{item.apellido_1}} {{item.apellido_2}}</td>
                             <td style="text-align: center; font-size: 16px">{{item.dni}}</td>
@@ -53,7 +54,8 @@
                             <td style="text-align: center; font-size: 16px">{{item.nFamiliares}}</td>
                             <td style="text-align: center; font-size: 16px">{{item.estado2}}</td>
                             <td style="text-align: center; font-size: 16px">{{item.f_alta | date:'dd/MM/yyyy'}}</td>
-                            <td style="text-align: center; font-size: 16px">{{item.user_id2}}</td>
+                            <!-- <td style="text-align: center; font-size: 16px">{{item.user_id2}}</td> -->
+                            <td style="text-align: center; font-size: 16px">{{item.cartera.descripcion}} {{item.cartera.numero}}</td>
                             <td style="text-align: center; font-size: 16px">{{item.ticket}}</td>
                             <td style="text-align: center; font-size: 16px">
                               <button type="button" class="btn btn-success" (click)="getUsuario(item)">Ver</button>
@@ -120,7 +122,7 @@
                                   <div class="col-md-4">
                                       <div class="form-group form-black label-floating">
                                           <label class="labels">Cartera</label>
-                                          <p>{{formCliente.cartera}}</p>
+                                          <p>{{formCliente.cartera.descripcion}} {{formCliente.cartera.numero}}</p>
                                       </div>
                                   </div>
                                   <div class="col-md-4">
@@ -266,10 +268,10 @@
                               </div> 
                             </div>
                             <div class="tab-pane" id="pill2">
-                                <app-recibos [recibos]="formCliente.recibos"></app-recibos>
+                                <app-recibos [recibos]="formCliente.recibosD"></app-recibos>
                             </div>
                             <div class="tab-pane" id="pill3">
-                                <app-recibos [recibos]="formCliente.recibos"></app-recibos>
+                                <app-recibos [recibos]="formCliente.recibosA"></app-recibos>
                             </div>
                         </div>
 
@@ -452,16 +454,31 @@
                                         
                                           <input matInput [matDatepicker]="picker2" [max]="maxDate" class="form-control" style="width: 65%; display: inline-block;" name="f_alta" formControlName="f_alta">
                                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                                          <mat-datepicker #picker2 startView="year" [startAt]="startDate"></mat-datepicker>
+                                          <mat-datepicker #picker2 ></mat-datepicker>
                                         </mat-form-field>
                                     </div>
                                 </div>
-                                <!-- <div class="col-md-2" >
-                                    <div class="form-group form-black label-floating" align="center">
-                                        <label class="labels" style="font-size: 14px !important">Es moroso?</label>
-                                        <mat-slide-toggle name="moroso" formControlName="moroso" (ngModelChange)="chekarMoroso($event)">{{estadoMoroso}}</mat-slide-toggle>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group form-black label-floating">
+                                        <label class="labels">Fecha del último mes de pago: </label> 
+                                        <mat-form-field>
+                                        
+                                          <input matInput [matDatepicker]="picker3" [max]="maxDate" class="form-control" style="width: 65%; display: inline-block;" name="f_pago" formControlName="f_pago" (ngModelChange)="checkarSiEsMoroso(); verEstado(); compFechPago();setMesAnio()">
+                                          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                          <mat-datepicker #picker3></mat-datepicker>
+                                        </mat-form-field>
+                                        
                                     </div>
-                                </div> -->
+                                </div>
+                            
+                                <div class="col-md-4">
+                                    <div class="form-group form-black label-floating" align="center">
+                                        <label class="labels" style="font-size: 14px !important">¿Es moroso?</label>
+                                        <mat-slide-toggle name="moroso" formControlName="moroso" (ngModelChange)="chekarMoroso()">{{estadoMoroso}}</mat-slide-toggle>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">   
                                 <div class="col-md-6">
@@ -611,8 +628,15 @@
                                         <p>{{registroClienteForm.value.f_alta | date: 'dd/MM/yyyy'}}</p>
                                     <!-- </div> -->
                                 </div>
+                                 <div class="col-md-6">
+                                    <label class="labels">Fecha de l último mes pago</label>
+                                    <!-- <div class="form-group form-black label-floating"> -->
+                                        <p>{{registroClienteForm.value.f_pago | date: 'dd/MM/yyyy'}}</p>
+                                    <!-- </div> -->
+                                </div>
                                 <!-- <div class="col-md-3" *ngIf="registroClienteForm.value.cuota!=''" > -->
-                                
+                              </div>
+                            <div class="row">    
                                 <div class="col-md-6">
                                     <label class="labels" >Estado del Cliente</label>
                                    <!--  <div class="form-group form-black label-floating"> -->

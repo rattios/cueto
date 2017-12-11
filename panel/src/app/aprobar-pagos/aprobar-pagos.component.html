@@ -1,3 +1,4 @@
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
 <div *ngIf="!verRendicion">
     <div class="form-group form-black label-floating is-empty">
         <label class="labels" style="font-size: 18px; font-weight: bold">Buscar: </label>
@@ -9,6 +10,7 @@
             <th style="text-align: center;">Número de rendición</th>
             <th style="text-align: center;">Cobrador</th>
              <th style="text-align: center;">Cartera</th>
+
              <th style="text-align: center;">Importe</th>
              <th style="text-align: center;"></th>
         </thead>
@@ -17,6 +19,7 @@
                 <td style="text-align: center; font-size: 16px">{{item.id}}</td>
                 <td style="text-align: center; font-size: 16px">{{item.cobrador.user}}</td>
                 <td style="text-align: center; font-size: 16px">{{item.cartera.numero}}</td>
+                
                 <td style="text-align: center; font-size: 16px">$.{{item.monto}}</td>
                 <td style="text-align: center; font-size: 16px">
                     <button type="button" class="btn btn-warning" (click)="ir(item)">IR</button>
@@ -50,7 +53,7 @@
         <div class="col-md-12" >
             <div  class="row" style="padding-right: 5%">
                 <button type="button" class="btn btn-success pull-right" style="" (click)="volverPrincipal()">VOLVER</button>
-                <button type="button" class="btn btn-warning pull-right" style="" (click)="aprobar()">APROBAR</button>
+                <button type="button" class="btn btn-warning pull-right" *ngIf="showAprobar" (click)="aprobar()">APROBAR</button>
             </div>
             <div class="card" style="padding-right: 3%; padding-left: 3%; background-color: #FAFAFA">
                 <div class="card" style="padding-right: 3%; padding-left: 3%;">
@@ -90,7 +93,6 @@
                             <th style="text-align: center;">Número de recibo</th>
                             <th style="text-align: center;">Titular</th>
                             <th style="text-align: center;">Importe</th>
-                            <th style="text-align: center;">Abono</th>
                             <th style="text-align: center;"></th>
                         </thead>
                         <tbody>
@@ -98,7 +100,6 @@
                                 <td style="text-align: center; font-size: 16px">{{item.id}}</td>
                                 <td style="text-align: center; font-size: 16px">{{item.cliente.nombre_1}} {{item.cliente.nombre_2}} {{item.cliente.apellido_1}} {{item.cliente.apellido_1}}</td>
                                 <td style="text-align: center; font-size: 16px">$.{{item.importe}}</td>
-                                <td style="text-align: center; font-size: 16px">$.{{item.abono}}</td>
                                 <td style="text-align: center; font-size: 16px">
                                     <button type="button" class="btn btn-warning" (click)="verDetalleRecibo(item)">IR</button> 
                                 </td>

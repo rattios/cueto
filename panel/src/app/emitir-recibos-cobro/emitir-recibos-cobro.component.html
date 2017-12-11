@@ -86,8 +86,8 @@
                             <table class="table table-striped">
                                     <thead>
                                          <th style="text-align: center;"></th>
-                                         <th style="text-align: center;"></th>
-                                         <th style="text-align: center;"></th>
+                                         <th style="text-align: center;">Numero cartera</th>
+                                         <th style="text-align: center;">Cliente</th>
                                          <th style="text-align: center;">Estado</th>
                                          <th style="text-align: center;">Periodo</th>
                                          <th style="text-align: center;">Importe</th>
@@ -96,8 +96,8 @@
                                          <tr *ngFor="let item of items">
                                             
                                             <td style="text-align: center; font-size: 16px"></td>
-                                            <td style="text-align: center; font-size: 16px"></td>
-                                            <td style="text-align: center; font-size: 16px">{{item.cliente.nombre_1}}</td>
+                                            <td style="text-align: center; font-size: 16px">{{item.cliente.ticket}}</td>
+                                            <td style="text-align: center; font-size: 16px">{{item.cliente.nombre_1}} {{item.cliente.apellido_1}}</td>
                                             <td style="text-align: center; font-size: 16px">{{item.estado}}</td>
                                             <td style="text-align: center; font-size: 16px">{{item.mes}}-{{item.anio}}</td>
                                             <td style="text-align: center; font-size: 16px">$.{{item.importe}}</td>

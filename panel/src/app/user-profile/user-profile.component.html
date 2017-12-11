@@ -179,7 +179,7 @@
                                  <div class="col-md-12">
 
                                     <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-                                      <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                                      <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
                                     </agm-map>
                                 </div>   
                             </div>
@@ -205,7 +205,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-8">
-                                    <div class="form-group form-black label-floating" [ngClass]="displayFieldCss('f_alta')">
+                                    <div class="form-group form-black label-floating" >
                                         <label class="labels">Fecha de alta o última renovación:</label> 
                                         <mat-form-field>
                                         
@@ -213,15 +213,14 @@
                                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                           <mat-datepicker #picker2></mat-datepicker>
                                         </mat-form-field>
-                                        <app-field-error-display [displayError]="isFieldValid('f_alta')" errorMsg="!Fecha incorrecta!">
-                                         </app-field-error-display>
+                                        
                                     </div>
                                 </div>
                                 
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="form-group form-black label-floating" [ngClass]="displayFieldCss('f_pago')">
+                                    <div class="form-group form-black label-floating" >
                                         <label class="labels">Fecha del último mes de pago: </label> 
                                         <mat-form-field>
                                         
@@ -229,8 +228,7 @@
                                           <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                                           <mat-datepicker #picker3></mat-datepicker>
                                         </mat-form-field>
-                                        <app-field-error-display [displayError]="isFieldValid('f_pago')" errorMsg="!Fecha incorrecta!">
-                                         </app-field-error-display>
+                                        
                                     </div>
                                 </div>
                             
@@ -245,7 +243,7 @@
                             <div class="row">   
                                 <div class="col-md-6">
                                     <label class="labels" style="font-size: 14px !important">Estado del Cliente:</label>
-                                    <div class="form-group form-black label-floating">
+                                    <div class="form-group form-black label-floating" [ngClass]="displayFieldCss('dni')">
                                         
                                         <select name="estado" formControlName="estado" class="form-control" (change)="verEstado()">
                                             <option value="PC" selected="true">PRE CARGADO</option>
@@ -254,6 +252,9 @@
                                             <option value="M">MOROSO</option>
                                             <option value="B">BAJA</option>
                                         </select>
+
+                                        <app-field-error-display [displayError]="isFieldValid('estado')" errorMsg="Te falto este campo!">
+                                         </app-field-error-display>
                                     </div>
                                 </div>
                                 
@@ -526,15 +527,7 @@
                                 </div>
                                 
                             </div>
-                            <div class="row">
-                                <hr>
-                                <div class="col-md-12">
-                                    <label class="labels">Fecha de Morosidad</label>
-                                    <div class="form-group form-black label-floating">
-                                        <p>{{registroClienteForm.value.f_moroso | date: 'dd/MM/yyyy'}}</p>
-                                    </div>
-                                </div>    
-                            </div>
+                            
         
                             
                             

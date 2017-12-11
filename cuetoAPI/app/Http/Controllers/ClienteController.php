@@ -99,14 +99,214 @@ class ClienteController extends Controller
                 $auxTicket[0]->cliente_id = $nuevoCliente->id;
                 $auxTicket[0]->save();
 
+                if ($request->input('f_pago')) {
+                    //Registrar ultimo pago
+                    $pago=new \App\Pago;
+                    $pago->cliente_id=$nuevoCliente->id;
+                    $pago->sucursal_id=$request->input('sucursal_id');
+                    $pago->mes=$request->input('mes');
+                    $pago->anio=$request->input('anio');
+                    $pago->f_pago=$request->input('f_pago');
+                    $pago->save();
+
+                    //Calcular los meses que debe en base al ultimo pago
+                    $fechaActual = new DateTime("now");
+                    //$fechaActual = new DateTime('2017-11-21');
+                    $anioActual = date("Y");
+                    $mesActual = date("m");
+                    $diaActual = date("d");
+                    $f_ultimoPago = new DateTime($request->input('anio').'-'.$request->input('mes').'-'.$diaActual);
+                    $interval = $f_ultimoPago->diff($fechaActual);
+
+                    $mesesDeuda = $interval->m + $interval->y * 12;
+
+                    //Si debe mas de dos meses, se crean recibos en estado D
+                    //por los meses que debe
+                    //Nota: no se toma en cuenta el mes actual porque ese recibo
+                    //se genera en otro proceso
+                    if($mesesDeuda > 1 ){
+
+                        $diaAux = 1;
+                        $mesAux = $request->input('mes');
+                        $anioAux = $request->input('anio');
+
+                        //Logica para el cambio del mes
+                        if ($mesAux == 12) {
+                            $mesSiguiente = 1;
+                            $anioDeuda = $anioAux + 1;
+                        } else {
+                            $mesSiguiente = $mesAux + 1;
+                            $anioDeuda = $anioAux;
+                        }
+
+                        //Generar un recibo por cada mes que debe hasta el mes actual-1
+                        for ($k=0; $k < $mesesDeuda-1 ; $k++) { 
+
+                            //Calcular la edad del cliente para ese mes
+                            $f_nacimiento = new DateTime($nuevoCliente->f_nacimiento);
+                            $f_deuda = new DateTime($anioDeuda.'-'.$mesSiguiente.'-'.$diaAux);
+                            $interval = $f_nacimiento->diff($f_deuda);
+
+                            $edadActual = $interval->y;
+
+                            if ($edadActual == 0) {
+                                $edadActualAux = 1;
+                            }else if($edadActual > 125){
+                                $edadActualAux = 125;
+                            }else{
+                                $edadActualAux = $edadActual;
+                            }
+
+                            //Cargar la tarifa correspondiente a la edad actual
+                            $tarifa = \App\TarifaCuetoSola::where('edad_min', '<=', $edadActualAux)
+                                ->where('edad_max', '>=', $edadActualAux)->get();   
+
+                            $importeParcial = $tarifa[0]->tarifa; 
+                            $importeTotal = $importeParcial;
+                            
+                            //Preparar el detalle del recibo
+                            $detalle = [
+                                [
+                                'id_persona' => $nuevoCliente->id,
+                                'edad' => $edadActual,
+                                'importeParcial' => $importeParcial
+                                ]
+                            ];
+
+                            //Consultar el id del ultimo recibo para setear num_recibo de forma secuencial
+                            $ultimoRecibo = DB::select("SELECT MAX(num_recibo) as idMax FROM recibos");
+                            $ultimoRecibo = $ultimoRecibo[0]->idMax;
+                            if (!$ultimoRecibo) {
+                                $ultimoRecibo = 0;
+                            }
+
+                            //Generar el recibo
+                            $recibo = new \App\Recibo;
+                            $recibo->num_recibo=$ultimoRecibo + 1;
+                            $recibo->importe=$importeTotal;
+                            $recibo->estado='D'; //D = deuda
+                            $recibo->mes=$mesSiguiente;
+                            $recibo->anio=$anioDeuda;
+                            $recibo->sucursal_id=$request->input('sucursal_id');
+                            $recibo->cartera_id=$request->input('cartera_id');
+                            $recibo->cliente_id=$nuevoCliente->id;
+                            $recibo->detalle=json_encode($detalle);
+                            //$recibo->detalle2=$detalle;
+                            $recibo->save();
+
+                            //Logica para el cambio del mes
+                            if ($mesSiguiente == 12) {
+                                $mesSiguiente = 1;
+                                $anioDeuda = $anioDeuda + 1;
+                            } else {
+                                $mesSiguiente = $mesSiguiente + 1;
+                                $anioDeuda = $anioDeuda;
+                            }
+                        }
+                    }
+                }
+                return response()->json(['status'=>'ok', 'cliente'=>$nuevoCliente, 'auxTicket'=>$auxTicket], 200);
+            }else{
+                return response()->json(['error'=>'Error al crear el cliente.'], 500);
+            } 
+        }
+
+        /*Si se va a crear un tipo=AF_CUETO 
+         se debe pasar tambien los familiares*/
+        if ($request->input('tipo') == 'AF_CUETO' && !$request->input('familiares')) {
+            // Se devuelve un array errors con los errores encontrados y cabecera HTTP 422 Unprocessable Entity – [Entidad improcesable] Utilizada para errores de validación.
+            return response()->json(['error'=>'Faltan datos necesarios para el proceso de alta para familiares.'],422);
+        }
+        else if ($request->input('tipo') == 'AF_CUETO' && $request->input('familiares')){
+
+            $familiares = json_decode($request->input('familiares'));
+
+            //$familiares = $request->input('familiares');
+
+            //return count($familiares);
+
+            for ($i=0; $i < count($familiares) ; $i++) { 
+                //verificar que no exista ninguna persona en toda la BD con ese dni
+                $auxCliente = \App\Cliente::where('dni', $familiares[$i]->dni)->get();
+                if(count($auxCliente)!=0){
+                   // Devolvemos un código 409 Conflict. 
+                    return response()->json(['error'=>'Ya existe un cliente con el dni '.$familiares[$i]->dni], 409);
+                }
+
+                $auxFamiliar = \App\Familiar::where('dni', $familiares[$i]->dni)->get();
+                if(count($auxFamiliar)!=0){
+                    $titular = $auxFamiliar[0]->titular;
+                   // Devolvemos un código 409 Conflict. 
+                    return response()->json(['error'=>'Ya existe un familiar con el dni '.$familiares[$i]->dni,
+                                'titular'=>$titular], 409);
+                }
+            }
+
+            $nuevoCliente=\App\Cliente::create($request->all());
+
+            //Asignar ticket al cliente
+            $auxTicket[0]->cliente_id = $nuevoCliente->id;
+            $auxTicket[0]->save();
+
+            if ($request->input('f_pago')) {
                 //Registrar ultimo pago
                 $pago=new \App\Pago;
                 $pago->cliente_id=$nuevoCliente->id;
                 $pago->sucursal_id=$request->input('sucursal_id');
                 $pago->mes=$request->input('mes');
                 $pago->anio=$request->input('anio');
+                $pago->f_pago=$request->input('f_pago');
                 $pago->save();
+            }
+                
+            for ($i=0; $i < count($familiares) ; $i++) {
 
+                /*Primero creo una instancia en la tabla familiares*/
+                $familiar = new \App\Familiar;
+                $familiar->nombre_1 = $familiares[$i]->nombre_1;
+
+                if ( property_exists($familiares[$i], 'nombre_2')) {
+                    if ($familiares[$i]->nombre_2 != null && $familiares[$i]->nombre_2!='')
+                    {
+                        $familiar->nombre_2 = $familiares[$i]->nombre_2;
+                    }
+                    
+                }
+                //$familiar->nombre_2 = $familiares[$i]->nombre_2;
+
+                $familiar->apellido_1 = $familiares[$i]->apellido_1;
+
+                if ( property_exists($familiares[$i], 'apellido_2')) {
+                    if ($familiares[$i]->apellido_2 != null && $familiares[$i]->apellido_2!='')
+                    {
+                        $familiar->apellido_2 = $familiares[$i]->apellido_2;
+                    }
+                }
+                //$familiar->apellido_2 = $familiares[$i]->apellido_2;
+
+                $familiar->dni = $familiares[$i]->dni;
+                $familiar->direccion = $familiares[$i]->direccion;
+                $familiar->f_nacimiento = $familiares[$i]->f_nacimiento;
+                $familiar->sexo = $familiares[$i]->sexo;
+                $familiar->vinculo = $familiares[$i]->vinculo;
+
+                if ( property_exists($familiares[$i], 'observaciones')) {
+                    if ($familiares[$i]->observaciones != null && $familiares[$i]->observaciones!='')
+                    {
+                        $familiar->observaciones = $familiares[$i]->observaciones;
+                    }   
+                }
+                //$familiar->observaciones = $familiares[$i]->observaciones;
+
+                $familiar->sucursal_id = $request->input('sucursal_id');
+                $familiar->cliente_id = $nuevoCliente->id;
+
+                $familiar->save();
+
+                $familiares[$i]->id = $familiar->id;
+            }
+
+            if ($request->input('f_pago')) {
                 //Calcular los meses que debe en base al ultimo pago
                 $fechaActual = new DateTime("now");
                 //$fechaActual = new DateTime('2017-11-21');
@@ -156,7 +356,7 @@ class ClienteController extends Controller
                         }
 
                         //Cargar la tarifa correspondiente a la edad actual
-                        $tarifa = \App\TarifaCuetoSola::where('edad_min', '<=', $edadActualAux)
+                        $tarifa = \App\TarifaCueto::where('edad_min', '<=', $edadActualAux)
                             ->where('edad_max', '>=', $edadActualAux)->get();   
 
                         $importeParcial = $tarifa[0]->tarifa; 
@@ -170,6 +370,37 @@ class ClienteController extends Controller
                             'importeParcial' => $importeParcial
                             ]
                         ];
+
+                        //Recorrer los familiares y calcular el importe parcial
+                        for ($l=0; $l < count($familiares) ; $l++) { 
+                            //Calcular la edad del familiar para ese mes
+                            $f_nacimiento = new DateTime($familiares[$l]->f_nacimiento);
+                            $interval = $f_nacimiento->diff($f_deuda);
+
+                            $edadActual = $interval->y;
+
+                            if ($edadActual == 0) {
+                                $edadActualAux = 1;
+                            }else if($edadActual > 125){
+                                $edadActualAux = 125;
+                            }else{
+                                $edadActualAux = $edadActual;
+                            }
+
+                            //Cargar la tarifa correspondiente a la edad actual
+                            $tarifa = \App\TarifaCueto::where('edad_min', '<=', $edadActualAux)
+                                ->where('edad_max', '>=', $edadActualAux)->get();
+
+                            //Calcular el importe (parcial)
+                            $importeParcial = $tarifa[0]->tarifa;
+
+                            //Preparar el detalle del recibo
+                            array_push($detalle, ['id_persona' => $familiares[$l]->id,
+                                                'edad' => $edadActual,
+                                                'importeParcial' => $importeParcial]);
+
+                            $importeTotal = $importeTotal + $importeParcial;
+                        }
 
                         //Consultar el id del ultimo recibo para setear num_recibo de forma secuencial
                         $ultimoRecibo = DB::select("SELECT MAX(num_recibo) as idMax FROM recibos");
@@ -200,229 +431,6 @@ class ClienteController extends Controller
                             $mesSiguiente = $mesSiguiente + 1;
                             $anioDeuda = $anioDeuda;
                         }
-                    }
-                }
-                return response()->json(['status'=>'ok', 'cliente'=>$nuevoCliente, 'auxTicket'=>$auxTicket, 'pago'=>$pago], 200);
-            }else{
-                return response()->json(['error'=>'Error al crear el cliente.'], 500);
-            } 
-        }
-
-        /*Si se va a crear un tipo=AF_CUETO 
-         se debe pasar tambien los familiares*/
-        if ($request->input('tipo') == 'AF_CUETO' && !$request->input('familiares')) {
-            // Se devuelve un array errors con los errores encontrados y cabecera HTTP 422 Unprocessable Entity – [Entidad improcesable] Utilizada para errores de validación.
-            return response()->json(['error'=>'Faltan datos necesarios para el proceso de alta para familiares.'],422);
-        }
-        else if ($request->input('tipo') == 'AF_CUETO' && $request->input('familiares')){
-
-            $familiares = json_decode($request->input('familiares'));
-
-            //$familiares = $request->input('familiares');
-
-            //return count($familiares);
-
-            for ($i=0; $i < count($familiares) ; $i++) { 
-                //verificar que no exista ninguna persona en toda la BD con ese dni
-                $auxCliente = \App\Cliente::where('dni', $familiares[$i]->dni)->get();
-                if(count($auxCliente)!=0){
-                   // Devolvemos un código 409 Conflict. 
-                    return response()->json(['error'=>'Ya existe un cliente con el dni '.$familiares[$i]->dni], 409);
-                }
-
-                $auxFamiliar = \App\Familiar::where('dni', $familiares[$i]->dni)->get();
-                if(count($auxFamiliar)!=0){
-                    $titular = $auxFamiliar[0]->titular;
-                   // Devolvemos un código 409 Conflict. 
-                    return response()->json(['error'=>'Ya existe un familiar con el dni '.$familiares[$i]->dni,
-                                'titular'=>$titular], 409);
-                }
-            }
-
-            $nuevoCliente=\App\Cliente::create($request->all());
-
-            //Asignar ticket al cliente
-            $auxTicket[0]->cliente_id = $nuevoCliente->id;
-            $auxTicket[0]->save();
-            
-            //Registrar ultimo pago
-            $pago=new \App\Pago;
-            $pago->cliente_id=$nuevoCliente->id;
-            $pago->sucursal_id=$request->input('sucursal_id');
-            $pago->mes=$request->input('mes');
-            $pago->anio=$request->input('anio');
-            $pago->save();
-                
-            for ($i=0; $i < count($familiares) ; $i++) {
-
-                /*Primero creo una instancia en la tabla familiares*/
-                $familiar = new \App\Familiar;
-                $familiar->nombre_1 = $familiares[$i]->nombre_1;
-
-                if ( property_exists($familiares[$i], 'nombre_2')) {
-                    if ($familiares[$i]->nombre_2 != null && $familiares[$i]->nombre_2!='')
-                    {
-                        $familiar->nombre_2 = $familiares[$i]->nombre_2;
-                    }
-                    
-                }
-                //$familiar->nombre_2 = $familiares[$i]->nombre_2;
-
-                $familiar->apellido_1 = $familiares[$i]->apellido_1;
-
-                if ( property_exists($familiares[$i], 'apellido_2')) {
-                    if ($familiares[$i]->apellido_2 != null && $familiares[$i]->apellido_2!='')
-                    {
-                        $familiar->apellido_2 = $familiares[$i]->apellido_2;
-                    }
-                }
-                //$familiar->apellido_2 = $familiares[$i]->apellido_2;
-
-                $familiar->dni = $familiares[$i]->dni;
-                $familiar->direccion = $familiares[$i]->direccion;
-                $familiar->f_nacimiento = $familiares[$i]->f_nacimiento;
-                $familiar->sexo = $familiares[$i]->sexo;
-                $familiar->vinculo = $familiares[$i]->vinculo;
-
-                if ( property_exists($familiares[$i], 'observaciones')) {
-                    if ($familiares[$i]->observaciones != null && $familiares[$i]->observaciones!='')
-                    {
-                        $familiar->observaciones = $familiares[$i]->observaciones;
-                    }   
-                }
-                //$familiar->observaciones = $familiares[$i]->observaciones;
-
-                $familiar->sucursal_id = $request->input('sucursal_id');
-                $familiar->cliente_id = $nuevoCliente->id;
-
-                $familiar->save();
-
-                $familiares[$i]->id = $familiar->id;
-            }
-
-            //Calcular los meses que debe en base al ultimo pago
-            $fechaActual = new DateTime("now");
-            //$fechaActual = new DateTime('2017-11-21');
-            $anioActual = date("Y");
-            $mesActual = date("m");
-            $diaActual = date("d");
-            $f_ultimoPago = new DateTime($request->input('anio').'-'.$request->input('mes').'-'.$diaActual);
-            $interval = $f_ultimoPago->diff($fechaActual);
-
-            $mesesDeuda = $interval->m + $interval->y * 12;
-
-            //Si debe mas de dos meses, se crean recibos en estado D
-            //por los meses que debe
-            //Nota: no se toma en cuenta el mes actual porque ese recibo
-            //se genera en otro proceso
-            if($mesesDeuda > 1 ){
-
-                $diaAux = 1;
-                $mesAux = $request->input('mes');
-                $anioAux = $request->input('anio');
-
-                //Logica para el cambio del mes
-                if ($mesAux == 12) {
-                    $mesSiguiente = 1;
-                    $anioDeuda = $anioAux + 1;
-                } else {
-                    $mesSiguiente = $mesAux + 1;
-                    $anioDeuda = $anioAux;
-                }
-
-                //Generar un recibo por cada mes que debe hasta el mes actual-1
-                for ($k=0; $k < $mesesDeuda-1 ; $k++) { 
-
-                    //Calcular la edad del cliente para ese mes
-                    $f_nacimiento = new DateTime($nuevoCliente->f_nacimiento);
-                    $f_deuda = new DateTime($anioDeuda.'-'.$mesSiguiente.'-'.$diaAux);
-                    $interval = $f_nacimiento->diff($f_deuda);
-
-                    $edadActual = $interval->y;
-
-                    if ($edadActual == 0) {
-                        $edadActualAux = 1;
-                    }else if($edadActual > 125){
-                        $edadActualAux = 125;
-                    }else{
-                        $edadActualAux = $edadActual;
-                    }
-
-                    //Cargar la tarifa correspondiente a la edad actual
-                    $tarifa = \App\TarifaCueto::where('edad_min', '<=', $edadActualAux)
-                        ->where('edad_max', '>=', $edadActualAux)->get();   
-
-                    $importeParcial = $tarifa[0]->tarifa; 
-                    $importeTotal = $importeParcial;
-                    
-                    //Preparar el detalle del recibo
-                    $detalle = [
-                        [
-                        'id_persona' => $nuevoCliente->id,
-                        'edad' => $edadActual,
-                        'importeParcial' => $importeParcial
-                        ]
-                    ];
-
-                    //Recorrer los familiares y calcular el importe parcial
-                    for ($l=0; $l < count($familiares) ; $l++) { 
-                        //Calcular la edad del familiar para ese mes
-                        $f_nacimiento = new DateTime($familiares[$l]->f_nacimiento);
-                        $interval = $f_nacimiento->diff($f_deuda);
-
-                        $edadActual = $interval->y;
-
-                        if ($edadActual == 0) {
-                            $edadActualAux = 1;
-                        }else if($edadActual > 125){
-                            $edadActualAux = 125;
-                        }else{
-                            $edadActualAux = $edadActual;
-                        }
-
-                        //Cargar la tarifa correspondiente a la edad actual
-                        $tarifa = \App\TarifaCueto::where('edad_min', '<=', $edadActualAux)
-                            ->where('edad_max', '>=', $edadActualAux)->get();
-
-                        //Calcular el importe (parcial)
-                        $importeParcial = $tarifa[0]->tarifa;
-
-                        //Preparar el detalle del recibo
-                        array_push($detalle, ['id_persona' => $familiares[$l]->id,
-                                            'edad' => $edadActual,
-                                            'importeParcial' => $importeParcial]);
-
-                        $importeTotal = $importeTotal + $importeParcial;
-                    }
-
-                    //Consultar el id del ultimo recibo para setear num_recibo de forma secuencial
-                    $ultimoRecibo = DB::select("SELECT MAX(num_recibo) as idMax FROM recibos");
-                    $ultimoRecibo = $ultimoRecibo[0]->idMax;
-                    if (!$ultimoRecibo) {
-                        $ultimoRecibo = 0;
-                    }
-
-                    //Generar el recibo
-                    $recibo = new \App\Recibo;
-                    $recibo->num_recibo=$ultimoRecibo + 1;
-                    $recibo->importe=$importeTotal;
-                    $recibo->estado='D'; //D = deuda
-                    $recibo->mes=$mesSiguiente;
-                    $recibo->anio=$anioDeuda;
-                    $recibo->sucursal_id=$request->input('sucursal_id');
-                    $recibo->cartera_id=$request->input('cartera_id');
-                    $recibo->cliente_id=$nuevoCliente->id;
-                    $recibo->detalle=json_encode($detalle);
-                    //$recibo->detalle2=$detalle;
-                    $recibo->save();
-
-                    //Logica para el cambio del mes
-                    if ($mesSiguiente == 12) {
-                        $mesSiguiente = 1;
-                        $anioDeuda = $anioDeuda + 1;
-                    } else {
-                        $mesSiguiente = $mesSiguiente + 1;
-                        $anioDeuda = $anioDeuda;
                     }
                 }
             }
@@ -479,7 +487,7 @@ class ClienteController extends Controller
         }
 
         //cargar todos los clientes de una sucursal
-        $clientes = \App\Cliente::where('sucursal_id', $request->input('sucursal_id'))->with('familiares')->with('recibos.cliente')
+        $clientes = \App\Cliente::where('sucursal_id', $request->input('sucursal_id'))->with('familiares')->with('recibos.cliente')->with('cartera')->with('pagos')
             ->get();
 
         if(count($clientes) == 0){
@@ -655,6 +663,25 @@ class ClienteController extends Controller
         if(!$book)
             return response()->json(['error'=>'No existe el cliente con id '.$id], 404);
 
+        if ($request->input('f_pago')) {
+            $ultPago = \App\Pago::where('cliente_id', $cliente->id)->
+                    whereNull('monto')->get();
+            if(count($ultPago)!=0){
+               for ($j=0; $j < count($ultPago); $j++) { 
+                   $ultPago[$j]->delete();
+               }
+            }
+
+            //Registrar ultimo pago
+            $pago=new \App\Pago;
+            $pago->cliente_id=$cliente->id;
+            $pago->sucursal_id=$request->input('sucursal_id');
+            $pago->mes=$request->input('mes');
+            $pago->anio=$request->input('anio');
+            $pago->f_pago=$request->input('f_pago');
+            $pago->save();
+        }
+
         if ($dni != null && $dni!='')
         {
             $auxCliente = \App\Cliente::where('id', '<>', $cliente->id)->
@@ -688,16 +715,7 @@ class ClienteController extends Controller
             $auxTicket[0]->cliente_id=$request->input('id');
             $auxTicket[0]->save();
         }
-        if ($book->estado!='V') {
-            $pago=new \App\Pago;
-                if ($request->input('estado')=='V') {
-                    $pago->cliente_id=$book->id;
-                    $pago->sucursal_id=$book->sucursal_id;
-                    $pago->mes=$request->input('mes');
-                    $pago->anio=$request->input('anio');
-                    $pago->save();
-                }
-        }
+
 
         $book->fill($request->all());
 

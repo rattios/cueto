@@ -4,6 +4,7 @@ import { FormGroup, FormArray, FormBuilder, Validators, FormControl  } from '@an
 import { BsModalComponent } from 'ng2-bs3-modal';
 import { RutaService } from '../services/ruta.service';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import { Observable, Observer } from 'rxjs';
 
 declare const $: any;
 declare var google: any;
@@ -91,14 +92,16 @@ export class UserProfileComponent implements OnInit {
             apellido_2: [""],
             dni: ["", Validators.required],
             direccion: [""],
+            lat: [""],
+            lng: [""],
             f_nacimiento: ["", Validators.required],
             estado: ["", Validators.required],
             sexo: [""],
             cuota: [""],
             correo: [""],
             telefono: [""],
-            f_alta: ["", Validators.required],
-            f_pago:["", Validators.required],
+            f_alta: [""],
+            f_pago:[""],
             moroso:[false],
             cuotas:this.builder.array([this.cuotaArray()]),
             sucursal: [""],
@@ -215,7 +218,7 @@ export class UserProfileComponent implements OnInit {
                   radius: 10*1000
                 });
                 autocomplete.setBounds(circle.getBounds());
-          autocomplete.addListener("place_changed", () => {
+            autocomplete.addListener("place_changed", () => {
             this.ngZone.run(() => {
               //get the place result
               let place = autocomplete.getPlace();
@@ -224,17 +227,60 @@ export class UserProfileComponent implements OnInit {
               if (place.geometry === undefined || place.geometry === null) {
                 return;
               }
-              
+              console.log(place.formatted_address);
+              this.registroClienteForm.patchValue({direccion: place.formatted_address });
+              //console.log(place.address_components[0].long_name);
               //set latitude, longitude and zoom
               this.latitude = place.geometry.location.lat();
+              this.registroClienteForm.patchValue({lat: place.geometry.location.lat() });
               this.longitude = place.geometry.location.lng();
-              this.zoom = 12;
+              this.registroClienteForm.patchValue({lng: place.geometry.location.lng() });
+              this.zoom = 11;
             });
           });
         });
     }
+  public setDir(dir){
+    return Observable.create(observer => {
+      let geocoder = new google.maps.Geocoder();
+      geocoder.geocode({'location': dir}, function(results, status) {
+            if (status === 'OK') {
+              if (results[1]) {
+                console.log(results[1]);
+                //alert(JSON.stringify(results[1].formatted_address));
+                //this.setDir(results[1].formatted_address);
+                 observer.next(results[1].formatted_address);
+                 observer.complete();
+                
+              } else {
+                alert('No results found');
+                observer.next({});
+                observer.complete();
+              }
+            } else {
+              console.log('Geocoder failed due to: ' + status);
+              observer.next({});
+              observer.complete();
+            }
+          });
+       })
+  }
 
+  markerDragEnd($event: MouseEvent) {
+    console.log($event);
+    var latlng:any;
+    
+    latlng=$event;
+    latlng=latlng.coords;
+    this.registroClienteForm.patchValue({lat: latlng.lat });
+    this.registroClienteForm.patchValue({lng: latlng.lng });
 
+    this.setDir(latlng).subscribe(result => {
+      this.registroClienteForm.patchValue({direccion: result });
+      },error => console.log(error),() => console.log('Geocoding completed!')
+    );
+    
+  }
 
   private setCurrentPosition() {
     if ("geolocation" in navigator) {
@@ -262,6 +308,7 @@ export class UserProfileComponent implements OnInit {
 
 
     uppercase(value: string) {
+      //console.log(value);
       return value.toUpperCase();
     }
     public loading2: boolean = true;
@@ -345,17 +392,21 @@ export class UserProfileComponent implements OnInit {
       }
     }
     public compFechPago(){
-      
-      console.log(this.registroClienteForm.value.f_pago);
-      console.log(this.registroClienteForm.value.f_alta);
-      var d1= new Date(this.registroClienteForm.value.f_pago);
-      var d2= new Date(this.registroClienteForm.value.f_alta);
+      setTimeout(()=>{
+        console.log(this.registroClienteForm.value.f_pago);
+        console.log(this.registroClienteForm.value.f_alta);
+        var fpago= new Date(this.registroClienteForm.value.f_pago);
+        var falta= new Date(this.registroClienteForm.value.f_alta);
 
-      if(d1.getTime()<=d2.getTime()){
-        alert('La fecha de pago no puede ser menor que la de alta.');
-      }else{
-        //alert('si sirve');
-      }
+        console.log(fpago.getTime());
+        console.log(falta.getTime());
+
+        if(fpago.getTime()<falta.getTime()){
+          alert('La fecha de pago no puede ser menor que la de alta.');
+        }else{
+          //alert('si sirve');
+        }
+      },500)
     }
 
     enviarCliente(model){
@@ -392,6 +443,10 @@ export class UserProfileComponent implements OnInit {
              console.log(data);
              // alert('exito');
              this.showNotification('top','center','Cliente registrado con exito',2);
+             setTimeout(()=>{
+               window.location.reload();
+                
+             }, 2000);
              this.registroClienteForm.reset();
              this.resetCliente();
            },
@@ -499,31 +554,7 @@ export class UserProfileComponent implements OnInit {
         }
     }
     public verEstado() {
-      setTimeout(() => {
-        const control = this.registroClienteForm.controls;
-        var estado=control.estado.value;
-        console.log(estado);
-        if (estado=='PC') {
-          this.registroClienteForm.patchValue({mes: "" });
-          this.registroClienteForm.patchValue({anio: "" });
-        }else if(estado=='P') {
-          this.registroClienteForm.patchValue({mes: "" });
-          this.registroClienteForm.patchValue({anio: "" });
-        }else if(estado=='V') {
-          var diaActual=new Date(this.fechaSistema);
-          this.registroClienteForm.patchValue({mes: diaActual.getMonth()+1 });
-          this.registroClienteForm.patchValue({anio: diaActual.getFullYear() });
-        }else if (estado=='M') {
-          const control = this.registroClienteForm.controls;
-          var f_pago=new Date(control.f_pago.value);
-          this.registroClienteForm.patchValue({mes: f_pago.getMonth()+1 });
-          this.registroClienteForm.patchValue({anio: f_pago.getFullYear() });
-        }else if (estado=='B') {
-          this.registroClienteForm.patchValue({mes: "" });
-          this.registroClienteForm.patchValue({anio: "" });
-        }
-        console.log(this.registroClienteForm.value);
-      }, 1500);
+      
     }
     public setMesAnio() {
       setTimeout(() => {

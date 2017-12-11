@@ -384,8 +384,11 @@ export class IngresarRendicionesComponent implements OnInit {
     	}
     	this.registroClienteForm.patchValue({monto: monto });
     }
+    public showAprobar=true;
+
     enviar(form){
-    	
+    	this.loading=true;
+    	this.showAprobar=false;
     	console.log((<FormArray>this.registroClienteForm.controls['recibos'].value));
     	var reci=<FormArray>this.registroClienteForm.controls['recibos'].value;
     	for (var i = 0; i < reci.length; ++i) {
@@ -421,11 +424,12 @@ export class IngresarRendicionesComponent implements OnInit {
              //this.volver();
              setTimeout(()=>{
                window.location.reload();
-             }, 2000);;
+                this.showAprobar=true;
+             }, 2000);
            },
            msg => { // Error
              console.log(msg);
-
+			this.showAprobar=true;
              this.loading=false;
              this.showNotification('top','center',JSON.stringify(msg.error.error),1);
            }

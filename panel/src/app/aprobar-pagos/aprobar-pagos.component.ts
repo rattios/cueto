@@ -208,12 +208,14 @@ export class AprobarPagosComponent implements OnInit {
 	  volver(){
 	  	this.verRecibo=false;
 	  }
+    public showAprobar=true;
 
 	  aprobar(){
       this.infoRendicion.autorizante_id=localStorage.getItem("manappger_user_id");
       
 	  	console.log(this.infoRendicion);
-	  	
+	  	this.showAprobar=false;
+      this.loading=true;
 	  	this.http.put(this.ruta.get_ruta()+'public/rendiciones/'+this.infoRendicion.id,this.infoRendicion)
          .toPromise()
          .then(
@@ -223,11 +225,15 @@ export class AprobarPagosComponent implements OnInit {
              this.showNotification('top','center','Aprobada la rendición con éxito.',1);
              setTimeout(()=>{
                window.location.reload();
+               this.showAprobar=true;
+               this.loading=false;
              }, 2000);
            },
            msg => { // Error
              console.log(msg);
              this.loading=false;
+              this.showAprobar=true;
+              this.loading=false;
              this.showNotification('top','center',JSON.stringify(msg.error.error),1);
            }
       );

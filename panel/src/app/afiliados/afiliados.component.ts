@@ -43,6 +43,8 @@ export class AfiliadosComponent implements OnInit {
   public carteras:any;
   public ticket:any;
   public fechaSistema:any;
+  public recibosD:any;
+  public recibosA:any;
   public imagen:any;
   private zone: NgZone;
   public progress: number = 0;
@@ -112,6 +114,7 @@ export class AfiliadosComponent implements OnInit {
             correo: [""],
             telefono: [""],
             f_alta: ["", Validators.required],
+            f_pago:["", Validators.required],
             moroso:[false],
             cuotas:this.builder.array([this.cuotaArray()]),
             sucursal: [""],
@@ -202,18 +205,27 @@ export class AfiliadosComponent implements OnInit {
              this.data2 = data;
              this.socios=data;
              this.socios=this.socios.clientes;
-             /*for (var i = 0; i < this.socios.length; i++) {
-
-               if (this.socios[i].f_nacimiento=='0000-00-00'||this.socios[i].f_nacimiento==null) {
-                 this.socios[i].f_nacimiento='';
-               }
-               if (this.socios[i].f_alta=='0000-00-00'||this.socios[i].f_alta==null) {
-                 this.socios[i].f_nacimiento='';
-               }
-
-             }*/
+             this.recibosD=[];
+             this.recibosA=[];
+             for (var i = 0; i < this.socios.length; i++) {
+               for (var j = 0; j < this.socios[i].recibos.length; j++) {
+                 this.socios[i].recibosD=[];
+                 this.socios[i].recibosA=[];
+                }
+             }
+             for (var i = 0; i < this.socios.length; i++) {
+               for (var j = 0; j < this.socios[i].recibos.length; j++) {
+                 if(this.socios[i].recibos[j].estado=='D') {
+                    this.socios[i].recibosD.push(this.socios[i].recibos[j]);
+                 }else if(this.socios[i].recibos[j].estado=='A') {
+                    this.socios[i].recibosA.push(this.socios[i].recibos[j]);
+                 }
+                }
+             }
              this.data=this.socios;
              console.log(this.socios);
+             console.log(this.recibosD);
+             console.log(this.recibosA);
              
              this.productList = this.data;
              this.filteredItems = this.productList;
@@ -383,8 +395,8 @@ export class AfiliadosComponent implements OnInit {
         if (item.f_alta=='0000-00-00'||item.f_alta==null) {
           item.f_alta="";
         }
-        if (item.f_moroso=='0000-00-00'||item.f_moroso==null) {
-          item.f_moroso="";
+        if (item.f_pago=='0000-00-00'||item.f_pago==null) {
+          item.f_pago="";
         }
 
         if (item.familiares.length>0) {
@@ -414,6 +426,7 @@ export class AfiliadosComponent implements OnInit {
             correo: [""],
             telefono: [""],
             f_alta: [""],
+            f_pago:[""],
             moroso:[false],
             cuotas:this.builder.array([this.cuotaArray()]),
             sucursal: [""],
@@ -458,6 +471,7 @@ export class AfiliadosComponent implements OnInit {
         this.registroClienteForm.patchValue({correo: item.correo });
         this.registroClienteForm.patchValue({telefono: item.telefono });
         this.registroClienteForm.patchValue({f_alta: item.f_alta });
+        this.registroClienteForm.patchValue({f_pago: this.siPago(item.pagos) });
         this.registroClienteForm.patchValue({f_moroso: item.f_moroso });
         this.registroClienteForm.patchValue({moroso: item.moroso });
         this.registroClienteForm.patchValue({sucursal: item.sucursal });
@@ -468,8 +482,8 @@ export class AfiliadosComponent implements OnInit {
         this.registroClienteForm.patchValue({ticket_id: item.ticket_id });
         this.registroClienteForm.patchValue({ticket_id_viejo: item.ticket_id });
         this.registroClienteForm.patchValue({imagenes: item.imagenes });
-        this.registroClienteForm.patchValue({mes_moroso: item.mes_moroso });
-        this.registroClienteForm.patchValue({ano_moroso: item.ano_moroso });
+        this.registroClienteForm.patchValue({mes: new Date(this.siPago(item.pagos)).getMonth()+1 });
+        this.registroClienteForm.patchValue({anio: new Date(this.siPago(item.pagos)).getFullYear() });
 
         this.getTicket(item.cartera_id);
         this.setTicket(item.ticket_id);
@@ -492,6 +506,15 @@ export class AfiliadosComponent implements OnInit {
             (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({observaciones: item.familiares[i].observaciones});
             (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({existe: true});
         }
+    }
+
+    siPago(pago){
+      console.log(pago);
+      if(pago.length>0) {
+        return pago[0].f_pago;
+      }else{
+        return '';
+      }
     }
 
     agregar(){
@@ -604,11 +627,13 @@ export class AfiliadosComponent implements OnInit {
              this.showNotification('top','center','Actualizado con exito',2);
              this.loading=false;
              this.restaurar();
+             this.volver();
            },
            msg => { // Error
              console.log(msg);
              this.showNotification('top','center','Ha ocurrido un error' + JSON.stringify(msg.error),4);
              this.loading=false;
+             this.volver();
            }
          );
     }
@@ -624,36 +649,17 @@ export class AfiliadosComponent implements OnInit {
              this.showNotification('top','center','Actualizado con exito',2);
              this.loading=false;
              this.restaurar();
+             this.volver();
            },
            msg => { // Error
              console.log(msg);
              this.showNotification('top','center','Ha ocurrido un error' + JSON.stringify(msg.error),4);
              this.loading=false;
+             this.volver();
            }
          );
     }
 
-    public verEstado(estado) {
-      console.log(estado.target.value);
-        if (estado.target.value=='PC') {
-          this.registroClienteForm.patchValue({mes: "" });
-          this.registroClienteForm.patchValue({anio: "" });
-        }else if(estado.target.value=='P') {
-          this.registroClienteForm.patchValue({mes: "" });
-          this.registroClienteForm.patchValue({anio: "" });
-        }else if(estado.target.value=='V') {
-          var diaActual=new Date(this.fechaSistema);
-          this.registroClienteForm.patchValue({mes: diaActual.getMonth()+1 });
-          this.registroClienteForm.patchValue({anio: diaActual.getFullYear() });
-        }else if (estado.target.value=='M') {
-          this.registroClienteForm.patchValue({mes: "" });
-          this.registroClienteForm.patchValue({anio: "" });
-        }else if (estado.target.value=='B') {
-          this.registroClienteForm.patchValue({mes: "" });
-          this.registroClienteForm.patchValue({anio: "" });
-        }
-        console.log(this.registroClienteForm.value);
-    }
 
     uppercase(value: string) {
       return value.toUpperCase();
@@ -728,6 +734,115 @@ export class AfiliadosComponent implements OnInit {
         this.verDatos=false;
         this.verEditar=false;
     }
+    public banderaCheck=1;
+    public estadoMoroso='No';
+
+    public compFechPago(){
+      setTimeout(()=>{
+        console.log(this.registroClienteForm.value.f_pago);
+        console.log(this.registroClienteForm.value.f_alta);
+        var fpago= new Date(this.registroClienteForm.value.f_pago);
+        var falta= new Date(this.registroClienteForm.value.f_alta);
+
+        console.log(fpago.getTime());
+        console.log(falta.getTime());
+
+        if(fpago.getTime()<falta.getTime()){
+          alert('La fecha de pago no puede ser menor que la de alta.');
+        }else{
+          //alert('si sirve');
+        }
+      },500)
+    }
+
+    public chekarMoroso() {
+        
+        setTimeout(() => {
+            const control= this.registroClienteForm.controls;
+            var esMoroso=control.moroso.value;
+         
+            if (this.banderaCheck==0) {
+                if (esMoroso==true) {
+                    this.registroClienteForm.patchValue({estado: 'M' });
+                    this.banderaCheck=1;
+                    this.estadoMoroso='Si';
+                }else{
+                    this.registroClienteForm.patchValue({estado: '' });
+                    this.estadoMoroso='No';
+                       
+                }
+            }else{
+                if (esMoroso==true) {
+                    this.registroClienteForm.patchValue({estado: 'M' });
+                    //this.chekar();
+                    this.estadoMoroso='Si';
+                }else{
+                    this.registroClienteForm.patchValue({estado: '' });
+                    this.estadoMoroso='No';
+                     
+                }
+                
+            }
+        }, 500); 
+
+       
+    }
+
+    public checkarSiEsMoroso(){
+      setTimeout(() => {
+        const control = this.registroClienteForm.controls;
+        var f_pago=new Date(control.f_pago.value);
+        console.log(f_pago);
+        var fSistema=new Date(this.fechaSistema);
+        console.log(fSistema);
+
+        var mesPago=f_pago.getMonth();
+        var mesSistema=fSistema.getMonth();
+        var meses=[1,2,3,4,5,6,7,8,9,10,11,12];
+        var i1=0;
+        var i2=0;
+
+        for (var i = 0; i < meses.length; ++i) {
+          if(meses[i]==mesPago) {
+            i1=i;
+          }
+          if(meses[i]==mesSistema) {
+            i2=i;
+          }
+        }
+
+        var diffmes=i2-i1;
+        console.log(diffmes);
+        if(diffmes>=2){
+          this.registroClienteForm.patchValue({moroso: true });
+          this.registroClienteForm.patchValue({estado: 'M' });
+        }else{
+          this.registroClienteForm.patchValue({moroso: false });
+          this.registroClienteForm.patchValue({estado: '' });
+        }
+        
+
+      }, 500); 
+    }
+
+     public verEstado() {
+      
+    }
+
+    public setMesAnio() {
+      setTimeout(() => {
+        
+        const control = this.registroClienteForm.controls;
+        var f_pago=new Date(control.f_pago.value);
+        this.registroClienteForm.patchValue({mes: f_pago.getMonth()+1 });
+        this.registroClienteForm.patchValue({anio: f_pago.getFullYear() });
+        
+        console.log(this.registroClienteForm.value);
+      }, 500);
+    }
+
+
+
    // -------------------------------------------------------------------------------------------------------------------
    filteredItems : any;
    pages : number = 4;
@@ -763,10 +878,6 @@ export class AfiliadosComponent implements OnInit {
             for (var i = 0; i < this.productList.length; ++i) {
               if (this.productList[i].nombre_1.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
                  this.filteredItems.push(this.productList[i]);
-              }else if (this.productList[i].nombre_2.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
-                 this.filteredItems.push(this.productList[i]);
-              }else if (this.productList[i].apellido_1.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
-                 this.filteredItems.push(this.productList[i]);
               }else if (this.productList[i].apellido_1.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
                  this.filteredItems.push(this.productList[i]);
               }else if (this.productList[i].dni.indexOf(this.inputName)>=0) {
@@ -775,7 +886,9 @@ export class AfiliadosComponent implements OnInit {
                  this.filteredItems.push(this.productList[i]);
               }else if (this.productList[i].f_alta.indexOf(this.inputName)>=0) {
                  this.filteredItems.push(this.productList[i]);
-              }else if (this.productList[i].user_id2.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
+              }else if (this.productList[i].estado2.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
+                 this.filteredItems.push(this.productList[i]);
+              }else if (this.productList[i].tipo2.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
                  this.filteredItems.push(this.productList[i]);
               }
             }
