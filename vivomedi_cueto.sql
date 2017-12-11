@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-11-2017 a las 19:25:59
+-- Tiempo de generación: 11-12-2017 a las 21:36:33
 -- Versión del servidor: 10.1.26-MariaDB
 -- Versión de PHP: 7.1.8
 
@@ -72,6 +72,8 @@ CREATE TABLE `clientes` (
   `apellido_2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `dni` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `direccion` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lat` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `lng` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `f_nacimiento` date DEFAULT '0000-00-00',
   `estado` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sexo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -100,20 +102,13 @@ CREATE TABLE `clientes` (
 -- Volcado de datos para la tabla `clientes`
 --
 
-INSERT INTO `clientes` (`id`, `tipo`, `nombre_1`, `nombre_2`, `apellido_1`, `apellido_2`, `dni`, `direccion`, `f_nacimiento`, `estado`, `sexo`, `correo`, `telefono`, `cuota`, `f_moroso`, `moroso`, `ticket`, `ticket_id`, `cartera`, `f_alta`, `mes_moroso`, `ano_moroso`, `sucursal_id`, `sucursal`, `user_id`, `cartera_id`, `convenio_id`, `imagenes`, `created_at`, `updated_at`) VALUES
-(11, 'AF_CUETO', 'Rosa', 'Edelmira', 'Riffo', 'Castro', '92378875', '', '1954-09-03', 'PC', 'F', NULL, NULL, 0.00, '0000-00-00', '0', 0, NULL, NULL, '2017-08-17', '', '', 1, 'Cipolletti', 2, 1, NULL, NULL, '2017-10-31 09:24:25', '2017-10-31 09:24:25'),
-(12, 'AF_CUETO', 'Ceferina', '', 'Arias', 'Jara', '92271104', 'Jose Hernandez 1875', '1943-11-15', 'PC', 'F', NULL, NULL, 0.00, '0000-00-00', '0', 0, NULL, NULL, '2010-01-20', '', '', 1, 'Cipolletti', 2, 1, NULL, NULL, '2017-10-31 09:45:06', '2017-10-31 09:45:06'),
-(13, 'AF_CUETO_S', 'Sonia', 'Liliana', 'Barila', '', '11391902', 'Castelli 44', '1954-07-10', 'PC', 'F', NULL, NULL, 0.00, '0000-00-00', '0', 0, NULL, NULL, '2017-07-18', '', '', 1, 'Cipolletti', 2, 1, NULL, NULL, '2017-10-31 09:52:41', '2017-10-31 09:52:41'),
-(14, 'AF_CUETO_S', 'Hector', 'Arturo', 'Palacios', '', '8527910', 'Casa 22 Michimichi', '1951-06-05', 'PC', 'M', NULL, NULL, 0.00, '0000-00-00', '0', 0, NULL, NULL, '2017-09-12', '', '', 1, 'Cipolletti', 2, 1, NULL, NULL, '2017-10-31 09:59:11', '2017-10-31 09:59:11'),
-(15, 'AF_CUETO', 'Ingrid', '', 'Rodriguez', '', '32596966', 'B Obrero B MZA 5 lote2', '1986-09-19', 'PC', 'F', NULL, NULL, 0.00, '0000-00-00', '0', 0, NULL, NULL, '2017-08-09', '', '', 1, 'Cipolletti', 2, 1, NULL, NULL, '2017-10-31 10:09:44', '2017-10-31 10:09:44'),
-(16, 'AF_CUETO', 'Victor', 'R.', 'Canales', '', '12.979.146', 'Primera Junta 101', '1958-11-25', 'PC', 'M', NULL, NULL, 0.00, '0000-00-00', '0', 7956, 7, 'cartera de lito', '2015-04-20', '', '', 1, 'Cipolletti', 1, 1, NULL, NULL, '2017-10-31 17:53:55', '2017-10-31 17:53:55'),
-(17, 'AF_CUETO', 'Stella', 'Maris', 'Ilabaca', '', '35.592.554', 'Belgrano 1968', '1990-02-21', 'PC', 'F', NULL, NULL, 0.00, '0000-00-00', '0', 7957, 8, 'cartera de lito', '2009-11-19', '', '', 1, 'Cipolletti', 1, 1, NULL, NULL, '2017-10-31 18:06:50', '2017-10-31 18:06:50'),
-(45, 'AF_CUETO', 'miguel', 'angel', 'heinz', '', '13144035', 'las golondrinas casa 6', '1961-04-08', 'V', 'M', '', '54676932', 0.00, '0000-00-00', '0', 7952, 3, 'cartera de lito', '2008-09-07', '', '', 1, 'Cipolletti', 1, 1, NULL, '', '2017-11-02 10:02:02', '2017-11-09 13:08:35'),
-(74, 'AF_CUETO', 'EIMAR', 'STALIN', 'RANGEL', '', '123', 'PRUEA', '2017-11-09', 'PC', '', 'rew', '3443', 0.00, '0000-00-00', '0', 8001, 52, 'cartera de lito', '2017-11-09', '', '', 1, 'Cipolletti', 1, 2, NULL, 'http://vivomedia.com.ar/cuetociasrl/uploads/484c709e96e3c29c3483ed5cd45f8cc8.png', '2017-11-10 03:03:49', '2017-11-13 06:56:03'),
-(75, 'AF_CUETO', 'LIBERTAD ', '2 NOMBRE LIBER', 'DE ESTRADA', 'ARANA', '24049373', 'BUENOS AIRES, 2079', '1974-10-26', 'M', 'F', 'libestrada@hotmail.com', '2994790562', 0.00, '2017-11-10', '1', 7999, 50, 'cartera de lito', '2017-10-04', '11', '2017', 1, 'Cipolletti', 2, 1, NULL, 'http://vivomedia.com.ar/cuetociasrl/uploads/07f3ed8fb0330da64b713e085f4eca26.png', '2017-11-21 19:43:18', '2017-11-21 19:43:18'),
-(76, 'AF_CUETO_S', 'JESUS', '', 'PEREZ', '', '19234562', 'CASA DE JESUS PEREZ', '1989-03-16', 'V', 'M', 'jesusperez@gmail.com', '04141234512', 0.00, '0000-00-00', '0', 7971, 22, 'cartera de lito', '2017-11-23', '', '', 1, 'Cipolletti', 1, 1, NULL, '', '2017-11-23 04:28:35', '2017-11-23 04:28:35'),
-(77, 'AF_CUETO', 'KEIVER', NULL, 'SOSA', NULL, '19345234', 'CASA DE KEIVER', '1986-03-29', 'V', 'M', 'keiversosa@gmail.com', '123123344', NULL, NULL, NULL, 7972, 23, 'cartera de lito', '2017-07-05', NULL, NULL, 1, 'Cipolletti', 1, 1, NULL, NULL, '2017-11-23 04:31:59', '2017-11-23 04:31:59'),
-(78, 'AF_CUETO', 'EMERIN', '', 'RANGEL', '', '9233312', 'DIRECCION DE EMERIN', '1915-11-10', 'V', 'M', 'emerinrangel@gmail.com', '21312340', 0.00, '0000-00-00', '0', 7973, 24, 'cartera de lito', '2017-01-05', '', '', 1, 'Cipolletti', 1, 1, NULL, '', '2017-11-23 04:40:57', '2017-11-23 04:40:57');
+INSERT INTO `clientes` (`id`, `tipo`, `nombre_1`, `nombre_2`, `apellido_1`, `apellido_2`, `dni`, `direccion`, `lat`, `lng`, `f_nacimiento`, `estado`, `sexo`, `correo`, `telefono`, `cuota`, `f_moroso`, `moroso`, `ticket`, `ticket_id`, `cartera`, `f_alta`, `mes_moroso`, `ano_moroso`, `sucursal_id`, `sucursal`, `user_id`, `cartera_id`, `convenio_id`, `imagenes`, `created_at`, `updated_at`) VALUES
+(1, 'AF_CUETO_S', '1', '', '1', '1', '11', '111', '', '', '1990-10-15', 'PC', 'M', '1@1.c', '1111', 0.00, '0000-00-00', '0', 7951, 2, 'cartera de lito', '0000-00-00', '', '', 1, 'Cipolletti', 3, 1, NULL, '', '2017-12-07 23:30:55', '2017-12-08 01:34:24'),
+(2, 'AF_CUETO_S', '1', '', '1', '', '1111111111', '111', '', '', '1990-11-15', 'V', 'M', '1@1.cs', '1111', 0.00, '0000-00-00', '0', 7952, 3, 'cartera de lito', '0000-00-00', '', '', 1, 'Cipolletti', 3, 1, NULL, '', '2017-12-07 23:45:12', '2017-12-07 23:45:12'),
+(3, 'AF_CUETO_S', 'NOMBRE 17', NULL, 'APELLIDO 1', NULL, '17', 'DIRECCION 1', '0', '0', '0000-00-00', 'PC', 'M', '17@1.com', '1111117', NULL, NULL, '0', 7958, 9, 'cartera de lito', '2017-12-01', NULL, NULL, 1, 'Cipolletti', 3, 1, NULL, NULL, '2017-12-07 23:45:54', '2017-12-08 01:13:25'),
+(4, 'AF_CUETO_S', 'NOMBRE 17', NULL, 'APELLIDO 1', NULL, '18', 'DIRECCION 1', '0', '0', '1990-03-02', 'B', 'M', '17@1.com', '1111117', NULL, NULL, '0', 7959, 10, 'cartera de lito', '2017-12-02', NULL, NULL, 1, 'Cipolletti', 3, 1, NULL, NULL, '2017-12-07 23:46:29', '2017-12-08 01:08:11'),
+(5, 'AF_CUETO_S', '123', '', '4334', '', '23434234', '', '', '', '1990-03-01', 'V', 'M', '1@1.c323', '123123121', 0.00, '0000-00-00', '0', 7953, 4, 'cartera de lito', '2017-08-01', '', '', 1, 'Cipolletti', 3, 1, NULL, '', '2017-12-07 23:52:06', '2017-12-08 00:49:00'),
+(6, 'AF_CUETO_S', '666', '', '666', '', '66666', '', '', '', '1990-12-15', 'V', 'M', '3@3.comhh', '77', 0.00, '0000-00-00', '0', 7963, 14, 'cartera de lito', '2017-11-02', '', '', 1, 'Cipolletti', 3, 1, NULL, '', '2017-12-07 23:54:28', '2017-12-08 01:32:35');
 
 -- --------------------------------------------------------
 
@@ -149,6 +144,35 @@ CREATE TABLE `convenios` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `deudas`
+--
+
+CREATE TABLE `deudas` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `monto` double(8,2) NOT NULL,
+  `mes` int(11) NOT NULL,
+  `anio` int(11) NOT NULL,
+  `sucursal_id` int(10) UNSIGNED NOT NULL,
+  `cliente_id` int(10) UNSIGNED NOT NULL,
+  `recibo_id` int(10) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `deudas`
+--
+
+INSERT INTO `deudas` (`id`, `monto`, `mes`, `anio`, `sucursal_id`, `cliente_id`, `recibo_id`, `created_at`, `updated_at`) VALUES
+(32, 194.00, 11, 2017, 1, 77, 8, '2017-12-03 23:34:08', '2017-12-03 23:34:08'),
+(34, 97.00, 12, 2017, 1, 45, 42, '2017-12-03 23:35:09', '2017-12-03 23:35:09'),
+(35, 56.00, 12, 2017, 1, 76, 43, '2017-12-03 23:37:36', '2017-12-03 23:37:36'),
+(36, 97.00, 12, 2017, 1, 77, 44, '2017-12-03 23:37:36', '2017-12-03 23:37:36'),
+(40, 28.00, 12, 2017, 1, 83, 47, '2017-12-04 19:04:38', '2017-12-04 19:04:38');
 
 -- --------------------------------------------------------
 
@@ -214,27 +238,6 @@ CREATE TABLE `familiares` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Volcado de datos para la tabla `familiares`
---
-
-INSERT INTO `familiares` (`id`, `nombre_1`, `nombre_2`, `apellido_1`, `apellido_2`, `dni`, `direccion`, `f_nacimiento`, `sexo`, `vinculo`, `observaciones`, `sucursal_id`, `cliente_id`, `empleado_id`, `created_at`, `updated_at`) VALUES
-(8, 'Gabriela', 'Lorena', 'Vitale', NULL, '39649035', '', '1996-09-16', 'F', 'hija', NULL, 1, 11, NULL, '2017-10-31 09:24:25', '2017-10-31 09:24:25'),
-(9, 'Honorio', NULL, 'Jara ', 'Bascur', '92262422', '', '1975-05-04', 'M', 'Esposo', NULL, 1, 12, NULL, '2017-10-31 09:45:06', '2017-10-31 09:45:06'),
-(10, 'Manuel', 'Segundo', 'Rodriguez', 'Vazquez', '92475774', '', '1954-12-03', 'M', 'Padre', NULL, 1, 15, NULL, '2017-10-31 10:09:44', '2017-10-31 10:09:44'),
-(11, 'Leticia', 'Virginia ', 'Canales', NULL, '13.837.557', 'Primera Junta 101', '1959-12-20', 'F', 'Hermana', NULL, 1, 16, NULL, '2017-10-31 17:53:55', '2017-10-31 17:53:55'),
-(12, 'Carmen', NULL, 'Ilabaca', NULL, '93.791.707', '', '0000-00-00', 'F', 'Familia', NULL, 1, 17, NULL, '2017-10-31 18:06:50', '2017-10-31 18:06:50'),
-(15, 'blanca', 'azucena', 'muñoz', NULL, '4165075', '', '1941-01-12', 'F', 'esposa', NULL, 1, 45, NULL, '2017-11-02 10:02:02', '2017-11-02 10:02:02'),
-(31, 'EIMAR', 'EIMAR', 'RANGEL DURAN', 'RANGEL DURAN', '123312', 'LA MATA AV2 CALLE 1 CASA 3', '2017-11-09', 'M', 'fgfg', '3434', 1, 74, NULL, '2017-11-10 03:03:49', '2017-11-10 03:44:29'),
-(32, 'JOSE', '', 'RANGEL', '', '123', '323SDAD', '2017-11-09', 'M', '323', '232', 1, 74, NULL, '2017-11-10 03:44:56', '2017-11-10 03:44:56'),
-(33, 'RAFAEL', 'ALBERTO', 'SANCHEZ ', 'DE LA PUENTE', '963214587', 'BUENOS AIRES, 2079', '1975-06-25', 'M', '', 'ESPOSO', 1, 75, NULL, '2017-11-21 19:43:18', '2017-11-21 19:43:18'),
-(34, 'FRANCISCO', '', 'SANCHEZ', 'DE ESTRADA', '12345678', '', '2008-05-14', 'M', 'hijo', 'SSSSSSSSSSSSSSS', 1, 75, NULL, '2017-11-21 19:47:27', '2017-11-21 19:47:27'),
-(35, 'HIJA 1 KEIVER', NULL, 'SOSA', NULL, '3403941', 'DIRECCION DE HIJA', '2005-02-08', 'F', 'hija', 'OBSERVACIONES HIJA', 1, 77, NULL, '2017-11-23 04:31:59', '2017-11-23 04:31:59'),
-(36, 'DANIEL', 'HIBA', 'RANGEL', 'DUQUE', '032423421', 'TACHIRA', '1983-12-16', 'M', 'hijo', 'OBSERVACIONES', 1, 78, NULL, '2017-11-23 04:40:59', '2017-11-23 04:40:59'),
-(37, 'VALENTINA', NULL, 'RANGEL', NULL, '23423523', 'TACHIRA', '2015-05-04', 'F', 'hija', 'OBSERVACIONES DE HIJA', 1, 78, NULL, '2017-11-23 04:40:59', '2017-11-23 04:40:59'),
-(38, 'JUAN', NULL, 'JOSE', NULL, '2133123', 'TACHIRA', '2000-03-16', 'F', 'nieto', 'OBSERVACIONES DE JUAN', 1, 78, NULL, '2017-11-23 04:40:59', '2017-11-23 04:40:59'),
-(39, 'PAOLA', NULL, 'GUAQUE', NULL, '8840202', 'TACHIRA', '1970-03-19', 'M', 'yerna', 'OBSER PAOLA', 1, 78, NULL, '2017-11-23 04:40:59', '2017-11-23 04:40:59');
-
 -- --------------------------------------------------------
 
 --
@@ -280,8 +283,10 @@ CREATE TABLE `pagos` (
   `monto` double(8,2) DEFAULT NULL,
   `mes` int(11) DEFAULT NULL,
   `anio` int(11) DEFAULT NULL,
+  `f_pago` date NOT NULL DEFAULT '0000-00-00',
   `sucursal_id` int(10) UNSIGNED DEFAULT NULL,
   `cliente_id` int(10) UNSIGNED DEFAULT NULL,
+  `doc_cancelador_id` int(10) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -290,11 +295,11 @@ CREATE TABLE `pagos` (
 -- Volcado de datos para la tabla `pagos`
 --
 
-INSERT INTO `pagos` (`id`, `monto`, `mes`, `anio`, `sucursal_id`, `cliente_id`, `created_at`, `updated_at`) VALUES
-(17, NULL, 11, 2017, 1, 45, '2017-11-07 01:55:51', '2017-11-07 01:55:51'),
-(19, NULL, 11, 2017, 1, 76, '2017-11-23 04:28:35', '2017-11-23 04:28:35'),
-(20, NULL, 11, 2017, 1, 77, '2017-11-23 04:31:59', '2017-11-23 04:31:59'),
-(21, NULL, 11, 2017, 1, 78, '2017-11-23 04:40:59', '2017-11-23 04:40:59');
+INSERT INTO `pagos` (`id`, `monto`, `mes`, `anio`, `f_pago`, `sucursal_id`, `cliente_id`, `doc_cancelador_id`, `created_at`, `updated_at`) VALUES
+(11, NULL, 12, 2017, '2017-12-07', 1, 5, NULL, '2017-12-08 00:49:00', '2017-12-08 00:49:00'),
+(14, NULL, 12, 2017, '2017-12-07', 1, 4, NULL, '2017-12-08 01:08:11', '2017-12-08 01:08:11'),
+(15, NULL, 12, 2017, '2017-12-01', 1, 3, NULL, '2017-12-08 01:13:25', '2017-12-08 01:13:25'),
+(18, NULL, 12, 2017, '2017-12-03', 1, 6, NULL, '2017-12-08 01:32:35', '2017-12-08 01:32:35');
 
 -- --------------------------------------------------------
 
@@ -305,7 +310,8 @@ INSERT INTO `pagos` (`id`, `monto`, `mes`, `anio`, `sucursal_id`, `cliente_id`, 
 CREATE TABLE `recibos` (
   `id` int(10) UNSIGNED NOT NULL,
   `num_recibo` int(11) NOT NULL,
-  `importe` int(11) NOT NULL,
+  `importe` double(8,2) NOT NULL,
+  `abono` double(8,2) NOT NULL DEFAULT '0.00',
   `estado` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `mes` int(11) NOT NULL,
   `anio` int(11) NOT NULL,
@@ -315,6 +321,7 @@ CREATE TABLE `recibos` (
   `cliente_id` int(10) UNSIGNED NOT NULL,
   `rendicion_id` int(10) UNSIGNED DEFAULT NULL,
   `detalle` text COLLATE utf8_unicode_ci NOT NULL,
+  `deuda` text COLLATE utf8_unicode_ci,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -328,6 +335,7 @@ CREATE TABLE `recibos` (
 CREATE TABLE `rendiciones` (
   `id` int(10) UNSIGNED NOT NULL,
   `estado` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `monto` double(8,2) NOT NULL,
   `sucursal_id` int(10) UNSIGNED NOT NULL,
   `cartera_id` int(10) UNSIGNED NOT NULL,
   `cobrador_id` int(10) UNSIGNED NOT NULL,
@@ -381,7 +389,7 @@ CREATE TABLE `tarifasconvenio` (
 --
 
 INSERT INTO `tarifasconvenio` (`id`, `edad_min`, `edad_max`, `tarifa`, `carencia`, `created_at`, `updated_at`) VALUES
-(1, 1, 4, 30.00, 3, '0000-00-00 00:00:00', '2017-11-18 23:28:54'),
+(1, 1, 14, 30.00, 3, '0000-00-00 00:00:00', '2017-12-03 23:49:11'),
 (2, 15, 40, 56.00, 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (3, 41, 54, 75.00, 6, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (4, 55, 64, 98.00, 9, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -412,7 +420,7 @@ CREATE TABLE `tarifasconveniosola` (
 --
 
 INSERT INTO `tarifasconveniosola` (`id`, `edad_min`, `edad_max`, `tarifa`, `carencia`, `created_at`, `updated_at`) VALUES
-(1, 1, 4, 60.00, 3, '0000-00-00 00:00:00', '2017-11-18 23:28:35'),
+(1, 1, 14, 60.00, 3, '0000-00-00 00:00:00', '2017-12-03 23:49:27'),
 (2, 15, 40, 112.00, 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (3, 41, 54, 150.00, 6, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (4, 55, 64, 196.00, 9, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -475,7 +483,7 @@ CREATE TABLE `tarifascuetosola` (
 
 INSERT INTO `tarifascuetosola` (`id`, `edad_min`, `edad_max`, `tarifa`, `carencia`, `created_at`, `updated_at`) VALUES
 (1, 1, 14, 68.00, 3, '0000-00-00 00:00:00', '2017-11-18 23:29:22'),
-(2, 1, 40, 128.00, 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 15, 40, 128.00, 4, '0000-00-00 00:00:00', '2017-12-03 23:48:34'),
 (4, 41, 54, 164.00, 6, '2017-11-18 20:02:31', '0000-00-00 00:00:00'),
 (5, 55, 64, 216.00, 9, '2017-11-18 20:03:13', '0000-00-00 00:00:00'),
 (6, 65, 69, 252.00, 12, '2017-11-18 20:03:40', '0000-00-00 00:00:00'),
@@ -504,19 +512,19 @@ CREATE TABLE `tickets_cartera` (
 --
 
 INSERT INTO `tickets_cartera` (`id`, `ticket`, `cartera_id`, `cliente_id`, `created_at`, `updated_at`) VALUES
-(2, 7951, 1, NULL, '2017-10-20 21:07:41', '2017-11-06 22:44:46'),
-(3, 7952, 1, 45, '2017-10-20 21:07:41', '2017-11-09 13:08:35'),
-(4, 7953, 1, NULL, '2017-10-20 21:07:41', '2017-11-06 22:48:42'),
-(5, 7954, 1, NULL, '2017-10-20 21:07:41', '2017-11-06 22:53:54'),
-(6, 7955, 1, NULL, '2017-10-20 21:07:41', '2017-11-06 23:00:10'),
-(7, 7956, 1, NULL, '2017-10-20 21:07:41', '2017-11-06 23:11:30'),
-(8, 7957, 1, NULL, '2017-10-20 21:07:41', '2017-11-06 05:01:54'),
-(9, 7958, 1, NULL, '2017-10-20 21:07:41', '2017-11-02 10:02:02'),
-(10, 7959, 1, NULL, '2017-10-20 21:07:41', '2017-11-01 23:55:53'),
-(11, 7960, 1, NULL, '2017-10-20 21:07:41', '2017-11-02 00:03:34'),
+(2, 7951, 1, 1, '2017-10-20 21:07:41', '2017-12-07 23:30:55'),
+(3, 7952, 1, 2, '2017-10-20 21:07:41', '2017-12-07 23:45:12'),
+(4, 7953, 1, 5, '2017-10-20 21:07:41', '2017-12-07 23:52:06'),
+(5, 7954, 1, NULL, '2017-10-20 21:07:41', '2017-12-07 16:56:39'),
+(6, 7955, 1, NULL, '2017-10-20 21:07:41', '2017-12-07 17:04:06'),
+(7, 7956, 1, NULL, '2017-10-20 21:07:41', '2017-12-07 17:08:39'),
+(8, 7957, 1, NULL, '2017-10-20 21:07:41', '2017-12-07 17:13:55'),
+(9, 7958, 1, 3, '2017-10-20 21:07:41', '2017-12-07 23:45:54'),
+(10, 7959, 1, 4, '2017-10-20 21:07:41', '2017-12-07 23:46:29'),
+(11, 7960, 1, NULL, '2017-10-20 21:07:41', '2017-12-07 17:38:15'),
 (12, 7961, 1, NULL, '2017-10-20 21:07:41', '2017-11-02 00:14:52'),
 (13, 7962, 1, NULL, '2017-10-20 21:07:41', '2017-11-01 13:12:32'),
-(14, 7963, 1, NULL, '2017-10-20 21:07:41', '2017-10-20 21:07:41'),
+(14, 7963, 1, 6, '2017-10-20 21:07:41', '2017-12-07 23:54:28'),
 (15, 7964, 1, NULL, '2017-10-20 21:07:41', '2017-10-20 21:07:41'),
 (16, 7965, 1, NULL, '2017-10-20 21:07:41', '2017-10-24 04:43:15'),
 (17, 7966, 1, NULL, '2017-10-20 21:07:41', '2017-10-20 21:07:41'),
@@ -524,9 +532,9 @@ INSERT INTO `tickets_cartera` (`id`, `ticket`, `cartera_id`, `cliente_id`, `crea
 (19, 7968, 1, NULL, '2017-10-20 21:07:41', '2017-10-20 21:07:41'),
 (20, 7969, 1, NULL, '2017-10-20 21:07:41', '2017-10-20 21:07:41'),
 (21, 7970, 1, NULL, '2017-10-20 21:07:41', '2017-10-20 21:07:41'),
-(22, 7971, 1, 76, '2017-10-20 21:07:41', '2017-11-23 04:28:35'),
-(23, 7972, 1, 77, '2017-10-20 21:07:41', '2017-11-23 04:31:59'),
-(24, 7973, 1, 78, '2017-10-20 21:07:41', '2017-11-23 04:40:59'),
+(22, 7971, 1, NULL, '2017-10-20 21:07:41', '2017-11-23 04:28:35'),
+(23, 7972, 1, NULL, '2017-10-20 21:07:41', '2017-11-23 04:31:59'),
+(24, 7973, 1, NULL, '2017-10-20 21:07:41', '2017-11-23 04:40:59'),
 (25, 7974, 1, NULL, '2017-10-20 21:07:41', '2017-10-20 21:07:41'),
 (26, 7975, 1, NULL, '2017-10-20 21:07:41', '2017-10-20 21:07:41'),
 (27, 7976, 1, NULL, '2017-10-20 21:07:41', '2017-10-20 21:07:41'),
@@ -552,12 +560,11 @@ INSERT INTO `tickets_cartera` (`id`, `ticket`, `cartera_id`, `cliente_id`, `crea
 (47, 7996, 1, NULL, '2017-10-20 21:07:41', '2017-10-20 21:07:41'),
 (48, 7997, 1, NULL, '2017-10-20 21:07:41', '2017-10-20 21:07:41'),
 (49, 7998, 1, NULL, '2017-10-20 21:07:41', '2017-10-20 21:07:41'),
-(50, 7999, 1, 75, '2017-10-20 21:07:41', '2017-11-21 19:43:18'),
-(51, 8000, 2, NULL, '2017-10-20 21:12:12', '2017-11-10 03:44:24'),
-(52, 8001, 2, 74, '2017-10-20 21:12:12', '2017-11-10 03:44:24'),
-(53, 8002, 2, NULL, '2017-10-20 21:12:12', '2017-11-10 03:24:19'),
-(54, 8003, 2, NULL, '2017-10-20 21:12:12', '2017-10-20 21:12:12'),
-(55, 8004, 2, NULL, '2017-10-20 21:12:12', '2017-10-24 05:10:09'),
+(50, 7999, 1, NULL, '2017-10-20 21:07:41', '2017-11-21 19:43:18'),
+(52, 8001, 2, NULL, '2017-10-20 21:12:12', '2017-11-10 03:44:24'),
+(53, 8002, 2, NULL, '2017-10-20 21:12:12', '2017-12-07 00:58:42'),
+(54, 8003, 2, NULL, '2017-10-20 21:12:12', '2017-12-04 06:11:05'),
+(55, 8004, 2, NULL, '2017-10-20 21:12:12', '2017-12-07 17:17:57'),
 (56, 8005, 2, NULL, '2017-10-20 21:12:12', '2017-10-20 21:12:12'),
 (57, 8006, 2, NULL, '2017-10-20 21:12:12', '2017-10-20 21:12:12'),
 (58, 8007, 2, NULL, '2017-10-20 21:12:12', '2017-10-20 21:12:12'),
@@ -853,7 +860,7 @@ INSERT INTO `tickets_cartera` (`id`, `ticket`, `cartera_id`, `cliente_id`, `crea
 (348, 8297, 2, NULL, '2017-10-20 21:12:12', '2017-10-20 21:12:12'),
 (349, 8298, 2, NULL, '2017-10-20 21:12:12', '2017-10-20 21:12:12'),
 (350, 8299, 2, NULL, '2017-10-20 21:12:12', '2017-10-20 21:12:12'),
-(351, 8300, 3, NULL, '2017-10-20 21:12:46', '2017-10-20 21:12:46'),
+(351, 8300, 3, NULL, '2017-10-20 21:12:46', '2017-12-04 06:21:58'),
 (352, 8301, 3, NULL, '2017-10-20 21:12:46', '2017-10-20 21:12:46'),
 (353, 8302, 3, NULL, '2017-10-20 21:12:46', '2017-10-20 21:12:46'),
 (354, 8303, 3, NULL, '2017-10-20 21:12:46', '2017-10-20 21:12:46'),
@@ -1054,7 +1061,7 @@ INSERT INTO `tickets_cartera` (`id`, `ticket`, `cartera_id`, `cliente_id`, `crea
 (549, 8498, 3, NULL, '2017-10-20 21:12:47', '2017-10-20 21:12:47'),
 (550, 8499, 3, NULL, '2017-10-20 21:12:47', '2017-10-20 21:12:47'),
 (551, 8500, 4, NULL, '2017-10-20 21:13:42', '2017-10-20 21:13:42'),
-(552, 8501, 4, NULL, '2017-10-20 21:13:42', '2017-10-20 21:13:42'),
+(552, 8501, 4, NULL, '2017-10-20 21:13:42', '2017-12-04 18:57:55'),
 (553, 8502, 4, NULL, '2017-10-20 21:13:42', '2017-10-20 21:13:42'),
 (554, 8503, 4, NULL, '2017-10-20 21:13:42', '2017-10-20 21:13:42'),
 (555, 8504, 4, NULL, '2017-10-20 21:13:42', '2017-10-20 21:13:42'),
@@ -1253,16 +1260,16 @@ INSERT INTO `tickets_cartera` (`id`, `ticket`, `cartera_id`, `cliente_id`, `crea
 (748, 8697, 4, NULL, '2017-10-20 21:13:43', '2017-10-20 21:13:43'),
 (749, 8698, 4, NULL, '2017-10-20 21:13:43', '2017-10-20 21:13:43'),
 (750, 8699, 4, NULL, '2017-10-20 21:13:43', '2017-10-20 21:13:43'),
-(751, 8800, 5, NULL, '2017-10-20 21:14:50', '2017-10-20 21:14:50'),
-(752, 8801, 5, NULL, '2017-10-20 21:14:50', '2017-10-20 21:14:50'),
+(751, 8800, 5, NULL, '2017-10-20 21:14:50', '2017-12-04 20:45:18'),
+(752, 8801, 5, NULL, '2017-10-20 21:14:50', '2017-12-04 20:50:25'),
 (753, 8802, 5, NULL, '2017-10-20 21:14:50', '2017-10-20 21:14:50'),
 (754, 8803, 5, NULL, '2017-10-20 21:14:50', '2017-10-20 21:14:50'),
 (755, 8804, 5, NULL, '2017-10-20 21:14:50', '2017-10-20 21:14:50'),
 (756, 8805, 5, NULL, '2017-10-20 21:14:50', '2017-10-20 21:14:50'),
 (757, 8806, 5, NULL, '2017-10-20 21:14:50', '2017-10-20 21:14:50'),
-(758, 8807, 5, NULL, '2017-10-20 21:14:50', '2017-10-20 21:14:50');
+(758, 8807, 5, NULL, '2017-10-20 21:14:50', '2017-10-20 21:14:50'),
+(759, 8808, 5, NULL, '2017-10-20 21:14:50', '2017-10-20 21:14:50');
 INSERT INTO `tickets_cartera` (`id`, `ticket`, `cartera_id`, `cliente_id`, `created_at`, `updated_at`) VALUES
-(759, 8808, 5, NULL, '2017-10-20 21:14:50', '2017-10-20 21:14:50'),
 (760, 8809, 5, NULL, '2017-10-20 21:14:50', '2017-10-20 21:14:50'),
 (761, 8810, 5, NULL, '2017-10-20 21:14:50', '2017-10-20 21:14:50'),
 (762, 8811, 5, NULL, '2017-10-20 21:14:50', '2017-10-20 21:14:50'),
@@ -1554,14 +1561,14 @@ INSERT INTO `tickets_cartera` (`id`, `ticket`, `cartera_id`, `cliente_id`, `crea
 (1048, 9097, 5, NULL, '2017-10-20 21:14:51', '2017-10-20 21:14:51'),
 (1049, 9098, 5, NULL, '2017-10-20 21:14:51', '2017-10-20 21:14:51'),
 (1050, 9099, 5, NULL, '2017-10-20 21:14:51', '2017-10-20 21:14:51'),
-(1051, 9100, 6, NULL, '2017-10-20 21:15:29', '2017-10-20 21:15:29'),
-(1052, 9101, 6, NULL, '2017-10-20 21:15:29', '2017-10-20 21:15:29'),
+(1051, 9100, 6, NULL, '2017-10-20 21:15:29', '2017-12-06 03:36:03'),
+(1052, 9101, 6, NULL, '2017-10-20 21:15:29', '2017-12-06 03:38:31'),
 (1053, 9102, 6, NULL, '2017-10-20 21:15:29', '2017-10-20 21:15:29'),
 (1054, 9103, 6, NULL, '2017-10-20 21:15:29', '2017-10-20 21:15:29'),
 (1055, 9104, 6, NULL, '2017-10-20 21:15:29', '2017-10-20 21:15:29'),
 (1056, 9105, 6, NULL, '2017-10-20 21:15:29', '2017-10-20 21:15:29'),
-(1057, 9106, 6, NULL, '2017-10-20 21:15:29', '2017-10-20 21:15:29'),
-(1058, 9107, 6, NULL, '2017-10-20 21:15:29', '2017-10-20 21:15:29'),
+(1057, 9106, 6, NULL, '2017-10-20 21:15:29', '2017-12-06 03:26:09'),
+(1058, 9107, 6, NULL, '2017-10-20 21:15:29', '2017-12-06 03:29:46'),
 (1059, 9108, 6, NULL, '2017-10-20 21:15:29', '2017-10-20 21:15:29'),
 (1060, 9109, 6, NULL, '2017-10-20 21:15:29', '2017-10-20 21:15:29'),
 (1061, 9110, 6, NULL, '2017-10-20 21:15:29', '2017-10-20 21:15:29'),
@@ -1955,7 +1962,7 @@ INSERT INTO `tickets_cartera` (`id`, `ticket`, `cartera_id`, `cliente_id`, `crea
 (1449, 9498, 6, NULL, '2017-10-20 21:15:30', '2017-10-20 21:15:30'),
 (1450, 9499, 6, NULL, '2017-10-20 21:15:30', '2017-10-20 21:15:30'),
 (1451, 9500, 7, NULL, '2017-10-20 21:15:59', '2017-10-20 21:15:59'),
-(1452, 9501, 7, NULL, '2017-10-20 21:15:59', '2017-10-20 21:15:59'),
+(1452, 9501, 7, NULL, '2017-10-20 21:15:59', '2017-12-06 03:38:31'),
 (1453, 9502, 7, NULL, '2017-10-20 21:15:59', '2017-10-20 21:15:59'),
 (1454, 9503, 7, NULL, '2017-10-20 21:15:59', '2017-10-20 21:15:59'),
 (1455, 9504, 7, NULL, '2017-10-20 21:15:59', '2017-10-20 21:15:59'),
@@ -2009,9 +2016,9 @@ INSERT INTO `tickets_cartera` (`id`, `ticket`, `cartera_id`, `cliente_id`, `crea
 (1503, 9527, 8, NULL, '2017-10-20 21:16:22', '2017-10-20 21:16:22'),
 (1504, 9528, 8, NULL, '2017-10-20 21:16:22', '2017-10-20 21:16:22'),
 (1505, 9529, 8, NULL, '2017-10-20 21:16:22', '2017-10-20 21:16:22'),
-(1506, 9530, 8, NULL, '2017-10-20 21:16:22', '2017-10-20 21:16:22');
+(1506, 9530, 8, NULL, '2017-10-20 21:16:22', '2017-10-20 21:16:22'),
+(1507, 9531, 8, NULL, '2017-10-20 21:16:22', '2017-10-20 21:16:22');
 INSERT INTO `tickets_cartera` (`id`, `ticket`, `cartera_id`, `cliente_id`, `created_at`, `updated_at`) VALUES
-(1507, 9531, 8, NULL, '2017-10-20 21:16:22', '2017-10-20 21:16:22'),
 (1508, 9532, 8, NULL, '2017-10-20 21:16:22', '2017-10-20 21:16:22'),
 (1509, 9533, 8, NULL, '2017-10-20 21:16:22', '2017-10-20 21:16:22'),
 (1510, 9534, 8, NULL, '2017-10-20 21:16:22', '2017-10-20 21:16:22'),
@@ -2747,6 +2754,15 @@ ALTER TABLE `convenios`
   ADD KEY `convenios_sucursal_id_foreign` (`sucursal_id`);
 
 --
+-- Indices de la tabla `deudas`
+--
+ALTER TABLE `deudas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `deudas_sucursal_id_foreign` (`sucursal_id`),
+  ADD KEY `deudas_cliente_id_foreign` (`cliente_id`),
+  ADD KEY `deudas_recibo_id_foreign` (`recibo_id`);
+
+--
 -- Indices de la tabla `docs_canceladores`
 --
 ALTER TABLE `docs_canceladores`
@@ -2780,7 +2796,8 @@ ALTER TABLE `familiares`
 ALTER TABLE `pagos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `pagos_sucursal_id_foreign` (`sucursal_id`),
-  ADD KEY `pagos_cliente_id_foreign` (`cliente_id`);
+  ADD KEY `pagos_cliente_id_foreign` (`cliente_id`),
+  ADD KEY `doc_cancelador_id` (`doc_cancelador_id`);
 
 --
 -- Indices de la tabla `recibos`
@@ -2865,7 +2882,7 @@ ALTER TABLE `carteras`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `contratos`
 --
@@ -2876,6 +2893,11 @@ ALTER TABLE `contratos`
 --
 ALTER TABLE `convenios`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `deudas`
+--
+ALTER TABLE `deudas`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT de la tabla `docs_canceladores`
 --
@@ -2890,12 +2912,12 @@ ALTER TABLE `empleados`
 -- AUTO_INCREMENT de la tabla `familiares`
 --
 ALTER TABLE `familiares`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT de la tabla `recibos`
 --
@@ -2973,6 +2995,14 @@ ALTER TABLE `contratos`
 --
 ALTER TABLE `convenios`
   ADD CONSTRAINT `convenios_sucursal_id_foreign` FOREIGN KEY (`sucursal_id`) REFERENCES `sucursales` (`id`);
+
+--
+-- Filtros para la tabla `deudas`
+--
+ALTER TABLE `deudas`
+  ADD CONSTRAINT `deudas_cliente_id_foreign` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`),
+  ADD CONSTRAINT `deudas_recibo_id_foreign` FOREIGN KEY (`recibo_id`) REFERENCES `recibos` (`id`),
+  ADD CONSTRAINT `deudas_sucursal_id_foreign` FOREIGN KEY (`sucursal_id`) REFERENCES `sucursales` (`id`);
 
 --
 -- Filtros para la tabla `docs_canceladores`
