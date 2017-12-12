@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-12-2017 a las 21:36:33
+-- Tiempo de generación: 12-12-2017 a las 02:33:25
 -- Versión del servidor: 10.1.26-MariaDB
 -- Versión de PHP: 7.1.8
 
@@ -162,17 +162,6 @@ CREATE TABLE `deudas` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `deudas`
---
-
-INSERT INTO `deudas` (`id`, `monto`, `mes`, `anio`, `sucursal_id`, `cliente_id`, `recibo_id`, `created_at`, `updated_at`) VALUES
-(32, 194.00, 11, 2017, 1, 77, 8, '2017-12-03 23:34:08', '2017-12-03 23:34:08'),
-(34, 97.00, 12, 2017, 1, 45, 42, '2017-12-03 23:35:09', '2017-12-03 23:35:09'),
-(35, 56.00, 12, 2017, 1, 76, 43, '2017-12-03 23:37:36', '2017-12-03 23:37:36'),
-(36, 97.00, 12, 2017, 1, 77, 44, '2017-12-03 23:37:36', '2017-12-03 23:37:36'),
-(40, 28.00, 12, 2017, 1, 83, 47, '2017-12-04 19:04:38', '2017-12-04 19:04:38');
 
 -- --------------------------------------------------------
 
