@@ -12,10 +12,13 @@ export class RecibosComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
-		console.log(this.recibos);
-		this.productList = this.recibos;
-        this.filteredItems = this.productList;
-     	this.init();
+    console.log(this.recibos);
+    if(this.recibos!=undefined) {
+      this.productList = this.recibos;
+      this.filteredItems = this.productList;
+      this.init();
+    }
+		
 	}
 
 	public nAfiliado:any;

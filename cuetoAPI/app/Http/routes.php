@@ -15,6 +15,7 @@ Route::group(  ['middleware' =>'cors'], function(){
 
     //----Pruebas LoginController
         Route::get('/getHour', 'ClienteController@getHour');
+        Route::get('/dni/{dni}', 'ClienteController@dni');
         Route::post('/login/web','LoginController@loginWeb');
 
         //----Pruebas UsuarioController

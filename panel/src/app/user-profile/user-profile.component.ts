@@ -84,18 +84,18 @@ export class UserProfileComponent implements OnInit {
     private ngZone: NgZone) {
 
         this.registroClienteForm = builder.group({
-            tipo: ["", Validators.required],
+            tipo: [""],
             tipoNombre: [""],
-            nombre_1: ["", Validators.required],
+            nombre_1: [""],
             nombre_2: [""],
-            apellido_1: ["", Validators.required],
+            apellido_1: [""],
             apellido_2: [""],
-            dni: ["", Validators.required],
+            dni: [""],
             direccion: [""],
             lat: [""],
             lng: [""],
-            f_nacimiento: ["", Validators.required],
-            estado: ["", Validators.required],
+            f_nacimiento: [""],
+            estado: [""],
             sexo: [""],
             cuota: [""],
             correo: [""],
@@ -105,11 +105,11 @@ export class UserProfileComponent implements OnInit {
             moroso:[false],
             cuotas:this.builder.array([this.cuotaArray()]),
             sucursal: [""],
-            sucursal_id: ["", Validators.required],
-            cartera_id: ["", Validators.required],
+            sucursal_id: [""],
+            cartera_id: [""],
             cartera: [""],
             ticket: [""],
-            ticket_id: ["", Validators.required],
+            ticket_id: [""],
             f_moroso: [""],
             user_id: [this.user_id],
             imagenes: [""],
@@ -140,13 +140,13 @@ export class UserProfileComponent implements OnInit {
 
     familiaresArray(){
         return this.builder.group({
-            nombre_1: ["", Validators.required],
+            nombre_1: [""],
             nombre_2: [""],
-            apellido_1: ["", Validators.required],
+            apellido_1: [""],
             apellido_2: [""],
-            dni: ["", Validators.required],
+            dni: [""],
             direccion: [""],
-            f_nacimiento: ["", Validators.required],
+            f_nacimiento: [""],
             sexo: [""],
             vinculo: [""],
             observaciones: [""]
@@ -409,10 +409,31 @@ export class UserProfileComponent implements OnInit {
       },500)
     }
 
+    checkDNI(dni){
+      console.log(dni);
+      if(dni=='') {
+        // code...
+      }else{
+        this.http.get(this.ruta.get_ruta()+'public/dni/'+dni)
+         .toPromise()
+         .then(
+           data => { // Success
+             console.log(data);
+             var cliente:any;
+             cliente=data;
+             this.showNotification('top','center','Este DNI ya pertenece a: ' + JSON.stringify(cliente.cliente[0].nombre_1),4);
+           },
+           msg => { // Error
+             console.log(msg);
+           }
+        );
+      }
+    }
+
     enviarCliente(model){
       this.formSumitAttempt = true;
-    if (this.registroClienteForm.valid) {
-      console.log('form submitted');
+      if (this.registroClienteForm.valid) {
+        console.log('form submitted');
     
         this.clientesAdd=model;
         console.log(this.clientesAdd.value);
@@ -457,6 +478,8 @@ export class UserProfileComponent implements OnInit {
              this.registroClienteForm.reset();
            }
          );
+      }else{
+        this.showNotification('top','center','Debes completar los campos requeridos',4);
       }
     }
 

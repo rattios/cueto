@@ -304,6 +304,27 @@ export class AfiliadosComponent implements OnInit {
       }  
     }
 
+    checkDNI(dni){
+      console.log(dni);
+      if(dni=='') {
+        // code...
+      }else{
+        this.http.get(this.ruta.get_ruta()+'public/dni/'+dni)
+         .toPromise()
+         .then(
+           data => { // Success
+             console.log(data);
+             var cliente:any;
+             cliente=data;
+             this.showNotification('top','center','Este DNI ya pertenece a: ' + JSON.stringify(cliente.cliente[0].nombre_1),4);
+           },
+           msg => { // Error
+             console.log(msg);
+           }
+        );
+      }
+    }
+
     update_tipo(tipo){
         var tipo_cliente = tipo.target.value;
         console.log(tipo_cliente);

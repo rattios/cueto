@@ -347,36 +347,36 @@
                                     <h2>Titular</h2>
                                     <hr>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="form-group form-black label-floating is-empty">
-                                        <label class="labels">Primer Nombre</label>  
+                                        <label class="labels">Nombre</label>  
                                         <input type="text" name="nombre_1" class="form-control" formControlName="nombre_1" [transformer]="uppercase">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <!-- <div class="col-md-3">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="labels">Segundo Nombre</label>       
                                         <input type="text" name="nombre_2" class="form-control" formControlName="nombre_2" [transformer]="uppercase">
                                     </div>
-                                </div>
-                                <div class="col-md-3">
+                                </div> -->
+                                <div class="col-md-6">
                                     <div class="form-group form-black label-floating is-empty">
-                                        <label class="labels">Primer Apellido</label>
+                                        <label class="labels">Apellido</label>
                                         <input type="text" name="apellido_1" class="form-control" formControlName="apellido_1" [transformer]="uppercase">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <!-- <div class="col-md-3">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="labels">Segundo Apellido</label>
                                         <input type="text" name="apellido_2" class="form-control" formControlName="apellido_2" [transformer]="uppercase">
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="labels">DNI</label>
-                                        <input type="number" name="dni" class="form-control" formControlName="dni">
+                                        <input type="number" name="dni" class="form-control" formControlName="dni" (blur)="checkDNI($event.target.value)">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -675,36 +675,36 @@
                                                 <hr>
                                                 <div class="col-md-6">
                                                     <div class="form-group form-black label-floating is-empty">
-                                                        <label class="labels">Primer Nombre:</label>
+                                                        <label class="labels">Nombre:</label>
                                                         <input type="text" name="nombre_1" class="form-control" formControlName="nombre_1" [transformer]="uppercase">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <!-- <div class="col-md-6">
                                                     <div class="form-group form-black label-floating is-empty">
                                                         <label class="labels">Segundo Nombre:</label>
                                                         <input type="text" name="nombre_2" class="form-control" formControlName="nombre_2" [transformer]="uppercase">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <div class="row"> -->
                                                 <div class="col-md-6">
                                                     <div class="form-group form-black label-floating is-empty">
-                                                        <label class="labels">Primer Apellido:</label>
+                                                        <label class="labels">Apellido:</label>
                                                         <input type="text" name="apellido_1" class="form-control" formControlName="apellido_1" [transformer]="uppercase">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <!-- <div class="col-md-6">
                                                     <div class="form-group form-black label-floating is-empty">
                                                         <label class="labels">Segundo Apellido:</label>
                                                         <input type="text" name="apellido_2" class="form-control" formControlName="apellido_2" [transformer]="uppercase">
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group form-black label-floating is-empty">
                                                         <label class="labels">DNI</label>
-                                                        <input type="number" name="dni" class="form-control" formControlName="dni">
+                                                        <input type="number" name="dni" class="form-control" formControlName="dni" (blur)="checkDNI($event.target.value)">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -716,8 +716,10 @@
                                                             <option value="PADRE">PADRE</option>
                                                             <option value="MADRE">MADRE</option>
                                                             <option value="ABUELO">ABUELO</option>
+                                                            <option value="NIETO">NIETO</option>
                                                             <option value="SOBRINO">SOBRINO</option>
-                                                            <option value="ALLEGADO">ALLEGADO</option>
+                                                            <option value="FAMILIAR">FAMILIAR</option>
+                                                            <option value="CONYUGE">CONYUGE</option>
                                                         </select>
                                                     </div>
                                                 </div>

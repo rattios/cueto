@@ -17,6 +17,24 @@ class ClienteController extends Controller
         return response()->json(['fechaSistema'=>date('Y-m-d H:i:s')],200);
         //return date('F d, Y H:i:s');
     }
+    public function dni($dni)
+    {
+        //return $dni;
+        $cliente = \App\Cliente::where('dni', $dni)->get();
+        $familiar = \App\Familiar::where('dni', $dni)->get();
+
+        if(count($cliente)!=0 && count($familiar)==0){
+           $familiar=$cliente;
+        }else if(count($cliente)==0 && count($familiar)!=0){
+            $cliente=$familiar;  
+        }
+
+        if(count($cliente)==0 && count($familiar)==0){
+            return response()->json(['error'=>'No existe el cliente con dni '.$dni], 404);  
+        }else{
+            return response()->json(['cliente'=>$cliente], 200);
+        }
+    }
     public function storeClientes(Request $request)
     {
         /*$familiares = json_decode($request->input('familiares'));
