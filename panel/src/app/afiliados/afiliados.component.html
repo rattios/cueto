@@ -39,8 +39,8 @@
                          <th style="text-align: center;">Tipo</th>
                          <th style="text-align: center;">Familiares</th>
                          <th style="text-align: center;">Estado</th>
-                         <th style="text-align: center;">Fecha de alta</th>
-                         <!-- <th style="text-align: center;">Ingresó</th> -->
+                         <!--<th style="text-align: center;">Fecha de alta</th>
+                          <th style="text-align: center;">Ingresó</th> -->
                          <th style="text-align: center;">Cartera</th>
                          <th style="text-align: center;">Ticket</th>
                          <th style="text-align: center;">Acciones</th>
@@ -53,7 +53,7 @@
                             <td style="text-align: center; font-size: 16px">{{item.tipo2}}</td>
                             <td style="text-align: center; font-size: 16px">{{item.nFamiliares}}</td>
                             <td style="text-align: center; font-size: 16px">{{item.estado2}}</td>
-                            <td style="text-align: center; font-size: 16px">{{item.f_alta | date:'dd/MM/yyyy'}}</td>
+                            <!--<td style="text-align: center; font-size: 16px">{{item.f_alta | date:'dd/MM/yyyy'}}</td>-->
                             <!-- <td style="text-align: center; font-size: 16px">{{item.user_id2}}</td> -->
                             <td style="text-align: center; font-size: 16px">{{item.cartera.descripcion}} {{item.cartera.numero}}</td>
                             <td style="text-align: center; font-size: 16px">{{item.ticket}}</td>
@@ -177,6 +177,14 @@
                                           <p>{{formCliente.direccion}}</p>
                                         </div>
                                     </div>   
+                                </div>
+                                <div class="row" >  
+                                  
+                                  <div class="col-md-12">
+                                      <agm-map [latitude]="formCliente.lat" [longitude]="formCliente.lng" [zoom]="zoom">
+                                      <agm-marker [latitude]="formCliente.lat" [longitude]="formCliente.lng"></agm-marker>
+                                    </agm-map>
+                                  </div>   
                                 </div>
                                 <div class="row">
                                   <hr>
@@ -427,6 +435,20 @@
                                 </div>   
                             </div>
                             <div class="row">
+                                <div class="col-md-12">
+                                    <input placeholder="Buscar dirección por google maps..." autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search  onFocus="geolocate()" >
+                                 </div>
+                            </div>
+                            <div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group form-black label-floating is-empty">
+                                      <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                                        <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
+                                      </agm-map>
+                                    </div>
+                                </div>   
+                            </div>
+                            <div class="row">
                                  <div class="col-md-12">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="labels">Subir imagen:</label>
@@ -436,10 +458,10 @@
                                         <button class="btn btn-warning btn-block" >    Seleccionar imagen    </button>
                                         <input type="file" ngFileSelect [options]="options" (onUpload)="handleUpload($event)" (beforeUpload)="beforeUpload($event)">
                                          
-                                        <!-- drag & drop file example-->
+                                        <!-- drag & drop file example
                                         <style>
                                           .file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
-                                        </style> 
+                                        </style> -->
                                         <div class=".btn-block .btn-success" ngFileDrop [options]="options" (onUpload)="handleUpload($event)" [ngClass]="{'file-over': hasBaseDropZoneOver}" (onFileOver)="fileOverBase($event)" (beforeUpload)="beforeUpload($event)">
                                         </div>
                                          
@@ -486,8 +508,8 @@
                                     <div class="form-group form-black label-floating">
                                         
                                         <select name="estado" formControlName="estado" class="form-control" (change)="verEstado($event)">
-                                            <option value="PC" selected="true">PRE CARGADO</option>
-                                            <option value="P">PENDIENTE POR AUTORIZACION</option>
+                                            <!-- <option value="PC" selected="true">PRE CARGADO</option>
+                                            <option value="P" >PENDIENTE POR AUTORIZACION</option> -->
                                             <option value="V">VIGENTE</option>
                                             <option value="M">MOROSO</option>
                                             <option value="B">BAJA</option>

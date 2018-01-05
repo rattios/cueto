@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   user= ''
   password='';
   public token:any;
+  public loading=false;
 
   constructor(private http: HttpClient,private router: Router, private ruta: RutaService) {
 
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
   Ingresar(){
 
   	//localStorage.setItem('manappger', this.token);
-
+    this.loading=true;
   	this.people='esperando...';
    
     var datos= {
@@ -53,10 +54,12 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('manappger_user_sucursal_id', this.token.user.sucursal_id);
             this.people='exito...';
             this.router.navigate(['/Clientes']);
+            this.loading=false;
          },
           msg => { // Error
           	console.log(msg);
           	this.people=msg.error.error;
+            this.loading=false;
 
           }
         );

@@ -31,7 +31,7 @@
                         <h4 class="category">Registro de Afiliados Cueto Independiente y con Grupo Familiar</h4>
                     </div>
                     <div class="card-content">
-
+                        
                         <form [formGroup]="registroClienteForm" >
                             <div class="row">
                                 <div class="col-md-4">
@@ -120,13 +120,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="form-group form-black label-floating is-empty">
+                                    <!-- <div class="form-group form-black label-floating is-empty">
                                         <label class="labels">Sexo:</label>
                                         <select name="sexo" formControlName="sexo" class="form-control">
                                             <option value="M" selected="true">MASCULINO</option>
                                             <option value="F">FEMENINO</option>
                                         </select>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-black label-floating">
@@ -189,10 +189,10 @@
                                         <button class="btn btn-warning btn-block" >    Seleccionar imagen    </button>
                                         <input type="file" ngFileSelect [options]="options" (onUpload)="handleUpload($event)" (beforeUpload)="beforeUpload($event)">
                                          
-                                        <!-- drag & drop file example-->
+                                        <!-- drag & drop file example
                                         <style>
                                           .file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
-                                        </style> 
+                                        </style> -->
                                         <div class=".btn-block .btn-success" ngFileDrop [options]="options" (onUpload)="handleUpload($event)" [ngClass]="{'file-over': hasBaseDropZoneOver}" (onFileOver)="fileOverBase($event)" (beforeUpload)="beforeUpload($event)">
                                         </div>
                                          
@@ -200,7 +200,7 @@
                                 </div>   
                             </div>
                             <div class="row">
-                                <div class="col-md-8">
+                                <!-- <div class="col-md-8">
                                     <div class="form-group form-black label-floating" >
                                         <label class="labels">Fecha de alta o última renovación:</label> 
                                         <mat-form-field>
@@ -211,11 +211,11 @@
                                         </mat-form-field>
                                         
                                     </div>
-                                </div>
+                                </div> -->
                                 
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
+                                <!-- <div class="col-md-4">
                                     <div class="form-group form-black label-floating" >
                                         <label class="labels">Fecha del último mes de pago: </label> 
                                         <mat-form-field>
@@ -233,7 +233,7 @@
                                         <label class="labels" style="font-size: 14px !important">¿Es moroso?</label>
                                         <mat-slide-toggle name="moroso" formControlName="moroso" (ngModelChange)="chekarMoroso()">{{estadoMoroso}}</mat-slide-toggle>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             
                             <div class="row">   
@@ -242,9 +242,9 @@
                                     <div class="form-group form-black label-floating">
                                         
                                         <select name="estado" formControlName="estado" class="form-control" (change)="verEstado()">
-                                            <option value="PC" selected="true">PRE CARGADO</option>
-                                            <option value="P">PENDIENTE POR AUTORIZACION</option>
-                                            <option value="V">VIGENTE</option>
+                                            <!-- <option value="PC" selected="true">PRE CARGADO</option>
+                                            <option value="P">PENDIENTE POR AUTORIZACION</option> -->
+                                            <option value="V" selected="true">VIGENTE</option>
                                             <option value="M">MOROSO</option>
                                             <option value="B">BAJA</option>
                                         </select>
@@ -323,13 +323,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <div class="form-group form-black label-floating is-empty">
+                                                    <!-- <div class="form-group form-black label-floating is-empty">
                                                         <label class="labels">Sexo:</label>
                                                         <select name="tipo" formControlName="sexo" class="form-control">
                                                             <option value="M" selected="true">MASCULINO</option>
                                                             <option value="F">FEMENINO</option>
                                                         </select>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -439,10 +439,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="labels">Sexo</label>
+                                    <!-- <label class="labels">Sexo</label>
                                     <div class="form-group form-black label-floating">
                                         <p>{{registroClienteForm.value.sexo}}</p> 
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="col-md-4">
                                     <label class="labels">Fecha de nacimiento</label>
@@ -488,7 +488,7 @@
                                 </div>   
                             </div>
                             <div class="row">
-                                <hr>
+                                <!-- <hr>
                                 <div class="col-md-6">
                                     <label class="labels">Fecha de alta o última renovación</label>
                                     <div class="form-group form-black label-floating">
@@ -500,7 +500,7 @@
                                     <div class="form-group form-black label-floating">
                                         <p>{{registroClienteForm.value.f_pago | date: 'dd/MM/yyyy'}}</p>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="row">
                                 <hr>
@@ -556,10 +556,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label class="labels">Sexo</label>
+                                                    <!-- <label class="labels">Sexo</label>
                                                     <div class="form-group form-black label-floating is-empty">
                                                         <p>{{client.sexo}}</p>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
 

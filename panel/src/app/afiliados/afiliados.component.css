@@ -1,3 +1,9 @@
+ .file-over { border: dotted 3px red; }
+ 
+agm-map {
+  height: 300px;
+}
+
 .moroso{
     color:#FF0000;
     font-weight: bold;

@@ -1,11 +1,12 @@
-import { Component, OnInit, HostListener, NgZone } from '@angular/core';
+import { Component, OnInit, HostListener, NgZone, ViewChild, ElementRef} from '@angular/core';
 import { HttpClient, HttpParams  } from '@angular/common/http';
-import { FormGroup, FormArray, FormBuilder, Validators  } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder, Validators, FormControl} from '@angular/forms';
 import { BsModalComponent } from 'ng2-bs3-modal';
 import { RutaService } from '../services/ruta.service';
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import { Observable, Observer } from 'rxjs';
 
-
-
+declare var google: any;
 declare const $: any;
 
 @Component({
@@ -48,6 +49,10 @@ export class AfiliadosComponent implements OnInit {
   public imagen:any;
   private zone: NgZone;
   public progress: number = 0;
+  zoom: number = 16;
+  public searchControl: FormControl;
+  public latitude: number=0;
+  public longitude: number=0;
   public formCliente = {
             tipo: "",
             nombre_1: "",
@@ -56,6 +61,8 @@ export class AfiliadosComponent implements OnInit {
             apellido_2: "",
             dni: "",
             direccion: "",
+            lat:0,
+            lng:0,
             f_nacimiento: "",
             estado: "",
             sexo: "",
@@ -96,7 +103,10 @@ export class AfiliadosComponent implements OnInit {
             }]
           };
 
-    constructor(private http: HttpClient, private builder: FormBuilder, private ruta: RutaService) {
+    @ViewChild("search")
+    public searchElementRef: ElementRef;
+
+    constructor(private http: HttpClient, private builder: FormBuilder, private ruta: RutaService,private ngZone: NgZone, private mapsAPILoader: MapsAPILoader) {
         this.registroClienteForm = builder.group({
             id: [""],
             tipo: ["", Validators.required],
@@ -169,6 +179,7 @@ export class AfiliadosComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
       
       this.loading=true;
       this.loadingSucursales=true;
@@ -289,6 +300,56 @@ export class AfiliadosComponent implements OnInit {
              alert('error:'+msg.error);
            });
     }
+    public setDir(dir){
+    return Observable.create(observer => {
+      let geocoder = new google.maps.Geocoder();
+      geocoder.geocode({'location': dir}, function(results, status) {
+            if (status === 'OK') {
+              if (results[1]) {
+                console.log(results[1]);
+                 observer.next(results[1].formatted_address);
+                 observer.complete();
+                
+              } else {
+                alert('No results found');
+                observer.next({});
+                observer.complete();
+              }
+            } else {
+              console.log('Geocoder failed due to: ' + status);
+              observer.next({});
+              observer.complete();
+            }
+          });
+       })
+  }
+
+  markerDragEnd($event: MouseEvent) {
+    console.log($event);
+    var latlng:any;
+    
+    latlng=$event;
+    latlng=latlng.coords;
+    this.registroClienteForm.patchValue({lat: latlng.lat });
+    this.registroClienteForm.patchValue({lng: latlng.lng });
+
+    this.setDir(latlng).subscribe(result => {
+      this.registroClienteForm.patchValue({direccion: result });
+      },error => console.log(error),() => console.log('Geocoding completed!')
+    );
+    
+  }
+
+  private setCurrentPosition() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 12;
+      });
+    }
+  }
+
 
     compare(a,b) {
       if (a.id < b.id)
@@ -400,15 +461,75 @@ export class AfiliadosComponent implements OnInit {
         this.verDatos=true;
         this.formCliente=item;  
         this.imagen=item.imagenes;
+          var lat=parseFloat(item.lat);
+          var lng=parseFloat(item.lng);
+          console.log(this.formCliente.lat);
+          
+          
+          this.formCliente.lat=lat;
+          this.formCliente.lng=lng;
+
         console.log(item);
     }
     editar(item){
+
+        //create search FormControl
+      this.searchControl = new FormControl();
+      //load Places Autocomplete
+      this.mapsAPILoader.load().then(() => {
+        var defaultBounds = new google.maps.LatLngBounds(
+          new google.maps.LatLng(-38.512445, -70.482788),
+          new google.maps.LatLng(-37.673767, -67.692261),
+          new google.maps.LatLng(-38.778443, -62.616577),
+          new google.maps.LatLng(-40.009472, -68.076782)
+        );
+        var options = { 
+          bounds: defaultBounds,
+          //componentRestrictions: {country: "AR"}
+          //types: ['(cities)'],
+          //componentRestrictions: {country: 'fr'}
+        };
+        setTimeout(()=>{
+
+          let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+            types: ["address"]
+          }, options);
+
+          var circle = new google.maps.Circle({
+            center: {lat:  -38.938771, lng: -67.995493},
+            radius: 10*1000
+          });
+          autocomplete.setBounds(circle.getBounds());
+          autocomplete.addListener("place_changed", () => {
+            this.ngZone.run(() => {
+              let place = autocomplete.getPlace();
+              if (place.geometry === undefined || place.geometry === null) {
+                return;
+              }
+              console.log(place.formatted_address);
+              this.registroClienteForm.patchValue({direccion: place.formatted_address });
+              //console.log(place.address_components[0].long_name);
+              //set latitude, longitude and zoom
+              this.latitude = place.geometry.location.lat();
+              this.registroClienteForm.patchValue({lat: place.geometry.location.lat() });
+              this.longitude = place.geometry.location.lng();
+              this.registroClienteForm.patchValue({lng: place.geometry.location.lng() });
+              this.zoom = 11;
+              console.log(place.geometry.location.lat());
+            });
+          });
+        },1000);
+      });
+
+        this.ver=false;
+        this.verEditar=true; 
         console.log(item);
+        setTimeout(()=>{
+          this.latitude= parseFloat(item.lat);
+          this.longitude= parseFloat(item.lng);
+          console.log('item');
+        },1500)
         this.imagen=item.imagenes;
-        
-        // item.f_nacimiento=new Date(item.f_nacimiento);
-        // item.f_alta=new Date(item.f_alta);
-        // item.f_moroso=new Date(item.f_moroso);
 
         if (item.f_nacimiento=='0000-00-00'||item.f_nacimiento==null) {
           item.f_nacimiento="";
@@ -440,6 +561,8 @@ export class AfiliadosComponent implements OnInit {
             apellido_2: [""],
             dni: [""],
             direccion: [""],
+            lat: [0],
+            lng: [0],
             f_nacimiento: [""],
             estado: [""],
             sexo: [""],
@@ -473,8 +596,6 @@ export class AfiliadosComponent implements OnInit {
           item.moroso=true;
         }
 
-        this.ver=false;
-        this.verEditar=true; 
         this.formCliente=item;
         this.registroClienteForm.patchValue({id: item.id });
         this.registroClienteForm.patchValue({tipo: item.tipo });
@@ -485,6 +606,8 @@ export class AfiliadosComponent implements OnInit {
         this.registroClienteForm.patchValue({apellido_2: item.apellido_2 });
         this.registroClienteForm.patchValue({dni: item.dni });
         this.registroClienteForm.patchValue({direccion: item.direccion });
+        this.registroClienteForm.patchValue({lat: parseFloat(item.lat) });
+        this.registroClienteForm.patchValue({lng: parseFloat(item.lng) });
         this.registroClienteForm.patchValue({f_nacimiento: item.f_nacimiento });
         this.registroClienteForm.patchValue({estado: item.estado });
         this.registroClienteForm.patchValue({sexo: item.sexo });

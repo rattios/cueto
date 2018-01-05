@@ -5,6 +5,7 @@ import { BsModalComponent } from 'ng2-bs3-modal';
 import { RutaService } from '../services/ruta.service';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import { Observable, Observer } from 'rxjs';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 declare const $: any;
 declare var google: any;
@@ -80,7 +81,7 @@ export class UserProfileComponent implements OnInit {
     @ViewChild("search")
     public searchElementRef: ElementRef;
 
-    constructor(private http: HttpClient, private builder: FormBuilder, private ruta: RutaService, private mapsAPILoader: MapsAPILoader,
+    constructor(private permissionsService: NgxPermissionsService, private http: HttpClient, private builder: FormBuilder, private ruta: RutaService, private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone) {
 
         this.registroClienteForm = builder.group({
@@ -156,6 +157,9 @@ export class UserProfileComponent implements OnInit {
 
 
     ngOnInit(): void {
+      const perm = ["ADMIN", "EDITOR"];
+
+      this.permissionsService.loadPermissions(perm);
       this.loading=true;
       this.zone = new NgZone({ enableLongStackTrace: false });
       this.http.get(this.ruta.get_ruta()+'public/sucursales/'+localStorage.getItem("manappger_user_sucursal_id")+'/carteras')

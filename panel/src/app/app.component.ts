@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
-
+import { NgxPermissionsService } from 'ngx-permissions';
 declare const $: any;
 
 @Component({
@@ -10,11 +10,15 @@ declare const $: any;
 })
 export class AppComponent implements OnInit {
 
-  constructor(public location: Location) {}
+
+  constructor(public location: Location,private permissionsService: NgxPermissionsService) {}
 
   ngOnInit() {
       $.material.options.autofill = true;
       $.material.init();
+      const perm = ["ADMIN", "EDITOR"];
+
+      this.permissionsService.loadPermissions(perm);
   }
 
     isMaps(path){
