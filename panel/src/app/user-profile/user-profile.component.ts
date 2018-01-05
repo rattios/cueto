@@ -396,7 +396,8 @@ export class UserProfileComponent implements OnInit {
       }
     }
     public compFechPago(){
-      setTimeout(()=>{
+      
+      /*setTimeout(()=>{
         console.log(this.registroClienteForm.value.f_pago);
         console.log(this.registroClienteForm.value.f_alta);
         var fpago= new Date(this.registroClienteForm.value.f_pago);
@@ -410,7 +411,7 @@ export class UserProfileComponent implements OnInit {
         }else{
           //alert('si sirve');
         }
-      },500)
+      },500)*/
     }
 
     checkDNI(dni){
