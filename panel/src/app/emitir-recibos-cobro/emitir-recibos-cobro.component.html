@@ -135,9 +135,9 @@
                     </div>
                     <div  class="row" style="padding-right: 5%">
                             <button type="button" class="btn btn-success pull-right" style="" (click)="volverVerRecibo()">VOLVER</button>
-                            <button type="button" class="btn btn-primary pull-right" style="" (click)="getUsuario(item)"><i class="material-icons">print</i></button>
+                            <button type="button" class="btn btn-primary pull-right" style="" (click)="print()"><i class="material-icons">print</i></button>
                     </div>
-                    <div class="card-content row" style="padding-right: 3%; padding-left: 3%">
+                    <div class="card-content row" style="padding-right: 3%; padding-left: 3%" id="print-section">
 
                         <div style="border: 1px solid #26c6da; border-radius: 10px;min-height: 650px">
                             <div class="row" style="margin-left: 0px; margin-right: 0px;">
@@ -164,12 +164,12 @@
                             </div>
                             <table class="table ">
                                     <thead style="border-bottom: 1px solid #26c6da;">
-                                         <th style="text-align: center;"></th>
-                                         <th style="text-align: center;border-right: 1px solid #26c6da;">Relacion</th>
-                                         <th style="text-align: center;border-right: 1px solid #26c6da;">Apellido y Nombre</th>
-                                         <th style="text-align: center;border-right: 1px solid #26c6da;">Edad</th>
-                                         <th style="text-align: center;border-right: 1px solid #26c6da;">Documento</th>
-                                         <th style="text-align: center;">Importe</th>
+                                         <th style="text-align: center;border-bottom: 1px solid #26c6da"></th>
+                                         <th style="text-align: center;border-right: 1px solid #26c6da;border-bottom: 1px solid #26c6da">Relacion</th>
+                                         <th style="text-align: center;border-right: 1px solid #26c6da;border-bottom: 1px solid #26c6da">Apellido y Nombre</th>
+                                         <th style="text-align: center;border-right: 1px solid #26c6da;border-bottom: 1px solid #26c6da">Edad</th>
+                                         <th style="text-align: center;border-right: 1px solid #26c6da;border-bottom: 1px solid #26c6da">Documento</th>
+                                         <th style="text-align: center;border-bottom: 1px solid #26c6da">Importe</th>
                                     </thead>
                                     <tbody>
                                          <tr *ngFor="let detalle of detalle">

@@ -315,6 +315,39 @@ export class EmitirRecibosCobroComponent implements OnInit {
           });
     }
 
+    print(): void {
+    let printContents, popupWin;
+    printContents = document.getElementById('print-section').innerHTML;
+    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    popupWin.document.open();
+    popupWin.document.write(`
+      <html>
+        <head>
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+          <style>
+
+            @media print {
+              @page { margin: 0; }
+              body { margin: 1.6cm; }
+              @page { size: landscape; }
+            }
+          </style>
+        </head>
+        <body onload="window.print();window.close()">
+        <div class="row" style="margin-left: 0px; margin-right: 0px;">
+          <div class="col-sm-6">
+            ${printContents}
+          </div>
+          <div class="col-sm-6">
+            ${printContents}
+          </div>
+        </div>
+      </body>
+      </html>`
+    );
+    popupWin.document.close();
+  }  
+
     // -------------------------------------------------------------------------------------------------------------------
    productList : any;
    filteredItems : any;
