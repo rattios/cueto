@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
          },
           msg => { // Error
           	console.log(msg);
-          	this.people=msg.error.error;
+          	//this.people=msg.error.error;
             this.loading=false;
 
           }
