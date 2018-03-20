@@ -1020,16 +1020,23 @@ export class AfiliadosComponent implements OnInit {
       this.filteredItems = [];
       if(this.inputName != ""){
             for (var i = 0; i < this.productList.length; ++i) {
-              if (this.productList[i].nombre_1.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
-                 this.filteredItems.push(this.productList[i]);
-              }else if (this.productList[i].apellido_1.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
-                 this.filteredItems.push(this.productList[i]);
-              }else if (this.productList[i].dni.indexOf(this.inputName)>=0) {
+              console.log(this.productList[i]);
+
+              if(this.productList[i].estado2="") {
+                this.productList[i].estado2=" ";
+              }
+
+              if (this.productList[i].dni.indexOf(this.inputName)>=0) {
                  this.filteredItems.push(this.productList[i]);
               }else if (this.productList[i].ticket.indexOf(this.inputName)>=0) {
                  this.filteredItems.push(this.productList[i]);
               }else if (this.productList[i].f_alta.indexOf(this.inputName)>=0) {
                  this.filteredItems.push(this.productList[i]);
+              }else if (this.productList[i].nombre_1.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
+                 this.filteredItems.push(this.productList[i]);
+              }else if (this.productList[i].apellido_1.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
+                 this.filteredItems.push(this.productList[i]);
+              
               }else if (this.productList[i].estado2.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {
                  this.filteredItems.push(this.productList[i]);
               }else if (this.productList[i].tipo2.toUpperCase().indexOf(this.inputName.toUpperCase())>=0) {

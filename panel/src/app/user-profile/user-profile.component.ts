@@ -480,7 +480,7 @@ export class UserProfileComponent implements OnInit {
              console.log(msg);
              // alert('error');
              this.showNotification('top','center','Ha ocurrido un error' + JSON.stringify(msg.error),4);
-             this.registroClienteForm.reset();
+             //this.registroClienteForm.reset();
            }
          );
       }else{
