@@ -428,12 +428,26 @@ export class AfiliadosComponent implements OnInit {
         }
       }
     }
+    public addNumero:any;
+    public carteraNumero:any={
+      id:'',
+      cartera:'',
+      descripcion:''
+    }
+    checkNumero(item){
+      console.log(item);
+      this.carteraNumero.id=item.cartera.id;
+      this.carteraNumero.numero=item.cartera.numero;
+      this.carteraNumero.descripcion=item.cartera.descripcion;
+    }
+
     getTicket2(ticket_id) {
       for (var i = 0; i < this.carteras.length; ++i) {
 
         if (this.carteras[i].id==ticket_id.target.value) {
                     console.log(this.carteras[i]);
           this.registroClienteForm.patchValue({cartera: this.carteras[i].descripcion });
+          this.addNumero=this.carteras[i].descripcion;
           this.ticket=this.carteras[i].tickets;
           console.log(ticket_id.target.value);
         }
@@ -472,7 +486,6 @@ export class AfiliadosComponent implements OnInit {
         console.log(item);
     }
     editar(item){
-
         //create search FormControl
       this.searchControl = new FormControl();
       //load Places Autocomplete
@@ -650,6 +663,10 @@ export class AfiliadosComponent implements OnInit {
             (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({observaciones: item.familiares[i].observaciones});
             (<FormArray>this.registroClienteForm.controls['familiares']).at(i).patchValue({existe: true});
         }
+
+      setTimeout(()=>{
+        this.checkNumero(item);
+      },3000);  
     }
 
     siPago(pago){

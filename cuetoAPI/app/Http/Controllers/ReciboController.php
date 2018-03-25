@@ -100,6 +100,7 @@ class ReciboController extends Controller
         //y que no esten dados de baja y no esten como precargados
         $clientes = \App\Cliente::where('cartera_id', $cartera_id)
                 ->where('estado', '<>', 'B')
+                ->where('estado', '<>', 'PC')
                 ->where('estado', '<>', 'P')->get();
         if(count($clientes)==0){ 
             return response()->json(['error'=>'La cartera no contiene clientes ó todos fuerón dados de baja.'], 404);

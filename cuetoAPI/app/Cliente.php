@@ -25,10 +25,10 @@ class Cliente extends Model
      * @var array
      */
     protected $fillable = ['tipo', 'nombre_1', 'nombre_2',
-    		'apellido_1', 'apellido_2', 'dni',
-    		'direccion', 'lat', 'lng', 'f_nacimiento', 'estado',
-    		'sexo', 'cuota', 'f_moroso', 'sucursal_id', 'sucursal', 'imagenes',
-    		'user_id', 'cartera_id', 'convenio_id','f_alta', 'moroso', 'mes_moroso', 'ano_moroso','ticket','ticket_id', 'cartera','correo','telefono'];
+            'apellido_1', 'apellido_2', 'dni',
+            'direccion', 'lat', 'lng', 'f_nacimiento', 'estado',
+            'sexo', 'cuota', 'f_moroso', 'sucursal_id', 'sucursal', 'imagenes',
+            'user_id', 'cartera_id', 'convenio_id','f_alta', 'moroso', 'mes_moroso', 'ano_moroso','ticket','ticket_id', 'cartera','correo','telefono'];
 
     /**
      * The attributes excluded from the model's JSON form.

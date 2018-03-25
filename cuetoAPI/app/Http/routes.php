@@ -4,7 +4,7 @@
 
 Route::get('/', function () {
 
-return view('welcome');
+
     
 });
 
@@ -51,6 +51,7 @@ Route::group(  ['middleware' =>'cors'], function(){
 
         //----Pruebas ClienteController
         Route::get('/clientes','ClienteController@index');
+                Route::get('/familiares2','ClienteController@index2');
         Route::get('/clientes/familiares','ClienteController@indexFamiliares');
         //Route::get('/clientes/afiliados_cueto/familiares','ClienteController@afs_cuetoFamiliares');
         //Route::get('/clientes/afiliados_convenio/empleados','ClienteController@afs_convenioEmpledos');

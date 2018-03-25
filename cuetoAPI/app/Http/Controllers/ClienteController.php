@@ -12,6 +12,31 @@ use DateTime;
 
 class ClienteController extends Controller
 {   
+    public function index2()
+    {
+        $auxFamiliar = \App\Familiar::get();
+
+        for ($i=0; $i < count($auxFamiliar); $i++) { 
+            $book= new \App\Familiar2;
+            $book->nombre_1= $auxFamiliar[$i]->nombre_1;
+            $book->nombre_2= $auxFamiliar[$i]->nombre_2;
+            $book->apellido_1=$auxFamiliar[$i]->apellido_1;
+            $book->apellido_2=$auxFamiliar[$i]->apellido_2;
+            $book->dni= $auxFamiliar[$i]->dni;
+            $book->direccion=$auxFamiliar[$i]->direccion;
+            $book->f_nacimiento=$auxFamiliar[$i]->f_nacimiento;
+            $book->sexo=$auxFamiliar[$i]->sexo;
+            $book->vinculo=$auxFamiliar[$i]->vinculo;
+            $book->observaciones=$auxFamiliar[$i]->observaciones;
+            $book->sucursal_id= $auxFamiliar[$i]->sucursal_id;
+            $book->cliente_id=$auxFamiliar[$i]->cliente_id;
+            $book->empleado_id=$auxFamiliar[$i]->empleado_id;
+            //$book->fill($auxFamiliar[$i]);
+
+            $book->save();
+        }
+        return $auxFamiliar;
+    }
     public function getHour()
     {
         return response()->json(['fechaSistema'=>date('Y-m-d H:i:s')],200);
@@ -86,20 +111,23 @@ class ClienteController extends Controller
             return response()->json(['error'=>'No existe la user con id '.$request->input('user_id')], 404);          
         }
 
-        //verificar que no exista ninguna persona en toda la BD con ese dni
-        $auxCliente = \App\Cliente::where('dni', $request->input('dni'))->get();
-        if(count($auxCliente)!=0){
-           // Devolvemos un código 409 Conflict. 
-            return response()->json(['error'=>'Ya existe un cliente con el dni '.$request->input('dni')], 409);
+        if($request->input('dni') != null && $request->input('dni') != ''){
+           //verificar que no exista ninguna persona en toda la BD con ese dni
+            $auxCliente = \App\Cliente::where('dni', $request->input('dni'))->get();
+            if(count($auxCliente)!=0 && $auxCliente->dni != ''){
+               // Devolvemos un código 409 Conflict. 
+                return response()->json(['error'=>'Ya existe un cliente con el dni '.$request->input('dni')], 409);
+            }
         }
+        
 
-        $auxFamiliar = \App\Familiar::where('dni', $request->input('dni'))->get();
+        /*$auxFamiliar = \App\Familiar::where('dni', $request->input('dni'))->get();
         if(count($auxFamiliar)!=0){
             $titular = $auxFamiliar[0]->titular;
            // Devolvemos un código 409 Conflict. 
             return response()->json(['error'=>'Ya existe un familiar con el dni '.$request->input('dni'),
                         'titular'=>$titular], 409);
-        }
+        }*/
 
         //Verificar si el ticket que se quiere asignar existe y esta disponible
          $auxTicket = \App\TicketCartera::where('id', $request->input('ticket_id'))->
@@ -244,20 +272,21 @@ class ClienteController extends Controller
             //return count($familiares);
 
             for ($i=0; $i < count($familiares) ; $i++) { 
-                //verificar que no exista ninguna persona en toda la BD con ese dni
-                $auxCliente = \App\Cliente::where('dni', $familiares[$i]->dni)->get();
-                if(count($auxCliente)!=0){
-                   // Devolvemos un código 409 Conflict. 
-                    return response()->json(['error'=>'Ya existe un cliente con el dni '.$familiares[$i]->dni], 409);
+                if($familiares[$i]->dni != null && $familiares[$i]->dni != ''){
+                    //verificar que no exista ninguna persona en toda la BD con ese dni
+                    $auxCliente = \App\Cliente::where('dni', $familiares[$i]->dni)->get();
+                    if(count($auxCliente)!=0){
+                       // Devolvemos un código 409 Conflict. 
+                        return response()->json(['error'=>'Ya existe un cliente con el dni '.$familiares[$i]->dni], 409);
+                    }
                 }
-
-                $auxFamiliar = \App\Familiar::where('dni', $familiares[$i]->dni)->get();
+               /* $auxFamiliar = \App\Familiar::where('dni', $familiares[$i]->dni)->get();
                 if(count($auxFamiliar)!=0){
                     $titular = $auxFamiliar[0]->titular;
                    // Devolvemos un código 409 Conflict. 
                     return response()->json(['error'=>'Ya existe un familiar con el dni '.$familiares[$i]->dni,
                                 'titular'=>$titular], 409);
-                }
+                }*/
             }
 
             $nuevoCliente=\App\Cliente::create($request->all());
