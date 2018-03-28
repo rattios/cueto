@@ -428,12 +428,68 @@ export class AfiliadosComponent implements OnInit {
         }
       }
     }
-    public addNumero:any;
+    
     public carteraNumero:any={
       id:'',
       cartera:'',
-      descripcion:''
+      descripcion:'',
+      numero:'',
+      ticket:''
     }
+    addNumero(){
+      this.loading=true;
+      this.http.post(this.ruta.get_ruta()+'public/numeros',this.carteraNumero)
+         .toPromise()
+         .then(
+           data => { // Success
+             console.log(data);
+             this.showNotification('top','center','Número agregado con éxito',2);
+             this.loading=false;
+             this.restaurarCartera();
+           },
+           msg => { // Error
+             console.log(msg);
+             this.showNotification('top','center','Ha ocurrido un error' + JSON.stringify(msg.error),4);
+             this.loading=false;
+           }
+         );
+    }
+
+    restaurarCartera(){
+      this.http.get(this.ruta.get_ruta()+'public/sucursales/'+localStorage.getItem("manappger_user_sucursal_id")+'/carteras')
+           .toPromise()
+           .then(
+           data => {
+
+               this.data=data;
+               this.data=this.data.sucursal[0];
+               this.carteras=this.data.carteras;
+
+               for (var i = 0; i < this.carteras.length; i++) {
+                 if (this.carteras[i].id==this.carteraNumero.id) {
+                    console.log(this.carteras[i].tickets);
+                    this.ticket=this.carteras[i].tickets;
+                    console.log(this.carteras[i].id);
+                    
+                  }
+                }
+
+                for (var i = 0; i < this.ticket.length; i++) {
+                  if (this.ticket[i].ticket==this.carteraNumero.ticket) {
+                    console.log(this.carteraNumero.ticket);
+                    this.registroClienteForm.patchValue({ticket_id: this.ticket[i].id });
+                    this.registroClienteForm.patchValue({ticket: this.carteraNumero.ticket });
+                  }
+                }
+             
+            },
+           msg => { // Error
+             console.log(msg.error.error);
+             alert('error:'+msg.error);
+             this.loading=false;
+           });
+    }
+
     checkNumero(item){
       console.log(item);
       this.carteraNumero.id=item.cartera.id;

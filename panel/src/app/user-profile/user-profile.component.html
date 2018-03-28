@@ -21,7 +21,21 @@
               </bs-modal-body>
               <bs-modal-footer ></bs-modal-footer>
         </bs-modal>
-        
+        <bs-modal #modal2 [size]="'sm'">
+            <bs-modal-header [showDismiss]="true">
+                <h4 class="modal-title">Agrega un número</h4>
+            </bs-modal-header>
+            <bs-modal-body>
+                Se agregará a la cartera: <strong>{{carteraNumero.descripcion}} {{carteraNumero.numero}}</strong>
+                <br>
+                Numero:
+                <input  class="form-control" type="text"  id="addNumero" [(ngModel)]="carteraNumero.ticket"/>
+            </bs-modal-body>
+            <bs-modal-footer>
+              <button type="button" class="btn btn-success" (click)="addNumero();modal.close()">Agregar número</button>
+              
+            </bs-modal-footer>
+        </bs-modal>
    
         <div class="row">
             <div class="col-md-8">
@@ -52,7 +66,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group form-black label-floating" [ngClass]="displayFieldCss('ticket_id')">
                                         <label class="labels">Numero:</label>
                                         <select name="ticket" formControlName="ticket_id" class="form-control" (change)="setTicket($event)" required>
@@ -61,6 +75,9 @@
                                         <app-field-error-display [displayError]="isFieldValid('ticket_id')" errorMsg="Te falto este campo!">
                                         </app-field-error-display>
                                     </div>
+                                </div>
+                                <div class="col-md-1" style="padding-top: 4%;">
+                                  <a class="btn btn-success btn-block" (click)="modal2.open()" style="color: white !important;border-radius: 50%;width: 50px;height: 50px;padding: 8px;font-size: 24px;">+</a>
                                 </div>
                             </div>
                             <div class="row">

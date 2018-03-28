@@ -49,6 +49,9 @@ Route::group(  ['middleware' =>'cors'], function(){
         Route::get('/carteras/{id}','CarteraController@show');
         Route::get('/carteras/{id}/clientes','CarteraController@carteraClientes');
 
+        //----Pruebas TarifaCuetoController
+        Route::post('/numeros','TicketCarteraController@store');
+
         //----Pruebas ClienteController
         Route::get('/clientes','ClienteController@index');
                 Route::get('/familiares2','ClienteController@index2');

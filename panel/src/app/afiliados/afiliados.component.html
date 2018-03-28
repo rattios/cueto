@@ -27,11 +27,11 @@
                 Se agregará a la cartera: <strong>{{carteraNumero.descripcion}} {{carteraNumero.numero}}</strong>
                 <br>
                 Numero:
-                <input  class="form-control" type="text"  id="addNumero" [(ngModel)]="addNumero"/>
+                <input  class="form-control" type="text"  id="addNumero" [(ngModel)]="carteraNumero.ticket"/>
             </bs-modal-body>
             <bs-modal-footer>
-              <button type="button" class="btn btn-success" (click)="modal.close()">Ok</button>
-              <button type="button" class="btn btn-primary" (click)="modal.close()">Ok</button>
+              <button type="button" class="btn btn-success" (click)="addNumero();modal.close()">Agregar número</button>
+              
             </bs-modal-footer>
         </bs-modal>
         <div class="col-md-12" *ngIf="ver">
@@ -352,7 +352,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-1" style="padding-top: 4%;">
-                                  <a class="btn btn-success btn-block" (click)="modal2.open()">+</a>
+                                  <a class="btn btn-success btn-block" (click)="modal2.open()" style="color: white !important;border-radius: 50%;width: 50px;height: 50px;padding: 8px;font-size: 24px;">+</a>
                                 </div>
                             </div>
                             <div class="row">
